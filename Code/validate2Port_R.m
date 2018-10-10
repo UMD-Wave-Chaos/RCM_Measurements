@@ -19,7 +19,7 @@ datname = 'R_LHorn_Wvgyd';
 %LHorn - L band Horn antenna
 %% Step 1 : Calibrate PNA
 cal_name = ['cal_for_',date];
-CalNA_np_GPIB_2port(1.5E9,3.5E9, cal_name, num_ports); % input parameters :start freq, stop freq, cal set name
+%CalNA_np_GPIB_2port(1.5E9,3.5E9, cal_name, num_ports); % input parameters :start freq, stop freq, cal set name
 
 %% Step 2: Extract time domain and frequency domain ensemble average measurement of S paramenters (This step takes ~24 min. for N = 200)
 %            [t, SCt, Freq, Scav, Srad] = PNA_single(cal_set_name,num_ports,N, l);  % input parameters : number of ports, number of perturber positions
