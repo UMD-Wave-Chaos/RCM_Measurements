@@ -46,38 +46,54 @@ guidata(hfig,handles);
 handles = gui_CreateStatusBar(handles);
 guidata(hfig,handles);
 
+editWidth = 500;
+editHeight = 200;
+editX = buffer;
+editY = buffer + 20;
+gui_updateStatusMessage(handles,'Logging Display ...');
+hEditbox = uicontrol('Style','Edit','Max',5,'Position',[editX,editY, editWidth, editHeight],'Parent',hfig);
+pause(0.1);
+jScrollPane = findjobj(hEditbox);
+jViewport = jScrollPane.getViewport;
+handles.jEditbox = jViewport.getComponent(0);
+handles.jEditbox.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.black));
+handles.jEditbox.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.LOWERED, ...
+                                                              java.awt.Color.gray, ...
+                                                              java.awt.Color.darkGray));    
+                                                          
+logMessage(handles.jEditbox,'Initializing ...');
 %create the section to house the plots
-plotHeight = 800;
-plotWidth = gui_Width-2*buffer;
-plotX = buffer;
-plotY = gui_Height - plotHeight - buffer;
-handles = gui_createPlotSection(handles,plotX,plotY,plotWidth,plotHeight,buffer);
-guidata(hfig,handles);
+% plotHeight = 210;
+% plotWidth = gui_Width-2*buffer;
+% plotX = buffer;
+% plotY = gui_Height - plotHeight - buffer;
+% handles = gui_createPlotSection(handles,plotX,plotY,plotWidth,plotHeight,buffer);
+% guidata(hfig,handles);
 
 %create the section to house the status
 statusHeight = 200;
 statusWidth = gui_Width-2*buffer;
 statusX = buffer;
-statusY = plotY - statusHeight - buffer;
+statusY = editY + buffer + editHeight;
 handles = gui_createStatusSection(handles,statusX,statusY,statusWidth,statusHeight,buffer);
 guidata(hfig,handles);
 
 %create the section to house the controls
-controlWidth = gui_Width-2*buffer;
-controlHeight = 160;
-controlX = buffer;
-controlY = statusY - controlHeight - buffer;
+controlWidth = gui_Width-3*buffer-editWidth;
+controlHeight = editHeight;
+controlX = editX + buffer + editWidth;
+controlY = editY;
 handles = gui_createControlSection(handles,controlX,controlY,controlWidth,controlHeight,buffer);
 guidata(hfig,handles);
 
 %attach callbacks to the controls
-set(handles.statusBar,'Text','Initializing ... Callbacks ...');
+gui_updateStatusMessage(handles,'Callbacks ...');
 %main figure
 set(hfig,'CloseRequestFcn',{@closeRequest});
 set(handles.runButton,'Callback',{@run_Callback});
 
-
-set(handles.statusBar,'Text','Initializing ... GUI Timer ...');
+%create the main gui timer
+gui_updateStatusMessage(handles,'Gui Timer ...');
 handles.guiTimer = timer('Name','guiTimer');
 handles.guiTimer.TimerFcn = {@guiTimerCallback,handles};
 handles.guiTimer.Period = 0.1;
@@ -85,8 +101,14 @@ handles.guiTimer.ExecutionMode = 'fixedSpacing';
 handles.guiTimer.UserData = handles.mode;
 start(handles.guiTimer);
 
+%connect to PNA
+logMessage(handles.jEditbox,'Connecting to PNA ...');
+handles = gui_connectToPNA(handles);
+guidata(hfig,handles);
+
 %complete and ready to go
-set(handles.statusBar,'Text','Ready');
+logMessage(handles.jEditbox,'Ready ...');
+handles = gui_UpdateMode('Idle',handles);
 guidata(hfig,handles);
 
 %define all the callback functions
@@ -108,7 +130,7 @@ handles = guidata(gcf);
 
 handles = gui_UpdateMode('Running',handles);
 
-disp(handles.mode)
+
 
 
 

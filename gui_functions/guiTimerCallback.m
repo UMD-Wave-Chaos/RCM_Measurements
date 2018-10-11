@@ -30,7 +30,6 @@ try
         otherwise
     end
     
-    
 catch err
-%     logMessage(handles.jEditbox,err.message,'error');
+     logMessage(handles.jEditbox,err.message,'error');
 end
