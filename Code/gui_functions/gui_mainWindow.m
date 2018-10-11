@@ -68,6 +68,7 @@ logMessage(handles.jEditbox,'Initializing ...');
 %load the configuration
 logMessage(handles.jEditbox,'Loading configuration file ...')
 handles.Settings = gui_loadConfig();
+logSettings(handles);
 guidata(hfig,handles);
 
 %create the section to house the plots
@@ -100,6 +101,8 @@ gui_updateStatusMessage(handles,'Callbacks ...');
 set(hfig,'CloseRequestFcn',{@closeRequest});
 set(handles.measureButton,'Callback',{@measure_Callback});
 set(handles.calibrateButton,'Callback',{@calibrate_Callback});
+set(handles.reloadConfigButton,'Callback',{@reloadConfig_Callback});
+set(handles.editConfigButton,'Callback',{@editConfig_Callback});
 
 %create the main gui timer
 %gui_updateStatusMessage(handles,'Gui Timer ...');
@@ -184,14 +187,41 @@ handles = guidata(gcf);
 
 handles = gui_UpdateMode('Measuring',handles);
 
-[handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = takeMeasurement(handles.pnaObj,...
-                                                                                    handles.sObj,...
-                                                                                    handles.NOP, ...
-                                                                                    handles.N,...
-                                                                                    handles.electronicCalibration, ...
-                                                                                    handles);
+try
+    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = takeMeasurement(handles.pnaObj,...
+                                                                                        handles.sObj,...
+                                                                                        handles.Settings.NOP, ...
+                                                                                        handles.Settings.N,...
+                                                                                        handles.Settings.electronicCalibration, ...
+                                                                                        handles);
+catch err
+     logMessage(handles.jEditbox,err.message,'error');
+end
+handles = gui_UpdateMode('Analyzing',handles);
+logMessage(handles.jEditbox,'Analyzing Results');
 
-%% calibrate
+try
+    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad);
+catch err
+     logMessage(handles.jEditbox,err.message,'error');
+end
+
+handles = gui_UpdateMode('Idle',handles);
+logMessage(handles.jEditbox,'Ready');
+
+%% Reload Config
+function reloadConfig_Callback(hObject,event)
+handles = guidata(gcf);
+handles.Settings = gui_loadConfig();
+logSettings(handles);
+guidata(gcf,handles);
+
+%%Edit Config
+function editConfig_Callback(hObject,event)
+handles = guidata(gcf);
+
+
+%% calibrate  
 function calibrate_Callback(hObject,event)
 handles = guidata(gcf);
 

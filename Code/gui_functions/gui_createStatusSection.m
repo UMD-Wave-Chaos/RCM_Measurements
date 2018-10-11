@@ -8,7 +8,7 @@ textWidth = 175;
 staticTextWidth = 175;
 textHeight = 25;
 
-row1 = height - 2*buffer - textHeight;
+row1 = height - 3*buffer - textHeight;
 row2 = row1 - textHeight - buffer;
 row3 = row2 - textHeight - buffer;
 row4 = row3 - textHeight - buffer;
