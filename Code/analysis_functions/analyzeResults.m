@@ -1,4 +1,12 @@
-function analyzeResults(t, SCt, Freq, SCf, Srad)
+function analyzeResults(t, SCt, Freq, SCf, Srad, varargin)
+
+if (nargin == 6)
+    useGUI = true;
+    handles = varargin{1};
+else
+    useGUI = false;
+end
+
 %% Compute Alpha (Loss Parameter) from Impulse response
 V = 1.92; %cubed meters (Volume of the enclosure)
 k = 2*pi*mean(Freq)/(3E8); % k = w/c
@@ -18,27 +26,56 @@ Zlo = zeros(length(Freq),4,N);
 for i = 1:N
     %%+++ Trasformation using element-wise (rather that matrix) calculation +++++%:
     %+++++Scav to Zcav+++++
-    df = ((1-SCf(:,1,i)).*(1-SCf(:,4,i))-SCf(:,2,i).*SCf(:,3,i))/50;
-    dr = ((1-Srad(:,1,i)).*(1-Srad(:,4,i))-Srad(:,2,i).*Srad(:,3,i))/50;    
-    Zm(:,1,i) = ((1+SCf(:,1,i)).*(1-SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./df;
-    Zlo(:,1,i) = ((1+Srad(:,1,i)).*(1-Srad(:,4,i))+Srad(:,2,i).*Srad(:,3,i))./dr;    
-    Zm(:,2,i) = 2*SCf(:,2,i)./df;
-    Zlo(:,2,i) = 2*Srad(:,2,i)./dr;
-    Zm(:,3,i) = 2*SCf(:,3,i)./df;
-    Zlo(:,3,i) = 2*Srad(:,3,i)./dr;
-    Zm(:,4,i) = ((1-SCf(:,1,i)).*(1+SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./df;
-    Zlo(:,4,i) = ((1-Srad(:,1,i)).*(1+Srad(:,4,i))+Srad(:,2,i).*Srad(:,3,i))./dr;
+    %df = ((1-SCf(:,1,i)).*(1-SCf(:,4,i))-SCf(:,2,i).*SCf(:,3,i))/50;
+    %dr = ((1-Srad(:,1,i)).*(1-Srad(:,4,i))-Srad(:,2,i).*Srad(:,3,i))/50;    
+    %Zm(:,1,i) = ((1+SCf(:,1,i)).*(1-SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./df;
+    %Zlo(:,1,i) = ((1+Srad(:,1,i)).*(1-Srad(:,4,i))+Srad(:,2,i).*Srad(:,3,i))./dr;    
+    %Zm(:,2,i) = 2*SCf(:,2,i)./df;
+    %Zlo(:,2,i) = 2*Srad(:,2,i)./dr;
+    %Zm(:,3,i) = 2*SCf(:,3,i)./df;
+    %Zlo(:,3,i) = 2*Srad(:,3,i)./dr;
+    %Zm(:,4,i) = ((1-SCf(:,1,i)).*(1+SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./df;
+    %Zlo(:,4,i) = ((1-Srad(:,1,i)).*(1+Srad(:,4,i))+Srad(:,2,i).*Srad(:,3,i))./dr;
+    %RL(:,:,i) = (1-etaI).*real(Zlo(:,:,i)); % define the loss resistance Rlo = RL + RD
+    %RD(:,:,i) = etaI.*real(Zlo(:,:,i)); % define the radiation resistance
+    %XiM(:,:,i) = (Zm(:,1,i) - RL(:,1,i) - 1i*imag(Zlo(:,1,i)))./RD(:,1,i);
+    %++++++Srad to Zrad+++++
+    %d5 = ((1-SCf(:,1,i)).*(1-SCf(:,4,i))-SCf(:,2,i).*SCf(:,3,i))/50;
+    %Zcf(:,1,i) = ((1+SCf(:,1,i)).*(1-SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./d5;
+    %Zcf(:,2,i) = 2*SCf(:,2,i)./d5;
+    %Zcf(:,3,i) = 2*SCf(:,3,i)./d5;
+    %Zcf(:,4,i) = ((1-SCf(:,1,i)).*(1+SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./d5;
+    %time = toc; display(['Time =',num2str(time),'seconds. i =', num2str(i)]);
+    %++++++++++++++++++++++++++++++++++++++++++++++++++++
+    
+        %%+++ Trasformation using element-wise (rather that matrix) calculation +++++%:
+    %+++++Scav to Zcav+++++
+    df = ((1-SCf(:,i,1)).*(1-SCf(:,i,4))-SCf(:,i,2).*SCf(:,i,3))/50;
+    dr = ((1-Srad(:,i,1)).*(1-Srad(:,i,4))-Srad(:,i,2).*Srad(:,i,3))/50;    
+    Zm(:,1,i) = ((1+SCf(:,i,1)).*(1-SCf(:,i,4))+SCf(:,i,2).*SCf(:,i,3))./df;
+    Zlo(:,1,i) = ((1+Srad(:,i,1)).*(1-Srad(:,i,4))+Srad(:,i,2).*Srad(:,i,3))./dr;    
+    Zm(:,2,i) = 2*SCf(:,i,2)./df;
+    Zlo(:,2,i) = 2*Srad(:,i,2)./dr;
+    Zm(:,3,i) = 2*SCf(:,i,3)./df;
+    Zlo(:,3,i) = 2*Srad(:,i,3)./dr;
+    Zm(:,4,i) = ((1-SCf(:,i,1)).*(1+SCf(:,i,4))+SCf(:,i,2).*SCf(:,i,3))./df;
+    Zlo(:,4,i) = ((1-Srad(:,i,1)).*(1+Srad(:,i,4))+Srad(:,i,2).*Srad(:,i,3))./dr;
     RL(:,:,i) = (1-etaI).*real(Zlo(:,:,i)); % define the loss resistance Rlo = RL + RD
     RD(:,:,i) = etaI.*real(Zlo(:,:,i)); % define the radiation resistance
     XiM(:,:,i) = (Zm(:,1,i) - RL(:,1,i) - 1i*imag(Zlo(:,1,i)))./RD(:,1,i);
     %++++++Srad to Zrad+++++
-    d5 = ((1-SCf(:,1,i)).*(1-SCf(:,4,i))-SCf(:,2,i).*SCf(:,3,i))/50;
-    Zcf(:,1,i) = ((1+SCf(:,1,i)).*(1-SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./d5;
-    Zcf(:,2,i) = 2*SCf(:,2,i)./d5;
-    Zcf(:,3,i) = 2*SCf(:,3,i)./d5;
-    Zcf(:,4,i) = ((1-SCf(:,1,i)).*(1+SCf(:,4,i))+SCf(:,2,i).*SCf(:,3,i))./d5;
-    time = toc; display(['Time =',num2str(time),'seconds. i =', num2str(i)]);
-    %++++++++++++++++++++++++++++++++++++++++++++++++++++
+    d5 = ((1-SCf(:,i,1)).*(1-SCf(:,i,4))-SCf(:,i,2).*SCf(:,i,3))/50;
+    Zcf(:,1,i) = ((1+SCf(:,i,1)).*(1-SCf(:,i,4))+SCf(:,i,2).*SCf(:,i,3))./d5;
+    Zcf(:,2,i) = 2*SCf(:,i,2)./d5;
+    Zcf(:,3,i) = 2*SCf(:,i,3)./d5;
+    Zcf(:,4,i) = ((1-SCf(:,i,1)).*(1+SCf(:,i,4))+SCf(:,i,2).*SCf(:,i,3))./d5;
+    time = toc; 
+    lstring = sprintf(['Time =',num2str(time),'seconds. i =', num2str(i)]);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 end
 %% Generate Xi using RMT
 XiC = T_method_generator_JenHao(alpha,N*length(Freq));

@@ -201,7 +201,7 @@ handles = gui_UpdateMode('Analyzing',handles);
 logMessage(handles.jEditbox,'Analyzing Results');
 
 try
-    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad);
+    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad,handles);
 catch err
      logMessage(handles.jEditbox,err.message,'error');
 end
