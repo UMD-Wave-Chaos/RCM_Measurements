@@ -1,36 +1,31 @@
-function [t, SCt, Freq, SCf, Srad] = takeMeasurement(obj1,s1,Settings)
-% Input: cal_name: the name of the calibration set with the appropriate measurement frequency range
-%        gt: the gating time in seconds. The gating window covers -gt to gt
-%        seconds
-%        st,  et: start and stop time, respectively. If applicable, t will
-%        span p-st to et.
-%        N: number of realization
-% Output: t -- array of corresponding time values
-%         SCt  -- complex time domain s parameter responses
-%         Freq -- array of corresponding frequency values
-%         SCf -- complex frequency domain s parameter responses
-%         Srad -- time gated complex frequency domain s parameter responses
+function [t, SCt, Freq, SCf, Srad] = takeMeasurement(obj1,s1,NOP,N,eCal, varargin)
 
 gt = 5e-9;
 st = -1E-6;
 et = 5e-6;
-NOP = Settings.NOP;
+
+if (nargin == 6)
+    useGUI = true;
+    handles = varargin{1};
+else
+    useGUI = false;
+end
 
 tic;
 
 %calibration step
-if (Settings.electronicCalibration == true)
+if (eCal == true)
     for k = 1:15
      cal_name = ['cal_for_',date,num2str(k)];
-     calibratePNA(obj1,0.1E9+(k-1)*0.2E9,0.1E9+k*0.2E9,cal_name,Settings)
+     calibratePNA(obj1,0.1E9+(k-1)*0.2E9,0.1E9+k*0.2E9,cal_name,NOP)
     end
 end
 
-Srad = zeros(Settings.NOP,Settings.N,4);
-SCf = zeros(Settings.NOP,Settings.N,4);
-SCt = zeros(Settings.NOP,Settings.N,4);
+Srad = zeros(NOP,N,4);
+SCf = zeros(NOP,N,4);
+SCt = zeros(NOP,N,4);
 
-for i = 1:Settings.N
+for i = 1:N
     %% Rotate the mode stirrer (1/50) * 360 degrees
     DIRECTION = 1;
     fprintf(s1,['I',num2str(DIRECTION*64*4),',1000,0,0,5000,5000,1000,0,1000,1000,50,64']); pause(0.5); % move the steppermotor counterclockwise by 1.8 degrees
@@ -66,7 +61,13 @@ for i = 1:Settings.N
     SCf(:,i,3) = S12R + 1i*S12I; %S12
     SCf(:,i,4) = S22R + 1i*S22I; %S22
     Time = toc;
-    fprintf(['Measure and store SCf at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    lstring = sprintf(['Measure and store SCf at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
+    %fprintf(['Measure and store SCf at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
     %% S rad - Frequency Domain
     fprintf(obj1, 'CALC:FILT:TIME:STATE ON'); % tunn on gating is on
     start_time = -gt; stop_time = gt; %set the start and stop time for transforming to time domain
@@ -89,7 +90,13 @@ for i = 1:Settings.N
     Srad(:,i,3) = S12R + 1i*S12I; %S12
     Srad(:,i,4) = S22R + 1i*S22I; %S22
     Time = toc; 
-    fprintf(['Measure and store Srad at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    lstring = sprintf(['Measure and store Srad at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
+    %fprintf(['Measure and store Srad at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
     %% S cav - time domain
     meas_name(1,:) = 'CH1_S11,S11'; meas_name(2,:) = 'CH1_S12,S12';
     meas_name(3,:) = 'CH1_S21,S21'; meas_name(4,:) = 'CH1_S22,S22';
@@ -113,9 +120,12 @@ for i = 1:Settings.N
         t = linspace(start_time,stop_time,length(SCt))';
     end
     Time = toc; 
-    fprintf(['Measure and store SCt at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    lstring = sprintf(['Measure and store SCt at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
     end
-%% Close the open instrument connections
-fclose(obj1); delete(obj1);
-fclose(s1); delete(s1);
+   % fprintf(['Measure and store SCt at position: ',num2str(i),' - Done. Elapsed Time: ',num2str(Time),'\n']);
+end
 end

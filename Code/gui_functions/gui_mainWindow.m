@@ -102,13 +102,13 @@ set(handles.measureButton,'Callback',{@measure_Callback});
 set(handles.calibrateButton,'Callback',{@calibrate_Callback});
 
 %create the main gui timer
-gui_updateStatusMessage(handles,'Gui Timer ...');
-handles.guiTimer = timer('Name','guiTimer');
-handles.guiTimer.TimerFcn = {@guiTimerCallback,handles};
-handles.guiTimer.Period = 0.1;
-handles.guiTimer.ExecutionMode = 'fixedSpacing';
-handles.guiTimer.UserData = handles.mode;
-start(handles.guiTimer);
+%gui_updateStatusMessage(handles,'Gui Timer ...');
+%handles.guiTimer = timer('Name','guiTimer');
+%handles.guiTimer.TimerFcn = {@guiTimerCallback,handles};
+%handles.guiTimer.Period = 0.1;
+%handles.guiTimer.ExecutionMode = 'fixedSpacing';
+%handles.guiTimer.UserData = handles.mode;
+%start(handles.guiTimer);
 
 %connect to PNA
 logMessage(handles.jEditbox,'Connecting to PNA ...');
@@ -166,8 +166,8 @@ handles = guidata(gcf);
 handles = gui_UpdateMode('Closing',handles);
 
 %closeRequest needs to do all cleanup and delete the figure
-stop(handles.guiTimer);
-delete(handles.guiTimer);
+%stop(handles.guiTimer);
+%delete(handles.guiTimer);
 
 if (handles.pnaConnection == true)
     fclose(handles.pnaObj);
@@ -183,7 +183,13 @@ function measure_Callback(hObject,event)
 handles = guidata(gcf);
 
 handles = gui_UpdateMode('Measuring',handles);
-takeMeasurement(handles.pnaObj,handles.sObj,handles.Settings);
+
+[handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = takeMeasurement(handles.pnaObj,...
+                                                                                    handles.sObj,...
+                                                                                    handles.NOP, ...
+                                                                                    handles.N,...
+                                                                                    handles.electronicCalibration, ...
+                                                                                    handles);
 
 %% calibrate
 function calibrate_Callback(hObject,event)

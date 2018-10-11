@@ -1,10 +1,10 @@
-function calibratePNA(obj1,START, STOP, NAME, Settings) % np = number of ports
+function calibratePNA(obj1,START, STOP, NAME, NOP) % np = number of ports
 % % % % % % % % % % % %%  This function calibrates the network analyzer in the frequency range
 % % % % % % % % % % % %  between START and STOP using maximum number of points, then saves the
 % % % % % % % % % % % %  result in the cal set name - NAME.
 
 % Communicating with instrument object, obj1.
-fprintf(obj1, ['SENS:SWE:POINTS ', num2str(Settings.NOP)]); % set number of points
+fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
 fprintf(obj1, 'SENS1:AVER:COUN 5'); % set count to 5
 fprintf(obj1, 'SENS1:AVER ON'); % turn (keep) averaging on
 fprintf(obj1, 'SENS1:AVER:CLE');  % restart averaging
