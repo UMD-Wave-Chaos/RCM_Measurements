@@ -1,0 +1,6 @@
+<configuration>
+    <NumberOfPoints> 201 </NumberOfPoints>
+    <COMport> COM5 </COMport>
+	<NumberOfRealizations> 50 </NumberOfRealizations>
+	<ElectronicCalibration> No </ElectronicCalibration>
+</configuration>  
