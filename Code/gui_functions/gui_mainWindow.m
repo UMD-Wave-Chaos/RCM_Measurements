@@ -36,6 +36,7 @@ handles.hPanelColor = [72/255, 118/255, 255/255];
 handles.hStatusColor = 1/256*[192 192 192];
 handles.windowsColor = java.awt.Color.lightGray;
 handles.helpString = revString;
+handles.pnaConnection = false;
 handles.mode = 'Initializing';
 
 %save the handles to the guidata object
@@ -46,7 +47,7 @@ guidata(hfig,handles);
 %guidata(hfig,handles);
 
 
-editWidth = 500;
+editWidth = 750;
 editHeight = 200;
 editX = buffer;
 editY = buffer + 20;
@@ -80,7 +81,7 @@ guidata(hfig,handles);
 % guidata(hfig,handles);
 
 %create the section to house the status
-statusHeight = 200;
+statusHeight = 150;
 statusWidth = gui_Width-2*buffer;
 statusX = buffer;
 statusY = editY + buffer + editHeight;
@@ -116,7 +117,7 @@ set(handles.editConfigButton,'Callback',{@editConfig_Callback});
 %connect to PNA
 logMessage(handles.jEditbox,'Connecting to PNA ...');
 try
-    [handles.pnaObj,handles.pnaConnection,handles.pnaConnectionType] = connectToPNA();
+    [handles.pnaObj,handles.pnaConnection,handles.pnaConnectionType, handles.meas_name] = connectToPNA();
 catch err
      logMessage(handles.jEditbox,err.message,'error');
 end
@@ -188,22 +189,36 @@ handles = guidata(gcf);
 handles = gui_UpdateMode('Measuring',handles);
 
 try
-    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = takeMeasurement(handles.pnaObj,...
-                                                                                        handles.sObj,...
-                                                                                        handles.Settings.NOP, ...
-                                                                                        handles.Settings.N,...
-                                                                                        handles.Settings.electronicCalibration, ...
-                                                                                        handles);
+    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = measureData(handles.pnaObj,...
+                                                                                    handles.sObj,...
+                                                                                    handles.Settings.NOP, ...
+                                                                                    handles.Settings.N,...
+                                                                                    handles.Settings.electronicCalibration, ...
+                                                                                    handles.Settings.l, ...
+                                                                                    2, ...
+                                                                                    handles.meas_name, ...
+                                                                                    handles);
 catch err
      logMessage(handles.jEditbox,err.message,'error');
+     
+     if strcmp(err.identifier,'MATLAB:UndefinedFunction')
+         logMessage(handles.jEditbox,err.getReport(),'error');
+     end
 end
+
+saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
+
 handles = gui_UpdateMode('Analyzing',handles);
 logMessage(handles.jEditbox,'Analyzing Results');
 
 try
-    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad,handles);
+    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad,handles.Settings.V,handles.Settings.fileName,handles);
 catch err
      logMessage(handles.jEditbox,err.message,'error');
+     
+     if strcmp(err.identifier,'MATLAB:UndefinedFunction')
+         logMessage(handles.jEditbox,err.getReport(),'error');
+     end
 end
 
 handles = gui_UpdateMode('Idle',handles);
@@ -219,7 +234,7 @@ guidata(gcf,handles);
 %%Edit Config
 function editConfig_Callback(hObject,event)
 handles = guidata(gcf);
-
+edit('config.xml');
 
 %% calibrate  
 function calibrate_Callback(hObject,event)

@@ -27,3 +27,39 @@ function Settings = gui_loadConfig()
      Settings.electronicCalibration = false;
  end
  
+ %get the antenna electrical length
+ lRoot = xDoc.getElementsByTagName('AntennaElectrialLength');
+ lElement = lRoot.item(0);
+ Settings.l =  str2num(lElement.getFirstChild.getData);
+ 
+ %get the cavity volume
+ vRoot = xDoc.getElementsByTagName('CavityVolume');
+ vElement = vRoot.item(0);
+ Settings.V =  str2num(vElement.getFirstChild.getData);
+ 
+  %get the boolean for manual/electronic calibration
+ dsRoot = xDoc.getElementsByTagName('TimeDateStamp');
+ dsElement = dsRoot.item(0);
+ dsString =  strtrim(char(dsElement.getFirstChild.getData));
+ if(strcmpi(dsString,'Yes') == true)
+     dsBool = true;
+ else
+     dsBool = false;
+ end
+ 
+ %get the file name prefix
+ fnRoot = xDoc.getElementsByTagName('FileNamePrefix');
+ fnElement = fnRoot.item(0);
+ fnPrefix =  strtrim(char(fnElement.getFirstChild.getData));
+ 
+ if dsBool == true
+     Settings.fileName = sprintf('%s%s.h5',fnPrefix,datestr(now,30)); 
+ else
+     Settings.fileName = sprintf('%s.h5',fnPrefix); 
+ end
+ 
+ %get any user comments
+ commentRoot = xDoc.getElementsByTagName('Comments');
+ commentElement = commentRoot.item(0);
+ Settings.Comments =  char(commentElement.getFirstChild.getData);
+ 

@@ -1,10 +1,20 @@
-function analyzeResults(t, SCt, Freq, SCf, Srad, varargin)
+function analyzeResults(t, SCt, Freq, SCf, Srad, V,fileName,varargin)
 
-if (nargin == 6)
+if (nargin == 7)
     useGUI = true;
     handles = varargin{1};
 else
     useGUI = false;
+end
+
+
+%% Step 3: Compute Tau, the 1/e fold energy decay time
+for param=1:4
+    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+end
+%% Step 4: Compute the loss parameter (alpha)
+for param=1:4
+    [alpha(param) Qcomp(param)] = getalpha(mean(Freq), Tau(param), V);                      %input parameters: the average operational frequency, the 1/e fold energy decay time,
 end
 
 %% Compute Alpha (Loss Parameter) from Impulse response

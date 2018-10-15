@@ -1,6 +1,11 @@
 <configuration>
-    <NumberOfPoints> 201 </NumberOfPoints>
+    <NumberOfPoints> 32001 </NumberOfPoints>
     <COMport> COM5 </COMport>
 	<NumberOfRealizations> 50 </NumberOfRealizations>
 	<ElectronicCalibration> No </ElectronicCalibration>
+	<CavityVolume> 1.92 </CavityVolume>
+	<AntennaElectrialLength> 0.5 </AntennaElectrialLength>
+    <FileNamePrefix> TestRun </FileNamePrefix>
+    <TimeDateStamp> Yes </TimeDateStamp>
+	<Comments> This is a test run </Comments>
 </configuration>  

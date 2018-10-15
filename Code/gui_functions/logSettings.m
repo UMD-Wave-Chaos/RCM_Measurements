@@ -18,3 +18,6 @@ else
 end
 sString = sprintf('Use Electronic Calibration: %s',result);
 logMessage(handles.jEditbox,sString);
+
+sString = sprintf('File Name: %s',handles.Settings.fileName);
+logMessage(handles.jEditbox,sString);
