@@ -149,7 +149,6 @@ for iter = 1:N
 	
 end
 %% Plot the last realization of S parameters in frequency domain
-close all;
 hfs = figure('NumberTitle', 'off', 'Name', 'S-Parameters (cav) - Frequency Domain Response'); % handle for s parameter plot
 hfsr = figure('NumberTitle', 'off', 'Name', 'S-Parameters (rad) - Frequency Domain Response'); % handle for s parameter plot
 hts = figure('NumberTitle', 'off', 'Name', 'S-Parameters - Time Domain Response'); % handle for s parameter plot
@@ -168,7 +167,7 @@ end
 mkdir(['../GatingData/',datname])
 save(['../GatingData/',datname,'/',date,'_',datname,'.mat'])
 %% Create the ensemble S11 vector and plot
-par = 2
+par = 2;
 a = SCt(:,par,1);
 b = SCf(:,par,1);
 close all; h1 = figure; plot(t/1E-6,20*log10(abs(a)),'.-g', 'MarkerSize', 20)
