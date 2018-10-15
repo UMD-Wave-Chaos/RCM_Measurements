@@ -43,5 +43,14 @@ fclose(out(index));
 
 Detailed Breakdown
 ==========================================================================================
-Step 1. Collect measured S parameters 
-        This step
+# Step 1: Collect measured S parameters 
+This step
+
+# Step 2: Transform measured S parameters to impedance (Z) 
+This step
+
+# Step 3: Normalize impedance 
+This step
+
+# Step 4: Generate Distributions 
+This step
