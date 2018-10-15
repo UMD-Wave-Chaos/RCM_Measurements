@@ -7,5 +7,6 @@
 	<AntennaElectrialLength> 0.5 </AntennaElectrialLength>
     <FileNamePrefix> TestRun </FileNamePrefix>
     <TimeDateStamp> Yes </TimeDateStamp>
+	<NumberOfRCMRealizations> 10000 </NumberOfRCMRealizations>
 	<Comments> This is a test run </Comments>
 </configuration>  

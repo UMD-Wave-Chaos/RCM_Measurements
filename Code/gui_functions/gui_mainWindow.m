@@ -208,7 +208,7 @@ handles = gui_UpdateMode('Analyzing',handles);
 logMessage(handles.jEditbox,'Analyzing Results');
 
 try
-    analyzeResults(fname,handles);
+    analyzeResults(handles.Settings.fileName,handles);
 catch err
      logError(handles.jEditbox,err);
 end

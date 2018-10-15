@@ -63,3 +63,8 @@ function Settings = gui_loadConfig()
  commentElement = commentRoot.item(0);
  Settings.Comments =  char(commentElement.getFirstChild.getData);
  
+  %get the number of RCM realizations
+ nRCMRoot = xDoc.getElementsByTagName('NumberOfRCMRealizations');
+ nRCMElement = nRCMRoot.item(0);
+ Settings.nRCM =  str2num(nRCMElement.getFirstChild.getData);
+ 

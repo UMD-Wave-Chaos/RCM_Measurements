@@ -31,6 +31,7 @@ end
 h5writeatt(Settings.fileName,'/','Comments',Settings.Comments);
 h5writeatt(Settings.fileName,'/','V',Settings.V);
 h5writeatt(Settings.fileName,'/','l',Settings.l);
+h5writeatt(Settings.fileName,'/','nRCM',Settings.nRCM);
 
 
 

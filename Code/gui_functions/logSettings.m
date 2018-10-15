@@ -27,3 +27,6 @@ logMessage(handles.jEditbox,sString);
 
 sString = sprintf('Cavity Volume: %s',handles.Settings.V);
 logMessage(handles.jEditbox,sString);
+
+sString = sprintf('Number of RCM Realizations: %d',handles.Settings.nRCM);
+logMessage(handles.jEditbox,sString);

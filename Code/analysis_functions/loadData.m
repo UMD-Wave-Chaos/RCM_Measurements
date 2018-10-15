@@ -1,4 +1,4 @@
-function [t, SCt, Freq, SCf, Srad,V,l,N,NOP] = loadData(filename)
+function [t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM] = loadData(filename)
 
 %log the data
 
@@ -11,3 +11,4 @@ N = h5readatt(filename,'/','Nrealizations');
 NOP = h5readatt(filename,'/','Npoints');
 V = h5readatt(filename,'/','V');
 l = h5readatt(filename,'/','l');
+nRCM = h5readatt(filename,'/','nRCM');
