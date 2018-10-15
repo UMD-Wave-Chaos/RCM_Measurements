@@ -66,11 +66,11 @@ and *tau* is computed for each element of *S* (*S11*, *S12*, *S21*, and *S22*)
 This step uses the value of *tau* to estimate *alpha* and *Q* for the cavity and is applied for each of the 4 cases in Step 3.
 
 ## Step 5: Transform measured S parameters to impedance (Z) 
-This step transforms the measurements to impedance space using *Z = Z0(I+S)(I-S)^{-1}Z0, where Z0 is a diagonal matrix containing the square roots of the
+This step transforms the measurements to impedance space using *Z = Z0(I+S)(I-S)^{-1}Z0*, where Z0 is a diagonal matrix containing the square roots of the
 impedances connected to the ports (assumed to be 50 ohms). This step is performed for both the frequency domain measurements of *Srad* and *Scav*.
 
 ## Step 6: Normalize impedance 
-This step normalizes the impedance matrix through the equation Zn = Re(Zrad)^{-0.5}[Zcav - jIm(Zrad)]Re(Zrad)^{-0.5}.
+This step normalizes the impedance matrix through the equation *Zn = Re(Zrad)^{-0.5}[Zcav - jIm(Zrad)]Re(Zrad)^{-0.5}*.
 
 ## Step 7: Generate Measured Distributions 
 This step generates histograms of the measured data to determine the PMF.
