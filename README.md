@@ -43,14 +43,31 @@ fclose(out(index));
 
 Detailed Breakdown
 ==========================================================================================
-# Step 1: Collect measured S parameters 
+## Step 1: Calibrate the PNA
+
+## Step 2: Collect measured S parameters 
+This step uses the PNA-X N5241A to measure the S parameters of the cavity and assumes 2-port measurements are made. The mode stirrer is positioned a
+specified number of times to create mulitple realizations of the cavity - the mode stirrer is driven by a stepper motor typically connected serially
+through COM5. There are a specified number of points collected in time and frequency from the PNA (given as NOP). First a frequency domain measurement
+is taken which provides *Scav*. Second, a set of 10 frequency domain measurements are made with different time gating to get an estimate of *Srad*.
+Finally, a time domain measurement is taken of *Scav*.
+
+Once this step is complete, all values (*Scav_time*, *Scav_freq*, *Srad*, *time*, *freq*) are saved in an HDF5 file, with the settings from the
+configuration file saved as attributes. 
+
+Nominal values are given as *NumberOfPoints = 32001*, *NumberOfRealizations = 50*, *CavityVolume = 1.92 m^3*, *AntennaElectricalLength = 0.5*.
+
+## Step 3: Compute Tau, the 1/e fold energy decay time 
 This step
 
-# Step 2: Transform measured S parameters to impedance (Z) 
+## Step 4: Compute Alpha 
 This step
 
-# Step 3: Normalize impedance 
+## Step 5: Transform measured S parameters to impedance (Z) 
 This step
 
-# Step 4: Generate Distributions 
+## Step 6: Normalize impedance 
+This step
+
+## Step 7: Generate Distributions 
 This step
