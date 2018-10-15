@@ -1,0 +1,2 @@
+# Ignore HDF5 files
+*.h5
