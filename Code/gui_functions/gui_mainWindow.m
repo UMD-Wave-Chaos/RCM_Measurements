@@ -199,11 +199,7 @@ try
                                                                                     handles.meas_name, ...
                                                                                     handles);
 catch err
-     logMessage(handles.jEditbox,err.message,'error');
-     
-     if strcmp(err.identifier,'MATLAB:UndefinedFunction')
-         logMessage(handles.jEditbox,err.getReport(),'error');
-     end
+     logError(handles.jEditbox,err);
 end
 
 saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
@@ -214,11 +210,7 @@ logMessage(handles.jEditbox,'Analyzing Results');
 try
     analyzeResults(fname,handles);
 catch err
-     logMessage(handles.jEditbox,err.message,'error');
-     
-     if strcmp(err.identifier,'MATLAB:UndefinedFunction')
-         logMessage(handles.jEditbox,err.getReport(),'error');
-     end
+     logError(handles.jEditbox,err);
 end
 
 handles = gui_UpdateMode('Idle',handles);
@@ -249,11 +241,7 @@ if filename ~= 0
     try
         analyzeResults(fname,handles);
     catch err
-         logMessage(handles.jEditbox,err.message,'error');
-     
-         if strcmp(err.identifier,'MATLAB:UndefinedFunction')
-             logMessage(handles.jEditbox,err.getReport(),'error');
-         end
+         logError(handles.jEditbox,err);
     end
 end
 

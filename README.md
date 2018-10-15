@@ -58,17 +58,22 @@ configuration file saved as attributes.
 
 Nominal values are given as *NumberOfPoints = 32001*, *NumberOfRealizations = 50*, *CavityVolume = 1.92 m^3*, *AntennaElectricalLength = 0.5*.
 
-## Step 3: Compute Tau  
-Tau is the 1/e fold energy decay time, this allows us to estimate alpha for the cavity.
+## Step 3: Compute *Tau*  
+*Tau* is the 1/e fold energy decay time and allows us to estimate alpha for the cavity. To estimate tau, the time domain measurements of *Scav* are used
+and *tau* is computed for each element of *S* (*S11*, *S12*, *S21*, and *S22*)
 
-## Step 4: Compute Alpha 
-This step
+## Step 4: Compute *Alpha* 
+This step uses the value of *tau* to estimate *alpha* and *Q* for the cavity and is applied for each of the 4 cases in Step 3.
 
 ## Step 5: Transform measured S parameters to impedance (Z) 
-This step
+This step transforms the measurements to impedance space using *Z = Z0(I+S)(I-S)^{-1}Z0, where Z0 is a diagonal matrix containing the square roots of the
+impedances connected to the ports (assumed to be 50 ohms). This step is performed for both the frequency domain measurements of *Srad* and *Scav*.
 
 ## Step 6: Normalize impedance 
-This step
+This step normalizes the impedance matrix through the equation Zn = Re(Zrad)^{-0.5}[Zcav - jIm(Zrad)]Re(Zrad)^{-0.5}.
 
-## Step 7: Generate Distributions 
-This step
+## Step 7: Generate Measured Distributions 
+This step generates histograms of the measured data to determine the PMF.
+
+## Step 8: Generate RCM Distributions 
+This step generates expected histograms according to the RCM.

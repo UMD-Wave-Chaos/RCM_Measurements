@@ -1,5 +1,5 @@
 <configuration>
-    <NumberOfPoints> 32001 </NumberOfPoints>
+    <NumberOfPoints> 1001 </NumberOfPoints>
     <COMport> COM5 </COMport>
 	<NumberOfRealizations> 50 </NumberOfRealizations>
 	<ElectronicCalibration> No </ElectronicCalibration>

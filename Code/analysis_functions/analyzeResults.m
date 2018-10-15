@@ -20,6 +20,7 @@ BINS = 1000;       % number of bins to be used in generating a distribution
 
 [t, SCt, Freq, SCf, Srad,V,l,N,NOP] = loadData(filename);
 
+
 %% Step 3: Compute Tau, the 1/e fold energy decay time
 lstring = 'Computing tau ...';
 if (useGUI == true)
@@ -31,12 +32,6 @@ for param=1:4
     Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
 end
 %% Step 4: Compute the loss parameter (alpha)
-lstring = 'Computing alpha ...';
-if (useGUI == true)
-    logMessage(handles.jEditbox,lstring);
-else
-    disp(lstring)
-end
 for param=1:4
     [alpha(param) Qcomp(param)] = getalpha(mean(Freq), Tau(param), V);                      %input parameters: the average operational frequency, the 1/e fold energy decay time,
 end
@@ -46,12 +41,12 @@ end
 %             SCfT = SCf((b:f),:,:);                                          % truncated cavity s paramater measurement from 9GHz - 11.5GHz to 10GHz - 10.5GHz
 %             SradT = Srad((b:f),:,:);                                        % truncated ratiation s paramater measurement from 9GHz - 11.5GHz to 10GHz - 10.5GHz
 %SCfT = SCf; SradT = Srad;
-lstring = 'Transforming S parameters to Z ...';
-if (useGUI == true)
-    logMessage(handles.jEditbox,lstring);
-else
-    disp(lstring)
-end
+    lstring = sprintf('Transforming to Impedance');
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 tic; 
 Srad1 = Srad(:,:,:,6);
 SradM = reshape(shiftdim(permute(Srad1,[2,1,3]),-1),num_ports,num_ports,length(Freq),N); 
@@ -90,7 +85,8 @@ for i = 1:N
             Zcf(:,:,j,i) = srZ0*(eye(2)+SCfM(:,:,j,i))*inv(eye(2)-SCfM(:,:,j,i))*srZ0;
     end
     time = toc; 
-    	averagetime = time/i;
+	
+	averagetime = time/i;
 	predictedTime = time + averagetime*(N-i);
     lstring = sprintf('Transforming realization %d of %d, time = %s s, predicted end time = %s s',i,N,num2str(time), num2str(predictedTime));
     if (useGUI == true)
@@ -102,12 +98,12 @@ for i = 1:N
 end
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5 (~40 sec for N = 200)
 %Pick a gating time
-lstring = 'Normalizing frequency domain measurements ...';
-if (useGUI == true)
-    logMessage(handles.jEditbox,lstring);
-else
-    disp(lstring)
-end
+    lstring = sprintf('Normalizing Impedance');
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 gate = 1;
 Znormf = zeros(num_ports,num_ports,length(Freq),N);
 clear Zradf; Zradf = mean(Zcf,4);
@@ -116,9 +112,10 @@ tic; for incr = 1:N
     %Normalize Z11, Z12, Z21, and Z22 respectively
 %     Znormf(:,:,incr) = normalizeZ(2, Zcf(:,:,incr), mean(Zradf(:,:,:,gate),3));   %input parameter: numer of ports, cavity impedance, and radition impeadance
     for j = 1:length(Freq); Znormf(:,:,j,incr) = ((real(Zradf(:,:,j)))^-0.5)*(Zcf(:,:,j,incr)-1j*imag(Zradf(:,:,j)))*((real(Zradf(:,:,j)))^-0.5); end 
-    time = toc;
-    averagetime = time/incr;
-	predictedTime = time + averagetime*(N-incr);
+    time = toc; 
+	
+	averagetime = time/i;
+	predictedTime = time + averagetime*(N-i);
     lstring = sprintf('Normalizing realization %d of %d, time = %s s, predicted end time = %s s',incr,N,num2str(time), num2str(predictedTime));
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
@@ -127,14 +124,14 @@ tic; for incr = 1:N
     end
 end
 Znormf = permute(shiftdim(reshape(Znormf,1,num_ports^2,length(Freq),N)),[2 1 3]);
+
 %% Step 7: Generate a distribution of the normalized Z parameters from Step 6
-lstring = 'Generating distribution ...';
-if (useGUI == true)
-    logMessage(handles.jEditbox,lstring);
-else
-    disp(lstring);
-end
-    
+    lstring = sprintf('Generating Measured Distribution');
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 tic;
 EZnormf = Znormf(:,:,1);
 for i = 2:N
@@ -144,20 +141,31 @@ end
 for i = 1:num_ports^2; [Zhist_EXP(:,i), Zbin_EXP(:,i)] = hist(abs(EZnormf(:,i)), 0.1*BINS); end                         % input paramters: the data (normalized impedance), and the number of bins
 for i = 1:num_ports^2; [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,i)), 0.1*BINS); end
 %% Step 8: Generate a distribution of Z parameters using random coupling model (RCM) using the loss parameter (alpha) computed in Step 4.
+    lstring = sprintf('Generating RCM Distribution');
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 clear Znorm_RCM;
-lstring = 'Generating distribution from RCM...';
-if (useGUI == true)
-    logMessage(handles.jEditbox,lstring);
-else
-    disp(lstring)
-end
+tic;
 for i = 1:num_ports^2;
     [Znorm_RCM] =  genPMFrcm(alpha(i),num_ports, 50000);           % input parameters: loss parameter, number of bins, number of ports, number of samples
     [Zhist_RCM(:,i), Zbin_RCM(:,i)] = hist(abs(Znorm_RCM(:,i)), 0.1*BINS);
     [Zphist_RCM(:,i), Zpbin_RCM(:,i)] = hist(angle(Znorm_RCM(:,i)), 0.1*BINS);
+	time = toc; 
+	
+	averagetime = time/i;
+	predictedTime = time + averagetime*(num_ports^2-i);
+    lstring = sprintf('Computing RCM distribution %d of %d, time = %s s, predicted end time = %s s',i,num_ports^2,num2str(time), num2str(predictedTime));
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 end
 %% Step 9: Plot the pmf
-figure; hold off; clear Zpmf_RCM; clear Zpmf_EXP;
+figure(1); hold off; clear Zpmf_RCM; clear Zpmf_EXP;
 paramlables = cellstr(['11';'12';'21';'22']);
 for i = 1:num_ports^2; 
     p= 10;         
@@ -172,7 +180,7 @@ for i = 1:num_ports^2;
         num2str(round(Qcomp(i))),', \alpha = ',num2str(round(alpha(i))),', GT=',num2str(floor(p*(5/3))+0.01*round(mod(p*100*(5/3),100))),'ns']);
     axis tight
 end
-figure; hold off; clear Zppmf_RCM; clear Zppmf_EXP;
+figure(2); hold off; clear Zppmf_RCM; clear Zppmf_EXP;
 for i = 1:num_ports^2; 
     p= 10;         
     subplot(num_ports,num_ports,i);
