@@ -18,12 +18,11 @@ Follow the steps below to get started
 1. Clone the repository 
 2. Open Matlab and cd to the directory containing the repository 
 3. Run *start.m* to open the GUI 
-4. Select *Measure Data* once all Connections are made to take a data set and analyze 
-5. Select *Analyze Data* to analyze an existing data set 
-
-Usage
-==========================================================================================
-
+4. Select *Edit Config* to open the .xml configuration file in the Matlab editor 
+5. Select *Reload Config* to reload the configuration file prior to running
+6. If **NOT** using the electronic calibration module, make sure to manually calibrate the PNA 
+7. Select *Measure Data* once all Connections are made to take a data set and analyze 
+8. Select *Analyze Data* to analyze an existing data set 
 
 Potential Connectivity Issues
 ==========================================================================================
@@ -41,3 +40,8 @@ through the fclose command:
 ```
 fclose(out(index));
 ```
+
+Detailed Breakdown
+==========================================================================================
+Step 1. Collect measured S parameters 
+        This step
