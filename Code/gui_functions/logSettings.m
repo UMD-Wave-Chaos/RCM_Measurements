@@ -21,3 +21,9 @@ logMessage(handles.jEditbox,sString);
 
 sString = sprintf('File Name: %s',handles.Settings.fileName);
 logMessage(handles.jEditbox,sString);
+
+sString = sprintf('Antenna Electrical Length: %s',handles.Settings.l);
+logMessage(handles.jEditbox,sString);
+
+sString = sprintf('Cavity Volume: %s',handles.Settings.V);
+logMessage(handles.jEditbox,sString);

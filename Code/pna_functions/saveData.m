@@ -29,5 +29,8 @@ else
     h5writeatt(Settings.fileName,'/','ECal',1);
 end
 h5writeatt(Settings.fileName,'/','Comments',Settings.Comments);
+h5writeatt(Settings.fileName,'/','V',Settings.V);
+h5writeatt(Settings.fileName,'/','l',Settings.l);
+
 
 

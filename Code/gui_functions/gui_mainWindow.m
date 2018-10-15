@@ -101,7 +101,7 @@ gui_updateStatusMessage(handles,'Callbacks ...');
 %main figure
 set(hfig,'CloseRequestFcn',{@closeRequest});
 set(handles.measureButton,'Callback',{@measure_Callback});
-set(handles.calibrateButton,'Callback',{@calibrate_Callback});
+set(handles.analyzeButton,'Callback',{@analyze_Callback});
 set(handles.reloadConfigButton,'Callback',{@reloadConfig_Callback});
 set(handles.editConfigButton,'Callback',{@editConfig_Callback});
 
@@ -212,7 +212,7 @@ handles = gui_UpdateMode('Analyzing',handles);
 logMessage(handles.jEditbox,'Analyzing Results');
 
 try
-    analyzeResults(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad,handles.Settings.V,handles.Settings.fileName,handles);
+    analyzeResults(fname,handles);
 catch err
      logMessage(handles.jEditbox,err.message,'error');
      
@@ -236,8 +236,23 @@ function editConfig_Callback(hObject,event)
 handles = guidata(gcf);
 edit('config.xml');
 
-%% calibrate  
-function calibrate_Callback(hObject,event)
+%% analyze 
+function analyze_Callback(hObject,event)
 handles = guidata(gcf);
 
-handles = gui_UpdateMode('Calibrating',handles);
+handles = gui_UpdateMode('Analyzing',handles);
+
+[filename, pathname] = uigetfile('*.h5','Load an HDF5 file with RCM data');
+
+if filename ~= 0
+    fname = fullfile(pathname,filename);
+    try
+        analyzeResults(fname,handles);
+    catch err
+         logMessage(handles.jEditbox,err.message,'error');
+     
+         if strcmp(err.identifier,'MATLAB:UndefinedFunction')
+             logMessage(handles.jEditbox,err.getReport(),'error');
+         end
+    end
+end
