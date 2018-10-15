@@ -43,7 +43,8 @@ fclose(out(index));
 
 Detailed Breakdown
 ==========================================================================================
-## Step 1: Calibrate the PNA
+## Step 1: Calibrate the PNA 
+This step either uses the electronic calibration module or a manual calibration step.
 
 ## Step 2: Collect measured S parameters 
 This step uses the PNA-X N5241A to measure the S parameters of the cavity and assumes 2-port measurements are made. The mode stirrer is positioned a
@@ -57,8 +58,8 @@ configuration file saved as attributes.
 
 Nominal values are given as *NumberOfPoints = 32001*, *NumberOfRealizations = 50*, *CavityVolume = 1.92 m^3*, *AntennaElectricalLength = 0.5*.
 
-## Step 3: Compute Tau, the 1/e fold energy decay time 
-This step
+## Step 3: Compute Tau  
+Tau is the 1/e fold energy decay time, this allows us to estimate alpha for the cavity.
 
 ## Step 4: Compute Alpha 
 This step

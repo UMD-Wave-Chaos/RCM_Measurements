@@ -256,3 +256,6 @@ if filename ~= 0
          end
     end
 end
+
+handles = gui_UpdateMode('Idle',handles);
+logMessage(handles.jEditbox,'Ready');
