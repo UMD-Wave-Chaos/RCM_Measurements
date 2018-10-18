@@ -1,6 +1,6 @@
-function [Zhist_RCM,Zbin_RCM, Zphist_RCM,Zpbin_RCM] =  computeRCMDistribution(alpha,nRCM,varargin)
+function [Zhist_RCM,Zbin_RCM, Zphist_RCM,Zpbin_RCM] =  computeRCMDistribution(alpha,nRCM,foldername,varargin)
 
-if (nargin == 3)
+if (nargin == 4)
     useGUI = true;
     handles = varargin{1};
 else
@@ -37,3 +37,88 @@ for i = 1:num_ports^2;
         disp(lstring)
     end
 end
+
+%% plot the results
+
+for i = 1:4
+    Zpmf_RCM(:,i) = Zhist_RCM(:,i)./((Zbin_RCM(2,i)-Zbin_RCM(1,i))*sum(Zhist_RCM(:,i)));% Create a pmf from histogram for measurement of the normalized impedance
+    Zppmf_RCM(:,i) = Zphist_RCM(:,i)./((Zpbin_RCM(2,i)-Zpbin_RCM(1,i))*sum(Zphist_RCM(:,i))); % Create a pmf from histogram for measurement of the normalized impedance
+end
+
+hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Magnitude PMF from RCM');
+subplot(2,2,1)
+plot(Zbin_RCM(:,1),Zpmf_RCM(:,1),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of |Z_{11}|');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+subplot(2,2,2)
+plot(Zbin_RCM(:,2),Zpmf_RCM(:,2),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of |Z_{12}|');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+ subplot(2,2,3)
+plot(Zbin_RCM(:,3),Zpmf_RCM(:,3),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of |Z_{21}|');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+ 
+subplot(2,2,4)
+plot(Zbin_RCM(:,4),Zpmf_RCM(:,4),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of |Z_{22}|');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+%
+hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Phase PMF from RCM');
+subplot(2,2,1)
+plot(Zpbin_RCM(:,1),Zppmf_RCM(:,1),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of \angleZ_{11}');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+subplot(2,2,2)
+plot(Zpbin_RCM(:,2),Zppmf_RCM(:,2),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of \angle Z_{12}');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+subplot(2,2,3)
+plot(Zpbin_RCM(:,3),Zppmf_RCM(:,3),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of \angle Z_{21}');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+ 
+subplot(2,2,4)
+plot(Zpbin_RCM(:,4),Zppmf_RCM(:,4),'*-k','MarkerSize',5);
+ylabel('Probability Density Function');
+title('PDF of \angle Z_{22}');
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+saveas(hh1,fullfile(foldername,'Measured_mag_pdf'),'png');
+saveas(hh2,fullfile(foldername,'Measured_phase_pdf'),'png');

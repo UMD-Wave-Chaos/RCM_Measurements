@@ -45,7 +45,7 @@ for i = 1:4
     Zppmf_EXP(:,i) = Zphist_EXP(:,i)./((Zpbin_EXP(2,i)-Zpbin_EXP(1,i))*sum(Zphist_EXP(:,i))); % Create a pmf from histogram for measurement of the normalized impedance
 end
 
-hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Magnitude PMF');
+hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Magnitude PMF from Measurement');
 subplot(2,2,1)
 plot(Zbin_EXP(:,1),Zpmf_EXP(:,1),'*-k','MarkerSize',5);
 ylabel('Probability Density Function');
@@ -83,7 +83,7 @@ set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
 %
-hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Phase PMF');
+hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Phase PMF from Measurement');
 subplot(2,2,1)
 plot(Zpbin_EXP(:,1),Zppmf_EXP(:,1),'*-k','MarkerSize',5);
 ylabel('Probability Density Function');

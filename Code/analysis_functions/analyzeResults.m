@@ -114,7 +114,7 @@ h5create(analysisFile,'/Analysis/Zpbin_EXP',size(Zpbin_EXP));
 h5write(analysisFile,'/Analysis/Zpbin_EXP',Zpbin_EXP);
 
 %% Step 8: Generate a distribution of Z parameters using random coupling model (RCM) using the loss parameter (alpha) computed in Step 4.
-[Zhist_RCM,Zbin_RCM, Zphist_RCM,Zpbin_RCM] = computeRCMDistribution(alpha,nRCM,handles);
+[Zhist_RCM,Zbin_RCM, Zphist_RCM,Zpbin_RCM] = computeRCMDistribution(alpha,nRCM,foldernamehandles);
 
 h5create(analysisFile,'/Analysis/Zhist_RCM',size(Zhist_RCM));
 h5write(analysisFile,'/Analysis/Zhist_RCM',Zhist_RCM);
