@@ -34,7 +34,7 @@ Tau = 1/(-2*g11.b);                                                         % 1/
         end
         h =  figure; 
         subplot(2,1,1)
-        plot(t(b:f)/1E-6,abs(SC(b:f)),'y'); 
+        plot(t(b:f)/1E-6,abs(SC(b:f)),'g'); 
         hold on; 
         xlabel('Time (\mus)');
         plot(t(b:f)/1E-6,smoothBsf/af,'--r','LineWidth',2);
@@ -53,7 +53,7 @@ Tau = 1/(-2*g11.b);                                                         % 1/
             },'FontSize',12,'FontWeight','bold');
         
         subplot(2,1,2)
-        plot(t(b:f)/1E-6,20*log10(abs(SC(b:f))),'y'); 
+        plot(t(b:f)/1E-6,20*log10(abs(SC(b:f))),'g'); 
         hold on;
         plot(t(b:f)/1E-6, 20*log10(smoothBsf/af),'--r','LineWidth',2);
         plot(t(b:f)/1E-6,20*log10(g11(t(b:f))/af), 'k','LineWidth',2);

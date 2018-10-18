@@ -227,6 +227,8 @@ guidata(gcf,handles);
 function editConfig_Callback(hObject,event)
 handles = guidata(gcf);
 edit('config.xml');
+handles = gui_UpdateMode('Idle',handles);
+logMessage(handles.jEditbox,'Make sure to reload the config file','warn');
 
 %% analyze 
 function analyze_Callback(hObject,event)
