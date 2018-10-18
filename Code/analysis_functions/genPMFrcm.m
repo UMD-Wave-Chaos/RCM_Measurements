@@ -1,4 +1,4 @@
-function [Znorm] = genPMFrcm(alpha, num_ports, dataN)
+function [Znorm] = genPMFrcm(alpha, num_ports, dataN,varargin)
 %%%%%%%%%%%%%%%%%%% Input parameters %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Here input the number of data:
 % dataN ---- is the total number of samples is in the order of this value
@@ -8,6 +8,13 @@ function [Znorm] = genPMFrcm(alpha, num_ports, dataN)
 % accurate and also takes longer time. However, this is necessary for higher
 % loss cases.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+if (nargin == 4)
+    useGUI = true;
+    handles = varargin{1};
+else
+    useGUI = false;
+end
 
 % Here input the loss parameter:
 LossP=alpha;

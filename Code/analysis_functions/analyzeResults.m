@@ -36,9 +36,7 @@ for i = 1:(num_ports^2)
     plot(t/1E-6,20*log10(abs(SCt(:,i,end)))); axis tight
     xlabel('Time(\mus)'); ylabel('Log Mag (dB)'); title(['Scav',fliplr(num2str(str2double(dec2bin(i-1))+11))]); % label the plot
 end
-%%  Save the workspace in .mat variable format for 2 ports
-%mkdir(['../GatingData/',datname])
-%save(['../GatingData/',datname,'/',date,'_',datname,'.mat'])
+
 %% Create the ensemble S11 vector and plot
 par = 2;
 a = SCt(:,par,1);
@@ -67,7 +65,7 @@ else
     disp(lstring)
 end
 for param=1:4
-    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
 end
 %% Step 4: Compute the loss parameter (alpha)
 for param=1:4
@@ -152,8 +150,8 @@ tic; for incr = 1:N
     for j = 1:length(Freq); Znormf(:,:,j,incr) = ((real(Zradf(:,:,j)))^-0.5)*(Zcf(:,:,j,incr)-1j*imag(Zradf(:,:,j)))*((real(Zradf(:,:,j)))^-0.5); end 
     time = toc; 
 	
-	averagetime = time/i;
-	predictedTime = time + averagetime*(N-i);
+	averagetime = time/incr;
+	predictedTime = time + averagetime*(N-incr);
     lstring = sprintf('Normalizing realization %d of %d, time = %s s, predicted end time = %s s',incr,N,num2str(time), num2str(predictedTime));
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
@@ -174,7 +172,13 @@ tic;
 EZnormf = Znormf(:,:,1);
 for i = 2:N
     EZnormf = cat(1,EZnormf,Znormf(:,:,i));
-    time = toc; display(['Time =',num2str(time),'seconds. i =', num2str(i)]);
+    time = toc; 
+        lstring = sprintf('Generating Measured Distribution %d of %d, time = %s s',i,N,num2str(time));
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 end
 for i = 1:num_ports^2; [Zhist_EXP(:,i), Zbin_EXP(:,i)] = hist(abs(EZnormf(:,i)), 0.1*BINS); end                         % input paramters: the data (normalized impedance), and the number of bins
 for i = 1:num_ports^2; [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,i)), 0.1*BINS); end
@@ -188,7 +192,11 @@ for i = 1:num_ports^2; [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,
 clear Znorm_RCM;
 tic;
 for i = 1:num_ports^2;
-    [Znorm_RCM] =  genPMFrcm(alpha(i),num_ports, nRCM);           % input parameters: loss parameter, number of bins, number of ports, number of samples
+    if (useGUI == true)
+        [Znorm_RCM] =  genPMFrcm(alpha(i),num_ports, nRCM,handles);           % input parameters: loss parameter, number of bins, number of ports, number of samples
+    else
+        [Znorm_RCM] =  genPMFrcm(alpha(i),num_ports, nRCM);  
+    end
     [Zhist_RCM(:,i), Zbin_RCM(:,i)] = hist(abs(Znorm_RCM(:,i)), 0.1*BINS);
     [Zphist_RCM(:,i), Zpbin_RCM(:,i)] = hist(angle(Znorm_RCM(:,i)), 0.1*BINS);
 	time = toc; 

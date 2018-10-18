@@ -1,16 +1,31 @@
 <configuration>
-    <NumberOfPoints> 32001 </NumberOfPoints>
-    <COMport> COM5 </COMport>
-	<NumberOfRealizations> 50 </NumberOfRealizations>
-	<ElectronicCalibration> No </ElectronicCalibration>
-	<CavityVolume> 1.92 </CavityVolume>
-	<AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-    <FileNamePrefix> TestRun </FileNamePrefix>
-    <TimeDateStamp> Yes </TimeDateStamp>
-	<NumberOfRCMRealizations> 10000 </NumberOfRCMRealizations>
-	<FrequencySweepStart> 8E9 </FrequencySweepStart>
-	<FrequencySweepStop> 12E9 </FrequencySweepStop>
-	<TimeTransformStartTime> -0.5E6 </TimeTransformStartTime>
-	<TimeTransformStopTime> 10E6 </TimeTransformStopTime>
-	<Comments> This is a test run </Comments>
-</configuration>  
+    
+    <!-- Comments to be captured in the output log file -->
+    <Comments> This is a test run </Comments>
+    
+    <!--   Analysis Settings           -->
+    <Analysis_Settings>
+        <NumberOfRCMRealizations> 10000 </NumberOfRCMRealizations>
+        <FileNamePrefix> TestRun </FileNamePrefix>
+        <TimeDateStamp> Yes </TimeDateStamp>
+    </Analysis_Settings>
+    
+    <!--   PNA Settings           -->
+    <PNA_Settings>
+        <NumberOfPoints> 32001 </NumberOfPoints>
+        <FrequencySweepStart> 8E9 </FrequencySweepStart>
+        <FrequencySweepStop> 12E9 </FrequencySweepStop>
+        <TimeTransformStartTime> -0.5E6 </TimeTransformStartTime>
+        <TimeTransformStopTime> 10E6 </TimeTransformStopTime>
+        <ElectronicCalibration> No </ElectronicCalibration>
+    </PNA_Settings>
+    
+    <!--    Experiment Settings                -->
+    <Experiment_Settings>
+        <NumberOfRealizations> 50 </NumberOfRealizations>
+        <COMport> COM5 </COMport>
+        <CavityVolume> 1.92 </CavityVolume>
+        <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
+    </Experiment_Settings>
+    
+</configuration> 
