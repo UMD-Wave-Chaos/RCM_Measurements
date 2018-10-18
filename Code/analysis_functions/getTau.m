@@ -1,4 +1,4 @@
-function[Tau] = getTau(t,SC,l,index)
+function[Tau] = getTau(t,SC,l,index,foldername)
 % Input: SC = the complex inverse tranformed a S parameter vector (time domain)
 %         t = time domain vector corresponding to SC
 %         l = approximate elctrical length of antenna (meters)       
@@ -32,7 +32,7 @@ Tau = 1/(-2*g11.b);                                                         % 1/
         elseif (index == 4)
             indstring = '22';
         end
-        figure; 
+        h =  figure; 
         subplot(2,1,1)
         plot(t(b:f)/1E-6,abs(SC(b:f)),'y'); 
         hold on; 
@@ -51,8 +51,7 @@ Tau = 1/(-2*g11.b);                                                         % 1/
             [' a = ',num2str(g11.a/af)]; ...
             [' b = ',num2str(g11.b)]; ...
             },'FontSize',12,'FontWeight','bold');
-        plot(t(b:f)/1E-6,(g11(t(b:f))/af), 'k');
-%         
+        
         subplot(2,1,2)
         plot(t(b:f)/1E-6,20*log10(abs(SC(b:f))),'y'); 
         hold on;
@@ -68,6 +67,9 @@ Tau = 1/(-2*g11.b);                                                         % 1/
         set(gca,'FontWeight','bold');
         
         text(t(m)*1e6, 20*log10(smoothBsf(m-b)/af)+10,['\tau = ' num2str(Tau*1e6) '\mus'],'FontSize',12,'FontWeight','bold' );
+        
+        fname = sprintf('SCav%s_tau_estimate',indstring);
+        saveas(h,fullfile(foldername,fname),'png')
 
     end
 end

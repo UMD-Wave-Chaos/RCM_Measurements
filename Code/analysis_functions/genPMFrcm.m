@@ -82,7 +82,7 @@ while(count<=dataN)
         count=count+1;
        
     if( mod(double(count), 100) == 0) 
-    toc; 
+    time=toc; 
     end         
     end
 end
