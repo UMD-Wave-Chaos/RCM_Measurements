@@ -12,3 +12,16 @@ NOP = h5readatt(filename,'/','Npoints');
 V = h5readatt(filename,'/','V');
 l = h5readatt(filename,'/','l');
 nRCM = h5readatt(filename,'/','nRCM');
+
+
+% Srad_r = h5read(filename,'/Measurements/Srad_real');
+% SCf_r = h5read(filename,'/Measurements/SCf_real');
+% SCt_r = h5read(filename,'/Measurements/SCt_real');
+% 
+% Srad_i = h5read(filename,'/Measurements/Srad_imag');
+% SCf_i = h5read(filename,'/Measurements/SCf_imag');
+% SCt_i = h5read(filename,'/Measurements/SCt_imag');
+% 
+% Srad = Srad_r + 1j*Srad_i;
+% SCf = SCf_r + 1j*SCf_i;
+% SCt = SCt_r + 1j*SCt_i;
