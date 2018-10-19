@@ -70,6 +70,7 @@ Tau = 1/(-2*g11.b);                                                         % 1/
         
         fname = sprintf('SCav%s_tau_estimate',indstring);
         saveas(h,fullfile(foldername,fname),'png')
+        close(h)
 
     end
 end

@@ -128,3 +128,6 @@ legend('Single Realization', 'Mag. of Ensemble Avg','Ensemble Avg of Mag');
 
 saveas(hh1,fullfile(foldername,'Scav_time_ensembles'),'png');
 saveas(hh2,fullfile(foldername,'Scav_freq_ensembles'),'png');
+
+close(hh1)
+close(hh2)

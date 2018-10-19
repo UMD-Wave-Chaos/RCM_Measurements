@@ -139,3 +139,7 @@ set(gca,'FontWeight','bold');
 saveas(hh1,fullfile(foldername,'Scav_freq_parameters'),'png');
 saveas(hh2,fullfile(foldername,'Scav_time_parameters'),'png');
 saveas(hh3,fullfile(foldername,'Srad_freq_parameters'),'png');
+
+close (hh1)
+close(hh2)
+close (hh3)

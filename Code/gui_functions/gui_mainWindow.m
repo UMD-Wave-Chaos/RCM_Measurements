@@ -104,6 +104,7 @@ set(handles.measureButton,'Callback',{@measure_Callback});
 set(handles.analyzeButton,'Callback',{@analyze_Callback});
 set(handles.reloadConfigButton,'Callback',{@reloadConfig_Callback});
 set(handles.editConfigButton,'Callback',{@editConfig_Callback});
+set(handles.measAnalyzeConfigButton,'Callback',{@measureAnalyze_Callback});
 
 %create the main gui timer
 %gui_updateStatusMessage(handles,'Gui Timer ...');
@@ -183,6 +184,42 @@ end
 delete(handles.hfig);
 
 %% measure
+function measureAnalyze_Callback(hObject,event)
+handles = guidata(gcf);
+
+handles = gui_UpdateMode('Measuring',handles);
+
+try
+    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = measureData(handles.pnaObj,...
+                                                                                    handles.sObj,...
+                                                                                    handles.Settings.NOP, ...
+                                                                                    handles.Settings.N,...
+                                                                                    handles.Settings.electronicCalibration, ...
+                                                                                    handles.Settings.l, ...
+                                                                                    2, ...
+                                                                                    handles.meas_name, ...
+                                                                                    handles);
+catch err
+     logError(handles.jEditbox,err);
+end
+
+saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
+
+clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);
+
+handles = gui_UpdateMode('Analyzing',handles);
+logMessage(handles.jEditbox,'Analyzing Results');
+
+try
+    analyzeResults(handles.Settings.fileName,handles);
+catch err
+     logError(handles.jEditbox,err);
+end
+
+handles = gui_UpdateMode('Idle',handles);
+logMessage(handles.jEditbox,'Ready');
+
+%% measure
 function measure_Callback(hObject,event)
 handles = guidata(gcf);
 
@@ -204,14 +241,7 @@ end
 
 saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
 
-handles = gui_UpdateMode('Analyzing',handles);
-logMessage(handles.jEditbox,'Analyzing Results');
-
-try
-    analyzeResults(handles.Settings.fileName,handles);
-catch err
-     logError(handles.jEditbox,err);
-end
+clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);
 
 handles = gui_UpdateMode('Idle',handles);
 logMessage(handles.jEditbox,'Ready');

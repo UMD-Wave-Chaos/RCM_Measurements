@@ -24,7 +24,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <COMport> COM5 </COMport>
-        <CavityVolume> 1.92 </CavityVolume>
+        <CavityVolume> 3.02 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
     </Experiment_Settings>
     
