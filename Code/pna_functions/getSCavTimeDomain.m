@@ -1,8 +1,8 @@
-function [t,SCt11, SCt12, SCt21, SCt22] = getSCavTimeDomain(obj1,NOP,handles)
+function [t,SCt11, SCt12, SCt21, SCt22] = getSCavTimeDomain(obj1,NOP,start_time,stop_time,handles)
 
 fprintf(obj1, 'CALC:TRAN:TIME:STATE ON'); % ensure tranform is on
 fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % ensure gating is off
-start_time = -0.5E-6; stop_time = 10E-6; %set the start and stop time for transforming to time domain
+%start_time = -0.5E-6; stop_time = 10E-6; %set the start and stop time for transforming to time domain
 fprintf(obj1, ['CALC:TRAN:TIME:START ', num2str(start_time)]);
 fprintf(obj1, ['CALC:TRAN:TIME:STOP ', num2str(stop_time)]);
 

@@ -18,12 +18,12 @@ function Settings = gui_loadConfig()
  fstopElement = fstopRoot.item(0);
  Settings.fStop =  str2num(fstopElement.getFirstChild.getData);
  
- xformstartRoot = pnaRoot.item(0).getElementsByTagName('FrequencySweepStart');
+ xformstartRoot = pnaRoot.item(0).getElementsByTagName('TimeTransformStartTime');
  xformstartElement = xformstartRoot.item(0);
  Settings.transformStart =  str2num(xformstartElement.getFirstChild.getData);
  
- xformstopRoot = pnaRoot.item(0).getElementsByTagName('FrequencySweepStop');
- xformstopElement = fstopRoot.item(0);
+ xformstopRoot = pnaRoot.item(0).getElementsByTagName('TimeTransformStopTime');
+ xformstopElement = xformstopRoot.item(0);
  Settings.transformStop =  str2num(xformstopElement.getFirstChild.getData);
  
   %get the boolean for manual/electronic calibration
