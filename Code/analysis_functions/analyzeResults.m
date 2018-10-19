@@ -126,7 +126,8 @@ h5create(analysisFile,'/Analysis/Zpbin_RCM',size(Zpbin_RCM));
 h5write(analysisFile,'/Analysis/Zpbin_RCM',Zpbin_RCM);
 
 %% Step 9: Plot the pmf
-figure; hold off; clear Zpmf_RCM; clear Zpmf_EXP;
+hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'RCM Magnitude Comparison'); 
+hold off; clear Zpmf_RCM; clear Zpmf_EXP;
 paramlables = cellstr(['11';'12';'21';'22']);
 for i = 1:num_ports^2
     p= 10;         
@@ -141,7 +142,8 @@ for i = 1:num_ports^2
         num2str(round(Qcomp(i))),', \alpha = ',num2str(round(alpha(i))),', GT=',num2str(floor(p*(5/3))+0.01*round(mod(p*100*(5/3),100))),'ns']);
     axis tight
 end
-figure; hold off; clear Zppmf_RCM; clear Zppmf_EXP;
+hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'RCM Phase Comparison'); 
+hold off; clear Zppmf_RCM; clear Zppmf_EXP;
 for i = 1:num_ports^2; 
     p= 10;         
     subplot(num_ports,num_ports,i);
@@ -155,4 +157,10 @@ for i = 1:num_ports^2;
         num2str(round(Qcomp(i))),', \alpha = ',num2str(round(alpha(i))),', GT=',num2str(floor(p*(5/3))+0.01*round(mod(p*100*(5/3),100))),'ns']);
     axis tight
 end
+
+
+saveas(hh1,fullfile(foldername,'RCM_mag_comparisons'),'png');
+saveas(hh2,fullfile(foldername,'RCM_phase_comparisons'),'png');
+close(hh1)
+close(hh2)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
