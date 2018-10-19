@@ -209,6 +209,9 @@ catch err
      logError(handles.jEditbox,err);
 end
 
+lstring = sprintf('Saving data to %s',handles.Settings.fileName);
+logMessage(handles.jEditbox,lstring);
+
 saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
 
 clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);
@@ -249,6 +252,8 @@ catch err
      logError(handles.jEditbox,err);
 end
 
+lstring = sprintf('Saving data to %s',handles.Settings.fileName);
+logMessage(handles.jEditbox,lstring);
 saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
 
 clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);

@@ -13,8 +13,8 @@
     <!--   PNA Settings           -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
-        <FrequencySweepStop> 11E9 </FrequencySweepStop>
+        <FrequencySweepStart> 8E9 </FrequencySweepStart>
+        <FrequencySweepStop> 13.5E9 </FrequencySweepStop>
         <TimeTransformStartTime> -0.5E-6 </TimeTransformStartTime>
         <TimeTransformStopTime> 10E-6 </TimeTransformStopTime>
         <ElectronicCalibration> No </ElectronicCalibration>

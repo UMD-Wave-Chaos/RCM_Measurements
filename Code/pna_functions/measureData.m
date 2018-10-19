@@ -50,6 +50,7 @@ fprintf(obj1, ['SENS:FREQ:STOP ' num2str(fStop)]); %set the stop frequency
 for iter = 1:N
     %% Record one sweep
     %% S cav - Frequency Domain
+    Time1 = toc;
 	    lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps and pausing %0.3f seconds',iter, N,DIRECTION*64*12000/N,1+1/1700*60*(12000/N));
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
@@ -60,27 +61,12 @@ for iter = 1:N
     
     [Freq, SCf11, SCf12, SCf21, SCf22] = getSCavFrequencyDomain(obj1,NOP);
     
-    %fprintf(obj1, 'CALC:TRAN:TIME:STATE OFF'); % turn off transfrom (to time domain)
-    %fprintf(obj1, 'INIT:IMM'); % send trigger to initiate one sweep
-    %fprintf(obj1, '*WAI'); % wait until sweep is complete
-    % Request frequency domain S paramter measurement in real and imaginary
-    %fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-    %fprintf(obj1, ['CALC:DATA:SNP? ',num2str(num_ports)]); % Ask for S parameter data
-    %X = binblockread(obj1, 'float64');
-    %fprintf(obj1, '*WAI'); % wait until data tranfer is complete
-    %Freq = X(1:(NOP));
-    %Importing the two port data
-    %S11R = X(NOP+1:NOP+(NOP));
-    %S11I = X(2*NOP+1:2*NOP+(NOP));
-    %S21R = X(3*NOP+1:3*NOP+(NOP));     S21I = X(4*NOP+1:4*NOP+(NOP));
-    %S12R = X(5*NOP+1:5*NOP+(NOP));     S12I = X(6*NOP+1:6*NOP+(NOP));
-    %S22R = X(7*NOP+1:7*NOP+(NOP));     S22I = X(8*NOP+1:8*NOP+(NOP));
     SCf(:,1,iter) = SCf11; %One port line
     SCf(:,2,iter) = SCf12;
     SCf(:,3,iter) = SCf21;
     SCf(:,4,iter) = SCf22;
     Time = toc;
-	
+    
 	lstring = sprintf('Measuring Scav in frequency domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
@@ -117,32 +103,21 @@ for iter = 1:N
     SCt(:,4,iter) = SCt22;
     
     %% S cav - time domain
-   % for port=1:4
-    %    fprintf(obj1,['CALC:PAR:SEL ', meas_name(port,:)]); %(Select the  measurement trace.
-     %   fprintf(obj1, 'CALC:TRAN:TIME:STATE ON'); % ensure tranform is on
-      %  fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % ensure gating is off
-       % start_time = -0.5E-6; stop_time = 10E-6; %set the start and stop time for transforming to time domain
-        %fprintf(obj1, ['CALC:TRAN:TIME:START ', num2str(start_time)]);
-        %fprintf(obj1, ['CALC:TRAN:TIME:STOP ', num2str(stop_time)]);
-        %fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-        %fprintf(obj1, 'CALC:FORM REAL'); % Set format to get REAL data
-        %fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-        %fprintf(obj1, 'CALC:DATA? FDATA'); % Request data
-        %SR = binblockread(obj1, 'float64'); % Read data
-        %fprintf(obj1, 'CALC:FORM IMAG'); % Set format to get IMAGINARY data
-        %fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-        %fprintf(obj1, 'CALC:DATA? FDATA'); % Request data
-        %SI = binblockread(obj1, 'float64'); % Read data
-        %SCt(:,port,iter) = SR + 1i*SI; % Combine the real and imaginary parts of time domain
-        %t = linspace(start_time,stop_time,length(SCt))';
-    %end
     Time = toc;
-	
 	lstring = sprintf('Measuring Scav in time domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
     else
         disp(lstring)
     end
-	
+    
+    averagetime = (Time - Time1)/iter;
+	predictedTime = averagetime*(N-iter);
+    lstring = sprintf('Predicted remaining time = %s s',num2str(predictedTime));
+    
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 end
