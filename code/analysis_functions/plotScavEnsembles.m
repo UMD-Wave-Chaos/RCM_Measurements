@@ -1,4 +1,9 @@
-function plotScavEnsembles(t,Freq,SCt,SCf,foldername)
+function plotScavEnsembles(t,Freq,SCt,SCf,foldername,varargin)
+
+savePlots = 1;
+if nargin == 6
+    savePlots = varargin{1};
+end
 
 N = size(SCf,2);
 NOP = size(SCf,1);
@@ -99,7 +104,7 @@ set(gca,'FontWeight','bold');
 legend('Single Realization', 'Mag. of Ensemble Avg','Ensemble Avg of Mag');
 
 subplot(2,2,3)
-plot(Freq/1E9,20*log10(abs(SCf(:,2,3))),'.g', 'MarkerSize', 12)
+plot(Freq/1E9,20*log10(abs(SCf(:,3,1))),'.g', 'MarkerSize', 12)
 hold on;
 plot(Freq/1E9,20*log10(abs(mean(SCf(:,3,:),3))),'r')
 plot(Freq/1E9,20*log10(meanSCf(:,3)),'k','LineWidth',2);
@@ -113,7 +118,7 @@ set(gca,'FontWeight','bold');
 legend('Single Realization', 'Mag. of Ensemble Avg','Ensemble Avg of Mag');
 
 subplot(2,2,4)
-plot(Freq/1E9,20*log10(abs(SCf(:,2,4))),'.g', 'MarkerSize', 12)
+plot(Freq/1E9,20*log10(abs(SCf(:,4,1))),'.g', 'MarkerSize', 12)
 hold on;
 plot(Freq/1E9,20*log10(abs(mean(SCf(:,4,:),3))),'r')
 plot(Freq/1E9,20*log10(meanSCf(:,4)),'k','LineWidth',2);
@@ -126,8 +131,10 @@ set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 legend('Single Realization', 'Mag. of Ensemble Avg','Ensemble Avg of Mag');
 
-saveas(hh1,fullfile(foldername,'Scav_time_ensembles'),'png');
-saveas(hh2,fullfile(foldername,'Scav_freq_ensembles'),'png');
+if savePlots
+    saveas(hh1,fullfile(foldername,'Scav_time_ensembles'),'png');
+    saveas(hh2,fullfile(foldername,'Scav_freq_ensembles'),'png');
 
-close(hh1)
-close(hh2)
+    close(hh1)
+    close(hh2)
+end

@@ -1,5 +1,9 @@
-function plotSParameters(t,Freq,SCf,SCt,Srad,foldername)
+function plotSParameters(t,Freq,SCf,SCt,Srad,foldername,varargin)
 
+savePlots = 1;
+if nargin == 7
+    savePlots = varargin{1};
+end
 N = size(SCf,2);
 NOP = size(SCf,1);
 meanSCt = zeros(NOP,N);
@@ -136,10 +140,13 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
-saveas(hh1,fullfile(foldername,'Scav_freq_parameters'),'png');
-saveas(hh2,fullfile(foldername,'Scav_time_parameters'),'png');
-saveas(hh3,fullfile(foldername,'Srad_freq_parameters'),'png');
+if (savePlots)
 
-close (hh1)
-close(hh2)
-close (hh3)
+    saveas(hh1,fullfile(foldername,'Scav_freq_parameters'),'png');
+    saveas(hh2,fullfile(foldername,'Scav_time_parameters'),'png');
+    saveas(hh3,fullfile(foldername,'Srad_freq_parameters'),'png');
+
+    close (hh1)
+    close(hh2)
+    close (hh3)
+end
