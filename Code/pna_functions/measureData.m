@@ -120,10 +120,10 @@ for iter = 1:N
     
     averagetime = Time/iter;
 	predictedTime = averagetime*(N-iter);
-    lstring = sprintf('Predicted remaining time = %s s',num2str(predictedTime));
+    lstring = sprintf('Measurement Step %d of %d Completed, Predicted remaining time = %s s',iter,N,num2str(predictedTime));
     
     if (useGUI == true)
-        logMessage(handles.jEditbox,lstring);
+        logMessage(handles.jEditbox,lstring,'info');
     else
         disp(lstring)
     end
