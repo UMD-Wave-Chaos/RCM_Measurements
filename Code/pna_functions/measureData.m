@@ -20,32 +20,33 @@ end
 %% Compute and Capture S parameter Measurements
 %fprintf(obj1, 'SYSTem:PRESet'); % preset to factory defined default settings
 %ready = query(obj1, '*OPC?'); % Check if preset is complete
-fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
-
-fprintf(obj1, 'OUTP ON'); % turn RF power on
-fprintf(obj1, 'SENS1:AVER OFF'); % turn averaging off
-fprintf(obj1, 'SENS:SWE:MODE HOLD'); % set sweep mode to hold
-fprintf(obj1, 'TRIG:SOUR MAN'); % set triggering to manual
-DIRECTION = 1; % "Direction" is -1 for clockwise and 1 for counterclockwise for stepper motor rotation
-meas_name(1,:) = 'CH1_S11';
-meas_name(2,:) = 'CH1_S12';
-meas_name(3,:) = 'CH1_S21';
-meas_name(4,:) = 'CH1_S22';
-fprintf(obj1,['CALC:PAR:DEF ', meas_name(1,:),',S11']); %(S11) Define the measurement trace. 
-fprintf(obj1,['CALC:PAR:DEF ', meas_name(2,:),',S12']); %(S12) Define the measurement trace.
-fprintf(obj1,['CALC:PAR:DEF ', meas_name(3,:),',S21']); %(S21) Define the measurement trace.
-fprintf(obj1,['CALC:PAR:DEF ', meas_name(4,:),',S22']); %(S22) Define the measurement trace.
-fprintf(obj1,['CALC:PAR:SEL ', meas_name(1,:);]) %(S11) Select the  measurement trace.
-fprintf(obj1, 'CALC:TRAN:TIME:STATE OFF'); % turn off transfrom (to time domain)
-fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % turn off time gating
-fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-fprintf(obj1, 'FORM:BORD SWAP');
-fprintf(obj1, 'FORM REAL,64');
-fprintf(obj1, 'MMEM:STOR:TRAC:FORM:SNP RI');
-fprintf(obj1, 'INIT:IMM'); % send trigger to initiate one sweep
-fprintf(obj1, '*WAI'); % wait until sweep is complete
-fprintf(obj1, ['SENS:FREQ:STAR ' num2str(fStart)] ); %set the start frequency
-fprintf(obj1, ['SENS:FREQ:STOP ' num2str(fStop)]); %set the stop frequency
+initializePNA(NOP,fStart,fStop);
+% fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
+% 
+% fprintf(obj1, 'OUTP ON'); % turn RF power on
+% fprintf(obj1, 'SENS1:AVER OFF'); % turn averaging off
+% fprintf(obj1, 'SENS:SWE:MODE HOLD'); % set sweep mode to hold
+% fprintf(obj1, 'TRIG:SOUR MAN'); % set triggering to manual
+% DIRECTION = 1; % "Direction" is -1 for clockwise and 1 for counterclockwise for stepper motor rotation
+% meas_name(1,:) = 'CH1_S11';
+% meas_name(2,:) = 'CH1_S12';
+% meas_name(3,:) = 'CH1_S21';
+% meas_name(4,:) = 'CH1_S22';
+% fprintf(obj1,['CALC:PAR:DEF ', meas_name(1,:),',S11']); %(S11) Define the measurement trace. 
+% fprintf(obj1,['CALC:PAR:DEF ', meas_name(2,:),',S12']); %(S12) Define the measurement trace.
+% fprintf(obj1,['CALC:PAR:DEF ', meas_name(3,:),',S21']); %(S21) Define the measurement trace.
+% fprintf(obj1,['CALC:PAR:DEF ', meas_name(4,:),',S22']); %(S22) Define the measurement trace.
+% fprintf(obj1,['CALC:PAR:SEL ', meas_name(1,:);]) %(S11) Select the  measurement trace.
+% fprintf(obj1, 'CALC:TRAN:TIME:STATE OFF'); % turn off transfrom (to time domain)
+% fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % turn off time gating
+% fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
+% fprintf(obj1, 'FORM:BORD SWAP');
+% fprintf(obj1, 'FORM REAL,64');
+% fprintf(obj1, 'MMEM:STOR:TRAC:FORM:SNP RI');
+% fprintf(obj1, 'INIT:IMM'); % send trigger to initiate one sweep
+% fprintf(obj1, '*WAI'); % wait until sweep is complete
+% fprintf(obj1, ['SENS:FREQ:STAR ' num2str(fStart)] ); %set the start frequency
+% fprintf(obj1, ['SENS:FREQ:STOP ' num2str(fStop)]); %set the stop frequency
 
 for iter = 1:N
     %% Record one sweep
@@ -59,7 +60,7 @@ for iter = 1:N
     end
     fprintf(s1,['I',num2str(DIRECTION*64*12000/N),',1700,0,0,5000,5000,1000,0,1000,1000,50,64']); pause(1+1/1700*60*(12000/N)); % move the steppermotor counterclockwise by 1.8 degrees (1.8*4 was replaced by 360/N to make the code adjust ensemble as the user sets it.
     
-    [Freq, SCf11, SCf12, SCf21, SCf22] = getSCavFrequencyDomain(obj1,NOP);
+    [Freq, SCf11, SCf12, SCf21, SCf22] = getUngatedSParametersFrequencyDomain(obj1,NOP);
     
     SCf(:,1,iter) = SCf11; %One port line
     SCf(:,2,iter) = SCf12;
@@ -82,7 +83,7 @@ for iter = 1:N
     else
         disp(lstring)
     end
-        [Freq, Srad11, Srad12, Srad21, Srad22] = getSRadFrequencyDomain(obj1,l,i,NOP);
+        [Freq, Srad11, Srad12, Srad21, Srad22] = getGatedSParametersFrequencyDomain(obj1,l*i,NOP); 
         Srad(:,1,iter,i) = Srad11;
         Srad(:,2,iter,i) = Srad12;
         Srad(:,3,iter,i) = Srad21;
@@ -96,7 +97,7 @@ for iter = 1:N
         disp(lstring)
     end
     
-    [t,SCt11, SCt12, SCt21, SCt22] = getSCavTimeDomain(obj1,NOP,transformStart,transformStop,handles); 
+    [t,SCt11, SCt12, SCt21, SCt22] = getSParametersTimeDomain(obj1,NOP,transformStart,transformStop); 
     SCt(:,1,iter) = SCt11;
     SCt(:,2,iter) = SCt12;
     SCt(:,3,iter) = SCt21;

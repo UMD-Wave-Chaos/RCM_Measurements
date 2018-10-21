@@ -1,4 +1,4 @@
-function [t,SCt11, SCt12, SCt21, SCt22] = getSParametersTimeDomain(obj1,NOP,start_time,stop_time,handles)
+function [t,SCt11, SCt12, SCt21, SCt22] = getSParametersTimeDomain(obj1,NOP,start_time,stop_time)
 
 fprintf(obj1, 'CALC:TRAN:TIME:STATE ON'); % ensure tranform is on
 fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % ensure gating is off
@@ -11,13 +11,13 @@ tstop = query(obj1, 'CALC:TRAN:TIME:STOP?');
 
 if (start_time < str2num(tstart))
     wstring = sprintf ('Requested start time %f is less than min PNA start time %s, setting to min PNA start time',start_time, tstart);
-    logMessage(handles.jEditbox,wstring,'warn');
+    warning(wstring);
     fprintf(obj1, 'CALC:TRAN:TIME:START MIN');
 end
 
 if (stop_time > str2num(tstop))
     wstring = sprintf ('Requested stop time %f is greater than max PNA stop time %s, setting to max PNA stop time',stop_time, tstop);
-    logMessage(handles.jEditbox,wstring,'warn');
+    warning(wstring);
     fprintf(obj1, 'CALC:TRAN:TIME:STOP MAX');
 end
 
