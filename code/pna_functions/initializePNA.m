@@ -1,4 +1,4 @@
-function initializePNA(NOP,fStart,fStop)
+function initializePNA(obj1,NOP,fStart,fStop)
 
 fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
 

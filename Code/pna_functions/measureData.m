@@ -20,7 +20,7 @@ end
 %% Compute and Capture S parameter Measurements
 %fprintf(obj1, 'SYSTem:PRESet'); % preset to factory defined default settings
 %ready = query(obj1, '*OPC?'); % Check if preset is complete
-initializePNA(NOP,fStart,fStop);
+initializePNA(obj1,NOP,fStart,fStop);
 % fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
 % 
 % fprintf(obj1, 'OUTP ON'); % turn RF power on
@@ -51,17 +51,21 @@ initializePNA(NOP,fStart,fStop);
 for iter = 1:N
     %% Record one sweep
     %% S cav - Frequency Domain
-    Time1 = toc;
-	    lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps and pausing %0.3f seconds',iter, N,DIRECTION*64*12000/N,1+1/1700*60*(12000/N));
-    if (useGUI == true)
-        logMessage(handles.jEditbox,lstring);
-    else
-        disp(lstring)
-    end
-    fprintf(s1,['I',num2str(DIRECTION*64*12000/N),',1700,0,0,5000,5000,1000,0,1000,1000,50,64']); pause(1+1/1700*60*(12000/N)); % move the steppermotor counterclockwise by 1.8 degrees (1.8*4 was replaced by 360/N to make the code adjust ensemble as the user sets it.
+    %aerotech SM50 motor with Haydon PCM 4826 drive
+    %200 full steps at 1.8 degress per step
+    %drive can handle 1/64 steps --> 12800 steps per revolution
+    stepDistance = DIRECTION*12800/N;
+    waitTime = 10;
+	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps and pausing %0.3f seconds',iter, N,stepDistance,waitTime);
+    logMessage(handles.jEditbox,lstring);
+
+    %command parameters for I (index) are:
+    %distance, run speed, start speed, end speed, accel rate, decel rate,
+    %run current, hold current, accel current, delay, step mode
+    fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); pause(waitTime);
+    %fprintf(s1,['I',num2str(DIRECTION*64*12000/N),',1700,0,0,5000,5000,1000,0,1000,1000,50,64']); pause(1+1/1700*60*(12000/N)); % move the steppermotor counterclockwise by 1.8 degrees (1.8*4 was replaced by 360/N to make the code adjust ensemble as the user sets it.
     
     [Freq, SCf11, SCf12, SCf21, SCf22] = getUngatedSParametersFrequencyDomain(obj1,NOP);
-    
     SCf(:,1,iter) = SCf11; %One port line
     SCf(:,2,iter) = SCf12;
     SCf(:,3,iter) = SCf21;
@@ -112,7 +116,7 @@ for iter = 1:N
         disp(lstring)
     end
     
-    averagetime = (Time - Time1)/iter;
+    averagetime = Time/iter;
 	predictedTime = averagetime*(N-iter);
     lstring = sprintf('Predicted remaining time = %s s',num2str(predictedTime));
     
