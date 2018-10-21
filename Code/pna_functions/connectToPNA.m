@@ -1,4 +1,4 @@
-function [pnaObj,pnaConnection,pnaConnectionType,meas_name] = connectToPNA()
+function [pnaObj,pnaConnection,pnaConnectionType] = connectToPNA()
 
 pnaConnection = false;
 
