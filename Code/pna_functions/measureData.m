@@ -50,6 +50,8 @@ fprintf(obj1,['CALC:PAR:SEL ', meas_name(1,:)]); %(S11) Select the  measurement 
 % fprintf(obj1, ['SENS:FREQ:STAR ' num2str(fStart)] ); %set the start frequency
 % fprintf(obj1, ['SENS:FREQ:STOP ' num2str(fStop)]); %set the stop frequency
 
+startPos = getStepperMotorPosition(s1);
+
 for iter = 1:N
     %% Record one sweep
     %% S cav - Frequency Domain
@@ -65,6 +67,12 @@ for iter = 1:N
     %distance, run speed, start speed, end speed, accel rate, decel rate,
     %run current, hold current, accel current, delay, step mode
     fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); pause(waitTime);
+    newPos = getStepperMotorPosition(s1);
+    
+    if newPos - startPos ~= stepDistance
+        warnStr = sprintf('Stepped %d steps, expected %d steps',newPos-startPos,stepDistance);
+        warning(warnStr);
+    end
     %fprintf(s1,['I',num2str(DIRECTION*64*12000/N),',1700,0,0,5000,5000,1000,0,1000,1000,50,64']); pause(1+1/1700*60*(12000/N)); % move the steppermotor counterclockwise by 1.8 degrees (1.8*4 was replaced by 360/N to make the code adjust ensemble as the user sets it.
     
     [Freq, SCf11, SCf12, SCf21, SCf22] = getUngatedSParametersFrequencyDomain(obj1,NOP);
