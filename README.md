@@ -10,6 +10,9 @@ RCM Description: http://anlage.umd.edu/RCM/
 
 PNA Online Help: http://na.support.keysight.com/pna/help/latest/help.htm
 
+Haydon Kerk PCM 4826 Online Programming Manual: https://www.haydonkerkpittman.com/-/media/ametekhaydonkerk/downloads/products/drives/idea_drive_communication_manual.pdf?la=en
+
+
 Acknowledgements
 ==========================================================================================
 Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
@@ -33,10 +36,10 @@ happens, the code will throw an error that the instrument is not available and r
 force the instrumentation toolbox to close the open devices. You can find the devices through the "instrfind" command:
 
 ```
-out = instrfind
+out = instrfind()
 ```
 
-This will return an array and will indicate whether or not each device is open or closed. All devices that show **open** need to be closed
+This will return an array and will indicate whether or not each device is open or closed. All devices that show up as **open** need to be closed
 through the fclose command:
 
 ```

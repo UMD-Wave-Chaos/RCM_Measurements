@@ -6,7 +6,7 @@ h5writeatt(Settings.fileName,'/','ComPort',Settings.comPort);
 if (Settings.electronicCalibration == true)
     h5writeatt(Settings.fileName,'/','ECal',1);
 else
-    h5writeatt(Settings.fileName,'/','ECal',1);
+    h5writeatt(Settings.fileName,'/','ECal',0);
 end
 h5writeatt(Settings.fileName,'/','Comments',Settings.Comments);
 h5writeatt(Settings.fileName,'/','V',Settings.V);

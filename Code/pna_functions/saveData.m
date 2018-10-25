@@ -1,8 +1,9 @@
 function saveData(t, SCt, Freq, SCf, Srad,Settings)
 
-if exist(Settings.fileName)
+if exist(Settings.fileName,'file')
     delete(Settings.fileName);
 end
+
 %log the data
 h5create(Settings.fileName,'/Measurements/Srad_real',size(Srad));
 h5write(Settings.fileName,'/Measurements/Srad_real',real(Srad));
