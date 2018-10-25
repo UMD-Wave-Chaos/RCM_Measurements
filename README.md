@@ -12,7 +12,6 @@ PNA Online Help: http://na.support.keysight.com/pna/help/latest/help.htm
 
 Haydon Kerk PCM 4826 Online Programming Manual: https://www.haydonkerkpittman.com/-/media/ametekhaydonkerk/downloads/products/drives/idea_drive_communication_manual.pdf?la=en
 
-
 Acknowledgements
 ==========================================================================================
 Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
@@ -27,7 +26,7 @@ The mode stirrer is controlled by a stepper motor, the Aerotech SM50, which is d
 
 Both the PNA and stepper motor are controlled through a Windows PC using the Matlab Instrumentation Toolbox. The PNA is connected through either a VISA-TCPIP connection or a GPIB connection and the stepper motor is connected through a serial connection on COM5.
 
-![Experimental Wave Chaotic Cavity Setup](images/cavity.png)
+![Experimental Wave Chaotic Cavity Setup](./images/cavity.png "Experimental Wave Chaotic Cavity Setup")
 
 
 Getting Started
