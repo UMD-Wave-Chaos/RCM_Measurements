@@ -45,11 +45,6 @@ function Settings = gui_loadConfig()
  nRealElement = nRealRoot.item(0);
  Settings.N =  str2num(nRealElement.getFirstChild.getData);
  
-  %get the COM port
- comRoot = expRoot.item(0).getElementsByTagName('COMport');
- comElement = comRoot.item(0);
- Settings.comPort =  strtrim(char(comElement.getFirstChild.getData));
- 
   %get the antenna electrical length
  lRoot = expRoot.item(0).getElementsByTagName('AntennaElectrialLength');
  lElement = lRoot.item(0);
@@ -59,6 +54,25 @@ function Settings = gui_loadConfig()
  vRoot = expRoot.item(0).getElementsByTagName('CavityVolume');
  vElement = vRoot.item(0);
  Settings.V =  str2num(vElement.getFirstChild.getData);
+ 
+ %% get the stepper motor settings
+ 
+ stepRoot = xDoc.getElementsByTagName('StepperMotor_Settings');
+ 
+ %get the COM port
+ comRoot = stepRoot.item(0).getElementsByTagName('COMport');
+ comElement = comRoot.item(0);
+ Settings.comPort =  strtrim(char(comElement.getFirstChild.getData));
+ 
+ %get the number of steps per revolution
+ nStepRoot = stepRoot.item(0).getElementsByTagName('NStepsPerRevolution');
+ nStepElement = nStepRoot.item(0);
+ Settings.nSteps =  str2num(nStepElement.getFirstChild.getData);
+ 
+  %get the direction
+ dirRoot = stepRoot.item(0).getElementsByTagName('Direction');
+ dirElement = dirRoot.item(0);
+ Settings.direction =  str2num(dirElement.getFirstChild.getData);
  
  %% get the analysis settings
   analRoot = xDoc.getElementsByTagName('Analysis_Settings');

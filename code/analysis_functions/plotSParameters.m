@@ -18,6 +18,9 @@ end
 hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'S-cav Frequency Domain Response'); 
 subplot(2,2,1)
 plot(Freq/1E9,20*log10(abs(SCf(:,1,end))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(SCf(:,1,:)),3)),'r');
+plot(Freq/1E9,20*log10(abs(Srad(:,1,end,6))),'k','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{11}|');
@@ -28,6 +31,9 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,2)
 plot(Freq/1E9,20*log10(abs(SCf(:,2,end))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(SCf(:,2,:)),3)),'r');
+plot(Freq/1E9,20*log10(abs(Srad(:,2,end,6))),'k','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{12}|');
@@ -38,6 +44,9 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,3)
 plot(Freq/1E9,20*log10(abs(SCf(:,3,end))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(SCf(:,3,:)),3)),'r');
+plot(Freq/1E9,20*log10(abs(Srad(:,3,end,6))),'k','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{21}|');
@@ -48,6 +57,9 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,4)
 plot(Freq/1E9,20*log10(abs(SCf(:,4,end))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(SCf(:,4,:)),3)),'r');
+plot(Freq/1E9,20*log10(abs(Srad(:,4,end,6))),'k','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{22}|');
@@ -60,6 +72,8 @@ set(gca,'FontWeight','bold');
 hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'S-cav Time Domain Response'); 
 subplot(2,2,1)
 plot(t/1E-6,20*log10(abs(SCt(:,1,end))),'LineWidth',2);
+hold on
+plot(t/1E-6,20*log10(mean(abs(SCt(:,1,:)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Time (\mus)');
 title('|S_{11}|');
@@ -70,6 +84,8 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,2)
 plot(t/1E-6,20*log10(abs(SCt(:,2,end))),'LineWidth',2);
+hold on
+plot(t/1E-6,20*log10(mean(abs(SCt(:,2,:)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Time (\mus)');
 title('|S_{12}|');
@@ -80,6 +96,8 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,3)
 plot(t/1E-6,20*log10(abs(SCt(:,3,end))),'LineWidth',2);
+hold on
+plot(t/1E-6,20*log10(mean(abs(SCt(:,3,:)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Time (\mus)');
 title('|S_{21}|');
@@ -90,6 +108,8 @@ set(gca,'FontWeight','bold');
 
 subplot(2,2,4)
 plot(t/1E-6,20*log10(abs(SCt(:,4,end))),'LineWidth',2);
+hold on
+plot(t/1E-6,20*log10(mean(abs(SCt(:,4,:)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Time (\mus)');
 title('|S_{22}|');
@@ -101,7 +121,9 @@ set(gca,'FontWeight','bold');
 %% Srad - frequency
 hh3 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'S-rad Frequency Domain Response'); 
 subplot(2,2,1)
-plot(Freq/1E9,20*log10(abs(Srad(:,2,end))),'LineWidth',2);
+plot(Freq/1E9,20*log10(abs(Srad(:,1,end,6))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(Srad(:,1,end,6)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{11}|');
@@ -111,7 +133,9 @@ set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
 subplot(2,2,2)
-plot(Freq/1E9,20*log10(abs(Srad(:,2,end))),'LineWidth',2);
+plot(Freq/1E9,20*log10(abs(Srad(:,2,end,6))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(Srad(:,2,end,6)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{12}|');
@@ -121,7 +145,9 @@ set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
 subplot(2,2,3)
-plot(Freq/1E9,20*log10(abs(Srad(:,3,end))),'LineWidth',2);
+plot(Freq/1E9,20*log10(abs(Srad(:,3,end,6))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(Srad(:,3,end,6)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{21}|');
@@ -131,7 +157,9 @@ set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
 subplot(2,2,4)
-plot(Freq/1E9,20*log10(abs(Srad(:,4,end))),'LineWidth',2);
+plot(Freq/1E9,20*log10(abs(Srad(:,4,end,6))),'LineWidth',2);
+hold on
+plot(Freq/1E9,20*log10(mean(abs(Srad(:,4,end,6)),3)),'r');
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{22}|');

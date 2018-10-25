@@ -20,10 +20,22 @@
         <ElectronicCalibration> No </ElectronicCalibration>
     </PNA_Settings>
     
+    <!--   Stepper Motor Settings           -->
+    <StepperMotor_Settings>
+            <COMport> COM5 </COMport>
+            <!-- aerotech SM50 motor with Haydon PCM 4826 drive
+                 200 full steps at 1.8 degress per step
+                 drive can handle 1/64 steps
+                 12800 steps per revolution    
+            -->
+            <NStepsPerRevolution> 12800 </NStepsPerRevolution>
+            <!-- Direction is +1 for forward, -1 for backward -->
+            <Direction> 1 </Direction>
+    </StepperMotor_Settings>
+    
     <!--    Experiment Settings                -->
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
-        <COMport> COM5 </COMport>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
     </Experiment_Settings>
