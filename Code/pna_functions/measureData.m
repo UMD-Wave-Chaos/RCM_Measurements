@@ -64,7 +64,6 @@ Srad = zeros(NOP,4,N,Ngates);
 % start the timer
 tic;
 
-
 %% Loop over the number of requested iterations
 % take measurements at each stepper motor position
 

@@ -17,6 +17,16 @@ Acknowledgements
 ==========================================================================================
 Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
 
+Experimental Setup
+==========================================================================================
+The wave chaotic cavity used for the experiment is an old vacuum chamber that has been turned into a reverberation chamber to act as an electromagnetic cavity with a volume of 1.92 cubic meters. A mode stirrer is used to generate different realizations and collect statistics.
+
+The S parameters of the cavity are measured with a PNA-X N5241A vector network analyzer in a 2-port measurements configuration. In the nominal setup, port 1 is connected to an X-band horn antenna at the far end of the cavity and port 2 is connected to a loop antenna at the bottom of the cavity.
+
+The mode stirrer is controlled by a stepper motor, the Aerotech SM50, which is driven by a Haydon PCM 4826 drive. The motor has 200 full steps per revolution (1.8 degrees per step) and can be driven at 1/64 steps, resulting in 12800 steps (1/64) per revolution.
+
+![Experimental Wave Chaotic Cavity Setup](images/cavity.png)
+
 Getting Started
 =========================================================================================
 Follow the steps below to get started
@@ -49,11 +59,10 @@ fclose(out(index));
 Detailed Breakdown
 ==========================================================================================
 ## Step 1: Calibrate the PNA 
-This step either uses the electronic calibration module or a manual calibration step.
+This step either uses the electronic calibration module or a manual calibration step. The HP calibration kit consisting of short, open, and broadband impedance connections is available for manual calibration.
 
 ## Step 2: Collect measured S parameters 
-This step uses the PNA-X N5241A to measure the S parameters of the cavity and assumes 2-port measurements are made. The mode stirrer is positioned a
-specified number of times to create mulitple realizations of the cavity - the mode stirrer is driven by a stepper motor typically connected serially
+The mode stirrer is positioned a specified number of times to create mulitple realizations of the cavity - the mode stirrer is driven by a stepper motor typically connected serially
 through COM5. There are a specified number of points collected in time and frequency from the PNA (given as NOP). First a frequency domain measurement
 is taken which provides *Scav*. Second, a set of 10 frequency domain measurements are made with different time gating to get an estimate of *Srad*.
 Finally, a time domain measurement is taken of *Scav*.

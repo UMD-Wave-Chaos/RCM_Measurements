@@ -24,7 +24,7 @@
     <StepperMotor_Settings>
             <COMport> COM5 </COMport>
             <!-- aerotech SM50 motor with Haydon PCM 4826 drive
-                 200 full steps at 1.8 degress per step
+                 200 full steps at 1.8 degrees per step
                  drive can handle 1/64 steps
                  12800 steps per revolution    
             -->
