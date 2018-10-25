@@ -17,5 +17,5 @@ h5writeatt(Settings.fileName,'/','fStart',Settings.fStart);
 h5writeatt(Settings.fileName,'/','fStop',Settings.fStop);
 h5writeatt(Settings.fileName,'/','transformStart',Settings.transformStart);
 h5writeatt(Settings.fileName,'/','transformStop',Settings.transformStop);
-h5writeatt(Settings.fileName,'/','nSteps',Settings.nSteps);
+h5writeatt(Settings.fileName,'/','nStepsPerRevolution',Settings.nStepsPerRevolution);
 h5writeatt(Settings.fileName,'/','direction',Settings.direction);

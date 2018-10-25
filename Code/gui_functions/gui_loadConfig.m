@@ -67,7 +67,7 @@ function Settings = gui_loadConfig()
  %get the number of steps per revolution
  nStepRoot = stepRoot.item(0).getElementsByTagName('NStepsPerRevolution');
  nStepElement = nStepRoot.item(0);
- Settings.nSteps =  str2num(nStepElement.getFirstChild.getData);
+ Settings.nStepsPerRevolution =  str2num(nStepElement.getFirstChild.getData);
  
   %get the direction
  dirRoot = stepRoot.item(0).getElementsByTagName('Direction');
