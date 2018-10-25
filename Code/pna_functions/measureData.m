@@ -77,7 +77,8 @@ for iter = 1:N
     %command parameters for I (index) are:
     %distance, run speed, start speed, end speed, accel rate, decel rate,
     %run current, hold current, accel current, delay, step mode
-    fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); pause(waitTime);
+    fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); 
+    pause(waitTime);
     newPos = getStepperMotorPosition(s1);
     
     if newPos - startPos ~= stepDistance
