@@ -25,10 +25,13 @@ The S parameters of the cavity are measured with a PNA-X N5241A vector network a
 
 The mode stirrer is controlled by a stepper motor, the Aerotech SM50, which is driven by a Haydon PCM 4826 drive. The motor has 200 full steps per revolution (1.8 degrees per step) and can be driven at 1/64 steps, resulting in 12800 steps (1/64) per revolution.
 
+Both the PNA and stepper motor are controlled through a Windows PC using the Matlab Instrumentation Toolbox. The PNA is connected through either a VISA-TCPIP connection or a GPIB connection and the stepper motor is connected through a serial connection on COM5.
+
 ![Experimental Wave Chaotic Cavity Setup](images/cavity.png)
 
+
 Getting Started
-=========================================================================================
+==========================================================================================
 Follow the steps below to get started
 1. Clone the repository 
 2. Open Matlab and cd to the directory containing the repository 
@@ -70,7 +73,6 @@ Finally, a time domain measurement is taken of *Scav*.
 Once this step is complete, all values (*Scav_time*, *Scav_freq*, *Srad*, *time*, *freq*) are saved in an HDF5 file, with the settings from the
 configuration file saved as attributes. 
 
-Nominal values are given as *NumberOfPoints = 32001*, *NumberOfRealizations = 50*, *CavityVolume = 1.92 m^3*, *AntennaElectricalLength = 0.5*.
 
 ## Step 3: Compute *Tau*  
 *Tau* is the 1/e fold energy decay time and allows us to estimate alpha for the cavity. To estimate tau, the time domain measurements of *Scav* are used

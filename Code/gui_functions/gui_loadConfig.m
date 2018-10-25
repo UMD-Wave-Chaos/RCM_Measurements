@@ -55,6 +55,28 @@ function Settings = gui_loadConfig()
  vElement = vRoot.item(0);
  Settings.V =  str2num(vElement.getFirstChild.getData);
  
+  %get the datestamp boolean
+  dsRoot = expRoot.item(0).getElementsByTagName('TimeDateStamp');
+  dsElement = dsRoot.item(0);
+  dsString =  strtrim(char(dsElement.getFirstChild.getData));
+  if(strcmpi(dsString,'Yes') == true)
+     dsBool = true;
+  else
+     dsBool = false;
+  end
+ 
+ %get the file name prefix
+ fnRoot = expRoot.item(0).getElementsByTagName('FileNamePrefix');
+ fnElement = fnRoot.item(0);
+ fnPrefix =  strtrim(char(fnElement.getFirstChild.getData));
+ 
+ if dsBool == true
+     Settings.fileName = sprintf('%s%s.h5',fnPrefix,datestr(now,30)); 
+ else
+     Settings.fileName = sprintf('%s.h5',fnPrefix); 
+ end
+ 
+ 
  %% get the stepper motor settings
  
  stepRoot = xDoc.getElementsByTagName('StepperMotor_Settings');
@@ -77,27 +99,6 @@ function Settings = gui_loadConfig()
  %% get the analysis settings
   analRoot = xDoc.getElementsByTagName('Analysis_Settings');
 
-    %get the datestamp boolean
-  dsRoot = analRoot.item(0).getElementsByTagName('TimeDateStamp');
-  dsElement = dsRoot.item(0);
-  dsString =  strtrim(char(dsElement.getFirstChild.getData));
-  if(strcmpi(dsString,'Yes') == true)
-     dsBool = true;
-  else
-     dsBool = false;
-  end
- 
- %get the file name prefix
- fnRoot = analRoot.item(0).getElementsByTagName('FileNamePrefix');
- fnElement = fnRoot.item(0);
- fnPrefix =  strtrim(char(fnElement.getFirstChild.getData));
- 
- if dsBool == true
-     Settings.fileName = sprintf('%s%s.h5',fnPrefix,datestr(now,30)); 
- else
-     Settings.fileName = sprintf('%s.h5',fnPrefix); 
- end
- 
  %get the number of RCM realizations
  nRCMRoot = analRoot.item(0).getElementsByTagName('NumberOfRCMRealizations');
  nRCMElement = nRCMRoot.item(0);
@@ -106,6 +107,6 @@ function Settings = gui_loadConfig()
  %% get any user comments
  commentRoot = xDoc.getElementsByTagName('Comments');
  commentElement = commentRoot.item(0);
- Settings.Comments =  char(commentElement.getFirstChild.getData);
+ Settings.Comments =  strtrim(char(commentElement.getFirstChild.getData));
  
   

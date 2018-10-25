@@ -1,29 +1,48 @@
 <configuration>
     
-    <!-- Comments to be captured in the output log file -->
-    <Comments> This is a test run </Comments>
+    <!-- ******************************************************************************
+    	 Comments to be captured in the output log file that describe the test case
+    	 ******************************************************************************
+    -->
+    <Comments> 
+    	This is a test run 
+    </Comments>
     
-    <!--   Analysis Settings           -->
+    <!-- ******************************************************************************  
+    	 Analysis Settings          
+	     ****************************************************************************** 
+	-->
     <Analysis_Settings>
-        <NumberOfRCMRealizations> 10000 </NumberOfRCMRealizations>
-        <FileNamePrefix> TestRun </FileNamePrefix>
-        <TimeDateStamp> Yes </TimeDateStamp>
+        <NumberOfRCMRealizations> 50000 </NumberOfRCMRealizations>
     </Analysis_Settings>
     
-    <!--   PNA Settings           -->
+    <!-- ******************************************************************************  
+    	 PNA Settings      
+    	 ******************************************************************************     
+    -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
         <FrequencySweepStart> 8E9 </FrequencySweepStart>
         <FrequencySweepStop> 13.5E9 </FrequencySweepStop>
+        <!-- 
+             transform times are requested and need to be within the range
+             +/- (NumberOfPoints - 1)/(FrequencySweepStop - FrequencySweepStart)
+             if the requested times exceed this range, they be will clipped to the
+             maximum and minimum values
+          -->
         <TimeTransformStartTime> -0.5E-6 </TimeTransformStartTime>
         <TimeTransformStopTime> 10E-6 </TimeTransformStopTime>
         <ElectronicCalibration> No </ElectronicCalibration>
     </PNA_Settings>
     
-    <!--   Stepper Motor Settings           -->
+    <!-- ******************************************************************************
+         Stepper Motor Settings    
+         ******************************************************************************       
+    -->
     <StepperMotor_Settings>
             <COMport> COM5 </COMport>
-            <!-- aerotech SM50 motor with Haydon PCM 4826 drive
+            <!-- 
+                 aerotech SM50 motor with Haydon PCM 4826 drive
                  200 full steps at 1.8 degrees per step
                  drive can handle 1/64 steps
                  12800 steps per revolution    
@@ -33,11 +52,16 @@
             <Direction> 1 </Direction>
     </StepperMotor_Settings>
     
-    <!--    Experiment Settings                -->
+    <!-- ******************************************************************************   
+    	 Experiment Settings     
+    	 ******************************************************************************           
+    -->
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
+        <FileNamePrefix> TestRun </FileNamePrefix>
+        <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
 </configuration> 
