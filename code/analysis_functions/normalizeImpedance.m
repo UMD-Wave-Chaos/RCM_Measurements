@@ -1,6 +1,6 @@
 function Znormf = normalizeImpedance(Zcf ,Freq, varargin)
 
-if (nargin == 4)
+if (nargin == 3)
     useGUI = true;
     handles = varargin{1};
 else
