@@ -46,18 +46,38 @@ plotSParameters(t,Freq,SCf,SCt,Srad,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
 
 %% Step 3: Compute Tau, the 1/e fold energy decay time
+Tau = zeros(4,1);
 lstring = 'Computing tau ...';
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring);
 else
     disp(lstring)
 end
-for param=1:4
-    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+
+Tau = getTau(t,SCt,l,foldername);
+
+lstring = sprintf('Tau: %0.3f %0.3f %0.3f %0.3f',Tau(1),Tau(2),Tau(3),Tau(4));
+if (useGUI == true)
+    logMessage(handles.jEditbox,lstring,'info');
+else
+    disp(lstring)
 end
+
+%write results out to the analysis file
+h5create(analysisFile,'/Analysis/tau',size(Tau));
+h5write(analysisFile,'/Analysis/tau',Tau);
+
 %% Step 4: Compute the loss parameter (alpha)
 alpha = zeros(4,1);
 Qcomp = zeros(4,1);
+
+lstring = 'Computing Q and alpha ...';
+if (useGUI == true)
+    logMessage(handles.jEditbox,lstring);
+else
+    disp(lstring)
+end
+
 for param=1:4
     [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), V);                      %input parameters: the average operational frequency, the 1/e fold energy decay time,
 end
@@ -76,6 +96,7 @@ else
     disp(lstring)
 end
 
+%write results out to the analysis file
 h5create(analysisFile,'/Analysis/alpha',size(alpha));
 h5write(analysisFile,'/Analysis/alpha',alpha);
 h5create(analysisFile,'/Analysis/Q',size(Qcomp));
