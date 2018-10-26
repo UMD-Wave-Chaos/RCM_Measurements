@@ -52,7 +52,7 @@ else
     disp(lstring)
 end
 
-Tau = getTau(t,SCt,l,foldername);
+Tau = getTau(t,SCt,l,foldername,1);
 
 lstring = sprintf('Tau: %0.3f %0.3f %0.3f %0.3f',Tau(1),Tau(2),Tau(3),Tau(4));
 if (useGUI == true)
