@@ -4,7 +4,7 @@ function[Tau] = getTau(t,SCt,l,foldername,varargin)
 %         l = approximate elctrical length of antenna (meters)       
 % Output: Tau = the 1/e energy decay rate
       
-if nargin == 6
+if nargin == 5
     savePlots = varargin{1};
 else
     savePlots = 0;

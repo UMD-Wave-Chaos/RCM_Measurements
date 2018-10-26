@@ -1,4 +1,4 @@
-function [Zhist_EXP,Zbin_EXP,Zphist_EXP,Zpbin_EXP] = computeMeasuredDistribution(Znormf,foldername,varargin)   
+function [Zhist_EXP,Zbin_EXP,Zphist_EXP,Zpbin_EXP] = computeMeasuredDistribution(Znormf,nBins,foldername,varargin)   
 
 if (nargin == 3)
     useGUI = true;
@@ -6,8 +6,6 @@ if (nargin == 3)
 else
     useGUI = false;
 end
-
-BINS = 1000;
 
 num_ports = 2;
 N = size(Znormf,3);
@@ -32,10 +30,10 @@ for i = 2:N
     end
 end
 for i = 1:num_ports^2
-    [Zhist_EXP(:,i), Zbin_EXP(:,i)] = hist(abs(EZnormf(:,i)), 0.1*BINS); 
+    [Zhist_EXP(:,i), Zbin_EXP(:,i)] = hist(abs(EZnormf(:,i)), 0.1*nBins); 
 end                         % input paramters: the data (normalized impedance), and the number of bins
 for i = 1:num_ports^2
-    [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,i)), 0.1*BINS);
+    [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,i)), 0.1*nBins);
 end
 
 %% plot the results

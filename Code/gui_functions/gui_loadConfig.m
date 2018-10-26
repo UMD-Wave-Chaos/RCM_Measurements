@@ -104,6 +104,13 @@ function Settings = gui_loadConfig()
  nRCMElement = nRCMRoot.item(0);
  Settings.nRCM =  str2double(nRCMElement.getFirstChild.getData);
  
+  %get the number of bins to use for distributions
+ nBinRoot = analRoot.item(0).getElementsByTagName('NumberOfBinsForDistributions');
+ nBinElement = nBinRoot.item(0);
+ Settings.nBins =  str2double(nBinElement.getFirstChild.getData);
+ 
+
+ 
  %% get any user comments
  commentRoot = xDoc.getElementsByTagName('Comments');
  commentElement = commentRoot.item(0);

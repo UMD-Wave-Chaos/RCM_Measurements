@@ -8,6 +8,9 @@ logMessage(handles.jEditbox,sString);
 sString = sprintf('Number of Realizations: %d',handles.Settings.N);
 logMessage(handles.jEditbox,sString);
 
+sString = sprintf('Number of Bins: %d',handles.Settings.nBins);
+logMessage(handles.jEditbox,sString);
+
 sString = sprintf('COM Port: %s',handles.Settings.comPort);
 logMessage(handles.jEditbox,sString);
 

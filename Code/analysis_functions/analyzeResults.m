@@ -16,10 +16,8 @@ end
 
 num_ports = 2;
 
-BINS = 1000;       % number of bins to be used in generating a distribution
-
 %% read the specified file name and create the output data directory for plots
-[t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM] = loadData(filename);
+[t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM, nBins,Settings] = loadData(filename);
 
 [fpath,fname] = fileparts(filename);
 
@@ -79,10 +77,10 @@ else
 end
 
 for param=1:4
-    [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), V);                      %input parameters: the average operational frequency, the 1/e fold energy decay time,
+    [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), V); 
 end
 
-lstring = sprintf('Alpha: %0.3f %0.3f %0.3f %0.3f',alpha(1),alpha(2),alpha(3),alpha(4));
+lstring = sprintf('Alpha: %0.3f ns %0.3f ns %0.3f ns %0.3f v',alpha(1)*1e9,alpha(2)*1e9,alpha(3)*1e9,alpha(4)*1e9);
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring,'info');
 else
@@ -104,6 +102,8 @@ h5write(analysisFile,'/Analysis/Q',Qcomp);
 
 %% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations. (~2 min for N = 200)
 [Zradf, Zcf] = transformStoZ(Srad, SCf,Freq, handles);
+
+%write results out to the analysis file
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
 h5create(analysisFile,'/Analysis/Zradf_imag',size(Zradf));
@@ -117,6 +117,7 @@ h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5 (~40 sec for N = 200)
 Znormf = normalizeImpedance(Zcf ,Freq, handles);
 
+%write results out to the analysis file
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_real',real(Znormf));
 h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
@@ -125,6 +126,7 @@ h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 %% Step 7: Generate a distribution of the normalized Z parameters from Step 6
 [Zhist_EXP,Zbin_EXP,Zphist_EXP,Zpbin_EXP] = computeMeasuredDistribution(Znormf,foldername,handles);
 
+%write results out to the analysis file
 h5create(analysisFile,'/Analysis/Zhist_EXP',size(Zhist_EXP));
 h5write(analysisFile,'/Analysis/Zhist_EXP',Zhist_EXP);
 h5create(analysisFile,'/Analysis/Zbin_EXP',size(Zbin_EXP));
@@ -137,6 +139,7 @@ h5write(analysisFile,'/Analysis/Zpbin_EXP',Zpbin_EXP);
 %% Step 8: Generate a distribution of Z parameters using random coupling model (RCM) using the loss parameter (alpha) computed in Step 4.
 [Zhist_RCM,Zbin_RCM, Zphist_RCM,Zpbin_RCM] = computeRCMDistribution(alpha,nRCM,foldername,handles);
 
+%write results out to the analysis file
 h5create(analysisFile,'/Analysis/Zhist_RCM',size(Zhist_RCM));
 h5write(analysisFile,'/Analysis/Zhist_RCM',Zhist_RCM);
 h5create(analysisFile,'/Analysis/Zbin_RCM',size(Zbin_RCM));

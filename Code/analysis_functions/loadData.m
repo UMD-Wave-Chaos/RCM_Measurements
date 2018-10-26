@@ -1,4 +1,4 @@
-function [t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM,Settings] = loadData(filename)
+function [t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM,nBins,Settings] = loadData(filename)
 
 %load the data
 t = h5read(filename,'/Measurements/t');
@@ -26,3 +26,4 @@ SCt = SCt_r + 1j*SCt_i;
 
 warning('Need to add load Settings call back in');
 Settings = []%loadSettingsFromHDF5File(filename);
+nBins = 1000;

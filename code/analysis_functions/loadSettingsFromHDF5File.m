@@ -24,3 +24,4 @@ Settings.transformStart = h5readatt(fileName,'/','transformStart');
 Settings.transformStop = h5readatt(fileName,'/','transformStop');
 Settings.nStepsPerRevolution = h5readatt(fileName,'/','nStepsPerRevolution');
 Settings.direction = h5readatt(fileName,'/','direction');
+Settings.nBins = h5readatt(fileName,'/','nBins');
