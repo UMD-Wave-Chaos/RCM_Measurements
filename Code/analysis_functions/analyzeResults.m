@@ -115,7 +115,7 @@ h5create(analysisFile,'/Analysis/Zcf_imag',size(Zcf));
 h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5 (~40 sec for N = 200)
-Znormf = normalizeImpedance(Zcf ,Freq, handles);
+Znormf = normalizeImpedance(Zcf,Freq, handles);
 
 %write results out to the analysis file
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
