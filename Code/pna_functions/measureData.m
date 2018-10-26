@@ -94,6 +94,20 @@ for iter = 1:N
     SCf(:,4,iter) = SCf22;
     Time = toc;
     
+    if (useGUI == true)
+        ylimit = [min(20*log10(abs(SCf11))) max(20*log10(abs(SCf11)))];
+        set(handles.S11RealPlot,'XData',Freq/1e9);
+        set(handles.S11RealPlot,'YData',20*log10(abs(SCf11)));
+        %set(handles.S11Axis,'YLim',ylimit);
+        
+        ylimit = [min(20*log10(abs(SCf12))) max(20*log10(abs(SCf12)))];
+        set(handles.S12RealPlot,'XData',Freq/1e9);
+        set(handles.S12RealPlot,'YData',20*log10(abs(SCf12)));
+        %set(handles.S11Axis,'YLim',ylimit);
+        
+        pause(0.1);
+    end
+    
 	lstring = sprintf('Measuring Scav in frequency domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);

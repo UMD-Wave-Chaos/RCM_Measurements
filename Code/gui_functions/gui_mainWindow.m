@@ -72,20 +72,20 @@ handles.Settings = gui_loadConfig();
 logSettings(handles);
 guidata(hfig,handles);
 
-%create the section to house the plots
-% plotHeight = 210;
-% plotWidth = gui_Width-2*buffer;
-% plotX = buffer;
-% plotY = gui_Height - plotHeight - buffer;
-% handles = gui_createPlotSection(handles,plotX,plotY,plotWidth,plotHeight,buffer);
-% guidata(hfig,handles);
-
 %create the section to house the status
 statusHeight = 150;
 statusWidth = gui_Width-2*buffer;
 statusX = buffer;
 statusY = editY + buffer + editHeight;
 handles = gui_createStatusSection(handles,statusX,statusY,statusWidth,statusHeight,buffer);
+guidata(hfig,handles);
+
+%create the section to house the plots
+plotHeight = 300;
+plotWidth = gui_Width-2*buffer;
+plotX = buffer;
+plotY = statusY + buffer + statusHeight;
+handles = gui_createPlotSection(handles,plotX,plotY,plotWidth,plotHeight,buffer);
 guidata(hfig,handles);
 
 %create the section to house the controls

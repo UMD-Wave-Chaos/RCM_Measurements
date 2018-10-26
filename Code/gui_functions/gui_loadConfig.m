@@ -26,15 +26,7 @@ function Settings = gui_loadConfig()
  xformstopElement = xformstopRoot.item(0);
  Settings.transformStop =  str2num(xformstopElement.getFirstChild.getData);
  
-  %get the boolean for manual/electronic calibration
- calRoot = pnaRoot.item(0).getElementsByTagName('ElectronicCalibration');
- calElement = calRoot.item(0);
- calString =  strtrim(char(calElement.getFirstChild.getData));
- if(strcmpi(calString,'Yes') == true)
-     Settings.electronicCalibration = true;
- else
-     Settings.electronicCalibration = false;
- end
+ Settings.electronicCalibration = false;
 
  %% get the experiment settings
  

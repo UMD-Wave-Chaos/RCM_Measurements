@@ -32,7 +32,6 @@
           -->
         <TimeTransformStartTime> -0.5E-6 </TimeTransformStartTime>
         <TimeTransformStopTime> 10E-6 </TimeTransformStopTime>
-        <ElectronicCalibration> No </ElectronicCalibration>
     </PNA_Settings>
     
     <!-- ******************************************************************************
