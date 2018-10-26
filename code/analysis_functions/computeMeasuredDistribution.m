@@ -1,13 +1,12 @@
 function [Zhist_EXP,Zbin_EXP,Zphist_EXP,Zpbin_EXP] = computeMeasuredDistribution(Znormf,nBins,foldername,varargin)   
 
-if (nargin == 3)
+if (nargin == 4)
     useGUI = true;
     handles = varargin{1};
 else
     useGUI = false;
 end
 
-num_ports = 2;
 N = size(Znormf,3);
 
 lstring = sprintf('Generating Measured Distribution');
@@ -29,10 +28,21 @@ for i = 2:N
         disp(lstring)
     end
 end
-for i = 1:num_ports^2
+
+% for counter = 1:4
+%     hs = figure;
+%     hmag(counter) = histogram(abs(EZnormf(:,1)),nBins,'Normalization','pdf');
+%     hangle(counter) = histogram(angle(EZnormf(:,1)),nBins,'Normalization','pdf');
+%     hreal(counter) = histogram(real(EZnormf(:,1)),nBins,'Normalization','pdf');
+%     himag(counter) = histogram(imag(EZnormf(:,1)),nBins,'Normalization','pdf');
+%     close(hs);
+% end
+% 
+
+for i = 1:4
     [Zhist_EXP(:,i), Zbin_EXP(:,i)] = hist(abs(EZnormf(:,i)), 0.1*nBins); 
 end                         % input paramters: the data (normalized impedance), and the number of bins
-for i = 1:num_ports^2
+for i = 1:4
     [Zphist_EXP(:,i), Zpbin_EXP(:,i)] = hist(angle(EZnormf(:,i)), 0.1*nBins);
 end
 
