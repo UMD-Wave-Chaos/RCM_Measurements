@@ -104,16 +104,7 @@ set(handles.measureButton,'Callback',{@measure_Callback});
 set(handles.analyzeButton,'Callback',{@analyze_Callback});
 set(handles.reloadConfigButton,'Callback',{@reloadConfig_Callback});
 set(handles.editConfigButton,'Callback',{@editConfig_Callback});
-set(handles.measAnalyzeConfigButton,'Callback',{@measureAnalyze_Callback});
-
-%create the main gui timer
-%gui_updateStatusMessage(handles,'Gui Timer ...');
-%handles.guiTimer = timer('Name','guiTimer');
-%handles.guiTimer.TimerFcn = {@guiTimerCallback,handles};
-%handles.guiTimer.Period = 0.1;
-%handles.guiTimer.ExecutionMode = 'fixedSpacing';
-%handles.guiTimer.UserData = handles.mode;
-%start(handles.guiTimer);
+set(handles.calibrateConfigButton,'Callback',{@calibrate_Callback});
 
 %connect to PNA
 logMessage(handles.jEditbox,'Connecting to PNA ...');
@@ -184,34 +175,15 @@ end
 delete(handles.hfig);
 
 %% measure
-function measureAnalyze_Callback(hObject,event)
+function calibrate_Callback(hObject,event)
 handles = guidata(gcf);
 
 handles = gui_UpdateMode('Measuring',handles);
+calName = 'calibrationTest';
 
 try
-    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = measureData(handles.pnaObj,...
-                                                                                    handles.sObj,...
-                                                                                    handles.Settings, ...
-                                                                                    handles);
-                                                                                
+    calibratePNA(handles.pnaObj,handles.Settings.fStart, handles.Settings.fStop, calName, handles.Settings.NOP,2);
  
-catch err
-     logError(handles.jEditbox,err);
-end
-
-lstring = sprintf('Saving data to %s',handles.Settings.fileName);
-logMessage(handles.jEditbox,lstring);
-
-saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
-
-clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);
-
-handles = gui_UpdateMode('Analyzing',handles);
-logMessage(handles.jEditbox,'Analyzing Results');
-
-try
-    analyzeResults(handles.Settings.fileName,handles);
 catch err
      logError(handles.jEditbox,err);
 end

@@ -31,8 +31,9 @@ else
 end
 
 %% get the inputs from the Settings object
-NOP = Settigns.NOP;
+NOP = Settings.NOP;
 N = Settings.N;
+l = Settings.l;
 eCal = Settings.electronicCalibration;
 fStart = Settings.fStart;
 fStop = Settings.fStop;
