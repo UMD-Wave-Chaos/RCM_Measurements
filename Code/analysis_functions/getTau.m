@@ -1,10 +1,16 @@
-function[Tau] = getTau(t,SC,l,index,foldername)
+function[Tau] = getTau(t,SC,l,index,foldername,varargin)
 % Input: SC = the complex inverse tranformed a S parameter vector (time domain)
 %         t = time domain vector corresponding to SC
 %         l = approximate elctrical length of antenna (meters)       
 %         index = S parameter index (1 == 11, 2 == 12, 3 == 21, 4 == 22)
 % Output: Tau = the 1/e energy decay rate
-       
+      
+if nargin == 6
+    savePlots = varargin{1};
+else
+    savePlots = 0;
+end
+
 fplot = 1;                                                                  % Set to 1 to plot, 0 to skip plot
 b = find(abs(t-((l*500)/3E8)) == min(abs(t-((l*500)/3E8))));              % beginging index removing prompt reflection and possible short orbit (1000 electric lengths)
 f = find(abs(t-((l*1500)/3E8)) == min(abs(t-((l*1500)/3E8))));              % ending index stoppping at 2000 electric lengths
@@ -68,9 +74,11 @@ Tau = 1/(-2*g11.b);                                                         % 1/
         
         text(t(m)*1e6, 20*log10(smoothBsf(m-b)/af)+10,['\tau = ' num2str(Tau*1e6) '\mus'],'FontSize',12,'FontWeight','bold' );
         
-        fname = sprintf('SCav%s_tau_estimate',indstring);
-        saveas(h,fullfile(foldername,fname),'png')
-        close(h)
+        if (savePlots == 1)
+            fname = sprintf('SCav%s_tau_estimate',indstring);
+            saveas(h,fullfile(foldername,fname),'png')
+            close(h)
+        end
 
     end
 end
