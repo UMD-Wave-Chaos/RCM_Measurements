@@ -14,6 +14,7 @@
 	-->
     <Analysis_Settings>
         <NumberOfRCMRealizations> 50000 </NumberOfRCMRealizations>
+        <NumberOfBinsForHistograms> 100 </NumberOfBinsForHistograms>
     </Analysis_Settings>
     
     <!-- ******************************************************************************  
@@ -32,6 +33,11 @@
           -->
         <TimeTransformStartTime> -0.5E-6 </TimeTransformStartTime>
         <TimeTransformStopTime> 10E-6 </TimeTransformStopTime>
+        <!--
+        	The "UseElectronicCalibrationKit" flag indicates whether or not to 
+        	automatically calibrate the PNA using the electronic calibration kit
+        -->
+        <UseElectronicCalibrationKit> Yes </UseElectronicCalibrationKit>
     </PNA_Settings>
     
     <!-- ******************************************************************************

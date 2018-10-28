@@ -120,7 +120,9 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
-saveas(hh1,fullfile(foldername,'Measured_mag_pdf'),'png');
-saveas(hh2,fullfile(foldername,'Measured_phase_pdf'),'png');
-close(hh1)
-close(hh2)
+if (useGUI == true)
+    saveas(hh1,fullfile(foldername,'Measured_mag_pdf'),'png');
+    saveas(hh2,fullfile(foldername,'Measured_phase_pdf'),'png');
+    close(hh1)
+    close(hh2)
+end

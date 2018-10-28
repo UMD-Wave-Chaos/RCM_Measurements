@@ -26,7 +26,15 @@ function Settings = gui_loadConfig()
  xformstopElement = xformstopRoot.item(0);
  Settings.transformStop =  str2num(xformstopElement.getFirstChild.getData);
  
- Settings.electronicCalibration = false;
+ %get the ecal boolean
+ ecalRoot = pnaRoot.item(0).getElementsByTagName('UseElectronicCalibrationKit');
+ ecalElement = ecalRoot.item(0);
+ ecalString =  strtrim(char(ecalElement.getFirstChild.getData));
+ if(strcmpi(ecalString,'Yes') == true)
+  Settings.electronicCalibration = true;
+ else
+  Settings.electronicCalibration = false;
+ end
 
  %% get the experiment settings
  
@@ -95,6 +103,13 @@ function Settings = gui_loadConfig()
  nRCMRoot = analRoot.item(0).getElementsByTagName('NumberOfRCMRealizations');
  nRCMElement = nRCMRoot.item(0);
  Settings.nRCM =  str2double(nRCMElement.getFirstChild.getData);
+ 
+  %get the number of bins
+ nbinRoot = analRoot.item(0).getElementsByTagName('NumberOfBinsForHistograms');
+ nbinElement = nbinRoot.item(0);
+ Settings.nBins =  str2double(nbinElement.getFirstChild.getData);
+ 
+ 
  
  %% get any user comments
  commentRoot = xDoc.getElementsByTagName('Comments');

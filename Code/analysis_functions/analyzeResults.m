@@ -53,8 +53,17 @@ else
     disp(lstring)
 end
 for param=1:4
-    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername,handles);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
 end
+
+
+lstring = sprintf('Alpha: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',alpha(1)*1e9,alpha(2)*1e9,alpha(3)*1e9,alpha(4)*1e9);
+if (useGUI == true)
+    logMessage(handles.jEditbox,lstring,'info');
+else
+    disp(lstring)
+end
+
 %% Step 4: Compute the loss parameter (alpha)
 alpha = zeros(4,1);
 Qcomp = zeros(4,1);
@@ -127,7 +136,7 @@ h5write(analysisFile,'/Analysis/Zpbin_RCM',Zpbin_RCM);
 
 %% Step 9: Plot the pmf
 hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'RCM Magnitude Comparison'); 
-hold off; clear Zpmf_RCM; clear Zpmf_EXP;
+hold off;
 paramlables = cellstr(['11';'12';'21';'22']);
 for i = 1:num_ports^2
     p= 10;         

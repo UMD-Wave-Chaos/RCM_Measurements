@@ -18,7 +18,7 @@ else
 end
 
 tic;
-for i = 1:num_ports^2;
+for i = 1:num_ports^2
     if (useGUI == true)
         [Znorm_RCM] =  genPMFrcm(alpha(i),num_ports, nRCM,handles);           % input parameters: loss parameter, number of bins, number of ports, number of samples
     else
@@ -120,7 +120,9 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
-saveas(hh1,fullfile(foldername,'RCM_mag_pdf'),'png');
-saveas(hh2,fullfile(foldername,'RCM_phase_pdf'),'png');
-close(hh1)
-close(hh2)
+if (useGUI == true)
+    saveas(hh1,fullfile(foldername,'RCM_mag_pdf'),'png');
+    saveas(hh2,fullfile(foldername,'RCM_phase_pdf'),'png');
+    close(hh1)
+    close(hh2)
+end
