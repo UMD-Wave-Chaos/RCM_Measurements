@@ -116,7 +116,7 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-computeDistributions(Znormf,alpha, nBins,nRCM, foldername, handles)
+computeDistributions(Znormf,alpha, handles.Settings.nBins,handles.Settings.nRCM, foldername, handles)
 
 %% Step 7: Generate a distribution of the normalized Z parameters from Step 6
 % [Zhist_EXP,Zbin_EXP,Zphist_EXP,Zpbin_EXP] = computeMeasuredDistribution(Znormf,foldername,handles);

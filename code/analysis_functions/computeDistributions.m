@@ -66,7 +66,7 @@ end
 
 if (useGUI == true)
     saveas(hMagFigure,fullfile(foldername,'PDF_Comparison_Mag'),'png');
-    saveas(hh2,fullfile(foldername,'PDF_Comparison_Phase'),'png');
+    saveas(hPhaseFigure,fullfile(foldername,'PDF_Comparison_Phase'),'png');
     close(hPhaseFigure)
-    close(hh2)
+    close(hMagFigure)
 end
