@@ -140,6 +140,8 @@ if handles.sConnection == true
     ltype = 'info';
     set(handles.sConnectionText,'String','Connected');
     set(handles.sConnectionText,'BackgroundColor','green');
+    pos = getStepperMotorPosition(handles.sConnection);
+    set(handles.sPositionText,'String',num2str(pos));
 else
     lstring = 'Unable to connect to stepper motor';
     ltype = 'error';

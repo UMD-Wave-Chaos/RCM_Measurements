@@ -80,10 +80,14 @@ for iter = 1:N
     %run current, hold current, accel current, delay, step mode
     fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); 
     pause(waitTime);
-    newPos = getStepperMotorPosition(s1);
+    newPos = getStepperMotorPosition(s1); 
     
     if newPos - startPos ~= stepDistance
         warning('Stepped %d steps, expected %d steps',newPos-startPos,stepDistance);
+    end
+    
+    if (useGUI)
+        set(handles.sPositionText,'String',num2str(newPos));
     end
 
     %% measure SCav in the frequency domain - this is an ungated measurement of the S parameters

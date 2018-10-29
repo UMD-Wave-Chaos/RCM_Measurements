@@ -33,3 +33,9 @@ modeDisplay = uicontrol('Parent',handles.hStatusPanel,'Style','Text','String','M
                         'BackgroundColor',handles.hStatusColor,'Position',[col1 row3 staticTextWidth textHeight]);
 handles.modeText = uicontrol('Parent',handles.hStatusPanel,'Style','Edit','FontSize',12,'FontWeight','Bold',...
                             'Position',[col1+staticTextOffset row3 textWidth textHeight]);
+                        
+
+sPositionDisplay = uicontrol('Parent',handles.hStatusPanel,'Style','Text','String','Motor Position:','FontSize',12,'FontWeight','Bold',...
+                        'BackgroundColor',handles.hStatusColor,'Position',[col2 row2 staticTextWidth textHeight]);
+handles.sPositionText = uicontrol('Parent',handles.hStatusPanel,'Style','Edit','FontSize',12,'FontWeight','Bold',...
+                            'Position',[col2+staticTextOffset row2 textWidth textHeight]);
