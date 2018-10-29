@@ -152,13 +152,13 @@ for i = 1:num_ports^2
     plot(Zbin_EXP(:,i),Zpmf_EXP(:,i),'*-k','MarkerSize',5);       %Plot the pmf (divide by the area under curve) of the measured normalized impedance
     %              set(gca, 'XTickLabel', '', 'YTickLabel', '');
     legend('RCM Prediction','Measurement')
-    xlabel(strcat('Normalized |Z_{',char(paramlables{i}),'}|')); ylabel('Probability Density Function'); title(['PDF of |Z_{',char(paramlables{i}),'}^{norm}| for Cylindrical Chamber with Q_{comp} = ',...
-        num2str(round(Qcomp(i))),', \alpha = ',num2str(round(alpha(i))),', GT=',num2str(floor(p*(5/3))+0.01*round(mod(p*100*(5/3),100))),'ns']);
+    xlabel(strcat('Normalized |Z_{',char(paramlables{i}),'}|')); ylabel('Probability Density Function'); title(['PDF of |Z_{',char(paramlables{i}),'}^{norm}| for Cylindrical Chamber with ',...
+        '\alpha = ',num2str(round(alpha(i)))]);
     axis tight
 end
 hh2 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'RCM Phase Comparison'); 
 hold off; clear Zppmf_RCM; clear Zppmf_EXP;
-for i = 1:num_ports^2; 
+for i = 1:num_ports^2
     p= 10;         
     subplot(num_ports,num_ports,i);
     Zppmf_RCM(:,i) = Zphist_RCM(:,i)./((Zpbin_RCM(2,i)-Zpbin_RCM(1,i))*sum(Zphist_RCM(:,i))); % Create a pmf from histogram for RCM prediction of the normalized impedance
@@ -167,8 +167,8 @@ for i = 1:num_ports^2;
     plot(Zpbin_EXP(:,i),Zppmf_EXP(:,i),'*-k','MarkerSize',5);       %Plot the pmf (divide by the area under curve) of the measured normalized impedance
     %              set(gca, 'XTickLabel', '', 'YTickLabel', '');
     legend('RCM Prediction','Measurement')  
-    xlabel(strcat('Normalized |Z_{',char(paramlables{i}),'}|')); ylabel('Probability Density Function'); title(['PDF of phase(Z_{',char(paramlables{i}),'}^{norm}) for Cylindrical Chamber with Q_{comp} = ',...
-        num2str(round(Qcomp(i))),', \alpha = ',num2str(round(alpha(i))),', GT=',num2str(floor(p*(5/3))+0.01*round(mod(p*100*(5/3),100))),'ns']);
+    xlabel(strcat('Normalized |Z_{',char(paramlables{i}),'}|')); ylabel('Probability Density Function'); title(['PDF of phase(Z_{',char(paramlables{i}),'}^{norm}) for Cylindrical Chamber with ',...
+        '\alpha = ',num2str(round(alpha(i)))]);
     axis tight
 end
 

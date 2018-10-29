@@ -35,7 +35,7 @@ plot(handles.S12Axis,x,angle(y3),'.k','LineWidth',2);
 set(handles.S12Axis,'XLim',xlimit);
 set(handles.S12Axis,'YLim',[-pi pi]);
 grid(handles.S12Axis,'on');
-ylabel(handles.S12Axis,'\angle S_{11} (rad)')
+ylabel(handles.S12Axis,'\angle S (rad)')
 xlabel(handles.S12Axis,'Frequency (GHz)')
 set(handles.S12Axis,'LineWidth',2);
 set(handles.S12Axis,'FontSize',12);

@@ -34,7 +34,7 @@ semilogx(handles.S12Axis,x,angle(y3),'LineWidth',2);
 set(handles.S12Axis,'XLim',xlimit);
 set(handles.S12Axis,'YLim',[-pi pi]);
 grid(handles.S12Axis,'on');
-ylabel(handles.S12Axis,'\angle Z_{11} (rad)')
+ylabel(handles.S12Axis,'\angle Z (rad)')
 xlabel(handles.S12Axis,'Frequency (GHz)')
 set(handles.S12Axis,'LineWidth',2);
 set(handles.S12Axis,'FontSize',12);
