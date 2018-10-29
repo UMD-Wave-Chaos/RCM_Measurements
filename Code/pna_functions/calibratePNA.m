@@ -70,4 +70,5 @@ fprintf(obj1, ['SENS:CORR:CSET:DEL "',DELNAME,'"']);
 end
 fprintf(obj1, ['SENS:CORR:CSET:NAME "',NAME,'"']);
 
-calFileName = query(obj1,'SENSe:CORRection:CSET:DESC?');
+temp = strtrim(query(pnaObj,'SENSe:CORRection:CSET:DESC?'));
+calFileName = temp(2:end-1);

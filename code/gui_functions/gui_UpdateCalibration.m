@@ -1,18 +1,17 @@
 function handles = gui_UpdateCalibration(pnaObj,handles)
 
-calFileName = query(pnaObj,'SENSe:CORRection:CSET:DESC?');
+calFileName = strtrim(query(pnaObj,'SENSe:CORRection:CSET:DESC?'));
+tString = calFileName(2:end-1);
 
-if isempty(calFileName)
+if (strcmpi('No Cal Set selected',tString))
     color = 'red';
-    statusString = 'Not Calibrated';
 else
     color = 'green';
-    statusString = calFileName;
 end
     
 
 set(handles.calibrationText,'BackgroundColor',color);
-set(handles.calibrationText,'Text',statusString);
+set(handles.calibrationText,'String',tString);
 
 %pause to allow time for the gui to update
 pause(0.1);

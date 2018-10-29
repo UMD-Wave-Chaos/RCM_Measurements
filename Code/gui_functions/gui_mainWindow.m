@@ -119,6 +119,7 @@ if(handles.pnaConnection == true)
     set(handles.pnaConnectionText,'String',handles.pnaConnectionType);
     set(handles.pnaConnectionText,'BackgroundColor','green');
     initializePNA(handles.pnaObj,handles.Settings.NOP,handles.Settings.fStart,handles.Settings.fStop);
+    gui_UpdateCalibration(handles.pnaObj,handles);
 else
     set(handles.pnaConnectionText,'String','Not Connected');
     set(handles.pnaConnectionText,'BackgroundColor','red');

@@ -7,7 +7,7 @@ pWidth = floor((width-18*buffer)/2.0);
 pHeight = floor(height-12*buffer);
 
 %create the axis for plotting S11
-handles.S11Axis = axes('Units','pixels','Position',[6*buffer 5*buffer pWidth pHeight],'Parent',handles.hPlotPanel);
+handles.S11Axis = axes('Units','pixels','Position',[6*buffer+10 5*buffer pWidth pHeight],'Parent',handles.hPlotPanel);
 handles.S11MagPlot = plot(handles.S11Axis,linspace(10e6,13.5e9,256),zeros(1,256),'b','LineWidth',2);
 hold(handles.S11Axis,'on');
 handles.S12MagPlot = plot(handles.S11Axis,linspace(10e6,13.5e9,256),zeros(1,256),'--m','LineWidth',2);

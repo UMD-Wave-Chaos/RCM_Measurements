@@ -75,9 +75,9 @@ for iter = 1:N
     stepDistance = direction*nStepsPerRevolution/N;
     waitTime = 15;
     
-    runSpeed = max(100,stepDistance/10);
+    runSpeed = ceil(stepDistance/10);
 
-	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps and pausing %0.3f seconds',iter, N,stepDistance,waitTime);
+	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps at %d steps/second and pausing %0.1f seconds',iter, N,stepDistance,runSpeed,waitTime);
     logMessage(handles.jEditbox,lstring);
 
     %command parameters for I (index) are:

@@ -5,7 +5,8 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	This is a test run to capture the range of 8.5 GHz to 13.5 GHz, expected alpha is 32 
+    	This is a test run to capture the range of 8.5 GHz to 13.5 GHz, expected alpha is 32.
+        Performing manual calibration
     </Comments>
     
     <!-- ******************************************************************************  
@@ -66,7 +67,7 @@
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
         <FileNamePrefix> TestCase_8.5_to_13.5 </FileNamePrefix>
-        <TimeDateStamp> No </TimeDateStamp>
+        <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
 </configuration> 
