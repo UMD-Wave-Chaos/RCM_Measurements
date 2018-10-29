@@ -140,7 +140,7 @@ if handles.sConnection == true
     ltype = 'info';
     set(handles.sConnectionText,'String','Connected');
     set(handles.sConnectionText,'BackgroundColor','green');
-    pos = getStepperMotorPosition(handles.sConnection);
+    pos = getStepperMotorPosition(handles.sObj);
     set(handles.sPositionText,'String',num2str(pos));
 else
     lstring = 'Unable to connect to stepper motor';
@@ -169,10 +169,12 @@ handles = gui_UpdateMode('Closing',handles);
 
 if (handles.pnaConnection == true)
     fclose(handles.pnaObj);
+    delete(handles.pnaObj);
 end
 
 if (handles.sConnection == true)
     fclose(handles.sObj);
+    delete(handles.sObj);
 end
 delete(handles.hfig);
 
