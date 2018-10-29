@@ -1,4 +1,4 @@
-function calibratePNA(obj1,START, STOP, NAME, NOP,np,varargin) % np = number of ports
+function calFileName = calibratePNA(obj1,START, STOP, NAME, NOP,np,varargin) % np = number of ports
 % % % % % % % % % % % %%  This function calibrates the network analyzer in the frequency range
 % % % % % % % % % % % %  between START and STOP using maximum number of points, then saves the
 % % % % % % % % % % % %  result in the cal set name - NAME.
@@ -69,3 +69,5 @@ DELNAME = char(GC(km));
 fprintf(obj1, ['SENS:CORR:CSET:DEL "',DELNAME,'"']);
 end
 fprintf(obj1, ['SENS:CORR:CSET:NAME "',NAME,'"']);
+
+calFileName = query(obj1,'SENSe:CORRection:CSET:DESC?');

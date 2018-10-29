@@ -1,4 +1,6 @@
-function handles = gui_UpdateCalibration(calFileName,handles)
+function handles = gui_UpdateCalibration(pnaObj,handles)
+
+calFileName = query(pnaObj,'SENSe:CORRection:CSET:DESC?');
 
 if isempty(calFileName)
     color = 'red';

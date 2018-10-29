@@ -67,6 +67,10 @@ tic;
 % take measurements at each stepper motor position
 
 for iter = 1:N
+    
+    if (useGUI == true)
+        gui_UpdateCalibration(handles.pnaObj,handles);
+    end
     %% move the stepper motor
     stepDistance = direction*nStepsPerRevolution/N;
     waitTime = 15;

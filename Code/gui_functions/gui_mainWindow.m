@@ -187,8 +187,8 @@ handles = gui_UpdateMode('Calibrating',handles);
 calName = 'calibrationTest';
 
 try
-    calibratePNA(handles.pnaObj,handles.Settings.fStart, handles.Settings.fStop, calName, handles.Settings.NOP,2,handles);
- 
+    calname = calibratePNA(handles.pnaObj,handles.Settings.fStart, handles.Settings.fStop, calName, handles.Settings.NOP,2,handles);
+    gui_UpdateCalibration(handles.pnaObj,handles);
 catch err
      logError(handles.jEditbox,err);
 end
