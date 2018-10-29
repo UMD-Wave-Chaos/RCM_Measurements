@@ -226,6 +226,7 @@ function reloadConfig_Callback(hObject,event)
 handles = guidata(gcf);
 handles.Settings = gui_loadConfig();
 initializePNA(handles.pnaObj,handles.Settings.NOP,handles.Settings.fStart,handles.Settings.fStop);
+gui_UpdateCalibration(handles.pnaObj,handles);
 logSettings(handles);
 guidata(gcf,handles);
 
