@@ -5,7 +5,7 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	This is a test run 
+    	This is a test run to capture the range of 8.5 GHz to 13.5 GHz, expected alpha is 32 
     </Comments>
     
     <!-- ******************************************************************************  
@@ -23,7 +23,7 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 8E9 </FrequencySweepStart>
+        <FrequencySweepStart> 8.5E9 </FrequencySweepStart>
         <FrequencySweepStop> 13.5E9 </FrequencySweepStop>
         <!-- 
              transform times are requested and need to be within the range
@@ -65,8 +65,8 @@
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-        <FileNamePrefix> TestRun </FileNamePrefix>
-        <TimeDateStamp> Yes </TimeDateStamp>
+        <FileNamePrefix> TestCase_8.5_to_13.5 </FileNamePrefix>
+        <TimeDateStamp> No </TimeDateStamp>
     </Experiment_Settings>
     
 </configuration> 

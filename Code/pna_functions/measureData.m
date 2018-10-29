@@ -53,7 +53,6 @@ Ngates = 10;
 %end
 
 %% initialize the motor position
-initializePNA(obj1,NOP,fStart,fStop);
 startPos = getStepperMotorPosition(s1);
 
 % initialize the variables 
