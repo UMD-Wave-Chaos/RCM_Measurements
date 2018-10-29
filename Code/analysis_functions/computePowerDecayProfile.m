@@ -86,7 +86,7 @@ title(tString);
 
 if (savePlots)
     fname = sprintf('S%s_PDP',indString);
-    saveas(hh1,fullfile(foldername,fname),'png');
-    close (hh1)
+    saveas(h1,fullfile(foldername,fname),'png');
+    close (h1)
 
 end

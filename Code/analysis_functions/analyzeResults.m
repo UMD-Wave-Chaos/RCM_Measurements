@@ -52,12 +52,17 @@ if (useGUI == true)
 else
     disp(lstring)
 end
-for param=1:4
-    Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername,handles);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+
+for port = 1:4
+     Tau(port) = computePowerDecayProfile(SCt,t,l,port,foldername,1);
+
 end
+% for param=1:4
+%     Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername,handles);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
+% end
 
 
-lstring = sprintf('Alpha: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',alpha(1)*1e9,alpha(2)*1e9,alpha(3)*1e9,alpha(4)*1e9);
+lstring = sprintf('Tau: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',Tau(1)*1e9,Tau(2)*1e9,Tau(3)*1e9,Tau(4)*1e9);
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring,'info');
 else
@@ -103,7 +108,7 @@ h5create(analysisFile,'/Analysis/Zcf_imag',size(Zcf));
 h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5 (~40 sec for N = 200)
-Znormf = normalizeImpedance(Zcf ,Freq, handles);
+Znormf = normalizeImpedance(Zcf ,Zradf, Freq, handles);
 
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_real',real(Znormf));
