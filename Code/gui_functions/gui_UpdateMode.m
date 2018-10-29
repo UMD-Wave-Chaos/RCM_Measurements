@@ -14,5 +14,6 @@ switch(mode)
 end
 
 set(handles.modeText,'BackgroundColor',color);
-
+%pause to allow time for the gui to update
+pause(0.1);
 guidata(handles.hfig,handles);

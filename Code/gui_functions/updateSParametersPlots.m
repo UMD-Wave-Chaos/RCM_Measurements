@@ -10,10 +10,10 @@ y2 = decimate(SC12,floor(length(SC12)/nReduction));
 y3 = decimate(SC22,floor(length(SC12)/nReduction));
 
 xlimit = [min(x) max(x)];
-semilogx(handles.S11Axis,x,20*log10(abs(y1)),'LineWidth',2);
+plot(handles.S11Axis,x,20*log10(abs(y1)),'LineWidth',2);
 hold(handles.S11Axis,'on');
-semilogx(handles.S11Axis,x,20*log10(abs(y2)),'LineWidth',2);
-semilogx(handles.S11Axis,x,20*log10(abs(y3)),'LineWidth',2);
+plot(handles.S11Axis,x,20*log10(abs(y2)),'--m','LineWidth',2);
+plot(handles.S11Axis,x,20*log10(abs(y3)),'.k','LineWidth',2);
 set(handles.S11Axis,'XLim',xlimit);
 set(handles.S11Axis,'YLim',[-100 10]);
 grid(handles.S11Axis,'on');
@@ -28,10 +28,10 @@ title(handles.S11Axis,tString);
 
 hold(handles.S12Axis,'off');
 xlimit = [min(x) max(x)];
-semilogx(handles.S12Axis,x,angle(y1),'LineWidth',2);
+plot(handles.S12Axis,x,angle(y1),'LineWidth',2);
 hold(handles.S12Axis,'on');
-semilogx(handles.S12Axis,x,angle(y2),'LineWidth',2);
-semilogx(handles.S12Axis,x,angle(y3),'LineWidth',2);
+plot(handles.S12Axis,x,angle(y2),'--m','LineWidth',2);
+plot(handles.S12Axis,x,angle(y3),'.k','LineWidth',2);
 set(handles.S12Axis,'XLim',xlimit);
 set(handles.S12Axis,'YLim',[-pi pi]);
 grid(handles.S12Axis,'on');

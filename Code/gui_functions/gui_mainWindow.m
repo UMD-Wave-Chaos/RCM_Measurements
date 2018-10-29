@@ -118,6 +118,7 @@ if(handles.pnaConnection == true)
     ltype = 'info';
     set(handles.pnaConnectionText,'String',handles.pnaConnectionType);
     set(handles.pnaConnectionText,'BackgroundColor','green');
+    initializePNA(handles.pnaObj,handles.Settings.NOP,handles.Settings.fStart,handles.Settings.fStop);
 else
     set(handles.pnaConnectionText,'String','Not Connected');
     set(handles.pnaConnectionText,'BackgroundColor','red');
@@ -182,11 +183,11 @@ delete(handles.hfig);
 function calibrate_Callback(hObject,event)
 handles = guidata(gcf);
 
-handles = gui_UpdateMode('Measuring',handles);
+handles = gui_UpdateMode('Calibrating',handles);
 calName = 'calibrationTest';
 
 try
-    calibratePNA(handles.pnaObj,handles.Settings.fStart, handles.Settings.fStop, calName, handles.Settings.NOP,2);
+    calibratePNA(handles.pnaObj,handles.Settings.fStart, handles.Settings.fStop, calName, handles.Settings.NOP,2,handles);
  
 catch err
      logError(handles.jEditbox,err);
@@ -214,7 +215,7 @@ lstring = sprintf('Saving data to %s',handles.Settings.fileName);
 logMessage(handles.jEditbox,lstring);
 saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
 
-clear(handles.t,handles.SCt,handles.Freq,handles.SCf,handles.Srad);
+clear handles.t handles.SCt handles.Freq handles.SCf handles.Srad;
 
 handles = gui_UpdateMode('Idle',handles);
 logMessage(handles.jEditbox,'Ready');
@@ -223,6 +224,7 @@ logMessage(handles.jEditbox,'Ready');
 function reloadConfig_Callback(hObject,event)
 handles = guidata(gcf);
 handles.Settings = gui_loadConfig();
+initializePNA(handles.pnaObj,handles.Settings.NOP,handles.Settings.fStart,handles.Settings.fStop);
 logSettings(handles);
 guidata(gcf,handles);
 

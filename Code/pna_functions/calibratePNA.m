@@ -1,7 +1,25 @@
-function calibratePNA(obj1,START, STOP, NAME, NOP,np) % np = number of ports
+function calibratePNA(obj1,START, STOP, NAME, NOP,np,varargin) % np = number of ports
 % % % % % % % % % % % %%  This function calibrates the network analyzer in the frequency range
 % % % % % % % % % % % %  between START and STOP using maximum number of points, then saves the
 % % % % % % % % % % % %  result in the cal set name - NAME.
+
+if (nargin == 7)
+    useGUI = true;
+    handles = varargin{1};
+else
+    useGUI = false;
+end
+
+lstring = sprintf('Starting Calibration ...');
+ if (useGUI == true)
+     logMessage(handles.jEditbox,lstring);
+ else
+     disp(lstring)
+ end
+ 
+ %update the timeout because the calibration takes awhile
+ timeout = get(obj1,'Timeout');
+ set(obj1,'Timeout',60);
 
 % Communicating with instrument object, obj1.
 fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
@@ -25,10 +43,16 @@ end
 fprintf(obj1, 'SENSe:CORRection:COLL:ACQ ECAL1'); % cal calibration data
 Done = query(obj1,'*OPC?');
 
-while (Done ~= 1)
-    pause(10);
-    Done = query(obj1,'*OPC?');
-end
+lstring = sprintf('Calibration Step Completed ...');
+ if (useGUI == true)
+     logMessage(handles.jEditbox,lstring);
+ else
+     disp(lstring)
+ end
+
+ %reset the timeout
+  set(obj1,'Timeout',timeout);
+  
 G = query(obj1, ['SENS:CORR:CSET:CAT?']);
 GC = strread(G, '%s', length(find(G == ','))+1, 'delimiter', ',');
 N = query(obj1, ['SENS:CORR:CSET:CAT? NAME']);

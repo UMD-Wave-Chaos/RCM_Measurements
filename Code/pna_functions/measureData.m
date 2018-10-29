@@ -45,15 +45,14 @@ Ngates = 10;
 
 %% check to see if we need to perform the electric calibration
 % normally the PNA will be manually calibrated
-if (eCal == true)
-    for k = 1:15
-     cal_name = ['cal_for_',date,num2str(k)];
-     calibratePNA(obj1,0.1E9+(k-1)*0.2E9,0.1E9+k*0.2E9,cal_name,NOP)
-    end
-end
+%if (eCal == true)
+ %   for k = 1:15
+  %   cal_name = ['cal_for_',date,num2str(k)];
+   %  calibratePNA(obj1,0.1E9+(k-1)*0.2E9,0.1E9+k*0.2E9,cal_name,NOP)
+   % end
+%end
 
-%% initialize
-% initialize the instrumentation
+%% initialize the motor position
 initializePNA(obj1,NOP,fStart,fStop);
 startPos = getStepperMotorPosition(s1);
 
@@ -71,14 +70,17 @@ tic;
 for iter = 1:N
     %% move the stepper motor
     stepDistance = direction*nStepsPerRevolution/N;
-    waitTime = 10;
+    waitTime = 15;
+    
+    runSpeed = max(100,stepDistance/10);
+
 	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps and pausing %0.3f seconds',iter, N,stepDistance,waitTime);
     logMessage(handles.jEditbox,lstring);
 
     %command parameters for I (index) are:
     %distance, run speed, start speed, end speed, accel rate, decel rate,
     %run current, hold current, accel current, delay, step mode
-    fprintf(s1,['I',num2str(stepDistance),',100,0,0,500,500,1000,0,1000,1000,50,64']); 
+    fprintf(s1,['I',num2str(stepDistance),',',num2str(runSpeed),',0,0,500,500,1000,0,1000,1000,50,64']); 
     pause(waitTime);
     newPos = getStepperMotorPosition(s1); 
     
