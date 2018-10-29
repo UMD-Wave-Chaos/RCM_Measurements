@@ -71,7 +71,7 @@ function Settings = gui_loadConfig()
  fnPrefix =  strtrim(char(fnElement.getFirstChild.getData));
  
  if dsBool == true
-     Settings.fileName = sprintf('%s%s.h5',fnPrefix,datestr(now,30)); 
+     Settings.fileName = sprintf('%s_%s.h5',fnPrefix,datestr(now,30)); 
  else
      Settings.fileName = sprintf('%s.h5',fnPrefix); 
  end

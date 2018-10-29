@@ -5,8 +5,8 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	This is a test run to capture the range of 8.5 GHz to 13.5 GHz, expected alpha is 32.
-        Performing manual calibration
+    	This is a test run to capture the range of 9.5 GHz to 11 GHz, expected alpha is 32.
+        Performing electronic calibration
     </Comments>
     
     <!-- ******************************************************************************  
@@ -24,8 +24,8 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 8.5E9 </FrequencySweepStart>
-        <FrequencySweepStop> 13.5E9 </FrequencySweepStop>
+        <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
+        <FrequencySweepStop> 11E9 </FrequencySweepStop>
         <!-- 
              transform times are requested and need to be within the range
              +/- (NumberOfPoints - 1)/(FrequencySweepStop - FrequencySweepStart)
@@ -66,7 +66,7 @@
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-        <FileNamePrefix> TestCase_8.5_to_13.5 </FileNamePrefix>
+        <FileNamePrefix> TestCase_9.5_to_11 </FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
