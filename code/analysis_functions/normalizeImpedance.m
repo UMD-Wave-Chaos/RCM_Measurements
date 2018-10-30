@@ -17,24 +17,11 @@ end
 N = size(Zcf,4);
 num_ports = 2;
 
-gate = 1;
+
 Znormf = zeros(num_ports,num_ports,length(Freq),N);
 Zradf1 = mean(Zcf,4);
 
 Zradf2 = mean(Zradf,4);
-
-% tt1 = reshape(Zradf1(1,1,:),[1 32001]);
-% tt2 = reshape(Zradf2(1,1,:),[1 32001]);
-% 
-% yy1 = reshape(Zradf1(1,2,:),[1 32001]);
-% yy2 = reshape(Zradf2(1,2,:),[1 32001]);
-% 
-% xx1 = reshape(Zradf1(2,1,:),[1 32001]);
-% xx2 = reshape(Zradf2(2,1,:),[1 32001]);
-% 
-% zz1 = reshape(Zradf1(2,2,:),[1 32001]);
-% zz2 = reshape(Zradf2(2,2,:),[1 32001]);
-
 
 Zradf = Zradf2;
 tic; 
