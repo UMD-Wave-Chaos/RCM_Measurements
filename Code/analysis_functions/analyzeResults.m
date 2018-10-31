@@ -41,9 +41,17 @@ mkdir(foldername);
 
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
+%% Get the Corrected Srad
+Srad2 = computeSrad(SCf);
+
+% Srad2(:,4) = mean(Srad(:,4,:,6),3);
+
 %% Plot the ensembles
-plotSParameters(t,Freq,SCf,SCt,Srad,foldername);
+plotSParameters2(t,Freq,SCf,SCt,Srad,Srad2,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
+
+%% Get and plot the enhanced backscatter coefficient
+eb = computeEnhancedBackscatter(SCf, Freq,foldername,1);
 
 %% Step 3: Compute Tau, the 1/e fold energy decay time
 lstring = 'Computing tau ...';
@@ -96,7 +104,7 @@ h5create(analysisFile,'/Analysis/Q',size(Qcomp));
 h5write(analysisFile,'/Analysis/Q',Qcomp);
 
 %% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations. (~2 min for N = 200)
-[Zradf, Zcf] = transformStoZ(Srad, SCf,Freq, handles);
+[Zradf, Zcf] = transformStoZ(Srad2, SCf,Freq, handles);
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
 h5create(analysisFile,'/Analysis/Zradf_imag',size(Zradf));

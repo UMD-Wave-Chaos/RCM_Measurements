@@ -24,5 +24,4 @@ Srad = Srad_r + 1j*Srad_i;
 SCf = SCf_r + 1j*SCf_i;
 SCt = SCt_r + 1j*SCt_i;
 
-warning('Need to add load Settings call back in');
-Settings = []%loadSettingsFromHDF5File(filename);
+Settings = loadSettingsFromHDF5File(filename);

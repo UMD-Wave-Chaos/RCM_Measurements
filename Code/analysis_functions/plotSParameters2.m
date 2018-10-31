@@ -1,7 +1,7 @@
-function plotSParameters2(t,Freq,SCf,SCt,Srad,Srad2,Scorr,foldername,varargin)
+function plotSParameters2(t,Freq,SCf,SCt,Srad,Srad2,foldername,varargin)
 
 savePlots = 1;
-if nargin == 9
+if nargin == 8
     savePlots = varargin{1};
 end
 N = size(SCf,2);
@@ -22,7 +22,7 @@ hold on
 plot(Freq/1E9,20*log10(mean(abs(SCf(:,1,:)),3)),'r');
 plot(Freq/1E9,20*log10(abs(Srad(:,1,end,6))),'k','LineWidth',2);
 plot(Freq/1E9,20*log10(abs(Srad2(:,1))),'--m','LineWidth',2);
-plot(Freq/1E9,10*log10(Scorr(:,1)),'-.g','LineWidth',2);
+% plot(Freq/1E9,10*log10(Scorr(:,1)),'-.g','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{11}|');
@@ -37,7 +37,7 @@ hold on
 plot(Freq/1E9,20*log10(mean(abs(SCf(:,2,:)),3)),'r');
 plot(Freq/1E9,20*log10(abs(Srad(:,2,end,6))),'k','LineWidth',2);
 plot(Freq/1E9,20*log10(abs(Srad2(:,2))),'--m','LineWidth',2);
-plot(Freq/1E9,10*log10(Scorr(:,2)),'-.g','LineWidth',2);
+% plot(Freq/1E9,10*log10(Scorr(:,2)),'-.g','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{12}|');
@@ -52,7 +52,7 @@ hold on
 plot(Freq/1E9,20*log10(mean(abs(SCf(:,3,:)),3)),'r');
 plot(Freq/1E9,20*log10(abs(Srad(:,3,end,6))),'k','LineWidth',2);
 plot(Freq/1E9,20*log10(abs(Srad2(:,3))),'--m','LineWidth',2);
-plot(Freq/1E9,10*log10(Scorr(:,3)),'-.g','LineWidth',2);
+% plot(Freq/1E9,10*log10(Scorr(:,3)),'-.g','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{21}|');
@@ -67,7 +67,7 @@ hold on
 plot(Freq/1E9,20*log10(mean(abs(SCf(:,4,:)),3)),'r');
 plot(Freq/1E9,20*log10(abs(Srad(:,4,end,6))),'k','LineWidth',2);
 plot(Freq/1E9,20*log10(abs(Srad2(:,4))),'--m','LineWidth',2);
-plot(Freq/1E9,10*log10(Scorr(:,4)),'-.g','LineWidth',2);
+% plot(Freq/1E9,10*log10(Scorr(:,4)),'-.g','LineWidth',2);
 ylabel('Value (dB)');
 xlabel('Frequency (GHz)');
 title('|S_{22}|');
