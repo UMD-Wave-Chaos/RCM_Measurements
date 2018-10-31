@@ -21,9 +21,12 @@ num_ports = 2;
 Znormf = zeros(num_ports,num_ports,length(Freq),N);
 Zradf1 = mean(Zcf,4);
 
-Zradf2 = mean(Zradf,4);
+Zradf = mean(Zradf,4);
+% 
+% Zradf = Zradf1;
+% Zradf(1,1,:) = Zradf1(1,1,:);
+% Zradf(2,2,:) = Zradf2(2,2,:);
 
-Zradf = Zradf2;
 tic; 
 for incr = 1:N
    
