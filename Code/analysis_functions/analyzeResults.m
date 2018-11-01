@@ -42,9 +42,7 @@ mkdir(foldername);
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
 %% Get the Corrected Srad
-Srad2 = computeSrad(SCf);
-
-% Srad2(:,4) = mean(Srad(:,4,:,6),3);
+Srad2 = computeSrad(SCf,Srad,Freq);
 
 %% Plot the ensembles
 plotSParameters2(t,Freq,SCf,SCt,Srad,Srad2,foldername);

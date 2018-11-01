@@ -1,14 +1,12 @@
-function Srad = computeSrad(SCf)
-[m,n,p] = size(SCf);
-Srad = zeros(m,n);
+function Srad2 = computeSrad(SCf,Srad,Freq)
 
-for port = 1:4
-    Sc = getSParameterCorrectionFactor(SCf,port);
-    
-%     Smean = mean(SCf(:,port,:),3);
-%     Sval = reshape(SCf(:,port,:),[m p]);
-%     Scor = Sval - Smean;
-    
-    Srad(:,port) = mean(Sc.*SCf(:,port,:),3);
-%     Srad(:,port) = mean(Sc.*Scor,2);
-end
+
+S1 = timeGatingS(SCf,Srad,Freq,1,100e-9);
+S2 = timeGatingS(SCf,Srad,Freq,2,100e-9);
+S3 = timeGatingS(SCf,Srad,Freq,3,100e-9);
+S4 = timeGatingS(SCf,Srad,Freq,4,16e-9);
+
+Srad2(:,1) = S1;
+Srad2(:,2) = S2;
+Srad2(:,3) = S3;
+Srad2(:,4) = S4;

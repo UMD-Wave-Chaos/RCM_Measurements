@@ -6,8 +6,8 @@ N = length(St);
 
 %compute the frequency steps and generate a frequency vector that is offset
 %in frequency
-df = 1/dt;
-f = fStart + (0:N-1)*df;
+Fs = 1/dt;
+f = Fs*(0:N-1)/N + fStart;
 
 %compute the Fourier transform and divide by N
-Sf = fftshift(fft(St))/N;
+Sf = fftshift(fft(St));

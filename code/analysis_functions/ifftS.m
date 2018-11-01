@@ -1,12 +1,23 @@
-function [St,t] = ifftS(Sf,deltaF)
+function [St,t] = ifftS(Sf,fSpan,varargin)
 % [St,t] = ifftS(Sf,deltaF)
+% [St,t] = ifftS(Sf,deltaF,upSampleFactor)
+
 
 %get the length of the vector
 N = length(Sf);
 
-%compute the time steps and generate a time vector
-dt = 1/(deltaF);
-t = (-N/2:N/2-1)*dt;
+if nargin == 3
+    upSampleFactor = varargin{1};
+    Nsamples = N*upSampleFactor;
+else
+    upSample = false;
+    Nsamples = N;
+end
 
-%compute the inverse Fourier transform and scale by N
-St = ifftshift(ifft(ifftshift(Sf)))*N;
+
+%compute the time steps and generate a time vector
+T = 1/(upSampleFactor*fSpan);
+t = (-Nsamples/2:Nsamples/2-1)*T;
+
+%compute the inverse Fourier transform
+St = ifftshift(ifft(ifftshift(Sf),Nsamples))*upSampleFactor;
