@@ -1,4 +1,4 @@
-function [Sf,f] = compareCorrectedSParameters(SCf,Freq,port,varargin)
+function compareCorrectedSParameters(SCf,Freq,port,varargin)
 
 switch port
     case 1
@@ -18,31 +18,30 @@ Sr1 = mean(Sc.*SCf(:,1,:),3);
 
 figure
 hold on
-plot(Freq/1e9,20*log10(abs(mean(SCf(:,port,:),3))),'--g','LineWidth',2);
-plot(Freq/1e9,20*log10(abs(Sr1)),' ');
+plot(Freq/1e9,20*log10(abs(mean(SCf(:,port,:),3))),'b','LineWidth',2);
+plot(Freq/1e9,20*log10(abs(Sr1)),'k','LineWidth',1.5);
 grid on
 xlabel('Frequency (GHz)')
 ylabel('|<S>| (dB)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-tstring = sprintf('S_{%s} with %0.2f ns %s',indString,1e9*gateTime, windowString);
-title(tstring);
 legend('Raw','Corrected')
+tstring = sprintf('S_{%s} Raw vs. Corrected Measurements',indString);
+title(tstring);
 
-% legend('Raw |S|','|<S>|','|<S_c>|','|<S_{gn}>|','|<S_{gm}>|')
 
 figure
 hold on
-plot(Freq/1e9,angle(mean(SCf(:,port,:),3)),'--g','LineWidth',2);
-plot(f/1e9,angle(meanSf),'r','LineWidth',2);
-plot(Freq/1e9,angle(mean(Srad(:,port,:,SradIndex),3)),'k','LineWidth',2);
+hold on
+plot(Freq/1e9,angle(mean(SCf(:,port,:),3)),'b','LineWidth',2);
+plot(Freq/1e9,angle(Sr1),'k','LineWidth',1.5);
 grid on
 xlabel('Frequency (GHz)')
 ylabel('\angle <S> (rad)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-tstring = sprintf('S_{%s} with %0.2f ns %s',indString,1e9*gateTime, windowString);
+legend('Raw','Corrected')
+tstring = sprintf('S_{%s} Raw vs. Corrected Measurements',indString);
 title(tstring);
-legend('Ungated','Gated in Processing','Gated in Measurement')
