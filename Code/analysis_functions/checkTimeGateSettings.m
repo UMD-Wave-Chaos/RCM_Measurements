@@ -1,21 +1,15 @@
-function [Sf,f] = timeGatingS(SCf,Srad,Freq,port,gateTime,varargin)
+function [Sf,f] = checkTimeGateSettings(SCf,Freq,port,gateTime,varargin)
 
-if nargin >= 6
+if nargin >= 5
     maskType = varargin{1};
 else
     maskType = 0;
 end
 
-if nargin >= 7
+if nargin >= 6
     wVal = varargin{2};
 else
     wVal = 2.5;
-end
-
-if nargin == 8
-    SradIndex = varargin{3};
-else
-    SradIndex = 10;
 end
 
 switch port
@@ -36,17 +30,13 @@ end
 meanSf = mean(Sf,2);
 
 Sc = getSParameterCorrectionFactor(SCf,port);
-Sr1 = mean(Sc.*SCf(:,1,:),3);
-
-Sdiff = sum(abs(mean(Sf,2) - mean(Srad(:,port,:,SradIndex),3)));
-dString = sprintf('Signal Difference is %f',Sdiff);
-disp(dString);
+Sr1 = mean(Sc.*SCf(:,port,:),3);
 
 figure
 hold on
 plot(Freq/1e9,20*log10(abs(mean(SCf(:,port,:),3))),'--g','LineWidth',2);
+plot(f/1e9,20*log10(abs(Sr1)),'b','LineWidth',2);
 plot(f/1e9,20*log10(abs(meanSf)),'r','LineWidth',2);
-plot(Freq/1e9,20*log10(abs(mean(Srad(:,port,:,SradIndex),3))),'k','LineWidth',2);
 grid on
 xlabel('Frequency (GHz)')
 ylabel('|<S>| (dB)')
@@ -55,14 +45,13 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 tstring = sprintf('S_{%s} with %0.2f ns %s',indString,1e9*gateTime, windowString);
 title(tstring);
-legend('Ungated','Gated in Processing','Gated in Measurement')
-
+legend('Ungated Raw','Ungated Corrected','Gated')
 
 figure
 hold on
 plot(Freq/1e9,angle(mean(SCf(:,port,:),3)),'--g','LineWidth',2);
+plot(f/1e9,angle(Sr1),'b','LineWidth',2);
 plot(f/1e9,angle(meanSf),'r','LineWidth',2);
-plot(Freq/1e9,angle(mean(Srad(:,port,:,SradIndex),3)),'k','LineWidth',2);
 grid on
 xlabel('Frequency (GHz)')
 ylabel('\angle <S> (rad)')
@@ -71,4 +60,4 @@ set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
 tstring = sprintf('S_{%s} with %0.2f ns %s',indString,1e9*gateTime, windowString);
 title(tstring);
-legend('Ungated','Gated in Processing','Gated in Measurement')
+legend('Ungated Raw','Ungated Corrected','Gated')

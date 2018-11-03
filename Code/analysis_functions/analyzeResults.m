@@ -14,9 +14,6 @@ else
     disp(lstring)
 end
 
-num_ports = 2;
-
-BINS = 1000;       % number of bins to be used in generating a distribution
 
 %% read the specified file name and create the output data directory for plots
 [t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM] = loadData(filename);
@@ -42,10 +39,10 @@ mkdir(foldername);
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
 %% Get the Corrected Srad
-Srad2 = computeSrad(SCf,Srad,Freq);
+Srad2 = computeSrad(SCf,Freq);
 
 %% Plot the ensembles
-plotSParameters2(t,Freq,SCf,SCt,Srad,Srad2,foldername);
+plotSParameters2(t,Freq,SCf,SCt,Srad2,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
 
 %% Get and plot the enhanced backscatter coefficient
@@ -60,13 +57,9 @@ else
 end
 
 for port = 1:4
-     Tau(port) = computePowerDecayProfile(SCt,t,l,port,foldername,1);
+     Tau(port) = computePowerDecayProfile(SCf,Freq,l,port,foldername,1);
 
 end
-% for param=1:4
-%     Tau(param) = getTau(t, mean(abs(SCt(:,param,:)),3), l,param,foldername,handles);                                 % input parameters: the complex time domain S parameter measurements and corresponding time vector, the electrical length of the antenna(m).
-% end
-
 
 lstring = sprintf('Tau: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',Tau(1)*1e9,Tau(2)*1e9,Tau(3)*1e9,Tau(4)*1e9);
 if (useGUI == true)
