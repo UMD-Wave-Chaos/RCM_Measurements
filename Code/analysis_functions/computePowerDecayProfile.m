@@ -1,4 +1,4 @@
-function [tau,pdp] = computePowerDecayProfile(SCt,t,l,index,foldername,varargin)
+function [tau,pdp] = computePowerDecayProfile(SCf,Freq,l,index,foldername,varargin)
 
 if nargin == 6
     savePlots = varargin{1};
@@ -6,9 +6,15 @@ else
     savePlots = 0;
 end
 
+%get the time domain signal
+[SCt,t] = ifftS(squeeze(SCf(:,index,:)),Freq(end) - Freq(1));
+
+%convention for the fitting routine requires t to be a column vector
+t = t';
+
 %compute the power decay profile
 %PDP = <| IFT{SC}|^2>
-pdp = mean(abs(SCt(:,index,:)).^2,3);
+pdp = mean(abs(SCt).^2,2);
 
 %set the break points in time for the number of electrical lengths
 %try 500 to 1500
@@ -16,8 +22,8 @@ tStart = l*500/3E8;
 tStop = l*1500/3E8;
  
 %convert from time to indices
-indStart = find(abs(t- tStart) == min(abs(t-tStart)));              
-indStop = find(abs(t - tStop) == min(abs(t - tStop)));             
+indStart = find(abs(t- tStart) == min(abs(t-tStart)),1);              
+indStop = find(abs(t - tStop) == min(abs(t - tStop)),1);             
 
 %get the sections
 pdpSection = pdp(indStart:indStop);

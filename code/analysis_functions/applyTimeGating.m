@@ -1,27 +1,31 @@
-function [OutputSignal,OutputF] = applyTimeGating(InputSignal,InputF,gateTime, varargin)
+function [OutputSignal,OutputF, windowString] = applyTimeGating(InputSignal,InputF,gateTime, varargin)
 
 %[OutputSignal,OutputF] = applyTimeGating(InputSignal,InputF,gateTime)
 %[OutputSignal,OutputF] = applyTimeGating(InputSignal,InputF,gateTime, maskType)
 
 %% initialize
 %get the mask type if specified
-if nargin == 4
+if nargin >= 4
     maskType = varargin{1};
 else
     maskType = 0;
 end
 
+%get the window value (Kaiser, Gaussian, etc.)
+if nargin == 5
+    wVal = varargin{2};
+else
+    wVal = 2.5;
+end
+
 %make sure to remove any singleton dimensions
 InputSignal = squeeze(InputSignal);
-
-%setup the window value (Kaiser, Gaussian, etc.)
-wVal = 2.5;
 
 %get the size of the input signal
 [m,n] = size(InputSignal);
 
 %setup the pad length and get the size of the 1-sided signal
-zPadLength = 0;
+zPadLength = 1000;
 newLength1Sided = m + 2*zPadLength;
 
 % get the initial frequency span and spacing
@@ -75,19 +79,25 @@ for cnt = 1:n
      switch maskType
          case 1
              w = window(@kaiser,nWindowPoints,wVal);
-             windowString = sprintf('Kaiser, Beta = %f',wVal);
+             windowString = sprintf('Kaiser Window, Beta = %0.3f, # Points = %d',wVal, nWindowPoints);
          case 2
              w = window(@blackmanharris,nWindowPoints);
-             windowString = 'BlackmanHarris';
+             windowString = sprintf('BlackmanHarris Window, # Points = %d', nWindowPoints);
          case 3
              w = window(@gausswin,nWindowPoints,wVal);
-             windowString = sprintf('Gaussian, Alpha = %f',wVal);
+             windowString = sprintf('Gaussian Window, Alpha = %0.3f, # Points = %d',wVal, nWindowPoints);
          case 4
              w = window(@hamming,nWindowPoints);
-             windowString = 'Hamming';
+             windowString = sprintf('Hamming Window, # Points = %d', nWindowPoints);
+         case 5
+             w = window(@bartlett,nWindowPoints);
+             windowString = sprintf('Bartlett Window, # Points = %d', nWindowPoints);
+         case 6
+             w = window(@chebwin,nWindowPoints,wVal);
+             windowString = sprintf('Chebyshev Window, Sidelobe Attenuation = %0.1f dB, # Points = %d', wVal, nWindowPoints);
          otherwise
              w = window(@rectwin,nWindowPoints);
-             windowString = 'Rectangular';
+             windowString = sprintf('Rectangular Window, # Points = %d', nWindowPoints);
      end
 
      mask(indStart:indStop) = w;
@@ -105,5 +115,5 @@ for cnt = 1:n
 end
 
 %output messages
-dispString = sprintf('Time Gating completed, using %s window',windowString);
+dispString = sprintf('Time Gating completed, using %s',windowString);
 disp(dispString);
