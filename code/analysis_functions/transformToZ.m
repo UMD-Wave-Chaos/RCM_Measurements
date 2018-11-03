@@ -19,13 +19,16 @@ num_ports = 1;
 
 tic; 
 SM = reshape(shiftdim(permute(S,[2,1,3]),-1),num_ports,num_ports,length(Freq),N);
-srZ0 = sqrt(50)*eye(num_ports);
-Z = zeros(num_ports,num_ports,length(Freq),N);
+srZ0 = 50;%*eye(num_ports);
+% Z = zeros(num_ports,num_ports,length(Freq),N);
 
 for i = 1:N
-    for j = 1:length(Freq)
-            Z(:,:,j,i) = srZ0*(eye(num_ports)+SM(:,:,j))*inv(eye(num_ports)-SM(:,:,j))*srZ0;
-    end
+%     for j = 1:length(Freq)
+%         Z(j,i) = srZ0*(1 + S(j,i))./(1-S(j,i));
+% %             Z(:,:,j,i) = srZ0*(eye(num_ports)+SM(:,:,j))*inv(eye(num_ports)-SM(:,:,j));l%srZ0;
+%     end
+    
+    Z(:,i) = srZ0*(1 + S(:,i))./(1-S(:,i));
     time = toc; 
     
     if (useGUI == true)

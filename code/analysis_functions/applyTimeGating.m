@@ -20,21 +20,23 @@ wVal = 2.5;
 %get the size of the input signal
 [m,n] = size(InputSignal);
 
+%setup the pad length and get the size of the 1-sided signal
+zPadLength = 0;
+newLength1Sided = m + 2*zPadLength;
+
 % get the initial frequency span and spacing
 fSpan = InputF(end) - InputF(1);
-df = fSpan/m;
+df = fSpan/m; 
 
-%set up the pad length and the padded signal size vector
-zPadLength = 0;%10000;
-newLength = m + 2*zPadLength;
+%need to increase the frequency span according to the pad length
 newFSpan = fSpan+2*df*zPadLength;
 newStartFreq = InputF(1) - df*zPadLength;
 
 %create the mask
-mask = zeros(newLength,1);
+mask = zeros(2*newLength1Sided,1);
 
 %initialize vectors to hold the signals
-SignalF = zeros(newLength,1); %temporary storage for the intermediate vectors
+SignalF = zeros(2*newLength1Sided,1); %temporary storage for the intermediate vectors
 OutputSignal = zeros(m,n);%storage for the collection of vectors
 
 %setup the time window to be symmetric about 0
@@ -43,58 +45,63 @@ timeWindow = [-1*gateTime 1*gateTime];
 %% loop over the number of realizations and apply the gate
 for cnt = 1:n
     
- %extract the current signal
- testSignal = InputSignal(:,cnt);
- 
- %need to pad the signal in the frequency domain
- %hold the value at the edges
- SignalF(zPadLength+1:zPadLength+m) = testSignal;
- SignalF(1:zPadLength) = testSignal(1);
- SignalF(zPadLength+m+1:end) = testSignal(end);
- 
- %now take the ifft to get the signal in time
- [SignalT,t] = ifftS(SignalF,newFSpan,1);
- 
- %get the time spacing  
- dt = t(2) - t(1);
+    %create a temporary vector to contain the 1-sided signal
+    testSignal = zeros(newLength1Sided,1);
 
- %need to find the closest points to the specified stop and start gates
- indStart = find(abs(t-timeWindow(1)) == min(abs(t-timeWindow(1))),1);
- indStop = find(abs(t-timeWindow(2)) == min(abs(t-timeWindow(2))),1);
+    %extract the current signal
+    testSignal(zPadLength+1:zPadLength+m) = InputSignal(:,cnt);
 
- %compute the number of points in the window
- nWindowPoints = indStop-indStart+1;
+    %hold the values at the edges - pad the signal
+    testSignal(1:zPadLength) = InputSignal(1,cnt);
+    testSignal(zPadLength+m+1:end) = InputSignal(end,cnt);
 
- %create the window for the mask
- switch maskType
-     case 1
-         w = window(@kaiser,nWindowPoints,wVal);
-         windowString = sprintf('Kaiser, Beta = %f',wVal);
-     case 2
-         w = window(@blackmanharris,nWindowPoints);
-         windowString = 'BlackmanHarris';
-     case 3
-         w = window(@gausswin,N,wVal);
-         windowString = sprintf('Gaussian, Alpha = %f',wVal);
-     case 4
-         w = window(@hamming,nWindowPoints);
-         windowString = 'Hamming';
-     otherwise
-         w = window(@rectwin,nWindowPoints);
-         windowString = 'Rectangular';
- end
+    %need to convert to a 2-sided spectrum
+    SignalF = [flipud(testSignal); testSignal];
  
- mask(indStart:indStop) = w;
+    %now take the ifft to get the signal in time
+    [SignalT,t] = ifftS(SignalF,newFSpan);
+ 
+    %get the time spacing  
+     dt = t(2) - t(1);
 
- %apply the mask
- SignalT= mask.*SignalT;
+     %need to find the closest points to the specified stop and start gates
+     indStart = find(abs(t-timeWindow(1)) == min(abs(t-timeWindow(1))),1);
+     indStop = find(abs(t-timeWindow(2)) == min(abs(t-timeWindow(2))),1);
+
+     %compute the number of points in the window
+     nWindowPoints = indStop-indStart+1;
+
+     %create the window for the mask
+     switch maskType
+         case 1
+             w = window(@kaiser,nWindowPoints,wVal);
+             windowString = sprintf('Kaiser, Beta = %f',wVal);
+         case 2
+             w = window(@blackmanharris,nWindowPoints);
+             windowString = 'BlackmanHarris';
+         case 3
+             w = window(@gausswin,nWindowPoints,wVal);
+             windowString = sprintf('Gaussian, Alpha = %f',wVal);
+         case 4
+             w = window(@hamming,nWindowPoints);
+             windowString = 'Hamming';
+         otherwise
+             w = window(@rectwin,nWindowPoints);
+             windowString = 'Rectangular';
+     end
+
+     mask(indStart:indStop) = w;
+
+     %apply the mask
+     SignalT= mask.*SignalT;
     
- %take the fft to get back to frequency domain
- [SignalF,f1] = fftS(SignalT,dt,newStartFreq);
- 
- %remove the padded portion of the signals
- OutputSignal(:,cnt) = SignalF(zPadLength+1:zPadLength+m);
- OutputF = f1(zPadLength+1:zPadLength+m);
+     %take the fft to get back to frequency domain
+     %make sure to shift the spectrum back to the center to preserve phase
+     [SignalF,f1] = fftS(fftshift(SignalT),dt,newStartFreq);
+
+     %keep the 1-sided spectrum that is unpadded
+     OutputSignal(:,cnt) = SignalF(zPadLength+1:zPadLength+m);
+     OutputF = f1(zPadLength+1:zPadLength+m);
 end
 
 %output messages
