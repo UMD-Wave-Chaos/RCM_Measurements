@@ -10,7 +10,7 @@ end
 [SCt,t] = ifftS(squeeze(SCf(:,index,:)),Freq(end) - Freq(1));
 
 %convention for the fitting routine requires t to be a column vector
-t = t';
+t = t'
 
 %compute the power decay profile
 %PDP = <| IFT{SC}|^2>

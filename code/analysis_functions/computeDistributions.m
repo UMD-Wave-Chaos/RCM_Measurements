@@ -24,7 +24,8 @@ for port = 1:4
     Zmeas = Zmeas(:);
     ZRCM_2port =  genPMFrcm(alpha(port),2, nRCM);
     Zrcm = ZRCM_2port(:,port);
-    ZRCM(:,port) = Zrcm;
+    size(Zrcm)
+%     ZRCM(:,port) = Zrcm;
     
     figure(hMagFigure);
     subplot(2,2,port)
