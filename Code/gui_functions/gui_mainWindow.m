@@ -180,7 +180,7 @@ if (handles.sConnection == true)
 end
 delete(handles.hfig);
 
-%% measure
+%% calibrate
 function calibrate_Callback(hObject,event)
 handles = guidata(gcf);
 
@@ -204,19 +204,19 @@ handles = guidata(gcf);
 handles = gui_UpdateMode('Measuring',handles);
 
 try
-    [handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad] = measureData(handles.pnaObj,...
-                                                                                    handles.sObj,...
-                                                                                    handles.Settings, ...
-                                                                                    handles);
+    [handles.Freq, handles.SCf] = measureData(handles.pnaObj,...
+                                              handles.sObj,...
+                                              handles.Settings, ...
+                                              handles);
 catch err
      logError(handles.jEditbox,err);
 end
 
 lstring = sprintf('Saving data to %s',handles.Settings.fileName);
 logMessage(handles.jEditbox,lstring);
-saveData(handles.t, handles.SCt, handles.Freq, handles.SCf, handles.Srad, handles.Settings);
+saveData(handles.Freq, handles.SCf, handles.Settings);
 
-clear handles.t handles.SCt handles.Freq handles.SCf handles.Srad;
+clear handles.Freq handles.SCf;
 
 handles = gui_UpdateMode('Idle',handles);
 logMessage(handles.jEditbox,'Ready');

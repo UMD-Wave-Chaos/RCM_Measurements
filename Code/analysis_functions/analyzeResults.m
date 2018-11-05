@@ -48,6 +48,12 @@ plotScavEnsembles(t,Freq,SCt,SCf,foldername);
 %% Get and plot the enhanced backscatter coefficient
 eb = computeEnhancedBackscatter(SCf, Freq,foldername,1);
 
+%% Get and plot the K factor
+plotKFactor(SCf,Freq,1,foldername,1);
+plotKFactor(SCf,Freq,2,foldername,1);
+plotKFactor(SCf,Freq,3,foldername,1);
+plotKFactor(SCf,Freq,4,foldername,1);
+
 %% Step 3: Compute Tau, the 1/e fold energy decay time
 lstring = 'Computing tau ...';
 if (useGUI == true)

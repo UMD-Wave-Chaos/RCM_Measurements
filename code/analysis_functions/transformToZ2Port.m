@@ -1,5 +1,6 @@
-function [Z] = transformToZ2Port(S, varargin)
+function Z = transformToZ2Port(S, varargin)
 
+%% check to see whether or not this was called from the GUI
 if (nargin == 2)
     useGUI = true;
     handles = varargin{1};
@@ -14,8 +15,12 @@ else
     disp(lstring)
 end
 
+%% convert the S-parameters to Z-parameters
+%assume N is of size nFreq x nPorts x nRealizations, need the number of
+%realizations
 N = size(S,3);
-
+Z = zeros(size(S,1),4,N);
+%assume 50 ohm load
 Z0 = 50;
 
 for i = 1:N
@@ -24,21 +29,5 @@ for i = 1:N
     Z(:,2,i) = Z0*2*S(:,2,i)./deltaS;
     Z(:,3,i) = Z0*2*S(:,3,i)./deltaS;
     Z(:,4,i) = Z0*((1-S(:,1,i)).*(1+S(:,4,i)) - S(:,2,i).*S(:,3,i))./deltaS;
-    
-%     time = toc; 
-    
-%     if (useGUI == true)
-%         tString = sprintf('Transformed Z, realization %d of %d',i,N);
-%         updateZPlots(Freq,Zcf(1,1,:,i),Zcf(1,2,:,i),Zcf(2,2,:,i),tString,handles)
-%     end
-	
-% 	averagetime = time/i;
-% 	predictedTime = averagetime*(N-i);
-%     lstring = sprintf('Transforming realization %d of %d, time = %s s, predicted remaining time = %s s',i,N,num2str(time), num2str(predictedTime));
-% %     if (useGUI == true)
-% %         logMessage(handles.jEditbox,lstring);
-% %     else
-%         disp(lstring)
-%     end
 
 end
