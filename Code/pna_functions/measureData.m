@@ -83,6 +83,9 @@ for iter = 1:N
         warning('Stepped %d steps, expected %d steps',newPos-startPos,stepDistance);
     end
     
+    %reset the start position
+    startPos = newPos;
+    
     if (useGUI)
         set(handles.sPositionText,'String',num2str(newPos));
     end
