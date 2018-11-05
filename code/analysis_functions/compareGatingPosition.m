@@ -53,8 +53,8 @@ switch port
         indString = 'NA';
 end
  
- Zdiff =sum(abs(Z2 - Z1)./abs(Z2 + Z1));
- zstring = sprintf('Z sum difference with %s and %0.3f ns Gating = %0.3f',windowString, 1e9*gateTime,Zdiff);
+ Zdiff =100*sum(abs(Z2 - Z1))/sum(abs(Z2 + Z1));
+ zstring = sprintf('Z sum difference with %s and %0.3f ns Gating = %0.3f%%',windowString, 1e9*gateTime,Zdiff);
  disp(zstring);
 
  %% plot the results

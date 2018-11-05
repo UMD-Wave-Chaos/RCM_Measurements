@@ -1,20 +1,22 @@
 function Srad2 = computeSrad(SCf,Freq)
 
 
-Sc = getSParameterCorrectionFactor(SCf,1);
-S1 = mean(Sc.*SCf(:,1,:),3);
-
-% S1 = mean(checkTimeGateSettings(SCf,Freq,1,200e-9,0,0.75),2);
-S4 = mean(checkTimeGateSettings(SCf,Freq,4,16e-9,0,0.75),2);
-
-S2 = sqrt(S1.*S4);
-S3 = S2;
+% Sc = getSParameterCorrectionFactor(SCf,1);
+% S1 = mean(Sc.*SCf(:,1,:),3);
+% 
+% % S1 = mean(checkTimeGateSettings(SCf,Freq,1,200e-9,0,0.75),2);
+% S4 = mean(checkTimeGateSettings(SCf,Freq,4,16e-9,0,0.75),2);
+% 
+% S2 = sqrt(S1.*S4);
+% S3 = S2;
 
 
 S1 = mean(applyTimeGating(SCf(:,1,:),Freq,100e-9,0,0.75),2);
+Sc = getSParameterCorrectionFactor(SCf,1);
+S1 = mean(Sc.*SCf(:,1,:),3);
 S2 = mean(applyTimeGating(SCf(:,2,:),Freq,100e-9,0,0.75),2);
 S3 = mean(applyTimeGating(SCf(:,3,:),Freq,100e-9,0,0.75),2);
-S4 = mean(applyTimeGating(SCf(:,4,:),Freq,40e-9,0,0.75),2);
+S4 = mean(applyTimeGating(SCf(:,4,:),Freq,10e-9,0,0.75),2);
 % S1 = timeGatingS(SCf,Srad,Freq,1,100e-9);
 % S2 = timeGatingS(SCf,Srad,Freq,2,100e-9);
 % S3 = timeGatingS(SCf,Srad,Freq,3,100e-9);

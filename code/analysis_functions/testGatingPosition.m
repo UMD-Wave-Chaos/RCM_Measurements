@@ -32,7 +32,7 @@ G = zeros(nTimes,1);
 for cnt = 1:100
  tt(cnt) = cnt*1e-9;   
  [Z1,Z2] = compareGatingPosition(SCf,Freq,port,tt(cnt),maskType,wVal,0);
- G(cnt) = sum(abs(Z2 - Z1)./abs(Z2 + Z1));
+ G(cnt) = 100*sum(abs(Z2 - Z1))/sum(abs(Z2 + Z1));
  disp('*****************************************************************');
  dispString = sprintf('Computing Gate Time %0.1f ns, # %d of %d',tt(cnt)*1e9,cnt,nTimes);
  disp(dispString);

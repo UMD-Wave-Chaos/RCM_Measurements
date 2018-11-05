@@ -39,10 +39,10 @@ mkdir(foldername);
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
 %% Get the Corrected Srad
-Srad2 = computeSrad(SCf,Freq);
+Srad = computeSrad(SCf,Freq);
 
 %% Plot the ensembles
-plotSParameters2(t,Freq,SCf,SCt,Srad2,foldername);
+plotSParameters2(t,Freq,SCf,SCt,Srad,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
 
 %% Get and plot the enhanced backscatter coefficient
@@ -95,7 +95,9 @@ h5create(analysisFile,'/Analysis/Q',size(Qcomp));
 h5write(analysisFile,'/Analysis/Q',Qcomp);
 
 %% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations. (~2 min for N = 200)
-[Zradf, Zcf] = transformStoZ(Srad2, SCf,Freq, handles);
+% [Zradf, Zcf] = transformStoZ(Srad2, SCf,Freq, handles);
+Zcf = transformToZ2Port(SCf, handles);
+Zradf = transformToZ2Port(Srad,handles);
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
 h5create(analysisFile,'/Analysis/Zradf_imag',size(Zradf));

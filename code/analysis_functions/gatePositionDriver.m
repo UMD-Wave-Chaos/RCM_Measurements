@@ -51,7 +51,7 @@ plot(tt2*1e9,G2,'LineWidth',2);
 plot(tt3*1e9,G3,'LineWidth',2);
 grid on
 xlabel('Gate Time (ns)')
-ylabel('Difference Metric');
+ylabel('Difference Metric (%)');
 tstring = sprintf('Z_{%s} Difference Gating Z or S',indString);
 title(tstring);
 set(gca,'LineWidth',2)

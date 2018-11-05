@@ -41,8 +41,8 @@ Sr1 = mean(Sc.*SCf(:,1,:),3);
 v1 = mean(Sf,2);
 v2 = mean(Srad(:,port,:),3);
 
-G = sum(abs(v2-v1)./abs(v2+v1));
-dString = sprintf('Signal Difference is %f',G);
+G = sum(abs(v2-v1))/sum(abs(v2+v1))*100;
+dString = sprintf('Signal Difference is %f%%',G);
 disp(dString);
 
 figure
@@ -56,7 +56,7 @@ ylabel('|<S>| (dB)')
 set(gca,'LineWidth',2)
 set(gca,'FontSize',12)
 set(gca,'FontWeight','bold')
-tstring = sprintf('S_{%s} with %0.2f ns %s, G = %0.1f',indString,1e9*gateTime, windowString, G);
+tstring = sprintf('S_{%s} with %0.2f ns %s, G = %0.2f%%',indString,1e9*gateTime, windowString, G);
 title(tstring);
 legend('Ungated','Gated in Processing','Gated in Measurement')
 

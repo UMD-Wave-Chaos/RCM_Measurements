@@ -14,14 +14,25 @@ else
     disp(lstring)
 end
     
-N = size(Zcf,4);
+N = size(Zcf,3);
 num_ports = 2;
 
 
 Znormf = zeros(num_ports,num_ports,length(Freq),N);
-Zradf1 = mean(Zcf,4);
 
-Zradf = mean(Zradf,4);
+ZradMatrix(1,1,:) = Zradf(:,1);
+ZradMatrix(1,2,:) = Zradf(:,2);
+ZradMatrix(2,1,:) = Zradf(:,3);
+ZradMatrix(2,2,:) = Zradf(:,4);
+
+ZCfMatrix(1,1,:,:) = Zcf(:,1,:);
+ZCfMatrix(1,2,:,:) = Zcf(:,2,:);
+ZCfMatrix(2,1,:,:) = Zcf(:,3,:);
+ZCfMatrix(2,2,:,:) = Zcf(:,4,:);
+
+% Zradf1 = mean(Zcf,4);
+% 
+% Zradf = mean(Zradf,4);
 % 
 % Zradf = Zradf1;
 % Zradf(1,1,:) = Zradf1(1,1,:);
@@ -31,7 +42,9 @@ tic;
 for incr = 1:N
    
     for j = 1:length(Freq)
-        Znormf(:,:,j,incr) = ((real(Zradf(:,:,j)))^-0.5)*(Zcf(:,:,j,incr)-1j*imag(Zradf(:,:,j)))*((real(Zradf(:,:,j)))^-0.5); 
+%         Znormf(:,:,j,incr) = ((real(Zradf(:,:,j)))^-0.5)*(Zcf(:,:,j,incr)-1j*imag(Zradf(:,:,j)))*((real(Zradf(:,:,j)))^-0.5); 
+        
+        Znormf(:,:,j,incr) = ((real(ZradMatrix(:,:,j)))^-0.5)*(ZCfMatrix(:,:,j,incr)-1j*imag(ZradMatrix(:,:,j)))*((real(ZradMatrix(:,:,j)))^-0.5); 
     end 
     time = toc; 
     
