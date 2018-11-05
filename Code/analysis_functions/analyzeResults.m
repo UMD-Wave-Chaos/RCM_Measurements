@@ -16,7 +16,7 @@ end
 
 
 %% read the specified file name and create the output data directory for plots
-[t, SCt, Freq, SCf, Srad,V,l,N,NOP,nRCM] = loadData(filename);
+[Freq, SCf,V,l,N,NOP,nRCM] = loadData(filename);
 
 [fpath,fname] = fileparts(filename);
 
@@ -38,8 +38,11 @@ mkdir(foldername);
 
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
-%% Get the Corrected Srad
+%% Determine Srad from the time gated measurements
 Srad = computeSrad(SCf,Freq);
+
+%% Get the time domain signals
+[t,SCt] = getTimeDomainSParameters(SCf,Freq);
 
 %% Plot the ensembles
 plotSParameters2(t,Freq,SCf,SCt,Srad,foldername);
@@ -100,10 +103,10 @@ h5write(analysisFile,'/Analysis/alpha',alpha);
 h5create(analysisFile,'/Analysis/Q',size(Qcomp));
 h5write(analysisFile,'/Analysis/Q',Qcomp);
 
-%% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations. (~2 min for N = 200)
-% [Zradf, Zcf] = transformStoZ(Srad2, SCf,Freq, handles);
+%% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations.
 Zcf = transformToZ2Port(SCf, handles);
 Zradf = transformToZ2Port(Srad,handles);
+
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
 h5create(analysisFile,'/Analysis/Zradf_imag',size(Zradf));
@@ -114,7 +117,7 @@ h5write(analysisFile,'/Analysis/Zcf_real',real(Zcf));
 h5create(analysisFile,'/Analysis/Zcf_imag',size(Zcf));
 h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 
-%% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5 (~40 sec for N = 200)
+%% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5
 Znormf = normalizeImpedance(Zcf ,Zradf, Freq, handles);
 
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
@@ -123,4 +126,8 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-computeDistributions(Znormf,alpha, handles.Settings.nBins,handles.Settings.nRCM, foldername, handles)
+Zrcm = computeDistributions(Znormf,alpha, handles.Settings.nBins,handles.Settings.nRCM, foldername, handles);
+
+h5create(analysisFile,'/Analysis/Zrcm_real',size(Zrcm));
+h5write(analysisFile,'/Analysis/Zrcm_real',real(Zrcm));
+

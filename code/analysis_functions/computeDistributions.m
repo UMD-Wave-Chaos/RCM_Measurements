@@ -1,4 +1,4 @@
-function computeDistributions(Znormf,alpha, nBins,nRCM, foldername, varargin)
+function ZRCM = computeDistributions(Znormf,alpha, nBins,nRCM, foldername, varargin)
 
 if (nargin == 6)
     useGUI = true;
@@ -24,6 +24,7 @@ for port = 1:4
     Zmeas = Zmeas(:);
     ZRCM_2port =  genPMFrcm(alpha(port),2, nRCM);
     Zrcm = ZRCM_2port(:,port);
+    ZRCM(:,port) = Zrcm;
     
     figure(hMagFigure);
     subplot(2,2,port)
