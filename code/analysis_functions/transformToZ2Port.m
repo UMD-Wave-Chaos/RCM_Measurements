@@ -16,7 +16,7 @@ lstring = sprintf('Transforming to Impedance');
 
 N = size(S,3);
 
-tic; 
+% tic; 
 % Srad1 = Srad;
 % % Srad1 = Srad(:,:,:,6);
 % SradM = reshape(shiftdim(permute(Srad1,[2,1]),-1),num_ports,num_ports,length(Freq)); 
@@ -28,7 +28,7 @@ tic;
 Z0 = 50;
 
 for i = 1:N
-    deltaS = (1+S(:,1,i)).*(1-S(:,4,i)) - S(:,2,i).*S(:,3,i);
+    deltaS = (1-S(:,1,i)).*(1-S(:,4,i)) - S(:,2,i).*S(:,3,i);
     Z(:,1,i) = Z0*((1+S(:,1,i)).*(1-S(:,4,i)) + S(:,2,i).*S(:,3,i))./deltaS;
     Z(:,2,i) = Z0*2*S(:,2,i)./deltaS;
     Z(:,3,i) = Z0*2*S(:,3,i)./deltaS;
@@ -41,13 +41,13 @@ for i = 1:N
 %         updateZPlots(Freq,Zcf(1,1,:,i),Zcf(1,2,:,i),Zcf(2,2,:,i),tString,handles)
 %     end
 	
-	averagetime = time/i;
-	predictedTime = averagetime*(N-i);
-    lstring = sprintf('Transforming realization %d of %d, time = %s s, predicted remaining time = %s s',i,N,num2str(time), num2str(predictedTime));
-%     if (useGUI == true)
-%         logMessage(handles.jEditbox,lstring);
-%     else
-        disp(lstring)
+% 	averagetime = time/i;
+% 	predictedTime = averagetime*(N-i);
+%     lstring = sprintf('Transforming realization %d of %d, time = %s s, predicted remaining time = %s s',i,N,num2str(time), num2str(predictedTime));
+% %     if (useGUI == true)
+% %         logMessage(handles.jEditbox,lstring);
+% %     else
+%         disp(lstring)
 %     end
 
 end
