@@ -2,10 +2,10 @@ function initializePNA(obj1,NOP,fStart,fStop)
 
 fprintf(obj1, 'SYSTem:PRESet'); % preset to factory defined default settings
 ready = query(obj1, '*OPC?'); % Check if preset is complete
-fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
 fprintf(obj1, 'OUTP ON'); % turn RF power on
 fprintf(obj1, ['SENS:FREQ:STAR ' num2str(fStart)] ); %set the start frequency
 fprintf(obj1, ['SENS:FREQ:STOP ' num2str(fStop)]); %set the stop frequency
+fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
 fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
 fprintf(obj1, 'SENS1:AVER OFF'); % turn averaging off
 fprintf(obj1, 'SENS:SWE:MODE HOLD'); % set sweep mode to hold

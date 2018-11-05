@@ -5,8 +5,8 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	This is a test run to capture the range of 9.5 GHz to 11 GHz, expected alpha is 32.
-        Performing electronic calibration
+    	This is a test run to capture the range of 9.5 GHz to 11 GHz using the B configuration
+        and performing time domain measurements and gating in post processing.
     </Comments>
     
     <!-- ******************************************************************************  
@@ -14,8 +14,8 @@
 	     ****************************************************************************** 
 	-->
     <Analysis_Settings>
-        <NumberOfRCMRealizations> 50000 </NumberOfRCMRealizations>
-        <NumberOfBinsForHistograms> 100 </NumberOfBinsForHistograms>
+        <NumberOfRCMRealizations> 100000 </NumberOfRCMRealizations>
+        <NumberOfBinsForHistograms> 1000 </NumberOfBinsForHistograms>
     </Analysis_Settings>
     
     <!-- ******************************************************************************  

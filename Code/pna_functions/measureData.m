@@ -43,14 +43,6 @@ direction = Settings.direction;
 nStepsPerRevolution = Settings.nStepsPerRevolution;
 Ngates = 10;
 
-%% check to see if we need to perform the electric calibration
-% normally the PNA will be manually calibrated
-%if (eCal == true)
- %   for k = 1:15
-  %   cal_name = ['cal_for_',date,num2str(k)];
-   %  calibratePNA(obj1,0.1E9+(k-1)*0.2E9,0.1E9+k*0.2E9,cal_name,NOP)
-   % end
-%end
 
 %% initialize the motor position
 startPos = getStepperMotorPosition(s1);
