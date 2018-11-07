@@ -102,3 +102,29 @@ This step generates expected histograms according to the RCM.
 
 ## Step 9: Save Data to HDF5 File
 All intermediate analytical values are saved in an HDF5 file named "analysisResults.h5" and all generated plots are saved in a folder with the same name as the provided input file.
+
+References
+==========================================================================================
+## Determination of Srad Through Time Gating
+1. Addissie et al, “Extraction of the coupling impedance in overmoded cavities”, Wave Motion (2018), https://doi.org/10.1016/j.wavemoti.2018.09.011
+
+2. Addissie et al, "Application of the Random Coupling Model to Lossy Ports in Complex Enclosures", IEEE Metrology for Aerospace (MetroAeroSpace) Conference, 214-219 (2015).
+
+## Reverberation Chamber Measurements
+1. Holloway et al, “Reverberation Chamber Techniques for Determining the Radiation and Total Efficiency of Antennas, IEEE Transactions on Antennas and Propagation, 60, 4, 2012
+
+2. Holloway et al, “Early Time Behavior in Reverberation Chambers and its Effect on the Relationships Between Coherence Bandwidth, Chamber Decay Time, RMS Delay Spread, and the Chamber Buildup Time”, IEEE Transactions on Electromagnetic Compatibility, 54,4, 2012
+
+## RCM Theory
+1. Zheng et al, "Statistics of Impedance and Scattering Matrices in Chaotic Microwave Cavities: Single Channel Case," Electromagnetics 26, 3 (2006).
+
+2. Zheng et al, "Statistics of Impedance and Scattering Matrices of Chaotic Microwave Cavities with Multiple Ports," Electromagnetics 26, 37 (2006).
+
+## RCM Measurements
+1. Hemmady et al, "Universal Statistics of the Scattering Coefficient of Chaotic Microwave Cavities," Phys. Rev. E 71, 056215 (2005).
+
+2. Hemmady et al, "Universal Impedance Fluctuations in Wave Chaotic Systems," Phys. Rev. Lett. 94, 014102 (2005).
+
+3. Hemmady et al, "Universal Properties of 2-Port Scattering, Impedance and Admittance Matrices of Wave Chaotic Systems," Phys. Rev. E 74 , 036213 (2006).
+
+
