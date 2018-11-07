@@ -1,18 +1,20 @@
-function eb = computeEnhancedBackscatter(SCf, Freq,foldername,varargin)
+function eb = computeEnhancedBackscatter(SCf, Freq,varargin)
 
-if nargin == 4
-    savePlots = varargin{1};
+
+%% check inputs
+if nargin == 3
+    foldername = varargin{1};
+    savePlots = 1;
 else
     savePlots = 0;
 end
 
 %need to remove the "unstirred" components
-
 S11s = getStirredSParameterPower(SCf,1);
 S21s = getStirredSParameterPower(SCf,3);
 S22s = getStirredSParameterPower(SCf,4);
 
-eb = sqrt(S11s.*S22s)./S22s;
+eb = sqrt(S11s.*S22s)./S21s;
 
 %now plot
 

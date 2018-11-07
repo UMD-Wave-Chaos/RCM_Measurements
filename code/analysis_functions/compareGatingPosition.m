@@ -22,7 +22,7 @@ end
 %% first apply the time gating in S domain
 [Sf,~] = applyTimeGating(SCf(:,port,:),Freq,gateTime,maskType,wVal);
 %transform to Z
-Zfg = transformToZ(Sf);
+Zfg = transformToZSinglePort(Sf);
 %take the mean value - Z1 is the output signal that was gated in the S
 %domain
  Z1 = mean(Zfg,2);
@@ -32,7 +32,7 @@ Zfg = transformToZ(Sf);
 %measurement
 Stest = squeeze(SCf(:,port,:));
 %transform to Z
-Zf1 = transformToZ(Stest);
+Zf1 = transformToZSinglePort(Stest);
 %now apply the time gating
 [Zf1g,~,windowString] = applyTimeGating(Zf1,Freq,gateTime,maskType,wVal);
 %take the mean value - Z2 is the output signal that was gated in the Z

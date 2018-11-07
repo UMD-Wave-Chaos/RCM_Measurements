@@ -1,9 +1,15 @@
-function plotScavEnsembles(t,Freq,SCt,SCf,foldername,varargin)
+function plotScavEnsembles(t,Freq,SCt,SCf,varargin)
+%plotScavEnsembles(t,Freq,SCt,SCf) 
+%plotScavEnsembles(t,Freq,SCt,SCf,foldername) 
 
-savePlots = 1;
-if nargin == 6
-    savePlots = varargin{1};
+%% check inputs
+if nargin == 5
+    foldername = varargin{1};
+    savePlots = 1;
+else
+    savePlots = 0;
 end
+
 
 N = size(SCf,2);
 NOP = size(SCf,1);
@@ -16,7 +22,7 @@ for i = 1:N
 end
 
 
-
+%% plot
 hh1 = figure('Position',[10 100 800 800]); 
 subplot(2,2,1)
 plot(t/1E-6,20*log10(abs(SCt(:,1,1))),'.-g', 'MarkerSize', 20)

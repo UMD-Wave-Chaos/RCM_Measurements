@@ -1,5 +1,8 @@
 function analyzeResults(filename,varargin)
+%analyzeResults(filename)
+%analyzeResults(filename,handles)
 
+%% check the inputs to determine whether or not this was called from the gui
 if (nargin == 2)
     useGUI = true;
     handles = varargin{1};
@@ -16,7 +19,7 @@ end
 
 
 %% read the specified file name and create the output data directory for plots
-[Freq, SCf,V,l,N,NOP,nRCM] = loadData(filename);
+[Freq, SCf, Settings] = loadData(filename);
 
 [fpath,fname] = fileparts(filename);
 
@@ -41,21 +44,44 @@ analysisFile = fullfile(foldername,'analysisResults.h5');
 %% Determine Srad from the time gated measurements
 Srad = computeSrad(SCf,Freq);
 
+h5create(analysisFile,'/Analysis/Srad_real',size(Srad));
+h5write(analysisFile,'/Analysis/Srad_real',real(Srad));
+h5create(analysisFile,'/Analysis/Srad_imag',size(Srad));
+h5write(analysisFile,'/Analysis/Srad_imag',imag(Srad));
+
 %% Get the time domain signals
-[t,SCt] = getTimeDomainSParameters(SCf,Freq);
+[SCt,t] = getTimeDomainSParameters(SCf,Freq);
+
+h5create(analysisFile,'/Analysis/SCt_real',size(SCt));
+h5write(analysisFile,'/Analysis/SCt_real',real(SCt));
+h5create(analysisFile,'/Analysis/SCt_imag',size(SCt));
+h5write(analysisFile,'/Analysis/SCt_imag',imag(SCt));
+h5create(analysisFile,'/Analysis/t',size(t));
+h5write(analysisFile,'/Analysis/t',t);
 
 %% Plot the ensembles
-plotSParameters2(t,Freq,SCf,SCt,Srad,foldername);
+plotSParameters(t,Freq,SCf,SCt,Srad,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
 
 %% Get and plot the enhanced backscatter coefficient
-eb = computeEnhancedBackscatter(SCf, Freq,foldername,1);
+eb = computeEnhancedBackscatter(SCf, Freq,foldername);
+h5create(analysisFile,'/Analysis/eb',size(eb));
+h5write(analysisFile,'/Analysis/eb',eb);
 
 %% Get and plot the K factor
-plotKFactor(SCf,Freq,1,foldername,1);
-plotKFactor(SCf,Freq,2,foldername,1);
-plotKFactor(SCf,Freq,3,foldername,1);
-plotKFactor(SCf,Freq,4,foldername,1);
+K11 = plotKFactor(SCf,Freq,1,foldername);
+K12 = plotKFactor(SCf,Freq,2,foldername);
+K21 = plotKFactor(SCf,Freq,3,foldername);
+K22 = plotKFactor(SCf,Freq,4,foldername);
+
+h5create(analysisFile,'/Analysis/K11',size(K11));
+h5write(analysisFile,'/Analysis/K11',K11);
+h5create(analysisFile,'/Analysis/K12',size(K12));
+h5write(analysisFile,'/Analysis/K12',K12);
+h5create(analysisFile,'/Analysis/K21',size(K21));
+h5write(analysisFile,'/Analysis/K21',K21);
+h5create(analysisFile,'/Analysis/K22',size(K22));
+h5write(analysisFile,'/Analysis/K22',K22);
 
 %% Step 3: Compute Tau, the 1/e fold energy decay time
 lstring = 'Computing tau ...';
@@ -66,8 +92,7 @@ else
 end
 
 for port = 1:4
-     Tau(port) = computePowerDecayProfile(SCf,Freq,l,port,foldername,1);
-
+     Tau(port) = computePowerDecayProfile(SCt,t,Settings.l,port,foldername);
 end
 
 lstring = sprintf('Tau: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',Tau(1)*1e9,Tau(2)*1e9,Tau(3)*1e9,Tau(4)*1e9);
@@ -77,11 +102,14 @@ else
     disp(lstring)
 end
 
+h5create(analysisFile,'/Analysis/tau',size(Tau));
+h5write(analysisFile,'/Analysis/tau',Tau);
+
 %% Step 4: Compute the loss parameter (alpha)
 alpha = zeros(4,1);
 Qcomp = zeros(4,1);
 for param=1:4
-    [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), V);                      %input parameters: the average operational frequency, the 1/e fold energy decay time,
+    [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), Settings.V);        
 end
 
 lstring = sprintf('Alpha: %0.3f %0.3f %0.3f %0.3f',alpha(1),alpha(2),alpha(3),alpha(4));
@@ -104,8 +132,15 @@ h5create(analysisFile,'/Analysis/Q',size(Qcomp));
 h5write(analysisFile,'/Analysis/Q',Qcomp);
 
 %% Step 5: Transform the S parameters (both Srad and Scav) to the Z parameters using the bilinear equations.
-Zcf = transformToZ2Port(SCf, handles);
-Zradf = transformToZ2Port(Srad,handles);
+lstring = sprintf('Transforming S parameters to Z parameters');
+if (useGUI == true)
+    logMessage(handles.jEditbox,lstring,'info');
+else
+    disp(lstring)
+end
+
+Zcf = transformToZ2Port(SCf);
+Zradf = transformToZ2Port(Srad);
 
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
@@ -118,7 +153,7 @@ h5create(analysisFile,'/Analysis/Zcf_imag',size(Zcf));
 h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5
-Znormf = normalizeImpedance(Zcf ,Zradf, Freq, handles);
+Znormf = normalizeImpedance(Zcf,Zradf, Freq, handles);
 
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_real',real(Znormf));
@@ -126,7 +161,7 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-Zrcm = computeDistributions(Znormf,alpha, handles.Settings.nBins,handles.Settings.nRCM, foldername, handles);
+Zrcm = computeDistributions(Znormf,alpha, 1000, Settings.nRCM, foldername, handles); %%TBD = change to Settings.nBins
 
 h5create(analysisFile,'/Analysis/Zrcm_real',size(Zrcm));
 h5write(analysisFile,'/Analysis/Zrcm_real',real(Zrcm));

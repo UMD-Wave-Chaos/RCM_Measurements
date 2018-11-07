@@ -7,7 +7,7 @@ function testRCMNormalizationGating(SCf, Freq, port,alpha,gateTime,maskType,wVal
 % Z3 = transformToZ(S3);
  
  Sf = squeeze(SCf(:,port,:));
- Zf = transformToZ(Sf);
+ Zf = transformToZSinglePort(Sf);
  Zavg = mean(Zf,2);
  
  Z1norm = normalizeSinglePortImpedance(Zf,Z1);
