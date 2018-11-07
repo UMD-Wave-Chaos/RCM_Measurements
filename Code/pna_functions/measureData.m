@@ -121,57 +121,18 @@ for iter = 1:N
         updateSParametersPlots(Freq,SCf11,SCf12,SCf22, tString,handles);
     end
     
-	lstring = sprintf('Measuring Scav in frequency domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
+	lstring = sprintf('Measuring Scav in frequency domain at position %d of %d, elapsed time = %0.3f s', iter,N,Time);
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
     else
         disp(lstring)
     end
-	
-    %% Loop over 10 iterations of gating times and measure Srad in the frequency domain
-%     for i = 1:Ngates
-%         lstring = sprintf('Measuring Srad in frequency domain at gate %d of %d', i,10);
-%         if (useGUI == true)
-%             logMessage(handles.jEditbox,lstring);
-%         else
-%             disp(lstring)
-%         end
-%         %measure SRad in the frequency domain - this is a gated measurement
-%         %of the S parameters
-%         [Freq, Srad11, Srad12, Srad21, Srad22] = getGatedSParametersFrequencyDomain(obj1,l*i,NOP); 
-%         Srad(:,1,iter,i) = Srad11;
-%         Srad(:,2,iter,i) = Srad12;
-%         Srad(:,3,iter,i) = Srad21;
-%         Srad(:,4,iter,i) = Srad22;   
-%     end 
-%    
-%     Time = toc;
-%     lstring = sprintf('Measuring Srad in frequency domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
-%     if (useGUI == true)
-%         logMessage(handles.jEditbox,lstring);
-%     else
-%         disp(lstring)
-%     end
-
-    %% measure SCav in the time domain using the requested transform times
-%     [t,SCt11, SCt12, SCt21, SCt22] = getSParametersTimeDomain(obj1,NOP,transformStart,transformStop); 
-%     SCt(:,1,iter) = SCt11;
-%     SCt(:,2,iter) = SCt12;
-%     SCt(:,3,iter) = SCt21;
-%     SCt(:,4,iter) = SCt22;
-%     
-%     Time = toc;
-% 	lstring = sprintf('Measuring Scav in time domain at position %d of %d, elapsed time = %0.3f', iter,N,Time);
-%     if (useGUI == true)
-%         logMessage(handles.jEditbox,lstring);
-%     else
-%         disp(lstring)
-%     end
-%     
+     
     %% update elapsed time and predict time remaining to complete
     averagetime = Time/iter;
 	predictedTime = averagetime*(N-iter);
-    lstring = sprintf('Measurement Step %d of %d Completed, Predicted remaining time = %s s',iter,N,num2str(predictedTime));
+    predictedTimeMin = predictedTime/60;
+    lstring = sprintf('Measurement Step %d of %d Completed, Predicted remaining time = %s s (%s min)',iter,N,num2str(predictedTime),num2str(predictedTimeMin));
     
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring,'info');
