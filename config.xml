@@ -5,7 +5,7 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	This is a test run to capture the range of 9.5 GHz to 11 GHz using the C configuration
+    	This is a test run to capture the range of 9.5 GHz to 11 GHz using the B configuration
         and gating in post processing.
     </Comments>
     
@@ -66,7 +66,7 @@
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-        <FileNamePrefix> Config_C_9.5_to_11 </FileNamePrefix>
+        <FileNamePrefix> Config_B_9.5_to_11 </FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
