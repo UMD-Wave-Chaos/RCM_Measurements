@@ -1,4 +1,4 @@
-function [alpha Qcomp] = getalpha(f, Tau, V)
+function [alpha, Qcomp] = getalpha(f, Tau, V)
 % Input: f = average frequency (GHz)
 %      Tau = 1/e fold energy decay time
 % Output: alpha = the loss parameter  = (k^3*V)/(2*pi^2*Qcomp) 

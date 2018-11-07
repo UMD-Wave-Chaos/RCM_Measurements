@@ -1,10 +1,13 @@
-function plotKFactor(SCf,Freq,index,foldername,varargin)
+function K = plotKFactor(SCf,Freq,index,varargin)
 
-if (nargin == 5)
-    savePlots = varargin{1};
+%% check inputs
+if nargin == 4
+    foldername = varargin{1};
+    savePlots = 1;
 else
-savePlots = 0;
+    savePlots = 0;
 end
+
 
 switch index
     case 1
@@ -19,8 +22,9 @@ switch index
         indString = 'NA';
 end
 
+K = getKFactor(SCf,index);
 h1 = figure;
-plot(Freq/1e9,getKFactor(SCf,index),'LineWidth',2);
+plot(Freq/1e9,K,'LineWidth',2);
 grid on
 xlabel('Frequency (GHz)')
 ylabel('K Factor')

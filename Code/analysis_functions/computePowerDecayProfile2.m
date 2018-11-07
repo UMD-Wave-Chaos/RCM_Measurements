@@ -1,17 +1,13 @@
-function [tau,pdp] = computePowerDecayProfile(SCt,t,l,index,varargin)
+function [tau,pdp] = computePowerDecayProfile2(SCf,Freq,l,index,foldername,varargin)
 
-%% check inputs
-if nargin == 5
-    foldername = varargin{1};
-    savePlots = 1;
+if nargin == 6
+    savePlots = varargin{1};
 else
     savePlots = 0;
 end
 
 %get the time domain signal
-% [SCt,t] = ifftS(squeeze(SCf(:,index,:)),Freq(end) - Freq(1));
-
-SCt = squeeze(SCt(:,index,:));
+[SCt,t] = ifftS(squeeze(SCf(:,index,:)),Freq(end) - Freq(1));
 
 %convention for the fitting routine requires t to be a column vector
 t = t';
@@ -20,10 +16,16 @@ t = t';
 %PDP = <| IFT{SC}|^2>
 pdp = mean(abs(SCt).^2,2);
 
+t0 = 0;
+
 %set the break points in time for the number of electrical lengths
 %try 500 to 1500
 tStart = l*500/3E8;
 tStop = l*1500/3E8;
+
+ind0 = find(abs(t- t0) == min(abs(t-t0)),1);  
+
+
  
 %convert from time to indices
 indStart = find(abs(t- tStart) == min(abs(t-tStart)),1);              
@@ -33,12 +35,20 @@ indStop = find(abs(t - tStop) == min(abs(t - tStop)),1);
 pdpSection = pdp(indStart:indStop);
 timeSection = t(indStart:indStop);
 
-%set the amplitude and smoothing factors
+
+pdp0 = pdp(ind0:indStop);
+t1 = t(ind0:indStop);
+
+
+
+%get the "early time" and the "late time"
 af = 10000;
 sf = 1000;
 
 %smooth the data
 smoothPDPSection= af*smooth(pdpSection,sf);
+
+smooth0 = af*smooth(pdp0,sf);
 
 %fit the data to an exponential term
 gFit= fit(timeSection,smoothPDPSection, fittype('exp1'));

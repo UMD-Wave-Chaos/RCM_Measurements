@@ -1,11 +1,17 @@
-function ZRCM = computeDistributions(Znormf,alpha, nBins,nRCM, foldername, varargin)
+function ZRCM = computeDistributions(Znormf,alpha, nBins,nRCM,varargin)
+
+if nargin >= 5
+    savePlots = true;
+    foldername = varargin{1};
+end
 
 if (nargin == 6)
     useGUI = true;
-    handles = varargin{1};
+    handles = varargin{2};
 else
     useGUI = false;
 end
+tic;
 
 hMagFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Magnitude PMF from Measurement');
 hPhaseFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Phase PMF from Measurement');
@@ -24,7 +30,8 @@ for port = 1:4
     Zmeas = Zmeas(:);
     ZRCM_2port =  genPMFrcm(alpha(port),2, nRCM);
     Zrcm = ZRCM_2port(:,port);
-    ZRCM(:,port) = Zrcm;
+    
+    ZRCM(:,port) = Zrcm(1:nRCM);
     
     figure(hMagFigure);
     subplot(2,2,port)
@@ -63,9 +70,19 @@ for port = 1:4
     title(tstring);
     legend('Measured','RCM');
 
+    time = toc;
+
+	averagetime = time/port;
+	predictedTime = averagetime*(5-port);
+    lstring = sprintf('Normalizing realization %d of %d, time = %s s, predicted remaining time = %s s',port,4,num2str(time), num2str(predictedTime));
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring)
+    end
 end
 
-if (useGUI == true)
+if (savePlots == true)
     saveas(hMagFigure,fullfile(foldername,'PDF_Comparison_Mag'),'png');
     saveas(hPhaseFigure,fullfile(foldername,'PDF_Comparison_Phase'),'png');
     close(hPhaseFigure)
