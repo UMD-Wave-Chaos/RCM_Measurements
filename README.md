@@ -122,6 +122,8 @@ References
 
 3. Hart et al, "Scattering a pulse from a chaotic cavity: Transitioning from algebraic to exponential decay," Phys. Rev. E 79, 016208 (2009).
 
+4. Hart et al, "The effect of short ray trajectories on the scattering statistics of wave chaotic systems," Phys. Rev. E 80, 041109 (2009).
+
 ## RCM Measurements
 1. Hemmady et al, "Universal Statistics of the Scattering Coefficient of Chaotic Microwave Cavities," Phys. Rev. E 71, 056215 (2005).
 
