@@ -76,32 +76,15 @@ configuration file saved as attributes.
 
 Analysis Process
 ==========================================================================================
-## Step 1: Compute Srad
-This step computes the free space radiation S parameters through time gating.
-
-## Step 2: Compute Time Domain S Parameters
-This step computes the S Parameters in time domain through an inverse Fourier transform.
-
-## Step 3: Compute Power Decay Profile and Estimate Tau 
-Tau is the 1/e fold energy decay time and allows us to estimate alpha for the cavity. 
-
-## Step 4: Compute Alpha
-This step uses the value of Tau to estimate alpha and Q for the cavity and is applied for each of the 4 cases in Step 3.
-
-## Step 5: Transform measured S parameters to impedance (Z) 
-This step transforms the measurements to impedance space using the bilinear equations
-
-## Step 6: Normalize impedance 
-This step normalizes the impedance matrix for comparison with the RCM
-
-## Step 7: Generate Measured Distributions 
-This step generates histograms of the measured data to determine the PMF.
-
-## Step 8: Generate RCM Distributions 
-This step generates expected histograms according to the RCM.
-
-## Step 9: Save Data to HDF5 File
-All intermediate analytical values are saved in an HDF5 file named "analysisResults.h5" and all generated plots are saved in a folder with the same name as the provided input file.
+1. Compute Srad (the free space radiation S parameters) through time gating.
+2. Compute time domain S Parameters through an inverse Fourier transform.
+3. Compute power decay profile and estimate Tau (the 1/e fold energy decay time).
+4. Compute Alpha and Q from Tau.
+5. Transform measured S parameters to impedance (Z) through bilinear equations.
+6. Normalize impedance matrix for comparison with the RCM
+7. Generate measured distributions and histograms.
+8. Generate RCM Distributions and histograms.
+9. Save intermediate analytical values to an HDF5 and save all plots as .png files.
 
 References
 ==========================================================================================
