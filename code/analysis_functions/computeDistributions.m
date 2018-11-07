@@ -73,7 +73,7 @@ for port = 1:4
     time = toc;
 
 	averagetime = time/port;
-	predictedTime = averagetime*(4-port);
+	predictedTime = averagetime*(5-port);
     lstring = sprintf('Normalizing realization %d of %d, time = %s s, predicted remaining time = %s s',port,4,num2str(time), num2str(predictedTime));
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);

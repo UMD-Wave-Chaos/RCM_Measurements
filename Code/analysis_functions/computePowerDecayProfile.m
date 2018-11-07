@@ -33,7 +33,7 @@ indStop = find(abs(t - tStop) == min(abs(t - tStop)),1);
 pdpSection = pdp(indStart:indStop);
 timeSection = t(indStart:indStop);
 
-%get the "early time" and the "late time"
+%set the amplitude and smoothing factors
 af = 10000;
 sf = 1000;
 
