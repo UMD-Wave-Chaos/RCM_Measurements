@@ -18,7 +18,7 @@ Many thanks to Bisrat Addissie, who started this project for his PhD work and pr
 
 Experimental Setup
 ==========================================================================================
-The wave chaotic cavity used for the experiment is an old vacuum chamber that has been turned into a reverberation chamber to act as an electromagnetic cavity with a volume of 1.92 cubic meters. A mode stirrer is used to generate different realizations and collect statistics.
+The wave chaotic cavity used for the experiment is a vacuum chamber that has been repurposed into a reverberation chamber to act as an electromagnetic cavity with a volume of 1.92 cubic meters. A mode stirrer is used to generate different realizations and collect statistics.
 
 The S parameters of the cavity are measured with a PNA-X N5241A vector network analyzer in a 2-port measurements configuration. In the nominal setup, port 1 is connected to an X-band horn antenna at the far end of the cavity and port 2 is connected to a loop antenna at the bottom of the cavity.
 
@@ -27,7 +27,6 @@ The mode stirrer is controlled by a stepper motor, the Aerotech SM50, which is d
 Both the PNA and stepper motor are controlled through a Windows PC using the Matlab Instrumentation Toolbox. The PNA is connected through either a VISA-TCPIP connection or a GPIB connection and the stepper motor is connected through a serial connection on COM5.
 
 ![Experimental Wave Chaotic Cavity Setup](./images/cavity.png "Experimental Wave Chaotic Cavity Setup")
-
 
 Getting Started
 ==========================================================================================
@@ -43,6 +42,7 @@ Follow the steps below to get started
 
 Potential Connectivity Issues
 ==========================================================================================
+##1. Instrument Toolbox Connections Remain Open
 Occasionally, the Matlab code will crash with a bug and will not gracefully disconnect from the instrument toolbox connections. When this
 happens, the code will throw an error that the instrument is not available and refuse to reconnect. The fix is to either restart Matlab or
 force the instrumentation toolbox to close the open devices. You can find the devices through the "instrfind" command:
@@ -57,38 +57,48 @@ through the fclose command:
 ```
 fclose(out(index));
 ```
+##2. Serial Port Not Opening
+Occasionally, the COM port will remain open after the GUI closes and Matlab will not be able to open it or make a connection. This is a Windows problem that typically occurs when the computer has been powered on for a long time and requires rebooting the machine to fix.
 
-Detailed Breakdown
+
+Measurement Process
 ==========================================================================================
 ## Step 1: Calibrate the PNA 
-This step either uses the electronic calibration module or a manual calibration step. The HP calibration kit consisting of short, open, and broadband impedance connections is available for manual calibration.
+This step either uses the electronic calibration module or a manual calibration step. The HP calibration kit consisting of short, open, and broadband impedance connections is available for manual calibration. After starting up the GUI or reloading a configuration file, the existing calibration file will be unselected from the PNA and will need to be reselected if a previous calibration file is to be used. The calibration file can be loaded through the PNA menu by selecting Response --> Cal --> Manage Cals --> Cal Set.
 
 ## Step 2: Collect measured S parameters 
 The mode stirrer is positioned a specified number of times to create mulitple realizations of the cavity - the mode stirrer is driven by a stepper motor typically connected serially
-through COM5. There are a specified number of points collected in time and frequency from the PNA (given as NOP). First a frequency domain measurement
-is taken which provides *Scav*. Second, a set of 10 frequency domain measurements are made with different time gating to get an estimate of *Srad*.
-Finally, a time domain measurement is taken of *Scav*.
+through COM5. There are a specified number of points collected in time and frequency from the PNA (given as NOP). This step captures frequency domain measurements of the S parameters at each mode stirrer position.
 
-Once this step is complete, all values (*Scav_time*, *Scav_freq*, *Srad*, *time*, *freq*) are saved in an HDF5 file, with the settings from the
+## Step 3: Save Data to HDF5 File
+The frequency and  S parameters are saved to an HDF5 file with the settings from the
 configuration file saved as attributes. 
 
+Analysis Process
+==========================================================================================
+## Step 1: Compute Srad
+This step computes the free space radiation S parameters through time gating.
 
-## Step 3: Compute *Tau*  
-*Tau* is the 1/e fold energy decay time and allows us to estimate alpha for the cavity. To estimate tau, the time domain measurements of *Scav* are used
-and *tau* is computed for each element of *S* (*S11*, *S12*, *S21*, and *S22*)
+## Step 2: Compute Time Domain S Parameters
+This step computes the S Parameters in time domain through an inverse Fourier transform.
 
-## Step 4: Compute *Alpha* 
-This step uses the value of *tau* to estimate *alpha* and *Q* for the cavity and is applied for each of the 4 cases in Step 3.
+## Step 3: Compute Power Decay Profile and Estimate Tau 
+Tau is the 1/e fold energy decay time and allows us to estimate alpha for the cavity. 
+
+## Step 4: Compute Alpha
+This step uses the value of Tau to estimate alpha and Q for the cavity and is applied for each of the 4 cases in Step 3.
 
 ## Step 5: Transform measured S parameters to impedance (Z) 
-This step transforms the measurements to impedance space using *Z = Z0(I+S)(I-S)^{-1}Z0*, where Z0 is a diagonal matrix containing the square roots of the
-impedances connected to the ports (assumed to be 50 ohms). This step is performed for both the frequency domain measurements of *Srad* and *Scav*.
+This step transforms the measurements to impedance space using the bilinear equations
 
 ## Step 6: Normalize impedance 
-This step normalizes the impedance matrix through the equation *Zn = Re(Zrad)^{-0.5}[Zcav - jIm(Zrad)]Re(Zrad)^{-0.5}*.
+This step normalizes the impedance matrix for comparison with the RCM
 
 ## Step 7: Generate Measured Distributions 
 This step generates histograms of the measured data to determine the PMF.
 
 ## Step 8: Generate RCM Distributions 
 This step generates expected histograms according to the RCM.
+
+## Step 9: Save Data to HDF5 File
+All intermediate analytical values are saved in an HDF5 file named "analysisResults.h5" and all generated plots are saved in a folder with the same name as the provided input file.
