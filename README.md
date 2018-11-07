@@ -22,7 +22,7 @@ The wave chaotic cavity used for the experiment is a vacuum chamber that has bee
 
 The S parameters of the cavity are measured with a PNA-X N5241A vector network analyzer in a 2-port measurements configuration. In the nominal setup, port 1 is connected to an X-band horn antenna at the far end of the cavity and port 2 is connected to a loop antenna at the bottom of the cavity.
 
-The mode stirrer is controlled by a stepper motor, the Aerotech SM50, which is driven by a Haydon PCM 4826 drive. The motor has 200 full steps per revolution (1.8 degrees per step) and can be driven at 1/64 steps, resulting in 12800 steps (1/64) per revolution.
+The mode stirrer is controlled by a stepper motor, the Aerotech 50SM, which is driven by a Haydon PCM 4826 drive. The motor has 200 full steps per revolution (1.8 degrees per step) and can be driven at 1/64 steps, resulting in 12800 steps (1/64) per revolution.
 
 Both the PNA and stepper motor are controlled through a Windows PC using the Matlab Instrumentation Toolbox. The PNA is connected through either a VISA-TCPIP connection or a GPIB connection and the stepper motor is connected through a serial connection on COM5.
 
