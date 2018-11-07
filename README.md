@@ -42,7 +42,7 @@ Follow the steps below to get started
 
 Potential Connectivity Issues
 ==========================================================================================
-##1. Instrument Toolbox Connections Remain Open
+## 1. Instrument Toolbox Connections Remain Open
 Occasionally, the Matlab code will crash with a bug and will not gracefully disconnect from the instrument toolbox connections. When this
 happens, the code will throw an error that the instrument is not available and refuse to reconnect. The fix is to either restart Matlab or
 force the instrumentation toolbox to close the open devices. You can find the devices through the "instrfind" command:
@@ -57,7 +57,7 @@ through the fclose command:
 ```
 fclose(out(index));
 ```
-##2. Serial Port Not Opening
+## 2. Serial Port Not Opening
 Occasionally, the COM port will remain open after the GUI closes and Matlab will not be able to open it or make a connection. This is a Windows problem that typically occurs when the computer has been powered on for a long time and requires rebooting the machine to fix.
 
 
