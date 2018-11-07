@@ -63,7 +63,7 @@
     	 ******************************************************************************           
     -->
     <Experiment_Settings>
-        <NumberOfRealizations> 50 </NumberOfRealizations>
+        <NumberOfRealizations> 100 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
         <FileNamePrefix> TestCase_9.5_to_11 </FileNamePrefix>
