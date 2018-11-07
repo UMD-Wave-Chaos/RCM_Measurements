@@ -69,26 +69,44 @@ for iter = 1:N
     
     runSpeed = ceil(stepDistance/10);
 
-	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps at %d steps/second and pausing %0.1f seconds',iter, N,stepDistance,runSpeed,waitTime);
-    logMessage(handles.jEditbox,lstring);
+	lstring = sprintf('Moving mode stirrer for position %d of %d: Moving %d steps at %d steps/second',iter, N,stepDistance,runSpeed);
+    
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring);
+    end
 
     %command parameters for I (index) are:
     %distance, run speed, start speed, end speed, accel rate, decel rate,
     %run current, hold current, accel current, delay, step mode
     fprintf(s1,['I',num2str(stepDistance),',',num2str(runSpeed),',0,0,500,500,1000,0,1000,1000,50,64']); 
-    pause(waitTime);
+   
+    %get the new stepper motor position and check to make sure we moved the
+    %expected amount
     newPos = getStepperMotorPosition(s1); 
     
     if newPos - startPos ~= stepDistance
         warning('Stepped %d steps, expected %d steps',newPos-startPos,stepDistance);
     end
     
-    %reset the start position
+    %reset the start position for the next comparison
     startPos = newPos;
     
+    %update the motor position on the GUI
     if (useGUI)
         set(handles.sPositionText,'String',num2str(newPos));
     end
+    
+    %now we need to pause and make sure the moder stirrer has settled
+    lstring = sprintf('Pausing %0.1f seconds to settle mode stirrer',waitTime);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring);
+    end
+    
+    pause(waitTime);
 
     %% measure SCav in the frequency domain - this is an ungated measurement of the S parameters
     [Freq, SCf11, SCf12, SCf21, SCf22] = getUngatedSParametersFrequencyDomain(obj1,NOP);
