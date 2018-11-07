@@ -120,6 +120,8 @@ References
 
 2. Zheng et al, "Statistics of Impedance and Scattering Matrices of Chaotic Microwave Cavities with Multiple Ports," Electromagnetics 26, 37 (2006).
 
+3. Hart et al, "Scattering a pulse from a chaotic cavity: Transitioning from algebraic to exponential decay," Phys. Rev. E 79, 016208 (2009).
+
 ## RCM Measurements
 1. Hemmady et al, "Universal Statistics of the Scattering Coefficient of Chaotic Microwave Cavities," Phys. Rev. E 71, 056215 (2005).
 
