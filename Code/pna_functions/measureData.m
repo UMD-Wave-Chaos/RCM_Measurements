@@ -33,24 +33,15 @@ end
 %% get the inputs from the Settings object
 NOP = Settings.NOP;
 N = Settings.N;
-l = Settings.l;
-eCal = Settings.electronicCalibration;
-fStart = Settings.fStart;
-fStop = Settings.fStop;
-transformStart = Settings.transformStart;
-transformStop = Settings.transformStop;
 direction = Settings.direction;
 nStepsPerRevolution = Settings.nStepsPerRevolution;
 Ngates = 10;
-
 
 %% initialize the motor position
 startPos = getStepperMotorPosition(s1);
 
 % initialize the variables 
 SCf = zeros(NOP,4,N);
-SCt = zeros(NOP,4,N);
-Srad = zeros(NOP,4,N,Ngates);
 
 % start the timer
 tic;
@@ -81,7 +72,17 @@ for iter = 1:N
     %distance, run speed, start speed, end speed, accel rate, decel rate,
     %run current, hold current, accel current, delay, step mode
     fprintf(s1,['I',num2str(stepDistance),',',num2str(runSpeed),',0,0,500,500,1000,0,1000,1000,50,64']); 
-   
+    
+    %now we need to pause and make sure the moder stirrer has settled
+    lstring = sprintf('Pausing %0.1f seconds to settle mode stirrer',waitTime);
+    if (useGUI == true)
+        logMessage(handles.jEditbox,lstring);
+    else
+        disp(lstring);
+    end
+    
+    pause(waitTime);
+
     %get the new stepper motor position and check to make sure we moved the
     %expected amount
     newPos = getStepperMotorPosition(s1); 
@@ -98,15 +99,6 @@ for iter = 1:N
         set(handles.sPositionText,'String',num2str(newPos));
     end
     
-    %now we need to pause and make sure the moder stirrer has settled
-    lstring = sprintf('Pausing %0.1f seconds to settle mode stirrer',waitTime);
-    if (useGUI == true)
-        logMessage(handles.jEditbox,lstring);
-    else
-        disp(lstring);
-    end
-    
-    pause(waitTime);
 
     %% measure SCav in the frequency domain - this is an ungated measurement of the S parameters
     [Freq, SCf11, SCf12, SCf21, SCf22] = getUngatedSParametersFrequencyDomain(obj1,NOP);

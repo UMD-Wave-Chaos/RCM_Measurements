@@ -6,7 +6,8 @@
     -->
     <Comments> 
     	This is a test run to capture the range of 9.5 GHz to 11 GHz using the B configuration
-        and gating in post processing.
+        and gating in post processing. Taken with a single cable connected to port 1 after
+        cleaning the cable and recalibrating.
     </Comments>
     
     <!-- ******************************************************************************  
