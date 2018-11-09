@@ -17,24 +17,6 @@ function Settings = gui_loadConfig()
  fstopRoot = pnaRoot.item(0).getElementsByTagName('FrequencySweepStop');
  fstopElement = fstopRoot.item(0);
  Settings.fStop =  str2num(fstopElement.getFirstChild.getData);
- 
- xformstartRoot = pnaRoot.item(0).getElementsByTagName('TimeTransformStartTime');
- xformstartElement = xformstartRoot.item(0);
- Settings.transformStart =  str2num(xformstartElement.getFirstChild.getData);
- 
- xformstopRoot = pnaRoot.item(0).getElementsByTagName('TimeTransformStopTime');
- xformstopElement = xformstopRoot.item(0);
- Settings.transformStop =  str2num(xformstopElement.getFirstChild.getData);
- 
- %get the ecal boolean
- ecalRoot = pnaRoot.item(0).getElementsByTagName('UseElectronicCalibrationKit');
- ecalElement = ecalRoot.item(0);
- ecalString =  strtrim(char(ecalElement.getFirstChild.getData));
- if(strcmpi(ecalString,'Yes') == true)
-  Settings.electronicCalibration = true;
- else
-  Settings.electronicCalibration = false;
- end
 
  %% get the experiment settings
  

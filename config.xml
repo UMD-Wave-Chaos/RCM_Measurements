@@ -26,19 +26,6 @@
         <NumberOfPoints> 32001 </NumberOfPoints>
         <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
         <FrequencySweepStop> 11E9 </FrequencySweepStop>
-        <!-- 
-             transform times are requested and need to be within the range
-             +/- (NumberOfPoints - 1)/(FrequencySweepStop - FrequencySweepStart)
-             if the requested times exceed this range, they be will clipped to the
-             maximum and minimum values
-          -->
-        <TimeTransformStartTime> -0.5E-6 </TimeTransformStartTime>
-        <TimeTransformStopTime> 10E-6 </TimeTransformStopTime>
-        <!--
-        	The "UseElectronicCalibrationKit" flag indicates whether or not to 
-        	automatically calibrate the PNA using the electronic calibration kit
-        -->
-        <UseElectronicCalibrationKit> Yes </UseElectronicCalibrationKit>
     </PNA_Settings>
     
     <!-- ******************************************************************************
