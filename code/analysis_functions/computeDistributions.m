@@ -3,6 +3,8 @@ function ZRCM = computeDistributions(Znormf,alpha, nBins,nRCM,varargin)
 if nargin >= 5
     savePlots = true;
     foldername = varargin{1};
+else
+    savePlots = false;
 end
 
 if (nargin == 6)

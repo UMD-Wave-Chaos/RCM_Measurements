@@ -203,6 +203,8 @@ handles = guidata(gcf);
 
 handles = gui_UpdateMode('Measuring',handles);
 
+set(handles.fileNameText,'String',handles.Settings.fileName);
+
 try
     [handles.Freq, handles.SCf] = measureData(handles.pnaObj,...
                                               handles.sObj,...
@@ -247,6 +249,7 @@ handles = gui_UpdateMode('Analyzing',handles);
 
 if filename ~= 0
     fname = fullfile(pathname,filename);
+    set(handles.fileNameText,'String',filename);
     try
         analyzeResults(fname,handles);
     catch err

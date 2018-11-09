@@ -41,6 +41,13 @@ mkdir(foldername);
 
 analysisFile = fullfile(foldername,'analysisResults.h5');
 
+h5create(analysisFile,'/Analysis/SCf_real',size(SCf));
+h5write(analysisFile,'/Analysis/SCf_real',real(SCf));
+h5create(analysisFile,'/Analysis/SCf_imag',size(SCf));
+h5write(analysisFile,'/Analysis/SCf_imag',imag(SCf));
+h5create(analysisFile,'/Analysis/f',size(Freq));
+h5write(analysisFile,'/Analysis/f',Freq);
+
 %% Determine Srad from the time gated measurements
 Srad = computeSrad(SCf,Freq);
 
@@ -161,7 +168,7 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-Zrcm = computeDistributions(Znormf,alpha, 1000, Settings.nRCM, foldername, handles); %%TBD = change to Settings.nBins
+Zrcm = computeDistributions(Znormf,alpha, 1000, Settings.nRCM, foldername, handles); 
 
 h5create(analysisFile,'/Analysis/Zrcm_real',size(Zrcm));
 h5write(analysisFile,'/Analysis/Zrcm_real',real(Zrcm));
