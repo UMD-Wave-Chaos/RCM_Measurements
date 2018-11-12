@@ -1,7 +1,7 @@
-function [Freq, SCf,Settings] = loadData(filename)
+function data = loadData(filename)
 
 %load the data
-Freq = h5read(filename,'/Measurements/Freq');
+data.Freq = h5read(filename,'/Measurements/Freq');
 
 %get the real values
 SCf_r = h5read(filename,'/Measurements/SCf_real');
@@ -10,6 +10,6 @@ SCf_r = h5read(filename,'/Measurements/SCf_real');
 SCf_i = h5read(filename,'/Measurements/SCf_imag');
 
 %convert to complex numbers
-SCf = SCf_r + 1j*SCf_i;
+data.SCf = SCf_r + 1j*SCf_i;
 
-Settings = loadSettingsFromHDF5File(filename);
+data.Settings = loadSettingsFromHDF5File(filename);

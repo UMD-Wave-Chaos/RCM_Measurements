@@ -19,7 +19,11 @@ end
 
 
 %% read the specified file name and create the output data directory for plots
-[Freq, SCf, Settings] = loadData(filename);
+mData = [Freq, SCf, Settings] = loadData(filename);
+
+SCf = mData.SCf;
+Freq = mData.Freq;
+Settings = mData.Settings;
 
 [fpath,fname] = fileparts(filename);
 
