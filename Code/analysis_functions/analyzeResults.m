@@ -161,7 +161,7 @@ end
 
 Zcf = transformToZ2Port(SCf);
 Zradf = transformToZ2Port(Srad);
-plotZrad(Freq,Zrad,foldername);
+plotZrad(Freq,Zradf,foldername);
 
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
