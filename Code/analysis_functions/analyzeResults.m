@@ -131,9 +131,7 @@ h5create(analysisFile,'/Analysis/tau',size(Tau));
 h5write(analysisFile,'/Analysis/tau',Tau);
 
 %% Step 4: Compute the loss parameter (alpha)
-
 [alpha, Qcomp] = getalpha(mean(Freq), Tau, Settings.V);        
-
 
 lstring = sprintf('Alpha: %0.3f',alpha);
 if (useGUI == true)
