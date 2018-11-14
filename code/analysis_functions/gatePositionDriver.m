@@ -1,34 +1,34 @@
-function gatePositionDriver(SCf, Freq, port,varargin)
-%gatePositionDriver(SCf, Freq, port)
-%gatePositionDriver(SCf, Freq, port,savePlots)
-%gatePositionDriver(SCf, Freq, port,savePlots,foldername)
+function gatePositionDriver(data, port,varargin)
+%gatePositionDriver(data, port)
+%gatePositionDriver(data, port,savePlots)
+%gatePositionDriver(data, port,savePlots,foldername)
 
 %setup default variables
 savePlots = 0;
 foldername = pwd;
 
 %check the inputs
-if nargin > 3
+if nargin > 2
     savePlots = varargin{1};
 end
 
-if nargin > 4
+if nargin > 3
     foldername = varargin{2};
 end
 
 %first compute the metric with a Kaiser window
 maskType = 1;
 wVal = 0.75;
-[G1,tt1,windowString1] = testGatingPosition(SCf,Freq,port,maskType,wVal,100,0);
+[G1,tt1,windowString1] = testGatingPosition(data,port,maskType,wVal,100,0);
 
 %now compute the metric with a rectangular window
 maskType = 0;
-[G2,tt2,windowString2] = testGatingPosition(SCf,Freq,port,maskType,wVal,100,0);
+[G2,tt2,windowString2] = testGatingPosition(data,port,maskType,wVal,100,0);
 
 %third compute the metric with a Gaussian window
 maskType = 3;
 wVal = 0.5;
-[G3,tt3,windowString3] = testGatingPosition(SCf,Freq,port,maskType,wVal,100,0);
+[G3,tt3,windowString3] = testGatingPosition(data,port,maskType,wVal,100,0);
 
 
 switch port

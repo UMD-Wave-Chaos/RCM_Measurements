@@ -19,7 +19,7 @@ end
 
 
 %% read the specified file name and create the output data directory for plots
-mData = [Freq, SCf, Settings] = loadData(filename);
+mData = loadData(filename);
 
 SCf = mData.SCf;
 Freq = mData.Freq;
@@ -102,8 +102,12 @@ else
     disp(lstring)
 end
 
+tStart = 1e-6;
+tStop = 5e-6;
+Tau = zeros(4,1);
+
 for port = 1:4
-     Tau(port) = computePowerDecayProfile(SCt,t,Settings.l,port,foldername);
+     Tau(port) =  computeTauRC(SCt,t,tStart,tStop,port,varargin);
 end
 
 lstring = sprintf('Tau: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',Tau(1)*1e9,Tau(2)*1e9,Tau(3)*1e9,Tau(4)*1e9);

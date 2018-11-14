@@ -1,6 +1,7 @@
-function testRCMNormalizationGating(SCf, Freq, port,alpha,gateTime,maskType,wVal)
+function testRCMNormalizationGating(data, port,alpha,gateTime,maskType,wVal)
 
-[Z1,Z2] = compareGatingPosition(SCf,Freq,port,gateTime,maskType,wVal,0);
+SCf = data.SCf;
+[Z1,Z2] = compareGatingPosition(data,port,gateTime,maskType,wVal,0);
  
 Sc = getSParameterCorrectionFactor(SCf,port);
 
@@ -50,8 +51,8 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  hold on
  hz2MagMeas = histogram(abs(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz2MagMeas,'NumBins',nBins);
- hz3MagMeas = histogram(abs(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
- set(hz3MagMeas,'NumBins',nBins);
+%  hz3MagMeas = histogram(abs(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+%  set(hz3MagMeas,'NumBins',nBins);
  hz4MagMeas = histogram(abs(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz4MagMeas,'NumBins',nBins);
  hzMagRCM = histogram(abs(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
@@ -65,8 +66,8 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  ylabel('PDF');
  tstring = sprintf('PDF of |Z_{%s}|',indstring{port});
  title(tstring);
-%  legend('Gated S','Gated Z','Ungated <Z>','RCM');
-  legend('Gated S','Gated Z','Ungated <Zc>','Ungated <Z>','RCM');
+ legend('Gated S','Gated Z','Ungated <Z>','RCM');
+%   legend('Gated S','Gated Z','Ungated <Zc>','Ungated <Z>','RCM');
 
   
  subplot(2,1,2)

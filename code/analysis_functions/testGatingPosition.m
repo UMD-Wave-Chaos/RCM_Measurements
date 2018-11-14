@@ -1,26 +1,26 @@
-function [G,tt,windowString] = testGatingPosition(SCf,Freq,port,varargin)
-%[G,tt,windowString] = testGatingPosition(SCf,Freq,port,maskType,wVal,nTimes,generatePlots)
+function [G,tt,windowString] = testGatingPosition(data,port,varargin)
+%[G,tt,windowString] = testGatingPosition(data,port,maskType,wVal,nTimes,generatePlots)
 
 %% check the inputs
-if nargin >= 4
+if nargin >= 3
     maskType = varargin{1};
 else   
     maskType = 0;
 end
 
-if nargin >= 5
+if nargin >= 4
     wVal = varargin{2};
 else
     wVal = 2.5;
 end
 
-if nargin >= 6
+if nargin >= 5
     nTimes = varargin{3};
 else
     nTimes = 100;
 end
 
-if nargin == 7
+if nargin == 6
     generatePlots = varargin{4};
 else
     generatePlots = 1;
@@ -31,7 +31,7 @@ tt = zeros(nTimes,1);
 G = zeros(nTimes,1);
 for cnt = 1:100
  tt(cnt) = cnt*1e-9;   
- [Z1,Z2] = compareGatingPosition(SCf,Freq,port,tt(cnt),maskType,wVal,0);
+ [Z1,Z2] = compareGatingPosition(data,port,tt(cnt),maskType,wVal,0);
  G(cnt) = 100*sum(abs(Z2 - Z1))/sum(abs(Z2 + Z1));
  disp('*****************************************************************');
  dispString = sprintf('Computing Gate Time %0.1f ns, # %d of %d',tt(cnt)*1e9,cnt,nTimes);

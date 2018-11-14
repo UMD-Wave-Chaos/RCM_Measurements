@@ -52,7 +52,11 @@ tic;
 for iter = 1:N
     
     if (useGUI == true)
-        gui_UpdateCalibration(handles.pnaObj,handles);
+        [handles,validCal] = gui_UpdateCalibration(handles.pnaObj,handles);
+    end
+    
+    if validCal == false
+        error('Calibration File is Not Applied');
     end
     %% move the stepper motor
     stepDistance = direction*nStepsPerRevolution/N;

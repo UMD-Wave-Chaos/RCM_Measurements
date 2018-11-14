@@ -1,12 +1,14 @@
-function handles = gui_UpdateCalibration(pnaObj,handles)
+function [handles,validCal] = gui_UpdateCalibration(pnaObj,handles)
 
 calFileName = strtrim(query(pnaObj,'SENSe:CORRection:CSET:DESC?'));
 tString = calFileName(2:end-1);
 
 if (strcmpi('No Cal Set selected',tString))
     color = 'red';
+    validCal = false;
 else
     color = 'green';
+    validCal = true;
 end
     
 

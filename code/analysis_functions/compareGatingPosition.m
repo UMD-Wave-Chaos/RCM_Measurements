@@ -1,19 +1,22 @@
-function [Z1,Z2] = compareGatingPosition(SCf,Freq,port,gateTime,varargin)
+function [Z1,Z2] = compareGatingPosition(data,port,gateTime,varargin)
+
+SCf = data.SCf;
+Freq = data.Freq;
 
 %% check the inputs
-if nargin >= 5
+if nargin >= 4
     maskType = varargin{1};
 else   
     maskType = 0;
 end
 
-if nargin >= 6
+if nargin >= 5
     wVal = varargin{2};
 else
     wVal = 2.5;
 end
 
-if nargin == 7
+if nargin == 6
     generatePlots = varargin{3};
 else
     generatePlots = 1;
