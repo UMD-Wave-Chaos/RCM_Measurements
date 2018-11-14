@@ -19,6 +19,8 @@ hRealFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', '
 hImagFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Imag PMF from Measurement');
 indstring = {'11','12','21','22'};
 
+ZRCM_2port =  genPMFrcm(alpha,2, nRCM);
+
 for port = 1:4
     
     lstring = sprintf('Computing RCM distribution for port %d',port);
@@ -30,7 +32,7 @@ for port = 1:4
     
     Zmeas = Znormf(:,port,:);
     Zmeas = Zmeas(:);
-    ZRCM_2port =  genPMFrcm(alpha(port),2, nRCM);
+    
     Zrcm = ZRCM_2port(:,port);
     
     ZRCM(:,port) = Zrcm(1:nRCM);
@@ -46,10 +48,10 @@ for port = 1:4
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
     set(gca,'FontWeight','bold')
-    lstring = sprintf('Re\{Z_{%s}\}',indstring{port});
+    lstring = sprintf('Re\\{Z_{%s}\\}',indstring{port});
     xlabel(lstring);
     ylabel('PDF');
-    tstring = sprintf('PDF of Re\{Z_{%s}\}',indstring{port});
+    tstring = sprintf('PDF of Re\\{Z_{%s}\\}',indstring{port});
     title(tstring);
     legend('Measured','RCM');
     
@@ -64,10 +66,10 @@ for port = 1:4
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
     set(gca,'FontWeight','bold')
-    lstring = sprintf('Im\{Z_{%s}\}',indstring{port});
+    lstring = sprintf('Im\\{Z_{%s}\\}',indstring{port});
     xlabel(lstring);
     ylabel('PDF');
-    tstring = sprintf('PDF of Im\{Z_{%s}\}',indstring{port});
+    tstring = sprintf('PDF of Im\\{Z_{%s}\\}',indstring{port});
     title(tstring);
     legend('Measured','RCM');
 

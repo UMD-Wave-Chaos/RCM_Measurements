@@ -46,50 +46,50 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  
  hh1 = figure('name',fname);
  subplot(2,1,1)
- hz1MagMeas = histogram(abs(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz1MagMeas = histogram(real(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz1MagMeas,'NumBins',nBins);
  hold on
- hz2MagMeas = histogram(abs(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz2MagMeas = histogram(real(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz2MagMeas,'NumBins',nBins);
-%  hz3MagMeas = histogram(abs(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+%  hz3MagMeas = histogram(real(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
 %  set(hz3MagMeas,'NumBins',nBins);
- hz4MagMeas = histogram(abs(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz4MagMeas = histogram(real(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz4MagMeas,'NumBins',nBins);
- hzMagRCM = histogram(abs(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
+ hzMagRCM = histogram(real(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
  set(hzMagRCM,'NumBins',nBins);
  grid on
  set(gca,'LineWidth',2)
  set(gca,'FontSize',12)
  set(gca,'FontWeight','bold')
- lstring = sprintf('|Z_{%s}|',indstring{port});
+ lstring = sprintf('Re\\{Z_{%s}\\}',indstring{port});
  xlabel(lstring);
  ylabel('PDF');
- tstring = sprintf('PDF of |Z_{%s}|',indstring{port});
+ tstring = sprintf('PDF of Re\\{Z_{%s}\\}',indstring{port});
  title(tstring);
  legend('Gated S','Gated Z','Ungated <Z>','RCM');
 %   legend('Gated S','Gated Z','Ungated <Zc>','Ungated <Z>','RCM');
 
   
  subplot(2,1,2)
- hz1PhaseMeas = histogram(angle(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz1PhaseMeas = histogram(imag(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz1PhaseMeas,'NumBins',nBins);
  hold on
- hz2PhaseMeas = histogram(angle(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz2PhaseMeas = histogram(imag(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz2PhaseMeas,'NumBins',nBins);
-%  hz3PhaseMeas = histogram(angle(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+%  hz3PhaseMeas = histogram(imag(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
 %  set(hz3PhaseMeas,'NumBins',nBins);
- hz4PhaseMeas = histogram(angle(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ hz4PhaseMeas = histogram(imag(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz4PhaseMeas,'NumBins',nBins);
- hzPhaseRCM = histogram(angle(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
+ hzPhaseRCM = histogram(imag(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
  set(hzPhaseRCM,'NumBins',nBins);
  grid on
  set(gca,'LineWidth',2)
  set(gca,'FontSize',12)
  set(gca,'FontWeight','bold')
- lstring = sprintf('\\angleZ_{%s}',indstring{port});
+ lstring = sprintf('Im\\{Z_{%s}\\}',indstring{port});
  xlabel(lstring);
  ylabel('PDF');
- tstring = sprintf('PDF of \\angleZ_{%s}',indstring{port});
+ tstring = sprintf('PDF of Im\\{Z_{%s}\\}',indstring{port});
  title(tstring);
  legend('Gated S','Gated Z','Ungated <Z>','RCM');
 

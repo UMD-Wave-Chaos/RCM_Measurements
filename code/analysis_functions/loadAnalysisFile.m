@@ -11,6 +11,7 @@ data.K22 = h5read(filename,'/Analysis/K22');
 data.tau = h5read(filename,'/Analysis/tau');
 data.alpha = h5read(filename,'/Analysis/alpha');
 data.Q = h5read(filename,'/Analysis/Q');
+data.pdp = h5read(filename,'Analysis/pdp');
 
 %get the S parameters
 SCf_r = h5read(filename,'/Analysis/SCf_real');

@@ -16,11 +16,7 @@ if (m ~= m1)
     t = t';
 end
 
-%set the break points in time for the number of electrical lengths
-%try 500 to 1500
-% tStart = l*500/3E8;
-% tStop = l*1500/3E8;
- 
+
 %convert from time to indices
 indStart = find(abs(t- tStart) == min(abs(t-tStart)),1);              
 indStop = find(abs(t - tStop) == min(abs(t - tStop)),1);             
@@ -30,17 +26,23 @@ pdpSection = pdp(indStart:indStop);
 timeSection = t(indStart:indStop);
 
 %set the amplitude and smoothing factors
-af = 1%0000;
-sf = 500;
+af = 1;
+sf = 250;
 
 %smooth the data
-smoothPDPSection= af*smooth(pdpSection,sf);
+smoothPDP = af*smooth(pdp,sf);
+smoothPDPSection= smoothPDP(indStart:indStop);
 
 %fit the data to an exponential term
 gFit= fit(timeSection,smoothPDPSection, fittype('exp1'));
 
 %get the time constant of the cavity
 tau = -1/gFit.b;
+
+% dispstring = sprintf('t1 = %0.3f ns',-1/gFit.b*1e9);
+% disp(dispstring);
+% dispstring = sprintf('t2 = %0.3f ns',-1/gFit.d*1e9);
+% disp(dispstring);
 
 %plot the results
 %get the index string

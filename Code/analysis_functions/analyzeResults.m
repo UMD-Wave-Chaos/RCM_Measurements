@@ -73,6 +73,7 @@ h5write(analysisFile,'/Analysis/t',t);
 %% Plot the ensembles
 plotSParameters(t,Freq,SCf,SCt,Srad,foldername);
 plotScavEnsembles(t,Freq,SCt,SCf,foldername);
+plotSrad(Freq,Srad,foldername);
 
 %% Get and plot the enhanced backscatter coefficient
 eb = computeEnhancedBackscatter(SCf, Freq,foldername);
@@ -94,6 +95,12 @@ h5write(analysisFile,'/Analysis/K21',K21);
 h5create(analysisFile,'/Analysis/K22',size(K22));
 h5write(analysisFile,'/Analysis/K22',K22);
 
+%% compute the PDP
+pdp = computePowerDecayProfile(SCt,2);
+
+h5create(analysisFile,'/Analysis/pdp',size(pdp));
+h5write(analysisFile,'/Analysis/pdp',pdp);
+
 %% Step 3: Compute Tau, the 1/e fold energy decay time
 lstring = 'Computing tau ...';
 if (useGUI == true)
@@ -102,15 +109,15 @@ else
     disp(lstring)
 end
 
-tStart = 1e-6;
-tStop = 5e-6;
-Tau = zeros(4,1);
+% setup the start and stop time to capture long time exponential decay of
+% the cavity - need to measure far enough out to prevent short orbits from
+% the wells interacting
+tStart = 5.25e-6;
+tStop = 6.5e-6;
+Tau =  computeTauRC(SCt,t,tStart,tStop,2,foldername);
 
-for port = 1:4
-     Tau(port) =  computeTauRC(SCt,t,tStart,tStop,port,varargin);
-end
 
-lstring = sprintf('Tau: %0.3f ns %0.3f ns %0.3f ns %0.3f ns',Tau(1)*1e9,Tau(2)*1e9,Tau(3)*1e9,Tau(4)*1e9);
+lstring = sprintf('Tau: %0.3f  ns',Tau*1e9);
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring,'info');
 else
@@ -121,20 +128,18 @@ h5create(analysisFile,'/Analysis/tau',size(Tau));
 h5write(analysisFile,'/Analysis/tau',Tau);
 
 %% Step 4: Compute the loss parameter (alpha)
-alpha = zeros(4,1);
-Qcomp = zeros(4,1);
-for param=1:4
-    [alpha(param), Qcomp(param)] = getalpha(mean(Freq), Tau(param), Settings.V);        
-end
 
-lstring = sprintf('Alpha: %0.3f %0.3f %0.3f %0.3f',alpha(1),alpha(2),alpha(3),alpha(4));
+[alpha, Qcomp] = getalpha(mean(Freq), Tau, Settings.V);        
+
+
+lstring = sprintf('Alpha: %0.3f',alpha);
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring,'info');
 else
     disp(lstring)
 end
 
-lstring = sprintf('Q: %0.3f %0.3f %0.3f %0.3f',Qcomp(1),Qcomp(2),Qcomp(3),Qcomp(4));
+lstring = sprintf('Q: %0.3f',Qcomp);
 if (useGUI == true)
     logMessage(handles.jEditbox,lstring,'info');
 else
@@ -156,6 +161,7 @@ end
 
 Zcf = transformToZ2Port(SCf);
 Zradf = transformToZ2Port(Srad);
+plotZrad(Freq,Zrad,foldername);
 
 h5create(analysisFile,'/Analysis/Zradf_real',size(Zradf));
 h5write(analysisFile,'/Analysis/Zradf_real',real(Zradf));
