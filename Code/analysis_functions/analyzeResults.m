@@ -95,8 +95,16 @@ h5write(analysisFile,'/Analysis/K21',K21);
 h5create(analysisFile,'/Analysis/K22',size(K22));
 h5write(analysisFile,'/Analysis/K22',K22);
 
+%% get the Heisenberg Time
+c = 2.99792458e8;
+deltaOmega = pi^2*c^3/((2*pi*mean(Freq))^2*Settings.V);
+Ht = 1/deltaOmega;
+
+h5create(analysisFile,'/Analysis/Ht',size(Ht));
+h5write(analysisFile,'/Analysis/Ht',Ht);
+
 %% compute the PDP
-pdp = computePowerDecayProfile(SCt,2);
+pdp = computePowerDecayProfile(SCt,t,2,Ht,foldername);
 
 h5create(analysisFile,'/Analysis/pdp',size(pdp));
 h5write(analysisFile,'/Analysis/pdp',pdp);
@@ -118,7 +126,7 @@ end
 tStart = 5.5e-6;
 tStop = 6.5e-6;
 % measurements of tau_{RC} are taken from S_{12}
-Tau =  computeTauRC(SCt,t,tStart,tStop,2,foldername);
+[Tau,pdpSection,timeSection] = computeTauRC(pdp,t,tStart,tStop,foldername);
 
 lstring = sprintf('Tau: %0.3f  ns',Tau*1e9);
 if (useGUI == true)
@@ -129,6 +137,10 @@ end
 
 h5create(analysisFile,'/Analysis/tau',size(Tau));
 h5write(analysisFile,'/Analysis/tau',Tau);
+h5create(analysisFile,'/Analysis/pdpSection',size(pdpSection));
+h5write(analysisFile,'/Analysis/pdpSection',pdpSection);
+h5create(analysisFile,'/Analysis/timeSection',size(timeSection));
+h5write(analysisFile,'/Analysis/timeSection',timeSection);
 
 %% Step 4: Compute the loss parameter (alpha)
 [alpha, Qcomp] = getalpha(mean(Freq), Tau, Settings.V);        

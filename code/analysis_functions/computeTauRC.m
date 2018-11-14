@@ -1,14 +1,13 @@
-function [tau,pdpSection,timeSection] = computeTauRC(SCt,t,tStart,tStop,index,varargin)
+function [tau,pdpSection,timeSection] = computeTauRC(pdp,t,tStart,tStop,varargin)
 
 %% check inputs
-if nargin == 6
+if nargin == 5
     foldername = varargin{1};
     savePlots = 1;
 else
     savePlots = 0;
 end
 
-pdp = computePowerDecayProfile(SCt,index);
 [m,~] = size(t);
 [m1,~] = size(pdp);
 
@@ -44,20 +43,7 @@ tau = -1/gFit.b;
 % dispstring = sprintf('t2 = %0.3f ns',-1/gFit.d*1e9);
 % disp(dispstring);
 
-%plot the results
-%get the index string
-if index == 1
-    indString = '11';
-elseif index == 2
-    indString = '12';
-elseif index == 3
-    indString = '21';
-else
-    indString = '22';
-end
-
-tString = sprintf('S%s PDP',indString);
-h1 = figure('Name', tString);
+h1 = figure('Name', 'PDP');
 subplot(2,1,1)
 plot(timeSection*1e6,pdpSection);
 hold on
@@ -70,8 +56,7 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 legend('Raw','Smoothed','Fit');
-tString = sprintf('S_{%s} Linear PDP',indString);
-title(tString);
+title('Linear PDP');
 
 centerInd = indStart + floor((indStop-indStart)/2);
 tString = sprintf('\\tau = %0.3f ns',tau*1e9);
@@ -89,12 +74,10 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 legend('Raw','Smoothed','Fit');
-tString = sprintf('S_{%s} Log Mag PDP',indString);
-title(tString);
+title('Log Mag PDP');
 
 if (savePlots)
-    fname = sprintf('S%s_PDP',indString);
-    saveas(h1,fullfile(foldername,fname),'png');
+    saveas(h1,fullfile(foldername,'PDP_time_constant'),'png');
     close (h1)
 
 end

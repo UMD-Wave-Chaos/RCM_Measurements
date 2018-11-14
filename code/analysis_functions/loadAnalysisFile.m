@@ -12,6 +12,9 @@ data.tau = h5read(filename,'/Analysis/tau');
 data.alpha = h5read(filename,'/Analysis/alpha');
 data.Q = h5read(filename,'/Analysis/Q');
 data.pdp = h5read(filename,'Analysis/pdp');
+data.Ht = h5read(filename,'Analysis/Ht');
+data.pdpSection = h5read(filename,'Analysis/pdpSection');
+data.timeSection = h5read(filename,'Analysis/timeSection');
 
 %get the S parameters
 SCf_r = h5read(filename,'/Analysis/SCf_real');
