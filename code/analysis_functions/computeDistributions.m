@@ -23,7 +23,7 @@ ZRCM_2port =  genPMFrcm(alpha,2, nRCM);
 
 for port = 1:4
     
-    lstring = sprintf('Computing RCM distribution for port %d',port);
+    lstring = sprintf('Computing distribution for port %d',port);
     if (useGUI == true)
         logMessage(handles.jEditbox,lstring);
     else
