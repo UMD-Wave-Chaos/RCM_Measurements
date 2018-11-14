@@ -15,8 +15,8 @@ else
 end
 tic;
 
-hMagFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Magnitude PMF from Measurement');
-hPhaseFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Phase PMF from Measurement');
+hRealFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Real PMF from Measurement');
+hImagFigure = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'Normalized Imag PMF from Measurement');
 indstring = {'11','12','21','22'};
 
 for port = 1:4
@@ -35,40 +35,39 @@ for port = 1:4
     
     ZRCM(:,port) = Zrcm(1:nRCM);
     
-    figure(hMagFigure);
+    figure(hRealFigure);
     subplot(2,2,port)
-    hzMagMeas(port) = histogram(abs(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-    set(hzMagMeas(port),'NumBins',nBins);
+    hzRealMeas(port) = histogram(real(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+    set(hzRealMeas(port),'NumBins',nBins);
     hold on
-    hzMagRCM(port) = histogram(abs(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
-    set(hzMagRCM(port),'NumBins',nBins);
+    hzRealRCM(port) = histogram(real(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
+    set(hzRealRCM(port),'NumBins',nBins);
     grid on
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
     set(gca,'FontWeight','bold')
-    lstring = sprintf('|Z_{%s}|',indstring{port});
+    lstring = sprintf('Re\{Z_{%s}\}',indstring{port});
     xlabel(lstring);
     ylabel('PDF');
-    tstring = sprintf('PDF of |Z_{%s}|',indstring{port});
+    tstring = sprintf('PDF of Re\{Z_{%s}\}',indstring{port});
     title(tstring);
     legend('Measured','RCM');
     
-    
-    figure(hPhaseFigure)
+    figure(hImagFigure)
     subplot(2,2,port)
-    hzPhaseMeas(port) = histogram(angle(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-    set(hzPhaseMeas(port),'NumBins',nBins);
+    hzImagMeas(port) = histogram(imag(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+    set(hzImagMeas(port),'NumBins',nBins);
     hold on
-    hzPhaseRCM(port) = histogram(angle(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
-    set(hzPhaseRCM(port),'NumBins',nBins);
+    hzImagRCM(port) = histogram(imag(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
+    set(hzImagRCM(port),'NumBins',nBins);
     grid on
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
     set(gca,'FontWeight','bold')
-    lstring = sprintf('\\angleZ_{%s}',indstring{port});
+    lstring = sprintf('Im\{Z_{%s}\}',indstring{port});
     xlabel(lstring);
     ylabel('PDF');
-    tstring = sprintf('PDF of \\angleZ_{%s}',indstring{port});
+    tstring = sprintf('PDF of Im\{Z_{%s}\}',indstring{port});
     title(tstring);
     legend('Measured','RCM');
 
@@ -85,8 +84,8 @@ for port = 1:4
 end
 
 if (savePlots == true)
-    saveas(hMagFigure,fullfile(foldername,'PDF_Comparison_Mag'),'png');
-    saveas(hPhaseFigure,fullfile(foldername,'PDF_Comparison_Phase'),'png');
-    close(hPhaseFigure)
-    close(hMagFigure)
+    saveas(hRealFigure,fullfile(foldername,'PDF_Comparison_Real'),'png');
+    saveas(hImagFigure,fullfile(foldername,'PDF_Comparison_Imag'),'png');
+    close(hRealFigure)
+    close(hImagFigure)
 end
