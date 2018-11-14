@@ -39,11 +39,11 @@ for port = 1:4
     
     figure(hRealFigure);
     subplot(2,2,port)
-    hzRealMeas(port) = histogram(real(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-    set(hzRealMeas(port),'NumBins',nBins);
-    hold on
     hzRealRCM(port) = histogram(real(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
     set(hzRealRCM(port),'NumBins',nBins);
+    hold on
+    hzRealMeas(port) = histogram(real(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+    set(hzRealMeas(port),'NumBins',nBins);
     grid on
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
@@ -53,15 +53,15 @@ for port = 1:4
     ylabel('PDF');
     tstring = sprintf('PDF of Re\\{Z_{%s}\\}',indstring{port});
     title(tstring);
-    legend('Measured','RCM');
+    legend('RCM','Measured');
     
     figure(hImagFigure)
     subplot(2,2,port)
-    hzImagMeas(port) = histogram(imag(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-    set(hzImagMeas(port),'NumBins',nBins);
-    hold on
     hzImagRCM(port) = histogram(imag(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
     set(hzImagRCM(port),'NumBins',nBins);
+    hold on
+    hzImagMeas(port) = histogram(imag(Zmeas),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+    set(hzImagMeas(port),'NumBins',nBins);
     grid on
     set(gca,'LineWidth',2)
     set(gca,'FontSize',12)
@@ -71,7 +71,7 @@ for port = 1:4
     ylabel('PDF');
     tstring = sprintf('PDF of Im\\{Z_{%s}\\}',indstring{port});
     title(tstring);
-    legend('Measured','RCM');
+    legend('RCM','Measured');
 
     time = toc;
 

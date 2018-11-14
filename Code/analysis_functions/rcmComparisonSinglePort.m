@@ -12,6 +12,7 @@ Sf = squeeze(SCf(:,port,:));
 Zf = transformToZSinglePort(Sf);
 
 Z1norm = normalizeSinglePortImpedance(Zf,Z1);
+Zavg = mean(Zf,2);
 
  Zrcm  =  genPMFrcm(alpha,1, nRCM);
  

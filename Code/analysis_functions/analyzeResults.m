@@ -112,10 +112,13 @@ end
 % setup the start and stop time to capture long time exponential decay of
 % the cavity - need to measure far enough out to prevent short orbits from
 % the wells interacting
-tStart = 5.25e-6;
+% 11-14-2018 measurements indicate there are 2 long term decay times, the
+% shorter time dominates until ~5.5 microseconds, and the longer term takes
+% over until ~6.5 microseconds after which the time response flattens out
+tStart = 5.5e-6;
 tStop = 6.5e-6;
+% measurements of tau_{RC} are taken from S_{12}
 Tau =  computeTauRC(SCt,t,tStart,tStop,2,foldername);
-
 
 lstring = sprintf('Tau: %0.3f  ns',Tau*1e9);
 if (useGUI == true)
@@ -182,7 +185,7 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-Zrcm = computeDistributions(Znormf,alpha, 1000, Settings.nRCM, foldername, handles); 
+Zrcm = computeDistributions(Znormf,alpha, 2000, 100000, foldername, handles); 
 
 h5create(analysisFile,'/Analysis/Zrcm_real',size(Zrcm));
 h5write(analysisFile,'/Analysis/Zrcm_real',real(Zrcm));

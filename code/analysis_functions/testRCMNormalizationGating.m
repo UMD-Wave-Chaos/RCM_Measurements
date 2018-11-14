@@ -4,10 +4,6 @@ SCf = data.SCf;
 [Z1,Z2] = compareGatingPosition(data,port,gateTime,maskType,wVal,0);
  
 Sc = getSParameterCorrectionFactor(SCf,port);
-
-Ss = squeeze(SCf(:,port,:));
-S3 = mean(Ss - mean(Ss,2),2)./Sc;
-Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  
  Sf = squeeze(SCf(:,port,:));
  Zf = transformToZSinglePort(Sf);
@@ -15,7 +11,6 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  
  Z1norm = normalizeSinglePortImpedance(Zf,Z1);
  Z2norm = normalizeSinglePortImpedance(Zf,Z2);
- Z3norm = normalizeSinglePortImpedance(Zf,Z3);
  Z4norm = normalizeSinglePortImpedance(Zf,Zavg);
  
  nRCM = 100000;
@@ -46,17 +41,16 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  
  hh1 = figure('name',fname);
  subplot(2,1,1)
- hz1MagMeas = histogram(real(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
- set(hz1MagMeas,'NumBins',nBins);
- hold on
- hz2MagMeas = histogram(real(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
- set(hz2MagMeas,'NumBins',nBins);
-%  hz3MagMeas = histogram(real(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-%  set(hz3MagMeas,'NumBins',nBins);
- hz4MagMeas = histogram(real(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
- set(hz4MagMeas,'NumBins',nBins);
  hzMagRCM = histogram(real(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
  set(hzMagRCM,'NumBins',nBins);
+ hold on
+ hz1MagMeas = histogram(real(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ set(hz1MagMeas,'NumBins',nBins);
+ hz2MagMeas = histogram(real(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ set(hz2MagMeas,'NumBins',nBins);
+ hz4MagMeas = histogram(real(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
+ set(hz4MagMeas,'NumBins',nBins);
+
  grid on
  set(gca,'LineWidth',2)
  set(gca,'FontSize',12)
@@ -66,22 +60,20 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  ylabel('PDF');
  tstring = sprintf('PDF of Re\\{Z_{%s}\\}',indstring{port});
  title(tstring);
- legend('Gated S','Gated Z','Ungated <Z>','RCM');
-%   legend('Gated S','Gated Z','Ungated <Zc>','Ungated <Z>','RCM');
+ legend('RCM','Gated S','Gated Z','Ungated <Z>');
 
   
  subplot(2,1,2)
+ hzPhaseRCM = histogram(imag(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
+ set(hzPhaseRCM,'NumBins',nBins);
+ hold on
  hz1PhaseMeas = histogram(imag(Z1norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz1PhaseMeas,'NumBins',nBins);
  hold on
  hz2PhaseMeas = histogram(imag(Z2norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz2PhaseMeas,'NumBins',nBins);
-%  hz3PhaseMeas = histogram(imag(Z3norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
-%  set(hz3PhaseMeas,'NumBins',nBins);
  hz4PhaseMeas = histogram(imag(Z4norm),'normalization','pdf','DisplayStyle','stairs','LineWidth',2);
  set(hz4PhaseMeas,'NumBins',nBins);
- hzPhaseRCM = histogram(imag(Zrcm),'normalization','pdf','LineStyle','-.','DisplayStyle','stairs','LineWidth',2);
- set(hzPhaseRCM,'NumBins',nBins);
  grid on
  set(gca,'LineWidth',2)
  set(gca,'FontSize',12)
@@ -91,5 +83,5 @@ Z3 = transformToZSinglePort(mean(Ss,2)./Sc);
  ylabel('PDF');
  tstring = sprintf('PDF of Im\\{Z_{%s}\\}',indstring{port});
  title(tstring);
- legend('Gated S','Gated Z','Ungated <Z>','RCM');
+ legend('RCM','Gated S','Gated Z','Ungated <Z>');
 
