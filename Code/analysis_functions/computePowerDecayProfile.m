@@ -14,14 +14,19 @@ SCt = squeeze(SCt(:,index,:));
 %PDP = <| IFT{SC}|^2>
 pdp = mean(abs(SCt).^2,2);
 
+index =  find(abs(t - 0.05*1e-6) == min(abs(t - 0.05*1e-6)),1);             
+
+mVal = max(pdp(index:end));
+
 hh1 = figure('Position',[10 100 800 800],'NumberTitle', 'off', 'Name', 'PDP'); 
 subplot(2,1,1)
 plot(t*1e6,pdp,'LineWidth',2);
 hold on
+ylim([0 mVal]);
 extent = get(gca,'YLim');
-yline = linspace(extent(1),extent(2),100);
+yline = linspace(0,mVal,100);
 plot(ones(100,1)*Ht*1e6,yline,'--k','LineWidth',2);
-xlim([-0.5 10])
+xlim([0.05 10])
 ylabel('PDP (dB)');
 xlabel('Time (\mus)');
 title('Linear Power Decay Profile');
@@ -36,7 +41,7 @@ hold on
 extent = get(gca,'YLim');
 yline = linspace(extent(1),extent(2),100);
 plot(ones(100,1)*Ht*1e6,yline,'--k','LineWidth',2);
-xlim([-0.5 10])
+xlim([0.05 10])
 ylabel('PDP (W)');
 xlabel('Time (\mus)');
 title('Log Mag Power Decay Profile');
