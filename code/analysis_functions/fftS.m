@@ -9,5 +9,5 @@ N = length(St)/2;
 Fs = 1/dt;
 f = Fs*(0:N-1)/N + fStart;
 
-%compute the Fourier transform and divide by N
+%compute the Fourier transform
 Sf = fft(St);

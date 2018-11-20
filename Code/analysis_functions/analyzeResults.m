@@ -123,7 +123,7 @@ end
 % 11-14-2018 measurements indicate there are 2 long term decay times, the
 % shorter time dominates until ~5.5 microseconds, and the longer term takes
 % over until ~6.5 microseconds after which the time response flattens out
-tStart = 1e-6
+tStart = 1e-6;
 tStop = 2.5e-6;
 % measurements of tau_{RC} are taken from S_{12}
 [Tau,pdpSection,timeSection] = computeTauRC(pdp,t,tStart,tStop,foldername);

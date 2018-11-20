@@ -7,7 +7,7 @@ InputSignal = squeeze(InputSignal);
 [m,n] = size(InputSignal);
 
 %setup the pad length and get the size of the 1-sided signal
-zPadLength = 1000;
+zPadLength = 0;
 newLength1Sided = m + 2*zPadLength;
 
 % get the initial frequency span and spacing
@@ -23,7 +23,7 @@ mask = zeros(2*newLength1Sided,1);
 
 %initialize vectors to hold the signals
 SignalF = zeros(2*newLength1Sided,1); %temporary storage for the intermediate vectors
-OutputSignal = zeros(2*newLength1Si,n);%storage for the collection of vectors
+OutputSignal = zeros(2*newLength1Sided,n);%storage for the collection of vectors
 
 %% loop over the number of realizations and apply the gate
 for cnt = 1:n
