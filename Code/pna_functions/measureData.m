@@ -110,8 +110,16 @@ for iter = 1:N
     SCf(:,2,iter) = SCf12;
     SCf(:,3,iter) = SCf21;
     SCf(:,4,iter) = SCf22;
-    Time = toc;
     
+    start_time =  -(NOP-1)/(Freq(end)-Freq(1));
+    stop_time =  (NOP-1)/(Freq(end)-Freq(1));
+    [t,SCt11, SCt12, SCt21, SCt22] = getSParametersTimeDomain(obj1,NOP,start_time,stop_time);
+    SCt(:,1,iter) = SCt11; 
+    SCt(:,2,iter) = SCt12;
+    SCt(:,3,iter) = SCt21;
+    SCt(:,4,iter) = SCt22;
+    
+    Time = toc;
     if (useGUI == true)
         tString = sprintf('Measured S, realization %d of %d',iter,N);
         updateSParametersPlots(Freq,SCf11,SCf12,SCf22, tString,handles);
@@ -136,3 +144,7 @@ for iter = 1:N
         disp(lstring)
     end
 end
+fName = 'timeDomain.h5';
+saveComplexToHDF5(SCt,fName,'/SCt');
+h5create(fName,'/t',size(t));
+h5write(fName,'/t',t);

@@ -5,7 +5,7 @@
     	 ******************************************************************************
     -->
     <Comments> 
-    	Configuration A with cable to extend wire loop antenna outside of the well.
+    	Configuration A.
     </Comments>
     
     <!-- ******************************************************************************  
@@ -52,7 +52,7 @@
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-        <FileNamePrefix> Config_A_Extra_Cable_9.5_to_11 </FileNamePrefix>
+        <FileNamePrefix> Config_A </FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
