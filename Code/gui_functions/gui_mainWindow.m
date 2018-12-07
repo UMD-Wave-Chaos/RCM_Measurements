@@ -206,7 +206,7 @@ handles = gui_UpdateMode('Measuring',handles);
 set(handles.fileNameText,'String',handles.Settings.fileName);
 
 try
-    [handles.Freq, handles.SCf] = measureData(handles.pnaObj,...
+    [handles.time, handles.SCt, handles.Freq, handles.SCf] = measureData(handles.pnaObj,...
                                               handles.sObj,...
                                               handles.Settings, ...
                                               handles);
@@ -216,7 +216,7 @@ end
 
 lstring = sprintf('Saving data to %s',handles.Settings.fileName);
 logMessage(handles.jEditbox,lstring);
-saveData(handles.Freq, handles.SCf, handles.Settings);
+saveData(handles.time, handles.SCt, handles.Freq, handles.SCf, handles.Settings);
 
 clear handles.Freq handles.SCf;
 

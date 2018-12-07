@@ -1,4 +1,4 @@
-function [Freq, SCf] = measureData(obj1,s1, Settings,varargin)  
+function [t, SCt, Freq, SCf] = measureData(obj1,s1, Settings,varargin)  
 %[t, SCt, Freq, SCf, Srad] = measureData(obj1, s1, Settings) 
 %[t, SCt, Freq, SCf, Srad] = measureData(obj1, s1, Settings, handles) 
 % This function handles measuring the wave chaotic S parameters for a
