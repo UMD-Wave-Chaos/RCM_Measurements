@@ -25,6 +25,16 @@ SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
+#set the bin directory and set a command to create it during the build process
+set(BINARY_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+add_custom_target(build-time-make-bin-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${BINARY_DIRECTORY})
+
+#set the test directory and create it during the build process
+set(BINARY_TEST_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin/tests)
+add_custom_target(build-time-make-bin-test-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${BINARY_TEST_DIRECTORY})
+
 #set the policy - needed for Qt with “::” in the macros
  if(COMMAND cmake_policy)
       cmake_policy(SET CMP0003 NEW)
@@ -48,11 +58,6 @@ message( "QT5 Serial Port Found: " ${Qt5SerialPort_FOUND})
 find_package(Doxygen)
 message("Doxygen found: " ${DOXYGEN_FOUND})
 
-#Eigen - matrix library
-#find_package(Eigen3 3.3 REQUIRED NO_MODULE)
-#message("Eigen3 found: " ${EIGEN3_FOUND})
-#include_directories(${EIGEN3_INCLUDE_DIR})
-
 #Gperftools
 find_package(Gperftools)
 message("GPerftools found: " ${GPERFTOOLS_FOUND})
@@ -68,6 +73,8 @@ endif()
 #FFTW
 find_package (FFTW)
 message("FFTW Found: " ${FFTW_FOUND})
+
+find_package(GRPC REQUIRED)
 
 #include the subdirectories for the headers
 include_directories(${SOURCE_DIRECTORY}/GUI)
