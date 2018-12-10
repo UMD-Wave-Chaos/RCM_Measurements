@@ -8,6 +8,7 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 #include "measurementSettings.h"
+#include "stepperMotorController.h"
 
 #include <fstream>
 #include <ctime>
@@ -27,6 +28,7 @@ public:
 
 private:
     pnaControllerInterface* pnaObj;
+    //stepperMotorController* sObj;
     DataLoggerHDF5 dataLogger;
     bool testMode;
     bool initialized;

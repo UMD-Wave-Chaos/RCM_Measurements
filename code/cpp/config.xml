@@ -23,7 +23,7 @@
          ******************************************************************************       
     -->
     <StepperMotor_Settings>
-            <COMport> COM5 </COMport>
+            <COMport> /dev/tty.usbserial-A600eOXn</COMport>
             <!-- 
                  aerotech SM50 motor with Haydon PCM 4826 drive
                  200 full steps at 1.8 degrees per step

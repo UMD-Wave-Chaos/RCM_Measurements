@@ -37,11 +37,12 @@ find_package (HDF5 COMPONENTS CXX)
 message( "HDF5 Found: " ${HDF5_FOUND})
 
 #QT5 - for the GUI
-find_package(Qt5 COMPONENTS Core Widgets Network Charts REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets Network Charts SerialPort REQUIRED)
 message( "QT5 Core Found: " ${Qt5Core_FOUND})
 message( "QT5 Widgets Found: " ${Qt5Widgets_FOUND})
 message( "QT5 Charts Found: " ${Qt5Charts_FOUND})
 message( "QT5 Network Found: " ${Qt5Network_FOUND})
+message( "QT5 Serial Port Found: " ${Qt5SerialPort_FOUND})
 
 #Doxygen - used to generate code documentation
 find_package(Doxygen)
@@ -73,7 +74,7 @@ include_directories(${SOURCE_DIRECTORY}/GUI)
 include_directories(${SOURCE_DIRECTORY}/pna_controller)
 include_directories(${SOURCE_DIRECTORY}/measurement_control)
 include_directories(${SOURCE_DIRECTORY}/data_logger)
-
+include_directories(${SOURCE_DIRECTORY}/stepper_motor_controller)
 
 ##########################################################################################
 #add additional sub directories

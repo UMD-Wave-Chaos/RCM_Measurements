@@ -6,10 +6,16 @@
 #include <QtCharts/QChartGlobal>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QTimer>
 
 #include "measurementModes.h"
 #include "measurementController.h"
 #include "measurementSettings.h"
+
+#include "rapidxml.hpp"
+#include "rapidxml_utils.hpp"
+
+#include "stepperMotorController.h"
 
 namespace Ui {
 class MainWindow;
@@ -42,12 +48,14 @@ private:
     void updatePlot( QtCharts::QChart *plot,  QtCharts::QLineSeries *series, std::vector<double> xData, std::vector<double> yData);
     void updatePlots(std::vector<double> f, std::vector<double> S11R, std::vector<double> S11I, std::vector<double> S12R, std::vector<double> S12I, std::vector<double> S22R,  std::vector<double> S22I  );
     void initializePlots();
+    void initializeStepperMotorController();
 
     void logMessage(std::string text, std::string severity);
     void logMessage(std::string text);
     void logSettings(measurementSettings settings);
 
     void updateGUIMode(measurementModes mode);
+    bool updateSettings(std::string filename);
 
     void initializeGUI();
 
@@ -66,6 +74,13 @@ private:
     uint maxPlotLength;
 
     measurementController mControl;
+
+    measurementSettings Settings;
+
+    stepperMotorController *sObj;
+
+private slots:
+    void updateStepperMotorStatus();
 };
 
 #endif // MAINWINDOW_H

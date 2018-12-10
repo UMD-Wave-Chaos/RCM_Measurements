@@ -12,4 +12,4 @@ set(measurementControlLibrary_HDRS
         measurementSettings.h)
 
 add_library(measurementControlLibrary ${measurementControlLibrary_HDRS} ${measurementControlLibrary_SRCS})
-target_link_libraries(measurementControlLibrary ${GPERFTOOLS_LIBRARIES} DataLogger pnaControllerLibrary)
+target_link_libraries(measurementControlLibrary ${GPERFTOOLS_LIBRARIES} DataLogger pnaControllerLibrary stepperMotorControlLibrary)

@@ -12,7 +12,7 @@ measurementSettings::measurementSettings()
     useDateStamp = true;
     smDirection = FWD;
     comments = "";
-    COMport = "COM5";
+    COMport = "/dev/tty.usbserial-A600eOXn";
     outputFileNamePrefix = "config_A";
     outputFileName = "";
 }

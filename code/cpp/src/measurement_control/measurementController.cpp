@@ -22,6 +22,8 @@ measurementController::measurementController()
     pnaObj->connectToInstrument();
 
     //TBD - connect to the stepper motor
+    //sObj = new stepperMotorController();
+
 
 }
 
@@ -87,7 +89,7 @@ measurementController::measurementController()
 measurementController::~measurementController()
 {
     //remove the pna object
-    //delete pnaObj;
+    delete pnaObj;
 }
 
  bool measurementController::measureData()
