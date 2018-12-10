@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libgtest_no_exception.a  CMakeFiles/gtest_no_exception.dir/src/gtest-all.cc.o CMakeFiles/gtest_no_exception.dir/gtest_no_exception_autogen/mocs_compilation.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libgtest_no_exception.a

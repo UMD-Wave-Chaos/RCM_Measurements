@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libgmock_main_no_exception.a  CMakeFiles/gmock_main_no_exception.dir/__/googletest/src/gtest-all.cc.o CMakeFiles/gmock_main_no_exception.dir/src/gmock-all.cc.o CMakeFiles/gmock_main_no_exception.dir/src/gmock_main.cc.o CMakeFiles/gmock_main_no_exception.dir/gmock_main_no_exception_autogen/mocs_compilation.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libgmock_main_no_exception.a
