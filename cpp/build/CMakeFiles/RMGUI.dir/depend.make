@@ -119,10 +119,10 @@ CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5pubco
 CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5public.h
 CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5version.h
 CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/hdf5.h
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QApplication
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QLabel
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QMainWindow
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qapplication.h
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
-CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QApplication
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QLabel
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QMainWindow
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qapplication.h
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
+CMakeFiles/RMGUI.dir/main.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 

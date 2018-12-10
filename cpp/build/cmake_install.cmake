@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/cmake_install.cmake")
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/cmake_install.cmake")
 
 endif()
 
@@ -47,5 +47,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

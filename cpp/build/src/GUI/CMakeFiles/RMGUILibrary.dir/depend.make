@@ -120,10 +120,10 @@ src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o:
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5public.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5version.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/hdf5.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QLabel
-src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QMainWindow
-src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QLabel
+src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QMainWindow
+src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: ../3rdParty/googletest/googlemock/include/gmock/gmock-actions.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: ../3rdParty/googletest/googlemock/include/gmock/gmock-cardinalities.h
@@ -241,11 +241,11 @@ src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/Cellar/hdf5/1.
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5public.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5version.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/hdf5.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt/lib/QtCharts.framework/Headers/qchartview.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QLabel
-src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QMainWindow
-src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt5/lib/QtCharts.framework/Headers/qchartview.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QLabel
+src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QMainWindow
+src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: src/GUI/RMGUILibrary_autogen/include/ui_mainwindow.h
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: ../3rdParty/googletest/googlemock/include/gmock/gmock-actions.h
@@ -364,14 +364,14 @@ src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/Cellar/hdf5/1.1
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5public.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/H5version.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/Cellar/hdf5/1.10.1_2/include/hdf5.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtCharts.framework/Headers/QLineSeries
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtCharts.framework/Headers/qchartview.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtCharts.framework/Headers/qlineseries.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QFileDialog
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QLabel
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/QMainWindow
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qfiledialog.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
-src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtCharts.framework/Headers/QLineSeries
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtCharts.framework/Headers/qchartview.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtCharts.framework/Headers/qlineseries.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QFileDialog
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QLabel
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QMainWindow
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qfiledialog.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
+src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: /usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: src/GUI/RMGUILibrary_autogen/include/ui_mainwindow.h
 

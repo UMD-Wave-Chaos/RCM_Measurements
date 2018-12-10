@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Include any dependencies generated for this target.
 include src/GUI/CMakeFiles/RMGUILibrary.dir/depend.make
@@ -62,60 +62,60 @@ src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp: src/GUI/CMakeFiles/RMGUIL
 src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp: ../src/GUI/icons/umdlogo.gif
 src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp: ../src/GUI/icons/greenarrowicon.gif
 src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp: ../src/GUI/icons/warning.gif
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic RCC for icons.qrc"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/CMake.app/Contents/bin/cmake -E cmake_autorcc /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/RCCiconsInfo.cmake 
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic RCC for icons.qrc"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/CMake.app/Contents/bin/cmake -E cmake_autorcc /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/RCCiconsInfo.cmake 
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: src/GUI/CMakeFiles/RMGUILibrary.dir/flags.make
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o: ../src/GUI/mainwindow.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/mainwindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/mainwindow.cpp
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/mainwindow.cpp > CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/mainwindow.cpp > CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/mainwindow.cpp -o CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/mainwindow.cpp -o CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: src/GUI/CMakeFiles/RMGUILibrary.dir/flags.make
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o: ../src/GUI/logmessages.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/logmessages.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/logmessages.cpp
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/logmessages.cpp > CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/logmessages.cpp > CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI/logmessages.cpp -o CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI/logmessages.cpp -o CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: src/GUI/CMakeFiles/RMGUILibrary.dir/flags.make
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o: src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp > CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp > CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/mocs_compilation.cpp -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o: src/GUI/CMakeFiles/RMGUILibrary.dir/flags.make
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o: src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp > CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp > CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp -o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
 
 # Object files for target RMGUILibrary
 RMGUILibrary_OBJECTS = \
@@ -133,9 +133,9 @@ src/GUI/libRMGUILibrary.a: src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_auto
 src/GUI/libRMGUILibrary.a: src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
 src/GUI/libRMGUILibrary.a: src/GUI/CMakeFiles/RMGUILibrary.dir/build.make
 src/GUI/libRMGUILibrary.a: src/GUI/CMakeFiles/RMGUILibrary.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libRMGUILibrary.a"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && $(CMAKE_COMMAND) -P CMakeFiles/RMGUILibrary.dir/cmake_clean_target.cmake
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RMGUILibrary.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libRMGUILibrary.a"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && $(CMAKE_COMMAND) -P CMakeFiles/RMGUILibrary.dir/cmake_clean_target.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RMGUILibrary.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/GUI/CMakeFiles/RMGUILibrary.dir/build: src/GUI/libRMGUILibrary.a
@@ -143,10 +143,10 @@ src/GUI/CMakeFiles/RMGUILibrary.dir/build: src/GUI/libRMGUILibrary.a
 .PHONY : src/GUI/CMakeFiles/RMGUILibrary.dir/build
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI && $(CMAKE_COMMAND) -P CMakeFiles/RMGUILibrary.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI && $(CMAKE_COMMAND) -P CMakeFiles/RMGUILibrary.dir/cmake_clean.cmake
 .PHONY : src/GUI/CMakeFiles/RMGUILibrary.dir/clean
 
 src/GUI/CMakeFiles/RMGUILibrary.dir/depend: src/GUI/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/CMakeFiles/RMGUILibrary.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/GUI /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/CMakeFiles/RMGUILibrary.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/GUI/CMakeFiles/RMGUILibrary.dir/depend
 

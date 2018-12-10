@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -104,7 +104,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/CMakeFiles/progress.marks
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/CMakeFiles/progress.marks
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/clean
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/rule
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ measurementControlLibrary: src/measurement_control/CMakeFiles/measurementControl
 
 # fast build rule for target.
 measurementControlLibrary/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build
 .PHONY : measurementControlLibrary/fast
 
 # Convenience name for target.
 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/rule
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/rule
 
 # Convenience name for target.
@@ -194,7 +194,7 @@ measurementControlLibrary_autogen: src/measurement_control/CMakeFiles/measuremen
 
 # fast build rule for target.
 measurementControlLibrary_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build
 .PHONY : measurementControlLibrary_autogen/fast
 
 measurementControlLibrary_autogen/mocs_compilation.o: measurementControlLibrary_autogen/mocs_compilation.cpp.o
@@ -203,7 +203,7 @@ measurementControlLibrary_autogen/mocs_compilation.o: measurementControlLibrary_
 
 # target to build an object file
 measurementControlLibrary_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o
 .PHONY : measurementControlLibrary_autogen/mocs_compilation.cpp.o
 
 measurementControlLibrary_autogen/mocs_compilation.i: measurementControlLibrary_autogen/mocs_compilation.cpp.i
@@ -212,7 +212,7 @@ measurementControlLibrary_autogen/mocs_compilation.i: measurementControlLibrary_
 
 # target to preprocess a source file
 measurementControlLibrary_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i
 .PHONY : measurementControlLibrary_autogen/mocs_compilation.cpp.i
 
 measurementControlLibrary_autogen/mocs_compilation.s: measurementControlLibrary_autogen/mocs_compilation.cpp.s
@@ -221,7 +221,7 @@ measurementControlLibrary_autogen/mocs_compilation.s: measurementControlLibrary_
 
 # target to generate assembly for a file
 measurementControlLibrary_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s
 .PHONY : measurementControlLibrary_autogen/mocs_compilation.cpp.s
 
 measurementController.o: measurementController.cpp.o
@@ -230,7 +230,7 @@ measurementController.o: measurementController.cpp.o
 
 # target to build an object file
 measurementController.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o
 .PHONY : measurementController.cpp.o
 
 measurementController.i: measurementController.cpp.i
@@ -239,7 +239,7 @@ measurementController.i: measurementController.cpp.i
 
 # target to preprocess a source file
 measurementController.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i
 .PHONY : measurementController.cpp.i
 
 measurementController.s: measurementController.cpp.s
@@ -248,7 +248,7 @@ measurementController.s: measurementController.cpp.s
 
 # target to generate assembly for a file
 measurementController.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s
 .PHONY : measurementController.cpp.s
 
 measurementSettings.o: measurementSettings.cpp.o
@@ -257,7 +257,7 @@ measurementSettings.o: measurementSettings.cpp.o
 
 # target to build an object file
 measurementSettings.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o
 .PHONY : measurementSettings.cpp.o
 
 measurementSettings.i: measurementSettings.cpp.i
@@ -266,7 +266,7 @@ measurementSettings.i: measurementSettings.cpp.i
 
 # target to preprocess a source file
 measurementSettings.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i
 .PHONY : measurementSettings.cpp.i
 
 measurementSettings.s: measurementSettings.cpp.s
@@ -275,7 +275,7 @@ measurementSettings.s: measurementSettings.cpp.s
 
 # target to generate assembly for a file
 measurementSettings.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s
 .PHONY : measurementSettings.cpp.s
 
 # Help Target
@@ -313,6 +313,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

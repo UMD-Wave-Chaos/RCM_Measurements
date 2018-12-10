@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,7 +80,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ install/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/CMakeFiles/progress.marks
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/CMakeFiles/progress.marks
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/clean
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/rule
 .PHONY : src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ DataLoggerHDF5Test: src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/rule
 
 # fast build rule for target.
 DataLoggerHDF5Test/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build
 .PHONY : DataLoggerHDF5Test/fast
 
 # Convenience name for target.
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/rule
 .PHONY : src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/rule
 
 # Convenience name for target.
@@ -194,7 +194,7 @@ DataLoggerHDF5Test_autogen: src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_
 
 # fast build rule for target.
 DataLoggerHDF5Test_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test_autogen.dir/build
 .PHONY : DataLoggerHDF5Test_autogen/fast
 
 DataLoggerHDF5Test_autogen/mocs_compilation.o: DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o
@@ -203,7 +203,7 @@ DataLoggerHDF5Test_autogen/mocs_compilation.o: DataLoggerHDF5Test_autogen/mocs_c
 
 # target to build an object file
 DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o
 .PHONY : DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o
 
 DataLoggerHDF5Test_autogen/mocs_compilation.i: DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
@@ -212,7 +212,7 @@ DataLoggerHDF5Test_autogen/mocs_compilation.i: DataLoggerHDF5Test_autogen/mocs_c
 
 # target to preprocess a source file
 DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
 .PHONY : DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
 
 DataLoggerHDF5Test_autogen/mocs_compilation.s: DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
@@ -221,7 +221,7 @@ DataLoggerHDF5Test_autogen/mocs_compilation.s: DataLoggerHDF5Test_autogen/mocs_c
 
 # target to generate assembly for a file
 DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
 .PHONY : DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
 
 DataLogger_test.o: DataLogger_test.cpp.o
@@ -230,7 +230,7 @@ DataLogger_test.o: DataLogger_test.cpp.o
 
 # target to build an object file
 DataLogger_test.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o
 .PHONY : DataLogger_test.cpp.o
 
 DataLogger_test.i: DataLogger_test.cpp.i
@@ -239,7 +239,7 @@ DataLogger_test.i: DataLogger_test.cpp.i
 
 # target to preprocess a source file
 DataLogger_test.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i
 .PHONY : DataLogger_test.cpp.i
 
 DataLogger_test.s: DataLogger_test.cpp.s
@@ -248,7 +248,7 @@ DataLogger_test.s: DataLogger_test.cpp.s
 
 # target to generate assembly for a file
 DataLogger_test.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build.make src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s
 .PHONY : DataLogger_test.cpp.s
 
 # Help Target
@@ -283,6 +283,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

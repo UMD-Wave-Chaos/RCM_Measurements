@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Utility rule file for build-time-make-docs-directory.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
 include CMakeFiles/build-time-make-docs-directory.dir/progress.make
 
 CMakeFiles/build-time-make-docs-directory:
-	/Applications/CMake.app/Contents/bin/cmake -E make_directory /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/../docs
+	/Applications/CMake.app/Contents/bin/cmake -E make_directory /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/../docs
 
 build-time-make-docs-directory: CMakeFiles/build-time-make-docs-directory
 build-time-make-docs-directory: CMakeFiles/build-time-make-docs-directory.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/build-time-make-docs-directory.dir/clean:
 .PHONY : CMakeFiles/build-time-make-docs-directory.dir/clean
 
 CMakeFiles/build-time-make-docs-directory.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles/build-time-make-docs-directory.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles/build-time-make-docs-directory.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/build-time-make-docs-directory.dir/depend
 

@@ -520,35 +520,41 @@ gmock/gmock.h
 gtest/gtest.h
 -
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.cpp
-measurementController.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.cpp
+measurementController.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.h
+
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.h
 pnaControllerInterface.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/pnaControllerInterface.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/pnaControllerInterface.h
 pnaControllerMock.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/pnaControllerMock.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/pnaControllerMock.h
 pnaController.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/pnaController.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/pnaController.h
 DataLogger_HDF5.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/DataLogger_HDF5.h
 rapidxml.hpp
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/rapidxml.hpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/rapidxml.hpp
 rapidxml_utils.hpp
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/rapidxml_utils.hpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/rapidxml_utils.hpp
 measurementSettings.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementSettings.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.h
 fstream
 -
 ctime
 -
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementModes.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementModes.h
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementSettings.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.cpp
+measurementSettings.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.h
+
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.h
 measurementModes.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementModes.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementModes.h
 string
 -
 

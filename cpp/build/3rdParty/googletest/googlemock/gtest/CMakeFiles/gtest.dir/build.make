@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Include any dependencies generated for this target.
 include 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/depend.make
@@ -59,29 +59,29 @@ include 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/flags.make
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/flags.make
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: ../3rdParty/googletest/googletest/src/gtest-all.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty/googletest/googletest/src/gtest-all.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty/googletest/googletest/src/gtest-all.cc
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/src/gtest-all.cc.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty/googletest/googletest/src/gtest-all.cc > CMakeFiles/gtest.dir/src/gtest-all.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty/googletest/googletest/src/gtest-all.cc > CMakeFiles/gtest.dir/src/gtest-all.cc.i
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/src/gtest-all.cc.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty/googletest/googletest/src/gtest-all.cc -o CMakeFiles/gtest.dir/src/gtest-all.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty/googletest/googletest/src/gtest-all.cc -o CMakeFiles/gtest.dir/src/gtest-all.cc.s
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o: 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/flags.make
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o: 3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp > CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp > CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.i
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp -o CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest/gtest_autogen/mocs_compilation.cpp -o CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.s
 
 # Object files for target gtest
 gtest_OBJECTS = \
@@ -95,9 +95,9 @@ gtest_EXTERNAL_OBJECTS =
 3rdParty/googletest/googlemock/gtest/libgtest.a: 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/gtest_autogen/mocs_compilation.cpp.o
 3rdParty/googletest/googlemock/gtest/libgtest.a: 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build.make
 3rdParty/googletest/googlemock/gtest/libgtest.a: 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libgtest.a"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean_target.cmake
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libgtest.a"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean_target.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build: 3rdParty/googletest/googlemock/gtest/libgtest.a
@@ -105,10 +105,10 @@ gtest_EXTERNAL_OBJECTS =
 .PHONY : 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/build
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest && $(CMAKE_COMMAND) -P CMakeFiles/gtest.dir/cmake_clean.cmake
 .PHONY : 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/clean
 
 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty/googletest/googletest /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty/googletest/googletest /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : 3rdParty/googletest/googlemock/gtest/CMakeFiles/gtest.dir/depend
 

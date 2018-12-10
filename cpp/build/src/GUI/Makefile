@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -127,7 +127,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/CMakeFiles/progress.marks
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/CMakeFiles/progress.marks
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/clean
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/GUI/CMakeFiles/RMGUILibrary.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/CMakeFiles/RMGUILibrary.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/CMakeFiles/RMGUILibrary.dir/rule
 .PHONY : src/GUI/CMakeFiles/RMGUILibrary.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ RMGUILibrary: src/GUI/CMakeFiles/RMGUILibrary.dir/rule
 
 # fast build rule for target.
 RMGUILibrary/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/build
 .PHONY : RMGUILibrary/fast
 
 # Convenience name for target.
 src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/rule
 .PHONY : src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/rule
 
 # Convenience name for target.
@@ -194,7 +194,7 @@ RMGUILibrary_autogen: src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/rule
 
 # fast build rule for target.
 RMGUILibrary_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/build.make src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/build.make src/GUI/CMakeFiles/RMGUILibrary_autogen.dir/build
 .PHONY : RMGUILibrary_autogen/fast
 
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.o: RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
@@ -203,7 +203,7 @@ RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.o: RMGUILibrary_autogen/EWIEGA46WW/qrc
 
 # target to build an object file
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
 .PHONY : RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
 
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.i: RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
@@ -212,7 +212,7 @@ RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.i: RMGUILibrary_autogen/EWIEGA46WW/qrc
 
 # target to preprocess a source file
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
 .PHONY : RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.i
 
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.s: RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
@@ -221,7 +221,7 @@ RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.s: RMGUILibrary_autogen/EWIEGA46WW/qrc
 
 # target to generate assembly for a file
 RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
 .PHONY : RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.s
 
 RMGUILibrary_autogen/mocs_compilation.o: RMGUILibrary_autogen/mocs_compilation.cpp.o
@@ -230,7 +230,7 @@ RMGUILibrary_autogen/mocs_compilation.o: RMGUILibrary_autogen/mocs_compilation.c
 
 # target to build an object file
 RMGUILibrary_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o
 .PHONY : RMGUILibrary_autogen/mocs_compilation.cpp.o
 
 RMGUILibrary_autogen/mocs_compilation.i: RMGUILibrary_autogen/mocs_compilation.cpp.i
@@ -239,7 +239,7 @@ RMGUILibrary_autogen/mocs_compilation.i: RMGUILibrary_autogen/mocs_compilation.c
 
 # target to preprocess a source file
 RMGUILibrary_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.i
 .PHONY : RMGUILibrary_autogen/mocs_compilation.cpp.i
 
 RMGUILibrary_autogen/mocs_compilation.s: RMGUILibrary_autogen/mocs_compilation.cpp.s
@@ -248,7 +248,7 @@ RMGUILibrary_autogen/mocs_compilation.s: RMGUILibrary_autogen/mocs_compilation.c
 
 # target to generate assembly for a file
 RMGUILibrary_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.s
 .PHONY : RMGUILibrary_autogen/mocs_compilation.cpp.s
 
 logmessages.o: logmessages.cpp.o
@@ -257,7 +257,7 @@ logmessages.o: logmessages.cpp.o
 
 # target to build an object file
 logmessages.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o
 .PHONY : logmessages.cpp.o
 
 logmessages.i: logmessages.cpp.i
@@ -266,7 +266,7 @@ logmessages.i: logmessages.cpp.i
 
 # target to preprocess a source file
 logmessages.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.i
 .PHONY : logmessages.cpp.i
 
 logmessages.s: logmessages.cpp.s
@@ -275,7 +275,7 @@ logmessages.s: logmessages.cpp.s
 
 # target to generate assembly for a file
 logmessages.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/logmessages.cpp.s
 .PHONY : logmessages.cpp.s
 
 mainwindow.o: mainwindow.cpp.o
@@ -284,7 +284,7 @@ mainwindow.o: mainwindow.cpp.o
 
 # target to build an object file
 mainwindow.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o
 .PHONY : mainwindow.cpp.o
 
 mainwindow.i: mainwindow.cpp.i
@@ -293,7 +293,7 @@ mainwindow.i: mainwindow.cpp.i
 
 # target to preprocess a source file
 mainwindow.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.i
 .PHONY : mainwindow.cpp.i
 
 mainwindow.s: mainwindow.cpp.s
@@ -302,7 +302,7 @@ mainwindow.s: mainwindow.cpp.s
 
 # target to generate assembly for a file
 mainwindow.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/GUI/CMakeFiles/RMGUILibrary.dir/build.make src/GUI/CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.s
 .PHONY : mainwindow.cpp.s
 
 # Help Target
@@ -343,6 +343,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

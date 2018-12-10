@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Utility rule file for measurementControlLibrary_autogen.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
 include src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/progress.make
 
 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target measurementControlLibrary"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/CMake.app/Contents/bin/cmake -E cmake_autogen /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/AutogenInfo.cmake ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target measurementControlLibrary"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/CMake.app/Contents/bin/cmake -E cmake_autogen /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/AutogenInfo.cmake ""
 
 measurementControlLibrary_autogen: src/measurement_control/CMakeFiles/measurementControlLibrary_autogen
 measurementControlLibrary_autogen: src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build.make
@@ -68,10 +68,10 @@ src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build: 
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/build
 
 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary_autogen.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary_autogen.dir/cmake_clean.cmake
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/clean
 
 src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary_autogen.dir/depend
 

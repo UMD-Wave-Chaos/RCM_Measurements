@@ -566,9 +566,11 @@ gmock/gmock.h
 gtest/gtest.h
 -
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/main.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/RMGUI_autogen/mocs_compilation.cpp
+
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/main.cpp
 mainwindow.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/mainwindow.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/mainwindow.h
 QApplication
 -
 
@@ -952,19 +954,19 @@ H5FDstdio.h
 H5FDwindows.h
 /usr/local/Cellar/hdf5/1.10.1_2/include/H5FDwindows.h
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/QApplication
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QApplication
 qapplication.h
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qapplication.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qapplication.h
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/QLabel
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QLabel
 qlabel.h
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/QMainWindow
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/QMainWindow
 qmainwindow.h
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qapplication.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qapplication.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtCore/qcoreapplication.h
@@ -982,13 +984,13 @@ QtWidgets/qdesktopwidget.h
 QtGui/qguiapplication.h
 -
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qlabel.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qlabel.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtWidgets/qframe.h
 -
 
-/usr/local/opt/qt/lib/QtWidgets.framework/Headers/qmainwindow.h
+/usr/local/opt/qt5/lib/QtWidgets.framework/Headers/qmainwindow.h
 QtWidgets/qtwidgetsglobal.h
 -
 QtWidgets/qwidget.h

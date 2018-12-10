@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

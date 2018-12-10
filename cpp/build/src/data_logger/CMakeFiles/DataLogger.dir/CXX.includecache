@@ -6,35 +6,35 @@
 
 #IncludeRegexTransform: 
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/DataLogger_autogen/mocs_compilation.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/DataLogger_autogen/mocs_compilation.cpp
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLoggerInterface.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLoggerInterface.h
 iostream
 -
 vector
 -
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5.cpp
 DataLogger_HDF5.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5.h
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5.h
 vector
 -
 string
 -
 H5Cpp.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/H5Cpp.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/H5Cpp.h
 DataLoggerInterface.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLoggerInterface.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLoggerInterface.h
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5_Double.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5_Double.cpp
 DataLogger_HDF5.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5.h
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5_Vector.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5_Vector.cpp
 DataLogger_HDF5.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/DataLogger_HDF5.h
 
 /usr/local/Cellar/hdf5/1.10.1_2/include/H5ACpublic.h
 H5public.h

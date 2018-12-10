@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Include any dependencies generated for this target.
 include src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/depend.make
@@ -59,29 +59,29 @@ include src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/flags.make
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o: src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/flags.make
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o: ../src/data_logger/tests/DataLogger_test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests/DataLogger_test.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests/DataLogger_test.cpp
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests/DataLogger_test.cpp > CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests/DataLogger_test.cpp > CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.i
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests/DataLogger_test.cpp -o CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests/DataLogger_test.cpp -o CMakeFiles/DataLoggerHDF5Test.dir/DataLogger_test.cpp.s
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o: src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/flags.make
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o: src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp > CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp > CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.i
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp -o CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp -o CMakeFiles/DataLoggerHDF5Test.dir/DataLoggerHDF5Test_autogen/mocs_compilation.cpp.s
 
 # Object files for target DataLoggerHDF5Test
 DataLoggerHDF5Test_OBJECTS = \
@@ -104,8 +104,8 @@ src/data_logger/tests/DataLoggerHDF5Test: /usr/lib/libdl.dylib
 src/data_logger/tests/DataLoggerHDF5Test: /usr/lib/libm.dylib
 src/data_logger/tests/DataLoggerHDF5Test: /usr/local/lib/libtcmalloc_and_profiler.dylib
 src/data_logger/tests/DataLoggerHDF5Test: src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable DataLoggerHDF5Test"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DataLoggerHDF5Test.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable DataLoggerHDF5Test"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DataLoggerHDF5Test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build: src/data_logger/tests/DataLoggerHDF5Test
@@ -113,10 +113,10 @@ src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build: src/data_logger/t
 .PHONY : src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/build
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests && $(CMAKE_COMMAND) -P CMakeFiles/DataLoggerHDF5Test.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests && $(CMAKE_COMMAND) -P CMakeFiles/DataLoggerHDF5Test.dir/cmake_clean.cmake
 .PHONY : src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/clean
 
 src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/data_logger/tests/CMakeFiles/DataLoggerHDF5Test.dir/depend
 

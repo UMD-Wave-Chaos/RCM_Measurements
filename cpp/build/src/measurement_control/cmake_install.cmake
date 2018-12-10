@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

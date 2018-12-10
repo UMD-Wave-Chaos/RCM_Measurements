@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -127,7 +127,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/googlemock/CMakeFiles/progress.marks
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/googlemock/CMakeFiles/progress.marks
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/clean
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/rule
 .PHONY : 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ gmock: 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/rule
 
 # fast build rule for target.
 gmock/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build
 .PHONY : gmock/fast
 
 # Convenience name for target.
 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/rule
 .PHONY : 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/rule
 
 # Convenience name for target.
@@ -194,12 +194,12 @@ gmock_main: 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/rule
 
 # fast build rule for target.
 gmock_main/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build
 .PHONY : gmock_main/fast
 
 # Convenience name for target.
 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/rule
 .PHONY : 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/rule
 
 # Convenience name for target.
@@ -209,12 +209,12 @@ gmock_autogen: 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/rule
 
 # fast build rule for target.
 gmock_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_autogen.dir/build
 .PHONY : gmock_autogen/fast
 
 # Convenience name for target.
 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/rule
 .PHONY : 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/rule
 
 # Convenience name for target.
@@ -224,7 +224,7 @@ gmock_main_autogen: 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen
 
 # fast build rule for target.
 gmock_main_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main_autogen.dir/build
 .PHONY : gmock_main_autogen/fast
 
 __/googletest/src/gtest-all.o: __/googletest/src/gtest-all.cc.o
@@ -233,8 +233,8 @@ __/googletest/src/gtest-all.o: __/googletest/src/gtest-all.cc.o
 
 # target to build an object file
 __/googletest/src/gtest-all.cc.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.o
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.o
 .PHONY : __/googletest/src/gtest-all.cc.o
 
 __/googletest/src/gtest-all.i: __/googletest/src/gtest-all.cc.i
@@ -243,8 +243,8 @@ __/googletest/src/gtest-all.i: __/googletest/src/gtest-all.cc.i
 
 # target to preprocess a source file
 __/googletest/src/gtest-all.cc.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.i
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.i
 .PHONY : __/googletest/src/gtest-all.cc.i
 
 __/googletest/src/gtest-all.s: __/googletest/src/gtest-all.cc.s
@@ -253,8 +253,8 @@ __/googletest/src/gtest-all.s: __/googletest/src/gtest-all.cc.s
 
 # target to generate assembly for a file
 __/googletest/src/gtest-all.cc.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.s
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/__/googletest/src/gtest-all.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/__/googletest/src/gtest-all.cc.s
 .PHONY : __/googletest/src/gtest-all.cc.s
 
 gmock_autogen/mocs_compilation.o: gmock_autogen/mocs_compilation.cpp.o
@@ -263,7 +263,7 @@ gmock_autogen/mocs_compilation.o: gmock_autogen/mocs_compilation.cpp.o
 
 # target to build an object file
 gmock_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.o
 .PHONY : gmock_autogen/mocs_compilation.cpp.o
 
 gmock_autogen/mocs_compilation.i: gmock_autogen/mocs_compilation.cpp.i
@@ -272,7 +272,7 @@ gmock_autogen/mocs_compilation.i: gmock_autogen/mocs_compilation.cpp.i
 
 # target to preprocess a source file
 gmock_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.i
 .PHONY : gmock_autogen/mocs_compilation.cpp.i
 
 gmock_autogen/mocs_compilation.s: gmock_autogen/mocs_compilation.cpp.s
@@ -281,7 +281,7 @@ gmock_autogen/mocs_compilation.s: gmock_autogen/mocs_compilation.cpp.s
 
 # target to generate assembly for a file
 gmock_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/gmock_autogen/mocs_compilation.cpp.s
 .PHONY : gmock_autogen/mocs_compilation.cpp.s
 
 gmock_main_autogen/mocs_compilation.o: gmock_main_autogen/mocs_compilation.cpp.o
@@ -290,7 +290,7 @@ gmock_main_autogen/mocs_compilation.o: gmock_main_autogen/mocs_compilation.cpp.o
 
 # target to build an object file
 gmock_main_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.o
 .PHONY : gmock_main_autogen/mocs_compilation.cpp.o
 
 gmock_main_autogen/mocs_compilation.i: gmock_main_autogen/mocs_compilation.cpp.i
@@ -299,7 +299,7 @@ gmock_main_autogen/mocs_compilation.i: gmock_main_autogen/mocs_compilation.cpp.i
 
 # target to preprocess a source file
 gmock_main_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.i
 .PHONY : gmock_main_autogen/mocs_compilation.cpp.i
 
 gmock_main_autogen/mocs_compilation.s: gmock_main_autogen/mocs_compilation.cpp.s
@@ -308,7 +308,7 @@ gmock_main_autogen/mocs_compilation.s: gmock_main_autogen/mocs_compilation.cpp.s
 
 # target to generate assembly for a file
 gmock_main_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/gmock_main_autogen/mocs_compilation.cpp.s
 .PHONY : gmock_main_autogen/mocs_compilation.cpp.s
 
 src/gmock-all.o: src/gmock-all.cc.o
@@ -317,8 +317,8 @@ src/gmock-all.o: src/gmock-all.cc.o
 
 # target to build an object file
 src/gmock-all.cc.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.o
 .PHONY : src/gmock-all.cc.o
 
 src/gmock-all.i: src/gmock-all.cc.i
@@ -327,8 +327,8 @@ src/gmock-all.i: src/gmock-all.cc.i
 
 # target to preprocess a source file
 src/gmock-all.cc.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.i
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.i
 .PHONY : src/gmock-all.cc.i
 
 src/gmock-all.s: src/gmock-all.cc.s
@@ -337,8 +337,8 @@ src/gmock-all.s: src/gmock-all.cc.s
 
 # target to generate assembly for a file
 src/gmock-all.cc.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.s
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock-all.cc.s
 .PHONY : src/gmock-all.cc.s
 
 src/gmock_main.o: src/gmock_main.cc.o
@@ -347,7 +347,7 @@ src/gmock_main.o: src/gmock_main.cc.o
 
 # target to build an object file
 src/gmock_main.cc.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
 .PHONY : src/gmock_main.cc.o
 
 src/gmock_main.i: src/gmock_main.cc.i
@@ -356,7 +356,7 @@ src/gmock_main.i: src/gmock_main.cc.i
 
 # target to preprocess a source file
 src/gmock_main.cc.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.i
 .PHONY : src/gmock_main.cc.i
 
 src/gmock_main.s: src/gmock_main.cc.s
@@ -365,7 +365,7 @@ src/gmock_main.s: src/gmock_main.cc.s
 
 # target to generate assembly for a file
 src/gmock_main.cc.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/build.make 3rdParty/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.s
 .PHONY : src/gmock_main.cc.s
 
 # Help Target
@@ -411,6 +411,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

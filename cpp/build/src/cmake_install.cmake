@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,10 +34,10 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/GUI/cmake_install.cmake")
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller/cmake_install.cmake")
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/cmake_install.cmake")
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/GUI/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/cmake_install.cmake")
 
 endif()
 

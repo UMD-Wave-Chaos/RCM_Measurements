@@ -48,10 +48,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -94,7 +94,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/Applications/CMake.app/Contents/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/Applications/CMake.app/Contents/bin/cmake-gui -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -137,14 +137,14 @@ list_install_components/fast: list_install_components
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller/CMakeFiles/progress.marks
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller/CMakeFiles/progress.marks
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/clean
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/preinstall
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/rule
 .PHONY : src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ pnaControllerLibrary: src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/rul
 
 # fast build rule for target.
 pnaControllerLibrary/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build
 .PHONY : pnaControllerLibrary/fast
 
 # Convenience name for target.
 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/rule:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/rule
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f CMakeFiles/Makefile2 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/rule
 .PHONY : src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/rule
 
 # Convenience name for target.
@@ -194,7 +194,7 @@ pnaControllerLibrary_autogen: src/pna_controller/CMakeFiles/pnaControllerLibrary
 
 # fast build rule for target.
 pnaControllerLibrary_autogen/fast:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build
 .PHONY : pnaControllerLibrary_autogen/fast
 
 pnaController.o: pnaController.cpp.o
@@ -203,7 +203,7 @@ pnaController.o: pnaController.cpp.o
 
 # target to build an object file
 pnaController.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.o
 .PHONY : pnaController.cpp.o
 
 pnaController.i: pnaController.cpp.i
@@ -212,7 +212,7 @@ pnaController.i: pnaController.cpp.i
 
 # target to preprocess a source file
 pnaController.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.i
 .PHONY : pnaController.cpp.i
 
 pnaController.s: pnaController.cpp.s
@@ -221,7 +221,7 @@ pnaController.s: pnaController.cpp.s
 
 # target to generate assembly for a file
 pnaController.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.s
 .PHONY : pnaController.cpp.s
 
 pnaControllerLibrary_autogen/mocs_compilation.o: pnaControllerLibrary_autogen/mocs_compilation.cpp.o
@@ -230,7 +230,7 @@ pnaControllerLibrary_autogen/mocs_compilation.o: pnaControllerLibrary_autogen/mo
 
 # target to build an object file
 pnaControllerLibrary_autogen/mocs_compilation.cpp.o:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.o
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.o
 .PHONY : pnaControllerLibrary_autogen/mocs_compilation.cpp.o
 
 pnaControllerLibrary_autogen/mocs_compilation.i: pnaControllerLibrary_autogen/mocs_compilation.cpp.i
@@ -239,7 +239,7 @@ pnaControllerLibrary_autogen/mocs_compilation.i: pnaControllerLibrary_autogen/mo
 
 # target to preprocess a source file
 pnaControllerLibrary_autogen/mocs_compilation.cpp.i:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.i
 .PHONY : pnaControllerLibrary_autogen/mocs_compilation.cpp.i
 
 pnaControllerLibrary_autogen/mocs_compilation.s: pnaControllerLibrary_autogen/mocs_compilation.cpp.s
@@ -248,7 +248,7 @@ pnaControllerLibrary_autogen/mocs_compilation.s: pnaControllerLibrary_autogen/mo
 
 # target to generate assembly for a file
 pnaControllerLibrary_autogen/mocs_compilation.cpp.s:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(MAKE) -f src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/build.make src/pna_controller/CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.s
 .PHONY : pnaControllerLibrary_autogen/mocs_compilation.cpp.s
 
 # Help Target
@@ -283,6 +283,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

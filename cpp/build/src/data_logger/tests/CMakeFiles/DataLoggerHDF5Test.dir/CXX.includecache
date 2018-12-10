@@ -478,11 +478,11 @@ H5Cpp.h
 DataLoggerInterface.h
 ../src/data_logger/DataLoggerInterface.h
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/data_logger/tests/DataLoggerHDF5Test_autogen/mocs_compilation.cpp
 
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests/DataLogger_test.cpp
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests/DataLogger_test.cpp
 DataLogger_HDF5.h
-/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/data_logger/tests/DataLogger_HDF5.h
+/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/data_logger/tests/DataLogger_HDF5.h
 iostream
 -
 string

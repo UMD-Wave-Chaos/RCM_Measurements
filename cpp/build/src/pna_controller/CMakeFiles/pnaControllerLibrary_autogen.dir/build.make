@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Utility rule file for pnaControllerLibrary_autogen.
 
@@ -54,8 +54,8 @@ CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
 include src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/progress.make
 
 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target pnaControllerLibrary"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller && /Applications/CMake.app/Contents/bin/cmake -E cmake_autogen /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/AutogenInfo.cmake ""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target pnaControllerLibrary"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller && /Applications/CMake.app/Contents/bin/cmake -E cmake_autogen /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/AutogenInfo.cmake ""
 
 pnaControllerLibrary_autogen: src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen
 pnaControllerLibrary_autogen: src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build.make
@@ -68,10 +68,10 @@ src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build: pnaControl
 .PHONY : src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/build
 
 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller && $(CMAKE_COMMAND) -P CMakeFiles/pnaControllerLibrary_autogen.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller && $(CMAKE_COMMAND) -P CMakeFiles/pnaControllerLibrary_autogen.dir/cmake_clean.cmake
 .PHONY : src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/clean
 
 src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/pna_controller /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/pna_controller/CMakeFiles/pnaControllerLibrary_autogen.dir/depend
 

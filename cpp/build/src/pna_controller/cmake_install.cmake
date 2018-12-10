@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/pna_controller
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

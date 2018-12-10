@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty/rapidxml-1.13
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty/rapidxml-1.13
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

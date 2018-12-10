@@ -1,4 +1,4 @@
-# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/3rdParty
+# Install script for directory: /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/3rdParty
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/googletest/cmake_install.cmake")
-  include("/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/3rdParty/rapidxml-1.13/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/googletest/cmake_install.cmake")
+  include("/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/3rdParty/rapidxml-1.13/cmake_install.cmake")
 
 endif()
 

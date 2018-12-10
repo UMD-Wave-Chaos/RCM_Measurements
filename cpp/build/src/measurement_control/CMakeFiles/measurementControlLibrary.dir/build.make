@@ -43,10 +43,10 @@ RM = /Applications/CMake.app/Contents/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI
+CMAKE_SOURCE_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build
+CMAKE_BINARY_DIR = /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build
 
 # Include any dependencies generated for this target.
 include src/measurement_control/CMakeFiles/measurementControlLibrary.dir/depend.make
@@ -59,42 +59,42 @@ include src/measurement_control/CMakeFiles/measurementControlLibrary.dir/flags.m
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/flags.make
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o: ../src/measurement_control/measurementController.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.cpp
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.cpp > CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.cpp > CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.i
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementController.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementController.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.s
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/flags.make
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o: ../src/measurement_control/measurementSettings.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementSettings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.cpp
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementSettings.cpp > CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.cpp > CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.i
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control/measurementSettings.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control/measurementSettings.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.s
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/flags.make
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o: src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o -c /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp > CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp > CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.i
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/measurementControlLibrary_autogen/mocs_compilation.cpp -o CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.s
 
 # Object files for target measurementControlLibrary
 measurementControlLibrary_OBJECTS = \
@@ -110,9 +110,9 @@ src/measurement_control/libmeasurementControlLibrary.a: src/measurement_control/
 src/measurement_control/libmeasurementControlLibrary.a: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o
 src/measurement_control/libmeasurementControlLibrary.a: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build.make
 src/measurement_control/libmeasurementControlLibrary.a: src/measurement_control/CMakeFiles/measurementControlLibrary.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libmeasurementControlLibrary.a"
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary.dir/cmake_clean_target.cmake
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/measurementControlLibrary.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libmeasurementControlLibrary.a"
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary.dir/cmake_clean_target.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/measurementControlLibrary.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build: src/measurement_control/libmeasurementControlLibrary.a
@@ -120,10 +120,10 @@ src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build: src/meas
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary.dir/build
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/clean:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary.dir/cmake_clean.cmake
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control && $(CMAKE_COMMAND) -P CMakeFiles/measurementControlLibrary.dir/cmake_clean.cmake
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary.dir/clean
 
 src/measurement_control/CMakeFiles/measurementControlLibrary.dir/depend:
-	cd /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurement_GUI /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurement_GUI/build/src/measurement_control/CMakeFiles/measurementControlLibrary.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/benjaminfrazier/Projects/RCM_Measurements/cpp /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control /Users/benjaminfrazier/Projects/RCM_Measurements/cpp/build/src/measurement_control/CMakeFiles/measurementControlLibrary.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : src/measurement_control/CMakeFiles/measurementControlLibrary.dir/depend
 
