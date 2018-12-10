@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libmeasurementControlLibrary.a  CMakeFiles/measurementControlLibrary.dir/measurementController.cpp.o CMakeFiles/measurementControlLibrary.dir/measurementSettings.cpp.o CMakeFiles/measurementControlLibrary.dir/measurementControlLibrary_autogen/mocs_compilation.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libmeasurementControlLibrary.a

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller/pnaController.cpp
+pnaController.h
+/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller/pnaController.h
+
+/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller/pnaController.h
+vector
+-
+string
+-
+pnaControllerInterface.h
+/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller/pnaControllerInterface.h
+
+/Users/benjaminfrazier/Projects/RCM_Measurement_GUI/src/pna_controller/pnaControllerInterface.h
+vector
+-
+

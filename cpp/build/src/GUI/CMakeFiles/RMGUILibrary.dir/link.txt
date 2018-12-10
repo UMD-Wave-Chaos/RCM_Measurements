@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libRMGUILibrary.a  CMakeFiles/RMGUILibrary.dir/mainwindow.cpp.o CMakeFiles/RMGUILibrary.dir/logmessages.cpp.o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/mocs_compilation.cpp.o CMakeFiles/RMGUILibrary.dir/RMGUILibrary_autogen/EWIEGA46WW/qrc_icons.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libRMGUILibrary.a

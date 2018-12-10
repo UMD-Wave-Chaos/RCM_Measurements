@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libgtest_main_no_rtti.a  CMakeFiles/gtest_main_no_rtti.dir/src/gtest-all.cc.o CMakeFiles/gtest_main_no_rtti.dir/src/gtest_main.cc.o CMakeFiles/gtest_main_no_rtti.dir/gtest_main_no_rtti_autogen/mocs_compilation.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libgtest_main_no_rtti.a

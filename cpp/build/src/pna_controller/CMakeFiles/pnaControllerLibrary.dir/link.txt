@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libpnaControllerLibrary.a  CMakeFiles/pnaControllerLibrary.dir/pnaController.cpp.o CMakeFiles/pnaControllerLibrary.dir/pnaControllerLibrary_autogen/mocs_compilation.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libpnaControllerLibrary.a

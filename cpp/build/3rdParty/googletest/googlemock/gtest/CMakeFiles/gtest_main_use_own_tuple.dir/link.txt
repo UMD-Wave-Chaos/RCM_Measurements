@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libgtest_main_use_own_tuple.a  CMakeFiles/gtest_main_use_own_tuple.dir/src/gtest-all.cc.o CMakeFiles/gtest_main_use_own_tuple.dir/src/gtest_main.cc.o CMakeFiles/gtest_main_use_own_tuple.dir/gtest_main_use_own_tuple_autogen/mocs_compilation.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libgtest_main_use_own_tuple.a

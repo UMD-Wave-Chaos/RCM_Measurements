@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/greenarrowicon.gif</file>
+        <file>icons/warning.gif</file>
+    </qresource>
+</RCC>

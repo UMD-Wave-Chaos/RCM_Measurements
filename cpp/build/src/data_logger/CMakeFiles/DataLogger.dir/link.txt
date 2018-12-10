@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libDataLogger.a  CMakeFiles/DataLogger.dir/DataLogger_HDF5.cpp.o CMakeFiles/DataLogger.dir/DataLogger_HDF5_Vector.cpp.o CMakeFiles/DataLogger.dir/DataLogger_HDF5_Double.cpp.o CMakeFiles/DataLogger.dir/DataLogger_autogen/mocs_compilation.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libDataLogger.a
