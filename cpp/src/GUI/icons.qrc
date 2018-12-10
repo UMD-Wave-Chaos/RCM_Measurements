@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/icons">
-        <file>icons/greenarrowicon.gif</file>
-        <file>icons/warning.gif</file>
-        <file>icons/umdlogo.gif</file>
-    </qresource>
-</RCC>
