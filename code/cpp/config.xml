@@ -1,0 +1,49 @@
+<configuration>
+    
+    <!-- ******************************************************************************
+    	 Comments to be captured in the output log file that describe the test case
+    	 ******************************************************************************
+    -->
+    <Comments> 
+    	Configuration A.
+    </Comments>
+    
+    <!-- ******************************************************************************  
+    	 PNA Settings      
+    	 ******************************************************************************     
+    -->
+    <PNA_Settings>
+        <NumberOfPoints> 32001 </NumberOfPoints>
+        <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
+        <FrequencySweepStop> 11E9 </FrequencySweepStop>
+    </PNA_Settings>
+    
+    <!-- ******************************************************************************
+         Stepper Motor Settings    
+         ******************************************************************************       
+    -->
+    <StepperMotor_Settings>
+            <COMport> COM5 </COMport>
+            <!-- 
+                 aerotech SM50 motor with Haydon PCM 4826 drive
+                 200 full steps at 1.8 degrees per step
+                 drive can handle 1/64 steps
+                 12800 steps per revolution    
+            -->
+            <NStepsPerRevolution> 12800 </NStepsPerRevolution>
+            <!-- Direction is +1 for forward, -1 for backward -->
+            <Direction> 1 </Direction>
+    </StepperMotor_Settings>
+    
+    <!-- ******************************************************************************   
+    	 Experiment Settings     
+    	 ******************************************************************************           
+    -->
+    <Experiment_Settings>
+        <NumberOfRealizations> 50 </NumberOfRealizations>
+        <CavityVolume> 1.92 </CavityVolume>
+        <FileNamePrefix> Config_A </FileNamePrefix>
+        <TimeDateStamp> Yes </TimeDateStamp>
+    </Experiment_Settings>
+    
+</configuration> 

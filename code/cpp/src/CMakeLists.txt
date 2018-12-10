@@ -1,0 +1,4 @@
+add_subdirectory(GUI)
+add_subdirectory(pna_controller)
+add_subdirectory(measurement_control)
+add_subdirectory(data_logger)
