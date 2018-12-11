@@ -95,7 +95,16 @@ void MainWindow::initializeStepperMotorController()
 
     int runSpeed = static_cast<int>(ceil(static_cast<double>(stepDistance)/static_cast<double>(10)));
 
-    sObj = new stepperMotorController(stepDistance, runSpeed, Settings.COMport);
+    //temporary test mode - allows testing without hardware present
+    testMode = true;
+
+
+    //create the pnaController object
+    if(testMode == true)
+        sObj = new stepperMotorControllerMock(stepDistance, runSpeed, Settings.COMport);
+    else
+        sObj = new stepperMotorController(stepDistance, runSpeed, Settings.COMport);
+
     logMessage(sObj->getAvailablePorts());
 
     std::string sString;

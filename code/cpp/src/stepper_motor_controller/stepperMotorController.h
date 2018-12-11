@@ -4,20 +4,22 @@
 #include <QTextStream>
 #include <string>
 
-class stepperMotorController
+#include "stepperMotorControllerInterface.h"
+
+class stepperMotorController: public stepperMotorControllerInterface
 {
 	public:
         stepperMotorController(int stepDistanceIn, int runSpeedIn, std::string portnum);
         ~stepperMotorController();
 		
-        int connectToStepperMotor(std::string portString);
-        bool closeConnection();
-		bool moveStepperMotor();
-		int getStepperMotorPosition();
+        virtual int connectToStepperMotor(std::string portString);
+        virtual bool closeConnection();
+        virtual bool moveStepperMotor();
+        virtual int getStepperMotorPosition();
 
-        std::string getAvailablePorts();
-        bool getConnectionStatus(){return connectionStatus;}
-        int getConnectionErrors(){return cError;}
+        virtual std::string getAvailablePorts();
+        virtual bool getConnectionStatus(){return connectionStatus;}
+        virtual int getConnectionErrors(){return cError;}
 
      private:
         QSerialPort serial;

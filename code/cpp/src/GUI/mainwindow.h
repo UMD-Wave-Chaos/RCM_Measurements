@@ -15,7 +15,9 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
+#include "stepperMotorControllerInterface.h"
 #include "stepperMotorController.h"
+#include "stepperMotorControllerMock.h"
 
 namespace Ui {
 class MainWindow;
@@ -77,7 +79,8 @@ private:
 
     measurementSettings Settings;
 
-    stepperMotorController *sObj;
+    stepperMotorControllerInterface *sObj;
+    bool testMode;
 
 private slots:
     void updateStepperMotorStatus();

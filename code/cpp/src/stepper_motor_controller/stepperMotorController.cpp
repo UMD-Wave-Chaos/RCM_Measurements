@@ -105,8 +105,6 @@ bool stepperMotorController::moveStepperMotor()
     serial.write(sString.c_str());
     serial.flush();
     serial.waitForBytesWritten(1000);
-    //fprintf(s1,['I',num2str(stepDistance),',',num2str(runSpeed),',0,0,500,500,1000,0,1000,1000,50,64']);
-
 
 	return true;
 }
