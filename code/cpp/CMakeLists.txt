@@ -39,6 +39,7 @@ add_custom_target(build-time-make-bin-test-directory ALL
  if(COMMAND cmake_policy)
       cmake_policy(SET CMP0003 NEW)
     endif(COMMAND cmake_policy)
+
   
 ##########################################################################################
 #find the additional libraries needed
@@ -82,6 +83,7 @@ include_directories(${SOURCE_DIRECTORY}/pna_controller)
 include_directories(${SOURCE_DIRECTORY}/measurement_control)
 include_directories(${SOURCE_DIRECTORY}/data_logger)
 include_directories(${SOURCE_DIRECTORY}/stepper_motor_controller)
+include_directories(${SOURCE_DIRECTORY}/vxi11)
 
 ##########################################################################################
 #add additional sub directories

@@ -10,6 +10,16 @@
 #include "measurementSettings.h"
 #include "stepperMotorController.h"
 
+#include <map>
+#include <string>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <rpc/pmap_clnt.h>
+#include <arpa/inet.h>
+
+#include "vxi11_user.h"
+
 #include <fstream>
 #include <ctime>
 

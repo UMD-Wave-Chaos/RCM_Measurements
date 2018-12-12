@@ -10,7 +10,7 @@ class stepperMotorController: public stepperMotorControllerInterface
 {
 	public:
         stepperMotorController(int stepDistanceIn, int runSpeedIn, std::string portnum);
-        ~stepperMotorController();
+        virtual ~stepperMotorController();
 		
         virtual int connectToStepperMotor(std::string portString);
         virtual bool closeConnection();

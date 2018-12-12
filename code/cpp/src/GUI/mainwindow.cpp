@@ -123,7 +123,7 @@ void MainWindow::initializeStepperMotorController()
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
-    timer->start(100);
+   // timer->start(100);
 }
 
 void MainWindow::updateStepperMotorStatus()

@@ -2,13 +2,16 @@
 #define PNA_CONTROLLER_INTERFACE_H
 
 #include <vector>
+#include <iostream>
 
 class pnaControllerInterface
 {
 public:
+
+    virtual ~pnaControllerInterface() = 0;
     //measurement functions
     virtual void connectToInstrument() = 0;
-    virtual void initialize(double fStart, double fStop) = 0;
+    virtual void initialize(double fStart, double fStop, int NOP) = 0;
     virtual void getTimeDomainSParameters(double* time,
                                   double* S11,
                                   double* S12,

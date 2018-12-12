@@ -1,3 +1,4 @@
+#include "clnt_find_services.h"
 #include "measurementController.h"
 
 measurementController::measurementController()
@@ -7,7 +8,7 @@ measurementController::measurementController()
     settingsFileName = "config.xml";
 
     //temporary test mode - allows testing without hardware present
-    testMode = true;
+    //testMode = true;
 
 
     //create the pnaController object
@@ -20,6 +21,8 @@ measurementController::measurementController()
 
     //connect to the PNA
     pnaObj->connectToInstrument();
+
+    pnaObj->initialize(9.5e9, 11e9, 32001);
 
     //TBD - connect to the stepper motor
     //sObj = new stepperMotorController();

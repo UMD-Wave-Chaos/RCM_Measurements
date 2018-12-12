@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.2.2)
 project(VXI11 C)
 enable_testing()
 
-set(EXE_NAME VXI11)
+set(EXE_NAME VXI11_example)
 
 set(VXI11_SRCS
 	clnt_find_services.cc
@@ -21,7 +21,16 @@ set(VXI11_HDRS
 	vxi11.h
     )
 
+set(VXI11_Wrapper_HDRS
+        vxi11_wrapper.h)
+
+set(VXI11_Wrapper_SRC
+         vxi11_wrapper.cc)
+
 add_library(vxi11Library ${VXI11_HDRS} ${VXI11_SRCS} )
+
+#add_library(vxi11Wrapper ${VXI11_Wrapper_HDRS} ${VXI11_Wrapper_SRC} )
+#target_link_libraries(vxi11Wrapper vxi11Library ${GRPC_LIBRARIES})
 
 add_executable(${EXE_NAME} example.cc)
 

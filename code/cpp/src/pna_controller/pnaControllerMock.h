@@ -10,8 +10,10 @@
 class pnaControllerMock : public pnaControllerInterface
   {
   public:
+    ~pnaControllerMock();
+    pnaControllerMock();
 
-    MOCK_METHOD2(initialize,void(double fStart, double fStop));
+    MOCK_METHOD3(initialize,void(double fStart, double fStop, int NOP));
     MOCK_METHOD0(connectToInstrument,void());
     MOCK_METHOD5(getTimeDomainSParameters, void (double* time,double* S11,double* S12,double* S21, double* S22));
     MOCK_METHOD5(getFrequencyDomainSParameters, void (double* freq,double* S11,double* S12,double* S21,double* S22));

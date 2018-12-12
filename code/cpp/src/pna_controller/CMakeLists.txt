@@ -1,8 +1,10 @@
 message(“Configuring pna controller components”)
 
 set (pnaController_SRCS
-        pnaController.cpp
-	)
+     pnaController.cpp
+     pnaControllerInterface.cpp
+     pnaControllerMock.cpp
+     )
 
 set(pnaController_HDRS
         pnaController.h
@@ -11,4 +13,4 @@ set(pnaController_HDRS
 	)
 
 add_library(pnaControllerLibrary ${pnaController_HDRS} ${pnaController_SRCS})
-target_link_libraries(pnaControllerLibrary ${GPERFTOOLS_LIBRARIES} gmock_main)
+target_link_libraries(pnaControllerLibrary ${GPERFTOOLS_LIBRARIES} gmock_main vxi11Library)
