@@ -16,6 +16,7 @@
         <NumberOfPoints> 32001 </NumberOfPoints>
         <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
         <FrequencySweepStop> 11E9 </FrequencySweepStop>
+        <IP_Address> ﻿169.254.13.58 </IP_Address>
     </PNA_Settings>
     
     <!-- ******************************************************************************

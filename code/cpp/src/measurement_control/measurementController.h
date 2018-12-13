@@ -1,9 +1,7 @@
 #ifndef MEASUREMENTCONTROLLER_H
 #define MEASUREMENTCONTROLLER_H
 
-#include "pnaControllerInterface.h"
-#include "pnaControllerMock.h"
-#include "pnaController.h"
+#include "pnaWrapper.h"
 #include "DataLogger_HDF5.h"
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
@@ -37,8 +35,7 @@ public:
     measurementSettings getSettings() {return Settings;}
 
 private:
-    pnaControllerInterface* pnaObj;
-    //stepperMotorController* sObj;
+    pnaWrapper *pna;
     DataLoggerHDF5 dataLogger;
     bool testMode;
     bool initialized;

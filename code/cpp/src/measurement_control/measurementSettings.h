@@ -22,6 +22,7 @@ public:
     std::string outputFileNamePrefix;
     stepperMotorDirection smDirection;
     std::string outputFileName;
+    std::string ipAddress;
 
 };
 

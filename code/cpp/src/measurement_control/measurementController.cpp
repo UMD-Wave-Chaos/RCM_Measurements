@@ -8,25 +8,11 @@ measurementController::measurementController()
     settingsFileName = "config.xml";
 
     //temporary test mode - allows testing without hardware present
-    //testMode = true;
+    testMode = true;
 
+    pna = new pnaWrapper(testMode);
 
-    //create the pnaController object
-    if(testMode == true)
-        pnaObj = new pnaControllerMock();
-    else
-        pnaObj = new pnaController();
-
-    //updateSettings(settingsFileName);
-
-    //connect to the PNA
-    pnaObj->connectToInstrument();
-
-    pnaObj->initialize(9.5e9, 11e9, 32001);
-
-    //TBD - connect to the stepper motor
-    //sObj = new stepperMotorController();
-
+    updateSettings(settingsFileName);
 
 }
 
@@ -53,6 +39,8 @@ measurementController::measurementController()
      Settings.fStart = atof(fStartNode->value());
      xml_node<> *fStopNode = pnaSettingsNode->first_node("FrequencySweepStop");
      Settings.fStop = atof(fStopNode->value());
+     xml_node<> *ipAddressNode = configNode->first_node("IP_Address");
+     Settings.ipAddress = ipAddressNode->value();
 
     //stepper motor settings
      xml_node<> *stepperMotorSettingsNode = configNode->first_node("StepperMotor_Settings");
@@ -91,8 +79,7 @@ measurementController::measurementController()
 
 measurementController::~measurementController()
 {
-    //remove the pna object
-    delete pnaObj;
+    delete pna;
 }
 
  bool measurementController::measureData()

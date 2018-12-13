@@ -4,13 +4,18 @@ set (pnaController_SRCS
      pnaController.cpp
      pnaControllerInterface.cpp
      pnaControllerMock.cpp
+     pnaWrapper.cpp
      )
 
 set(pnaController_HDRS
         pnaController.h
         pnaControllerMock.h
         pnaControllerInterface.h
+        pnaExceptions.h
+        pnaWrapper.h
 	)
 
 add_library(pnaControllerLibrary ${pnaController_HDRS} ${pnaController_SRCS})
 target_link_libraries(pnaControllerLibrary vxi11Wrapper ${GPERFTOOLS_LIBRARIES} gmock_main )
+
+add_subdirectory(tests)

@@ -15,4 +15,5 @@ measurementSettings::measurementSettings()
     COMport = "/dev/tty.usbserial-A600eOXn";
     outputFileNamePrefix = "config_A";
     outputFileName = "";
+    ipAddress = "169.254.13.58";
 }

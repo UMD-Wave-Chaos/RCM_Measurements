@@ -1,6 +1,7 @@
 add_subdirectory(GUI)
+add_subdirectory(vxi11)
 add_subdirectory(pna_controller)
 add_subdirectory(measurement_control)
 add_subdirectory(data_logger)
 add_subdirectory(stepper_motor_controller)
-add_subdirectory(vxi11)
+

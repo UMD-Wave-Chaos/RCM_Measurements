@@ -1,3 +1,9 @@
+/**
+* @file pnaController.cpp
+* @brief Implementation of the pnaController class
+* @details This class handles direct control of an Agilent PNA through the vxi11 protocol
+* @author Ben Frazier
+* @date 12/13/2018*/
 #include "pnaController.h"
 
 #include <functional>
@@ -5,13 +11,13 @@
 pnaController::pnaController()
 {
    connected = false;
-   frequencyRange.reserve(2);
    calibrationFileName = "";
    calibrated = false;
 
-   dataBuffer = new char[320001*4*2*4];
+   bufferSize = 32001*5;
 
-   connectToInstrument();
+   dataBuffer = new double[bufferSize];
+
 }
 
 pnaController::~pnaController()
@@ -21,7 +27,6 @@ pnaController::~pnaController()
 
 void pnaController::findConnections()
 {
-
     enum clnt_stat clnt_stat;
     const size_t MAXSIZE = 100;
     char rcv[MAXSIZE];
@@ -31,24 +36,11 @@ void pnaController::findConnections()
 
     struct sockaddr_in test;
 
-     vxi11::AddrMap clientMap = vxi11::find_vxi11_clients();
+    vxi11::AddrMap clientMap = vxi11::find_vxi11_clients();
 
-    //bool_t (pnaController::*func)(struct sockaddr_in*);
-   // func = &pnaController::who_responded;
-
-    //std::function<bool_t(struct sockaddr_in *)> callback = this->who_responded (&test);
-
-    //callback = std::bind(&pnaController::who_responded));
-
-
-    // Why 6 for the protocol for the VXI-11 devices?  Not sure, but the devices
-    // will otherwise not respond.
-   // clnt_stat = clnt_find_services(DEVICE_CORE, DEVICE_CORE_VERSION, 6, &t,
-     //                                                         this->*func);
-/*
-    AddrMap::const_iterator iter;
-    for (iter=gfFoundDevs.begin();iter!= gfFoundDevs.end();iter++) {
-        const Ports& port = iter->second;
+    vxi11::AddrMap::const_iterator iter;
+    for (iter=clientMap.begin();iter!= clientMap.end();iter++) {
+        const vxi11::Ports& port = iter->second;
         std::cout << " Found: " << iter->first << " : TCP " << port.tcp_port
              << "; UDP " << port.udp_port << std::endl;
         CLINK vxi_link;
@@ -57,26 +49,19 @@ void pnaController::findConnections()
         int found = vxi11_send_and_receive(&vxi_link, "*IDN?", rcv, MAXSIZE, 10);
         if (found > 0) rcv[found] = '\0';
         std::cout << "  Output: " << rcv << std::endl;
-    }*/
+    }
 
 }
 
-/*bool_t pnaController::who_responded(struct sockaddr_in *addr)
+void pnaController::disconnect()
 {
-  char str[INET_ADDRSTRLEN];
-  const char* an_addr = inet_ntop(AF_INET, &(addr->sin_addr), str, INET_ADDRSTRLEN);
-  if ( gfFoundDevs.find( std::string(an_addr) ) != gfFoundDevs.end() ) return 0;
-  int port_T = pmap_getport(addr, DEVICE_CORE, DEVICE_CORE_VERSION, IPPROTO_TCP);
-  int port_U = pmap_getport(addr, DEVICE_CORE, DEVICE_CORE_VERSION, IPPROTO_UDP);
-  gfFoundDevs[ std::string( an_addr ) ] = Ports(port_T, port_U);
-  return 0;
-}*/
+    connected = false;
+}
 
-void pnaController::connectToInstrument()
+void pnaController::connectToInstrument(std::string tcpAddress)
 {
      //establish the connection
-    std::string tcpString = "169.254.13.58";
-    int testConnect = vxi11_open_device(tcpString.c_str(), &vxi_link);
+    int testConnect = vxi11_open_device(tcpAddress.c_str(), &vxi_link);
     std::cout<<"Test Connect: " << testConnect << std::endl;
     if (testConnect == 0)
     {
@@ -97,9 +82,11 @@ void pnaController::connectToInstrument()
 
 void pnaController::initialize(double fStart, double fStop, int NOP)
 {
-    frequencyRange[0] = fStart;
-    frequencyRange[1] = fStop;
-    numberOfPoints = NOP;
+
+    bufferSize = NOP*5;
+
+    delete dataBuffer;
+    dataBuffer = new double[bufferSize];
 
 if (connected == true)
 {
@@ -117,7 +104,7 @@ if (connected == true)
     tBuff = "SENS:FREQ:STOP " + std::to_string(fStop);
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    tBuff = "SENS:SWE:POINTS " + std::to_string(numberOfPoints);
+    tBuff = "SENS:SWE:POINTS " + std::to_string(NOP);
     vxi11_send(&vxi_link, tBuff.c_str());
 
     tBuff = "DISP:WIND:Y:AUTO";
@@ -175,14 +162,6 @@ if (connected == true)
 
     getFrequencyDomainSParameters(f,s1,s2,s3,s4);
 
-    /*
-    fprintf(obj1,['CALC:PAR:DEF ', 'CH1_S11',',S11']); %(S11) Define the measurement trace.
-    fprintf(obj1,['CALC:PAR:DEF ', 'CH1_S12',',S12']); %(S12) Define the measurement trace.
-    fprintf(obj1,['CALC:PAR:DEF ', 'CH1_S21',',S21']); %(S21) Define the measurement trace.
-    fprintf(obj1,['CALC:PAR:DEF ', 'CH1_S22',',S22']); %(S22) Define the measurement trace.
-
-
-    */
     checkCalibration();
 }
 else
@@ -245,7 +224,7 @@ void pnaController::getSParameters()
     tBuff = "CALC:DATA:SNP? 2";
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    vxi11_receive_data_block(&vxi_link,dataBuffer,numberOfPoints*(4*2+1)*4,20);
+    vxi11_receive_data_block(&vxi_link,(char*)dataBuffer,bufferSize*4,20);
 
     /*
     X = binblockread(obj1, 'float64'); %read the data from the PNA
