@@ -1,4 +1,3 @@
-#include "clnt_find_services.h"
 #include "pnaController.h"
 
 #include <functional>
@@ -32,7 +31,9 @@ void pnaController::findConnections()
 
     struct sockaddr_in test;
 
-    //int (pnaController::*func)(struct sockaddr_in*);
+     vxi11::AddrMap clientMap = vxi11::find_vxi11_clients();
+
+    //bool_t (pnaController::*func)(struct sockaddr_in*);
    // func = &pnaController::who_responded;
 
     //std::function<bool_t(struct sockaddr_in *)> callback = this->who_responded (&test);

@@ -17,5 +17,5 @@ set(RMGUILibrary_HDRS
 add_library(RMGUILibrary ${RMGUILibrary_HDRS} ${RMGUILibrary_Resource} ${RMGUILibrary_SRCS})
 target_link_libraries(RMGUILibrary Qt5::Widgets Qt5::Charts ${GPERFTOOLS_LIBRARIES}
                                    measurementControlLibrary
-                                  # pnaControllerLibrary
-                                   stepperMotorControlLibrary)
+                                   stepperMotorControlLibrary
+                                   )

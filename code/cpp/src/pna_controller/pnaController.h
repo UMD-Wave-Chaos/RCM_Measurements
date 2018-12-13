@@ -7,16 +7,9 @@
 #include <rpc/pmap_clnt.h>
 #include <arpa/inet.h>
 #include "vxi11_user.h"
+#include "vxi11_wrapper.h"
+
 #include "pnaControllerInterface.h"
-
-class Ports {
-  public:
-    Ports(int tcp = 0, int udp = 0) : tcp_port(tcp), udp_port(udp) {}
-    int tcp_port;
-    int udp_port;
-};
-
-typedef std::map<std::string, Ports> AddrMap;
 
 class pnaController:public pnaControllerInterface
 {
@@ -53,7 +46,6 @@ private:
     bool calibrated;
     std::string calibrationFileName;
     bool_t who_responded(struct sockaddr_in *addr);
-    AddrMap gfFoundDevs;
     CLINK vxi_link;
     char rcvBuffer[100];
     char *dataBuffer;

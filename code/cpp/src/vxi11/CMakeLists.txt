@@ -1,10 +1,7 @@
-#Primary CMakeLists.txt file for RCM Measurement GUI
-#Currently Tested for Unix Makefiles
-cmake_minimum_required(VERSION 3.2.2)
+#setup the vxi11 library
+#the core library is based on old-style C code, need to setup the project accordingly
 project(VXI11 C)
 enable_testing()
-
-set(EXE_NAME VXI11_example)
 
 set(VXI11_SRCS
 	clnt_find_services.cc
@@ -21,17 +18,20 @@ set(VXI11_HDRS
 	vxi11.h
     )
 
+add_library(vxi11Library ${VXI11_HDRS} ${VXI11_SRCS} ${GRPC_LIBRARIES})
+add_subdirectory(test)
+
+#Create the vxi11 wrapper library
+project(VXI11_Wrapper CXX)
+SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11")
+enable_testing()
+
 set(VXI11_Wrapper_HDRS
         vxi11_wrapper.h)
 
-set(VXI11_Wrapper_SRC
+set(VXI11_Wrapper_SRCS
          vxi11_wrapper.cc)
 
-add_library(vxi11Library ${VXI11_HDRS} ${VXI11_SRCS} )
+add_library(vxi11Wrapper ${VXI11_Wrapper_HDRS} ${VXI11_Wrapper_SRCS})
+target_link_libraries(vxi11Wrapper vxi11Library)
 
-#add_library(vxi11Wrapper ${VXI11_Wrapper_HDRS} ${VXI11_Wrapper_SRC} )
-#target_link_libraries(vxi11Wrapper vxi11Library ${GRPC_LIBRARIES})
-
-add_executable(${EXE_NAME} example.cc)
-
-target_link_libraries(${EXE_NAME} vxi11Library ${GRPC_LIBRARIES})
