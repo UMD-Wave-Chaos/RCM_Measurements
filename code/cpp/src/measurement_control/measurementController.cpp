@@ -12,8 +12,6 @@ measurementController::measurementController()
 
     pna = new pnaWrapper(testMode);
 
-    updateSettings(settingsFileName);
-
 }
 
  bool measurementController::updateSettings(std::string filename)

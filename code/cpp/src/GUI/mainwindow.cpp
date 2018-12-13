@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initializeGUI();
 
-    initializeStepperMotorController();
+    //initializeStepperMotorController();
 }
 
 bool MainWindow::updateSettings(std::string filename)
