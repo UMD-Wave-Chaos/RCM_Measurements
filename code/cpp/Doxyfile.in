@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = CEM
+PROJECT_NAME           = RCM_Measurements
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -759,21 +759,13 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT =     @CMAKE_CURRENT_SOURCE_DIR@/../README.md \
-            @CMAKE_CURRENT_SOURCE_DIR@/src/main.cpp \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/Common \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/DataLogger \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/Factories \
-            @CMAKE_CURRENT_SOURCE_DIR@/src/FDTD \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/GridControl \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/InputParser \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/Interfaces \
-            @CMAKE_CURRENT_SOURCE_DIR@/src/MockInterfaces \
-            @CMAKE_CURRENT_SOURCE_DIR@/src/SimEngine \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/SimManager \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/SourceControl \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/TimeControl \
-	    @CMAKE_CURRENT_SOURCE_DIR@/src/RandomVector
-	    
+            @CMAKE_CURRENT_SOURCE_DIR@/src/data_logger \
+            @CMAKE_CURRENT_SOURCE_DIR@/src/GUI \
+            @CMAKE_CURRENT_SOURCE_DIR@/src/measurement_control \
+            @CMAKE_CURRENT_SOURCE_DIR@/src/pna_controller \
+            @CMAKE_CURRENT_SOURCE_DIR@/src/stepper_motor_controller \
+            @CMAKE_CURRENT_SOURCE_DIR@/src/vxi11
+
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
 # libiconv (or the iconv built into libc) for the transcoding. See the libiconv
