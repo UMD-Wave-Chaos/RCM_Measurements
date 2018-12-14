@@ -10,11 +10,22 @@
   using ::testing::Test;
 using ::testing::TestWithParam;
 
+#include <unistd.h>
+#define GetCurrentDir getcwd
 
 namespace measurementController_Test
 {
 namespace testing
 {
+
+std::string GetCurrentWorkingDir( void ) {
+  char buff[FILENAME_MAX];
+  GetCurrentDir( buff, FILENAME_MAX );
+  std::string current_working_dir(buff);
+  return current_working_dir;
+}
+
+
   class measurementController_Test : public Test
     {
     protected:
@@ -23,7 +34,8 @@ namespace testing
 
       virtual void SetUp()
       {
-
+           std::cout<<"Current Path: " << GetCurrentWorkingDir() << std::endl;
+           settingsFileName = "../../../../cpp/config.xml";
 
       }
       virtual void TearDown()
@@ -33,6 +45,7 @@ namespace testing
        }
 
       measurementController *mc;
+      std::string settingsFileName;
 
 
     };
@@ -43,6 +56,11 @@ namespace testing
         try
         {
            mc = new measurementController(true);
+
+
+           mc->updateSettings(settingsFileName);
+           mc->establishConnections();
+           mc->measureTimeDomainSParameters();
 
         }
 

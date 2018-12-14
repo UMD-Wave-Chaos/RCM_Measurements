@@ -1,3 +1,9 @@
+/**
+* @file measurementController.h
+* @brief Header File for the measurementController class
+* @details This class handles high level control and interface with the pna and stepper motor
+* @author Ben Frazier
+* @date 12/13/2018*/
 #ifndef MEASUREMENTCONTROLLER_H
 #define MEASUREMENTCONTROLLER_H
 
@@ -28,11 +34,16 @@ class measurementController
 public:
     measurementController(bool mode);
     ~measurementController();
-    bool measureData();
 
     bool updateSettings(std::string filename);
 
     measurementSettings getSettings() {return Settings;}
+
+    void measureTimeDomainSParameters();
+    void measureUngatedFrequencyDomainSParameters();
+    void measureGatedFrequencyDomainSParameters();
+    void establishConnections();
+    void closeConnections();
 
 private:
     pnaWrapper *pna;

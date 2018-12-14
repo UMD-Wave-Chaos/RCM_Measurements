@@ -313,8 +313,10 @@ void MainWindow::on_reloadConfigButton_clicked()
                                                       tr("Config File (*.xml)"), 0,
                                                       QFileDialog::DontUseNativeDialog);
 
-     updateSettings(fileName.toStdString());
-     logSettings(Settings);
+     mControl->updateSettings(fileName.toStdString());
+     logSettings(mControl->getSettings());
+     //updateSettings(fileName.toStdString());
+   //  logSettings(Settings);
      initializeStepperMotorController();
      logMessage("Done");
 
