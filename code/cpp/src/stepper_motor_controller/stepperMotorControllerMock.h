@@ -27,6 +27,5 @@ class stepperMotorControllerMock : public stepperMotorControllerInterface
 
 private:
     bool connected;
-
 };
 #endif // STEPPER_MOTOR_CONTROLLER_MOCK_H

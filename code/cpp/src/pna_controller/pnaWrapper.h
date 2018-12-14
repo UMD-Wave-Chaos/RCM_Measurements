@@ -24,7 +24,7 @@ public:
     bool openConnection();
     bool closeConnection();
     bool listClients();
-    void setPNAConfig(double fStart,double fStop, std::string tcpAddress,int NOP);
+    void setPNAConfig(double fStart,double fStop, std::string tcpAddress,unsigned int NOP);
 
     std::string getIpAddress(){return ipAddress;}
     void getFrequencyRange(double &fStart, double &fStop){fStart = frequencyRange[0]; fStop = frequencyRange[1];}
@@ -33,8 +33,8 @@ public:
     int getNumberOfPoints(){return numberOfPoints;}
 
     void getUngatedFrequencyDomainSParameters();
-    void getGatedFrequencyDomainSParameters();
-    void getTimeDomainSParameters();
+    void getGatedFrequencyDomainSParameters(double start_time, double stop_time);
+    void getTimeDomainSParameters(double start_time, double stop_time);
 
     void getS11Data(std::vector<double> &inR, std::vector<double> &inI);
     void getS12Data(std::vector<double> &inR, std::vector<double> &inI);
@@ -43,10 +43,11 @@ public:
     void getFrequencyData(std::vector<double> &inF);
     void getTimeData(std::vector<double> &inT);
 
+    std::string getPNADeviceString(){return pnaDeviceString;}
 private:
     void setFrequencyRange(double fStart,double fStop){frequencyRange[0] = fStart; frequencyRange[1] = fStop;}
     void setIpAddress(std::string address){ipAddress = address;}
-    void setNumberOfPoints(int NOP) {numberOfPoints = NOP;}
+    void setNumberOfPoints(unsigned int NOP) {numberOfPoints = NOP;}
     void initializeSizes();
 
     pnaControllerInterface* pnaObj;
@@ -55,8 +56,9 @@ private:
 
     bool connected;
     bool testMode;
-    int numberOfPoints;
+    unsigned int numberOfPoints;
 
+    std::string pnaDeviceString;
     std::vector<double> freqData, timeData, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I;
 };
 

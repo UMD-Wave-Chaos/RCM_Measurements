@@ -17,6 +17,8 @@ pnaWrapper::pnaWrapper(bool mode)
     connected = false;
     testMode = mode;
 
+    pnaDeviceString = "Not Connected";
+
     //create the pnaController object
     if(testMode == true)
         pnaObj = new pnaControllerMock();
@@ -49,7 +51,7 @@ pnaWrapper::~pnaWrapper()
  * @param fStop the stop frequency of the sweep
  * @param tcpAddress the ip address to use for connection
  * @param NOP the number of points to collect from the PNA*/
-void pnaWrapper::setPNAConfig(double fStart,double fStop, std::string tcpAddress,int NOP)
+void pnaWrapper::setPNAConfig(double fStart,double fStop, std::string tcpAddress,unsigned int NOP)
 {
 
     if (connected)
@@ -88,11 +90,9 @@ void pnaWrapper::initializeSizes()
 bool pnaWrapper::openConnection()
 {
     if (connected == true)
-        throw pnaException("Cannot open a connection, already connected");
-    else
-    {
-        pnaObj->connectToInstrument(ipAddress);
-    }
+        throw pnaException("pnaWrapper::openConnection. Cannot open a connection, already connected");
+
+    pnaDeviceString = pnaObj->connectToInstrument(ipAddress);
 
     connected = pnaObj->getConnectionStatus();
 
@@ -132,24 +132,53 @@ bool pnaWrapper::listClients()
  * This function gets the ungated S-parameters in the frequency domain*/
 void pnaWrapper::getUngatedFrequencyDomainSParameters()
 {
-    pnaObj->getUngatedFrequencyDomainSParameters(timeData,S11R,S11I,S12R,S12I,S21R,S21I,S22R,S22I);
+    pnaObj->getUngatedFrequencyDomainSParameters();
+    pnaObj->getXDataVector(freqData);
+    pnaObj->getS11RVector(S11R);
+    pnaObj->getS11IVector(S11I);
+    pnaObj->getS12RVector(S12R);
+    pnaObj->getS12IVector(S12I);
+    pnaObj->getS21RVector(S21R);
+    pnaObj->getS21IVector(S21I);
+    pnaObj->getS22RVector(S22R);
+    pnaObj->getS22IVector(S22I);
 }
 
 /**
  * \brief getGatedFrequencyDomainSParameters
  *
  * This function gets the gated S-parameters in the frequency domain*/
-void pnaWrapper::getGatedFrequencyDomainSParameters()
+void pnaWrapper::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
-
+    pnaObj->getGatedFrequencyDomainSParameters(start_time,stop_time);
+    pnaObj->getXDataVector(freqData);
+    pnaObj->getS11RVector(S11R);
+    pnaObj->getS11IVector(S11I);
+    pnaObj->getS12RVector(S12R);
+    pnaObj->getS12IVector(S12I);
+    pnaObj->getS21RVector(S21R);
+    pnaObj->getS21IVector(S21I);
+    pnaObj->getS22RVector(S22R);
+    pnaObj->getS22IVector(S22I);
 }
 
 /**
  * \brief getTimeDomainSParameters
  *
  * This function gets the S-parameters in the time domain*/
-void pnaWrapper::getTimeDomainSParameters()
+void pnaWrapper::getTimeDomainSParameters(double start_time, double stop_time)
 {
+
+    pnaObj->getTimeDomainSParameters(start_time, stop_time);
+    pnaObj->getXDataVector(timeData);
+    pnaObj->getS11RVector(S11R);
+    pnaObj->getS11IVector(S11I);
+    pnaObj->getS12RVector(S12R);
+    pnaObj->getS12IVector(S12I);
+    pnaObj->getS21RVector(S21R);
+    pnaObj->getS21IVector(S21I);
+    pnaObj->getS22RVector(S22R);
+    pnaObj->getS22IVector(S22I);
 
 }
 

@@ -16,7 +16,7 @@
         <NumberOfPoints> 32001 </NumberOfPoints>
         <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
         <FrequencySweepStop> 11E9 </FrequencySweepStop>
-        <IP_Address> ﻿169.254.13.58 </IP_Address>
+        <IP_Address>169.254.13.58</IP_Address>
     </PNA_Settings>
     
     <!-- ******************************************************************************
@@ -24,7 +24,7 @@
          ******************************************************************************       
     -->
     <StepperMotor_Settings>
-            <COMport> /dev/tty.usbserial-A600eOXn</COMport>
+            <COMport>/dev/tty.usbserial-A600eOXn</COMport>
             <!-- 
                  aerotech SM50 motor with Haydon PCM 4826 drive
                  200 full steps at 1.8 degrees per step
@@ -43,7 +43,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix> Config_A </FileNamePrefix>
+        <FileNamePrefix>testCase</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     

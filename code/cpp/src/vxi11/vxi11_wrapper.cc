@@ -27,20 +27,6 @@ namespace vxi11
       // will otherwise not respond.
       clnt_stat = clnt_find_services(DEVICE_CORE, DEVICE_CORE_VERSION, 6, &t,
                                      who_responded);
-
-      AddrMap::const_iterator iter;
-      for (iter=gfFoundDevs.begin();iter!= gfFoundDevs.end();iter++) {
-          const Ports& port = iter->second;
-          cout << " Found: " << iter->first << " : TCP " << port.tcp_port
-               << "; UDP " << port.udp_port << endl;
-          CLINK vxi_link;
-          rcv[0] = '\0';
-          if ( vxi11_open_device(iter->first.c_str(), &vxi_link) < 0 ) continue;
-          int found = vxi11_send_and_receive(&vxi_link, "*IDN?", rcv, MAXSIZE, 10);
-          if (found > 0) rcv[found] = '\0';
-          cout << "  Output: " << rcv << endl;
-      }
-
       return gfFoundDevs;
     }
 }

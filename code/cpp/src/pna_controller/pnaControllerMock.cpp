@@ -12,9 +12,11 @@ pnaControllerMock::pnaControllerMock()
 {
     connected = false;
 
-    bufferSize = 32001*9;
+    numberOfPoints = 32001;
+    bufferSizeDoubles = numberOfPoints*9;
+    bufferSizeBytes = bufferSizeDoubles*8;
 
-    dataBuffer = new double[bufferSize];
+    dataBuffer = new double[bufferSizeDoubles];
 
     calibrated = false;
 }
@@ -25,76 +27,78 @@ pnaControllerMock::~pnaControllerMock()
 }
 
 
-void pnaControllerMock::initialize(double fStart, double fStop, int NOP)
+void pnaControllerMock::initialize(double fStart, double fStop, unsigned int NOP)
 {
-    bufferSize = NOP*9;
+    numberOfPoints = NOP;
+    bufferSizeDoubles = numberOfPoints*9;
+    bufferSizeBytes = bufferSizeDoubles*8;
 
     delete dataBuffer;
-    dataBuffer = new double[bufferSize];
+    dataBuffer = new double[bufferSizeDoubles];
 }
 
-void pnaControllerMock::getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                           std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                           std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaControllerMock::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
     getSParameters();
-    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+    unpackSParameters();
 }
 
-void pnaControllerMock::getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                 std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                 std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaControllerMock::getTimeDomainSParameters(double start_time, double stop_time)
 {
     getSParameters();
-    unpackSParameters(time, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+    unpackSParameters();
 }
 
-void pnaControllerMock::getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                             std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                             std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaControllerMock::getUngatedFrequencyDomainSParameters()
 {
     getSParameters();
-    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+    unpackSParameters();
 }
 
 void pnaControllerMock::getSParameters()
 {
-    int variableSize = static_cast<int>(floor(static_cast<double>(bufferSize)/9.0));
 
     std::normal_distribution<double> normal;
     std::default_random_engine generator;
 
-    for (int cnt = 0; cnt < variableSize; cnt++)
+    for (int cnt = 0; cnt < numberOfPoints; cnt++)
     {
         dataBuffer[cnt] = static_cast<double>(cnt)/4.5e6;
-        dataBuffer[cnt + variableSize] = normal(generator);
-        dataBuffer[cnt + 2*variableSize] = normal(generator);
-        dataBuffer[cnt + 3*variableSize] = normal(generator);
-        dataBuffer[cnt + 4*variableSize] = normal(generator);
-        dataBuffer[cnt + 5*variableSize] = normal(generator);
-        dataBuffer[cnt + 6*variableSize] = normal(generator);
-        dataBuffer[cnt + 7*variableSize] = normal(generator);
-        dataBuffer[cnt + 8*variableSize] = normal(generator);
+        dataBuffer[cnt + numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 2*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 3*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 4*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 5*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 6*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 7*numberOfPoints] = normal(generator);
+        dataBuffer[cnt + 8*numberOfPoints] = normal(generator);
     }
 
 }
 
-void pnaControllerMock::unpackSParameters(std::vector<double> &xData, std::vector<double> &S11R, std::vector<double> &S11I,
-                                          std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                          std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaControllerMock::unpackSParameters()
 {
-    int variableSize = static_cast<int>(floor(static_cast<double>(bufferSize)/9.0));
+    xVec.clear();
+    S11RVec.clear();
+    S11IVec.clear();
+    S12RVec.clear();
+    S12IVec.clear();
+    S21RVec.clear();
+    S21IVec.clear();
+    S22RVec.clear();
+    S22IVec.clear();
 
-    for (int cnt = 0; cnt < variableSize; cnt++)
+    //TBD - fix sizing
+    for (int cnt = 0; cnt < numberOfPoints; cnt++)
     {
-        xData[cnt] = dataBuffer[cnt];
-        S11R[cnt] = dataBuffer[cnt + variableSize];
-        S11I[cnt] = dataBuffer[cnt + 2*variableSize];
-        S12R[cnt] = dataBuffer[cnt + 3*variableSize];
-        S12I[cnt] = dataBuffer[cnt + 4*variableSize];
-        S21R[cnt] = dataBuffer[cnt + 5*variableSize];
-        S21I[cnt] = dataBuffer[cnt + 6*variableSize];
-        S22R[cnt] = dataBuffer[cnt + 7*variableSize];
-        S22I[cnt] = dataBuffer[cnt + 8*variableSize];
+        xVec.push_back(dataBuffer[cnt]);
+        S11RVec.push_back(dataBuffer[cnt + numberOfPoints]);
+        S11IVec.push_back(dataBuffer[cnt + 2*numberOfPoints]);
+        S12RVec.push_back(dataBuffer[cnt + 3*numberOfPoints]);
+        S12IVec.push_back(dataBuffer[cnt + 4*numberOfPoints]);
+        S21RVec.push_back(dataBuffer[cnt + 5*numberOfPoints]);
+        S21IVec.push_back(dataBuffer[cnt + 6*numberOfPoints]);
+        S22RVec.push_back(dataBuffer[cnt + 7*numberOfPoints]);
+        S22IVec.push_back(dataBuffer[cnt + 8*numberOfPoints]);
     }
 }

@@ -36,7 +36,10 @@ std::string GetCurrentWorkingDir( void ) {
       {
            std::cout<<"Current Path: " << GetCurrentWorkingDir() << std::endl;
            settingsFileName = "../../../../cpp/config.xml";
-
+           gateStart = -10e-9;
+           gateStop = 15e-9;
+           xformStart = -5e-6;
+           xformStop = 5e-6;
       }
       virtual void TearDown()
        {
@@ -46,7 +49,8 @@ std::string GetCurrentWorkingDir( void ) {
 
       measurementController *mc;
       std::string settingsFileName;
-
+      double gateStart, gateStop;
+      double xformStart, xformStop;
 
     };
 
@@ -60,7 +64,35 @@ std::string GetCurrentWorkingDir( void ) {
 
            mc->updateSettings(settingsFileName);
            mc->establishConnections();
-           mc->measureTimeDomainSParameters();
+           mc->measureTimeDomainSParameters(xformStart,xformStop);
+
+        }
+
+        catch (pnaException& e)
+       {
+          std::cout<< e.what();
+       }
+
+       catch (stepperMotorException& e)
+        {
+            std::cout<< e.what();
+        }
+    }
+
+
+    //creation, connection and disconnection test
+    TEST_F(measurementController_Test,measure_full)
+    {
+        try
+        {
+           mc = new measurementController(false);
+
+
+           mc->updateSettings(settingsFileName);
+           mc->establishConnections();
+           mc->measureTimeDomainSParameters(xformStart,xformStop);
+           mc->measureUngatedFrequencyDomainSParameters();
+           mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
 
         }
 

@@ -55,7 +55,7 @@ bool measurementController::updateSettings(std::string filename)
     Settings.fStart = atof(fStartNode->value());
     xml_node<> *fStopNode = pnaSettingsNode->first_node("FrequencySweepStop");
     Settings.fStop = atof(fStopNode->value());
-    xml_node<> *ipAddressNode = configNode->first_node("IP_Address");
+    xml_node<> *ipAddressNode = pnaSettingsNode->first_node("IP_Address");
     Settings.ipAddress = ipAddressNode->value();
 
 
@@ -88,11 +88,12 @@ bool measurementController::updateSettings(std::string filename)
 
      std::string timeStampString = std::to_string(1970 + ltm->tm_year) + std::to_string(1+ltm->tm_mon) + std::to_string(ltm->tm_mday) + "_";
      timeStampString += std::to_string(1+ltm->tm_hour) + "_" + std::to_string(ltm->tm_min) + "_" + std::to_string(ltm->tm_sec);
-     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString;
+     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString + ".h5";
 
      fs.close();
 
-    // dataLogger.CreateFile(Settings.outputFileName);
+     std::cout<<Settings.outputFileName<<std::endl;
+     dataLogger.CreateFile(Settings.outputFileName);
      return true;
 }
 
@@ -113,7 +114,16 @@ measurementController::~measurementController()
  * This function opens connections to the PNA and stepper motor */
 void measurementController::establishConnections()
 {
-    pna->openConnection();
+    pna->listClients();
+    pna->setPNAConfig(Settings.fStart, Settings.fStop, Settings.ipAddress, Settings.numberOfPoints);
+
+    //compute the
+
+    int stepDistance = Settings.direction * Settings.numberOfStepsPerRevolution/Settings.numberOfRealizations;
+
+    double runSpeed = stepDistance/10.0;
+
+    sm->setPortConfig(Settings.COMport,stepDistance,runSpeed);
     sm->openConnection();
 }
 
@@ -127,37 +137,38 @@ void measurementController::closeConnections()
     sm->closeConnection();
 }
 
+
 /**
  * \brief measureTimeDomainSParameters
  *
  * This function commands the pna to take a time domain measurement and then logs the output to the specified HDF5 file */
-void measurementController::measureTimeDomainSParameters()
+void measurementController::measureTimeDomainSParameters(double start_time, double stop_time)
 {
-    pna->getTimeDomainSParameters();
+    pna->getTimeDomainSParameters(start_time, stop_time);
 
     std::vector<double> timeData;
     pna->getTimeData(timeData);
-    dataLogger.WriteData(timeData,"t");
+    dataLogger.WriteData(timeData,"time");
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);
-    dataLogger.WriteData(S11R,"S11Rt");
-    dataLogger.WriteData(S11I,"S11It");
+    dataLogger.WriteData(S11R,"S11t_real");
+    dataLogger.WriteData(S11I,"S11t_imag");
 
     std::vector<double> S12R, S12I;
     pna->getS12Data(S12R, S12I);
-    dataLogger.WriteData(S12R,"S12Rt");
-    dataLogger.WriteData(S12I,"S12It");
+    dataLogger.WriteData(S12R,"S12t_real");
+    dataLogger.WriteData(S12I,"S12t_imag");
 
     std::vector<double> S21R, S21I;
     pna->getS21Data(S21R, S21I);
-    dataLogger.WriteData(S21R,"S21Rt");
-    dataLogger.WriteData(S21I,"S21It");
+    dataLogger.WriteData(S21R,"S21t_real");
+    dataLogger.WriteData(S21I,"S21t_imag");
 
     std::vector<double> S22R, S22I;
     pna->getS22Data(S22R, S22I);
-    dataLogger.WriteData(S22R,"S22Rt");
-    dataLogger.WriteData(S22I,"S22It");
+    dataLogger.WriteData(S22R,"S22t_real");
+    dataLogger.WriteData(S22I,"S22t_imag");
 }
 
 /**
@@ -171,60 +182,60 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
 
     std::vector<double> freqData;
     pna->getFrequencyData(freqData);
-    dataLogger.WriteData(freqData,"f");
+    dataLogger.WriteData(freqData,"freq");
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);
-    dataLogger.WriteData(S11R,"S11Rf");
-    dataLogger.WriteData(S11I,"S11If");
+    dataLogger.WriteData(S11R,"S11f_real");
+    dataLogger.WriteData(S11I,"S11f_imag");
 
     std::vector<double> S12R, S12I;
     pna->getS12Data(S12R, S12I);
-    dataLogger.WriteData(S12R,"S12Rf");
-    dataLogger.WriteData(S12I,"S12If");
+    dataLogger.WriteData(S12R,"S12f_real");
+    dataLogger.WriteData(S12I,"S12f_imag");
 
     std::vector<double> S21R, S21I;
     pna->getS21Data(S21R, S21I);
-    dataLogger.WriteData(S21R,"S21Rf");
-    dataLogger.WriteData(S21I,"S21If");
+    dataLogger.WriteData(S21R,"S21f_real");
+    dataLogger.WriteData(S21I,"S21f_imag");
 
     std::vector<double> S22R, S22I;
     pna->getS22Data(S22R, S22I);
-    dataLogger.WriteData(S22R,"S22Rf");
-    dataLogger.WriteData(S22I,"S22If");
+    dataLogger.WriteData(S22R,"S22f_real");
+    dataLogger.WriteData(S22I,"S22f_imag");
 }
 
 /**
  * \brief measureGatedFrequencyDomainSParameters
  *
  * This function commands the pna to take a gated frequency domain measurement and then logs the output to the specified HDF5 file */
-void measurementController::measureGatedFrequencyDomainSParameters()
+void measurementController::measureGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
-    pna->getGatedFrequencyDomainSParameters();
+    pna->getGatedFrequencyDomainSParameters(start_time, stop_time);
 
     std::vector<double> freqData;
     pna->getFrequencyData(freqData);
-    dataLogger.WriteData(freqData,"f");
+    dataLogger.WriteData(freqData,"freq_gated");
 
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);
-    dataLogger.WriteData(S11R,"S11Rfg");
-    dataLogger.WriteData(S11I,"S11Ifg");
+    dataLogger.WriteData(S11R,"S11f_real_gated");
+    dataLogger.WriteData(S11I,"S11f_imag_gated");
 
     std::vector<double> S12R, S12I;
     pna->getS12Data(S12R, S12I);
-    dataLogger.WriteData(S12R,"S12Rfg");
-    dataLogger.WriteData(S12I,"S12Ifg");
+    dataLogger.WriteData(S12R,"S12f_real_gated");
+    dataLogger.WriteData(S12I,"S12f_imag_gated");
 
     std::vector<double> S21R, S21I;
     pna->getS21Data(S21R, S21I);
-    dataLogger.WriteData(S21R,"S21Rfg");
-    dataLogger.WriteData(S21I,"S21Ifg");
+    dataLogger.WriteData(S21R,"S21f_real_gated");
+    dataLogger.WriteData(S21I,"S21f_imag_gated");
 
     std::vector<double> S22R, S22I;
     pna->getS22Data(S22R, S22I);
-    dataLogger.WriteData(S22R,"S22Rfg");
-    dataLogger.WriteData(S22I,"S22Ifg");
+    dataLogger.WriteData(S22R,"S22f_real_gated");
+    dataLogger.WriteData(S22I,"S22f_imag_gated");
 
 }

@@ -23,7 +23,7 @@ namespace testing
 
       virtual void SetUp()
       {
-
+        comport = "/dev/tty.usbserial-A600eOXn";
 
       }
       virtual void TearDown()
@@ -34,6 +34,7 @@ namespace testing
 
       stepperMotorWrapper *sm;
       std::string comport;
+
 
     };
 
@@ -81,6 +82,9 @@ namespace testing
         EXPECT_THAT(sm->getTestMode(),Eq(false));
 
         sm->listPorts();
+
+        sm->setPortConfig(comport,100,1000);
+        sm->openConnection();
 
         QString qs = sm->getPortName();
         std::cout<<"Current Port: " << qs.toStdString();

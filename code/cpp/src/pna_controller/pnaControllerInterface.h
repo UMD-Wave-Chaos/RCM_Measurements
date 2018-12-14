@@ -17,19 +17,22 @@ public:
 
     virtual ~pnaControllerInterface() = 0;
     //measurement functions
-    virtual void connectToInstrument(std::string tcpAddress) = 0;
+    virtual std::string connectToInstrument(std::string tcpAddress) = 0;
     virtual void findConnections() = 0;
     virtual void disconnect() = 0;
-    virtual void initialize(double fStart, double fStop, int NOP) = 0;
-    virtual void getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
-    virtual void getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                    std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                    std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
-    virtual void getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
-                                          std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                          std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
+    virtual void initialize(double fStart, double fStop, unsigned int NOP) = 0;
+    virtual void getUngatedFrequencyDomainSParameters() = 0;
+    virtual void getGatedFrequencyDomainSParameters(double start_time, double stop_time) = 0;
+    virtual void getTimeDomainSParameters(double start_time, double stop_time) = 0;
+    virtual void getXDataVector(std::vector<double> & xData) = 0;
+    virtual void getS11RVector(std::vector<double> & SR) = 0;
+    virtual void getS11IVector(std::vector<double> & SI) = 0;
+    virtual void getS12RVector(std::vector<double> & SR) = 0;
+    virtual void getS12IVector(std::vector<double> & SI) = 0;
+    virtual void getS21RVector(std::vector<double> & SR) = 0;
+    virtual void getS21IVector(std::vector<double> & SI) = 0;
+    virtual void getS22RVector(std::vector<double> & SR) = 0;
+    virtual void getS22IVector(std::vector<double> & SI) = 0;
     virtual void calibrate() = 0;
     virtual bool checkCalibration() = 0;
 

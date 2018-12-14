@@ -39,9 +39,9 @@ public:
 
     measurementSettings getSettings() {return Settings;}
 
-    void measureTimeDomainSParameters();
+    void measureTimeDomainSParameters(double start_time, double stop_time);
     void measureUngatedFrequencyDomainSParameters();
-    void measureGatedFrequencyDomainSParameters();
+    void measureGatedFrequencyDomainSParameters(double start_time, double stop_time);
     void establishConnections();
     void closeConnections();
 
@@ -53,6 +53,8 @@ private:
     bool initialized;
     measurementSettings Settings;
     std::string settingsFileName;
+
+    void writeSParameters();
 };
 
 #endif // MEASUREMENTCONTROLLER_H

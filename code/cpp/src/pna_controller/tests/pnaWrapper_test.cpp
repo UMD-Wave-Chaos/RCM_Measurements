@@ -24,10 +24,14 @@ namespace testing
       virtual void SetUp()
       {
 
-        fStart = 1.23e9;
-        fStop = 15.44e9;
-        ipAddress = "192.259.13.58";
-        NOP = 20000;
+        fStart = 9.5e9;
+        fStop = 11e9;
+        gateStart = -10e-9;
+        gateStop = 15e-9;
+        xformStart = -5e-6;
+        xformStop = 5e-6;
+        ipAddress = "169.254.13.58";
+        NOP = 32001;
       }
       virtual void TearDown()
        {
@@ -36,10 +40,34 @@ namespace testing
        }
 
       pnaWrapper *pna;
-      double fStart;
-      double fStop;
+      double fStart, fStop;
+      double gateStart, gateStop;
+      double xformStart, xformStop;
       std::string ipAddress;
       int NOP;
+
+      void testSParameters()
+      {
+          std::vector<double> S11R, S11I;
+          pna->getS11Data(S11R, S11I);
+          EXPECT_THAT(S11R.size(),Eq(NOP));
+          EXPECT_THAT(S11I.size(),Eq(NOP));
+
+          std::vector<double> S12R, S12I;
+          pna->getS11Data(S12R, S12I);
+          EXPECT_THAT(S12R.size(),Eq(NOP));
+          EXPECT_THAT(S12I.size(),Eq(NOP));
+
+          std::vector<double> S21R, S21I;
+          pna->getS11Data(S21R, S21I);
+          EXPECT_THAT(S21R.size(),Eq(NOP));
+          EXPECT_THAT(S21I.size(),Eq(NOP));
+
+          std::vector<double> S22R, S22I;
+          pna->getS11Data(S22R, S22I);
+          EXPECT_THAT(S22R.size(),Eq(NOP));
+          EXPECT_THAT(S22I.size(),Eq(NOP));
+      }
 
     };
 
@@ -73,32 +101,51 @@ namespace testing
     }
 
     //create mock test
-    TEST_F(pnaWrapper_Test,create_full)
+    TEST_F(pnaWrapper_Test,ungated_full)
     {
         pna = new pnaWrapper(false);
         EXPECT_THAT(pna->getTestMode(),Eq(FALSE));
-    }
 
-    //set and check the configuration
-    TEST_F(pnaWrapper_Test,set_config)
-    {
-        pna = new pnaWrapper(true);
-        pna->setPNAConfig(fStart,fStop,ipAddress,NOP);
+        std::cout<<"Listing Clients ... " << std::endl;
+        pna->listClients();
 
-        double f1, f2;
-        pna->getFrequencyRange(f1, f2);
-        EXPECT_THAT(f1,Eq(fStart));
-        EXPECT_THAT(f2,Eq(fStop));
+        std::cout<<"Setting Configuration ... " << std::endl;
+        pna->setPNAConfig(fStart, fStop, ipAddress, NOP);
 
-        std::string address = pna->getIpAddress();
-        ASSERT_EQ(address, ipAddress);
+        if (pna->getConnected() == true)
+        {
+            std::cout<<"Device Info: " << pna->getPNADeviceString();
 
-        int nPoints = pna->getNumberOfPoints();
-        EXPECT_THAT(nPoints,Eq(NOP));
 
-        pna->getTimeDomainSParameters();
-        pna->getGatedFrequencyDomainSParameters();
-        pna->getUngatedFrequencyDomainSParameters();
+            pna->getUngatedFrequencyDomainSParameters();
+            std::vector<double> testFreq;
+            pna->getFrequencyData(testFreq);
+            EXPECT_THAT(testFreq.size(),Eq(NOP));
+            EXPECT_THAT(testFreq[0],Eq(fStart));
+            EXPECT_THAT(testFreq[32000],Eq(fStop));
+            testSParameters();
+
+            pna->getGatedFrequencyDomainSParameters(gateStart, gateStop);
+            std::vector<double> testFreq1;
+            pna->getFrequencyData(testFreq1);
+            EXPECT_THAT(testFreq1.size(),Eq(NOP));
+            EXPECT_THAT(testFreq1[0],Eq(fStart));
+            EXPECT_THAT(testFreq1[32000],Eq(fStop));
+            testSParameters();
+
+            pna->getTimeDomainSParameters(xformStart, xformStop);
+            std::vector<double> testTime;
+            pna->getTimeData(testTime);
+            EXPECT_THAT(testTime.size(),Eq(NOP));
+            EXPECT_THAT(testTime[0],Eq(xformStart));
+            EXPECT_THAT(testTime[32000],Eq(xformStop));
+            testSParameters();
+
+
+            std::cout<<"Closing Connection ... " << std::endl;
+            pna->closeConnection();
+            EXPECT_THAT(pna->getConnected(), Eq(true));
+        }
     }
 
 }//end namespace testing

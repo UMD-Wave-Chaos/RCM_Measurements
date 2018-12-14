@@ -18,6 +18,7 @@ public:
     virtual QString getCurrentPortInfo() = 0;
     virtual bool getConnectionStatus() = 0;
     virtual int getConnectionErrors() = 0;
+
 };
 
 #endif // STEPPER_MOTOR_CONTROLLER_INTERFACE_H

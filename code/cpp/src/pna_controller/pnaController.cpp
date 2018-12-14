@@ -18,10 +18,15 @@ pnaController::pnaController()
    calibrationFileName = "";
    calibrated = false;
 
-   bufferSize = 32001*9;
+   numberOfPoints = 32001;
+   bufferSizeDoubles = numberOfPoints*9;
+   bufferSizeBytes = bufferSizeDoubles*8;
 
-   dataBuffer = new double[bufferSize];
+   dataBuffer = new double[bufferSizeDoubles];
 
+   //set the timeout for measurements to 15 seconds and calibration to 60 seconds
+   measureDataTimeout = 15000;
+   calibrationTimeout = 60000;
 }
 
 /**
@@ -30,7 +35,10 @@ pnaController::pnaController()
  * This is the primary destructor for the full pna class*/
 pnaController::~pnaController()
 {
- delete dataBuffer;
+    if (connected == true)
+        disconnect();
+
+    delete dataBuffer;
 }
 
 /**
@@ -39,21 +47,21 @@ pnaController::~pnaController()
  * This function uses the vxi11 library to find instruments on the network*/
 void pnaController::findConnections()
 {
-    enum clnt_stat clnt_stat;
     const size_t MAXSIZE = 100;
     char rcv[MAXSIZE];
     timeval t;
     t.tv_sec = 1;
     t.tv_usec = 0;
 
-    struct sockaddr_in test;
 
     vxi11::AddrMap clientMap = vxi11::find_vxi11_clients();
 
     vxi11::AddrMap::const_iterator iter;
+
+    std::cout<<"Found " << clientMap.size() << " vxi11 devices:" << std::endl;
     for (iter=clientMap.begin();iter!= clientMap.end();iter++) {
         const vxi11::Ports& port = iter->second;
-        std::cout << " Found: " << iter->first << " : TCP " << port.tcp_port
+        std::cout << " ID: " << iter->first << " : TCP " << port.tcp_port
              << "; UDP " << port.udp_port << std::endl;
         CLINK vxi_link;
         rcv[0] = '\0';
@@ -71,7 +79,7 @@ void pnaController::findConnections()
  * This function disconnects from an instrument*/
 void pnaController::disconnect()
 {
-    //TBD - handle closing the device
+    vxi11_close_device(ipAddress.c_str(), &vxi_link);
     connected = false;
 }
 
@@ -80,26 +88,31 @@ void pnaController::disconnect()
  *
  * This function connects to the pna
  * @param tcpAddress the ipAddress to connect to*/
-void pnaController::connectToInstrument(std::string tcpAddress)
+std::string pnaController::connectToInstrument(std::string tcpAddress)
 {
+    ipAddress = tcpAddress;
      //establish the connection
     int testConnect = vxi11_open_device(tcpAddress.c_str(), &vxi_link);
-    std::cout<<"Test Connect: " << testConnect << std::endl;
+    std::string deviceString;
+
     if (testConnect == 0)
     {
         connected = true;
-        int found = vxi11_send_and_receive(&vxi_link, "*IDN?", rcvBuffer, 100, 10);
-        if (found > 0) rcvBuffer[found] = '\0';
-            std::cout << "  Output: " << rcvBuffer << std::endl;
+
+        //get the device info string
+        vxi11_send_and_receive(&vxi_link, "*IDN?", rcvBuffer, 100, 10);
+        deviceString = rcvBuffer;
+
+        //check whether or not we've been calibrated
+        checkCalibration();
     }
     else
     {
         connected = false;
-        std::cout << "Not Connected" << std::endl;
+        deviceString = "No connection available";
     }
 
-    //check whether or not we've been calibrated
-    checkCalibration();
+    return deviceString;
 }
 
 
@@ -110,20 +123,21 @@ void pnaController::connectToInstrument(std::string tcpAddress)
  * @param fStart the start frequency of the sweep
  * @param fStop the stop frequency of the sweep
  * @param NOP the number of points to collect from the PNA*/
-void pnaController::initialize(double fStart, double fStop, int NOP)
+void pnaController::initialize(double fStart, double fStop, unsigned int NOP)
 {
-
-    bufferSize = NOP*9;
+    numberOfPoints = NOP;
+    bufferSizeDoubles = numberOfPoints*9;
+    bufferSizeBytes = bufferSizeDoubles*8;
 
     delete dataBuffer;
-    dataBuffer = new double[bufferSize];
+    dataBuffer = new double[bufferSizeDoubles];
 
 if (connected == true)
 {
     std::string tBuff = "SYSTem:PRESet";
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    int ready = vxi11_send_and_receive(&vxi_link, "*OPC?", rcvBuffer, 100, 10);
+    vxi11_send_and_receive(&vxi_link, "*OPC?", rcvBuffer, 100, 1000);
 
     tBuff = "OUTP ON";
     vxi11_send(&vxi_link, tBuff.c_str());
@@ -183,14 +197,6 @@ if (connected == true)
     vxi11_send(&vxi_link, tBuff.c_str());
 
     tBuff = "*WAI";
-
-    double *f = new double[10];
-    double *s1= new double[10];
-    double *s2= new double[10];
-    double *s3= new double[10];
-    double *s4= new double[10];
-
-    checkCalibration();
     }
 }
 
@@ -209,54 +215,36 @@ bool pnaController::checkCalibration()
  * \brief getTimeDomainSParameters
  *
  * This function gets the S-parameters in the time domain*/
-void pnaController::getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
-                                             std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                             std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaController::getTimeDomainSParameters(double start_time, double stop_time)
 {
 
     checkCalibration();
 
-/* Matlab implementation
-    %setup the PNA to take time domain measurements
-    fprintf(obj1, 'CALC:TRAN:TIME:STATE ON'); % turn time transform on
-    fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % turn time gating on
+    //setup the PNA to take a gated frequency domain measurement
+    std::string tBuff = "CALC:TRAN:TIME:STATE ON";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-    %set the start and stop time for the gating
-    fprintf(obj1, ['CALC:TRAN:TIME:START ', num2str(start_time)]);
-    fprintf(obj1, ['CALC:TRAN:TIME:STOP ', num2str(stop_time)]);
+    tBuff = "CALC:FILT:TIME:STATE OFF";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-    %check to make sure the start time is within the valid range of the PNA,
-    %must be < (NOP-1)/delta Freq
-    tstart = query(obj1, 'CALC:TRAN:TIME:STAR?');
+    tBuff = "CALC:TRAN:TIME:START " + std::to_string(start_time);
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-    if (start_time < str2num(tstart))
-        wstring = sprintf ('Requested start time %f is less than min PNA start time %s, setting to min PNA start time',start_time, tstart);
-        warning(wstring);
-        fprintf(obj1, 'CALC:TRAN:TIME:START MIN');
-    end
+    tBuff = "CALC:TRAN:TIME:STOP " + std::to_string(stop_time);
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-    %check to make sure the stop time is within the valid range of the PNA,
-    %must be > -(NOP-1)/delta Freq
-    tstop = query(obj1, 'CALC:TRAN:TIME:STOP?');
+    //now get the S parameters
+    getSParameters();
 
-    if (stop_time > str2num(tstop))
-        wstring = sprintf ('Requested stop time %f is greater than max PNA stop time %s, setting to max PNA stop time',stop_time, tstop);
-        warning(wstring);
-        fprintf(obj1, 'CALC:TRAN:TIME:STOP MAX');
-    end
-
-    %now get the S parameters
-    [t,SCt11,SCt12,SCt21,SCt22] = getSParameters(obj1,NOP);
-      */
+    //unpack
+    unpackSParameters();
 }
 
 /**
  * \brief getUngatedFrequencyDomainSParameters
  *
  * This function gets the ungated S-parameters in the frequency domain*/
-void pnaController::getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                         std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                         std::vector<double> &S21I,std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaController::getUngatedFrequencyDomainSParameters()
 {
     checkCalibration();
 
@@ -271,16 +259,14 @@ void pnaController::getUngatedFrequencyDomainSParameters(std::vector<double> &fr
     getSParameters();
 
     //unpack
-    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+    unpackSParameters();
 }
 
 /**
  * \brief getGatedFrequencyDomainSParameters
  *
  * This function gets the gated S-parameters in the frequency domain*/
-void pnaController::getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
-                                                       std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                                       std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaController::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
     checkCalibration();
 
@@ -288,24 +274,50 @@ void pnaController::getGatedFrequencyDomainSParameters(std::vector<double> &freq
     std::string tBuff = "CALC:TRAN:TIME:STATE OFF";
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    tBuff = "CALC:FILT:TIME:STATE OFF";
+    tBuff = "CALC:FILT:TIME:STATE ON";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "CALC:FILT:TIME:START " + std::to_string(start_time);
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "CALC:FILT:TIME:STOP" + std::to_string(stop_time);
     vxi11_send(&vxi_link, tBuff.c_str());
 
     //now get the S parameters
     getSParameters();
 
     //unpack
-    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+    unpackSParameters();
 }
 
 /**
  * \brief unpackSParameters
  *
  * This function unpacks the S-parameters from the data buffer*/
-void pnaController::unpackSParameters(std::vector<double> &xData, std::vector<double> &S11R, std::vector<double> &S11I,
-                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
-                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+void pnaController::unpackSParameters()
 {
+    xVec.clear();
+    S11RVec.clear();
+    S11IVec.clear();
+    S12RVec.clear();
+    S12IVec.clear();
+    S21RVec.clear();
+    S21IVec.clear();
+    S22RVec.clear();
+    S22IVec.clear();
+
+    for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
+    {
+        xVec.push_back(dataBuffer[cnt]);
+        S11RVec.push_back(dataBuffer[cnt + numberOfPoints]);
+        S11IVec.push_back(dataBuffer[cnt + 2*numberOfPoints]);
+        S12RVec.push_back(dataBuffer[cnt + 3*numberOfPoints]);
+        S12IVec.push_back(dataBuffer[cnt + 4*numberOfPoints]);
+        S21RVec.push_back(dataBuffer[cnt + 5*numberOfPoints]);
+        S21IVec.push_back(dataBuffer[cnt + 6*numberOfPoints]);
+        S22RVec.push_back(dataBuffer[cnt + 7*numberOfPoints]);
+        S22IVec.push_back(dataBuffer[cnt + 8*numberOfPoints]);
+    }
 
 }
 
@@ -329,23 +341,8 @@ void pnaController::getSParameters()
     tBuff = "CALC:DATA:SNP? 2";
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    //TBD - handle receive
-    vxi11_receive_data_block(&vxi_link,(char*)dataBuffer,bufferSize*4,20);
-
-    /* Matlab implementation
-    X = binblockread(obj1, 'float64'); %read the data from the PNA
-    fprintf(obj1, '*WAI'); % wait until data tranfer is complete
-
-    %get the xAxis data (will be either frequency or time)
-    xValue = X(1:(NOP));
-
-    %Get the real and imaginary components of the S parameters
-    S11R = X(NOP+1:NOP+(NOP));         S11I = X(2*NOP+1:2*NOP+(NOP));
-    S21R = X(3*NOP+1:3*NOP+(NOP));     S21I = X(4*NOP+1:4*NOP+(NOP));
-    S12R = X(5*NOP+1:5*NOP+(NOP));     S12I = X(6*NOP+1:6*NOP+(NOP));
-    S22R = X(7*NOP+1:7*NOP+(NOP));     S22I = X(8*NOP+1:8*NOP+(NOP));
-
-    */
+    //receive the data block
+    vxi11_receive_data_block(&vxi_link,(char*)dataBuffer,bufferSizeBytes,measureDataTimeout);
 
 }
 
