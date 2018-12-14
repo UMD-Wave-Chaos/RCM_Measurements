@@ -75,7 +75,7 @@ private:
 
     uint maxPlotLength;
 
-    measurementController mControl;
+    measurementController *mControl;
 
     measurementSettings Settings;
 

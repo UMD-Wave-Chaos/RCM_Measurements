@@ -16,3 +16,5 @@ target_link_libraries(measurementControlLibrary ${GPERFTOOLS_LIBRARIES}
                                                  DataLogger
                                                  pnaControllerLibrary
                                                  stepperMotorControlLibrary)
+
+add_subdirectory(tests)

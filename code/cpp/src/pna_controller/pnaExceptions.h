@@ -15,7 +15,7 @@ class pnaException : public std::exception
 public:
     pnaException(const std::string& msg) : m_msg(msg)
     {
-        std::cout << "PNA Library Exception - Error Message: " << m_msg << std::endl;
+        std::cout << "PNA Control Library Exception - Error Message: " << m_msg << std::endl;
     }
 
    ~pnaException()

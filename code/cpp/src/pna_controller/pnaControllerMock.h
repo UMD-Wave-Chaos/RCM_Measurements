@@ -20,19 +20,32 @@ class pnaControllerMock : public pnaControllerInterface
     ~pnaControllerMock();
     pnaControllerMock();
 
-    MOCK_METHOD3(initialize,void(double fStart, double fStop, int NOP));
-    MOCK_METHOD5(getTimeDomainSParameters, void (double* time,double* S11,double* S12,double* S21, double* S22));
-    MOCK_METHOD5(getFrequencyDomainSParameters, void (double* freq,double* S11,double* S12,double* S21,double* S22));
-    MOCK_METHOD0(calibrate, void());
-    MOCK_METHOD0(checkCalibration, bool());
-
+    virtual void getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
+    virtual void getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                    std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                    std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
+    virtual void getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
+                                          std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                          std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
+    virtual void calibrate(){calibrated = true;}
+    virtual bool checkCalibration(){return calibrated;}
+    virtual void initialize(double fStart, double fStop, int NOP);
     virtual void disconnect(){connected = false;}
     virtual void connectToInstrument(std::string tcpAddress){connected = true;}
     virtual bool getConnectionStatus(){return connected;}
     virtual void findConnections(){std::cout<<"Not Connected, Running in Test Mode";}
 
 private:
+    void getSParameters();
+    void unpackSParameters(std::vector<double> &xData, std::vector<double> &S11R, std::vector<double> &S11I,
+                           std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                           std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
     bool connected;
+    bool calibrated;
+    double *dataBuffer;
+    int bufferSize;
 
 };
 #endif // PNA_CONTROLLER_MOCK_H

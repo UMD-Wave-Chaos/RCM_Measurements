@@ -25,6 +25,9 @@ pnaWrapper::pnaWrapper(bool mode)
 
     if (pnaObj == nullptr)
         throw pnaException("Unable to create instance of pnaController");
+
+    numberOfPoints = 32001;
+    initializeSizes();
 }
 
 /**
@@ -56,6 +59,26 @@ void pnaWrapper::setPNAConfig(double fStart,double fStop, std::string tcpAddress
     setIpAddress(tcpAddress);
     setNumberOfPoints(NOP);
     openConnection();
+
+   initializeSizes();
+}
+
+/**
+ * \brief initializeSizes
+ *
+ * This function initializes the array sizes*/
+void pnaWrapper::initializeSizes()
+{
+    freqData.reserve(numberOfPoints);
+    timeData.reserve(numberOfPoints);
+    S11R.reserve(numberOfPoints);
+    S11I.reserve(numberOfPoints);
+    S12R.reserve(numberOfPoints);
+    S12I.reserve(numberOfPoints);
+    S21R.reserve(numberOfPoints);
+    S21I.reserve(numberOfPoints);
+    S22R.reserve(numberOfPoints);
+    S22I.reserve(numberOfPoints);
 }
 
 /**
@@ -74,7 +97,7 @@ bool pnaWrapper::openConnection()
     connected = pnaObj->getConnectionStatus();
 
     pnaObj->initialize(frequencyRange[0], frequencyRange[1],numberOfPoints);
-    return pnaObj;
+    return connected;
 }
 
 /**
@@ -84,14 +107,12 @@ bool pnaWrapper::openConnection()
 bool pnaWrapper::closeConnection()
 {
     if (connected == false)
-        throw pnaException("Attempting to close a connection that is already closed");
-    else
-    {
-     pnaObj->disconnect();
-    }
+        throw pnaException("pnaWrapper::closeConnection(). Attempting to close a connection that is already closed");
+
+    pnaObj->disconnect();
 
     connected = pnaObj->getConnectionStatus();
-    return pnaObj;
+    return connected;
 }
 
 /**
@@ -101,4 +122,107 @@ bool pnaWrapper::closeConnection()
 bool pnaWrapper::listClients()
 {
     pnaObj->findConnections();
+
+    return true;
+}
+
+/**
+ * \brief getUngatedFrequencyDomainSParameters
+ *
+ * This function gets the ungated S-parameters in the frequency domain*/
+void pnaWrapper::getUngatedFrequencyDomainSParameters()
+{
+    pnaObj->getUngatedFrequencyDomainSParameters(timeData,S11R,S11I,S12R,S12I,S21R,S21I,S22R,S22I);
+}
+
+/**
+ * \brief getGatedFrequencyDomainSParameters
+ *
+ * This function gets the gated S-parameters in the frequency domain*/
+void pnaWrapper::getGatedFrequencyDomainSParameters()
+{
+
+}
+
+/**
+ * \brief getTimeDomainSParameters
+ *
+ * This function gets the S-parameters in the time domain*/
+void pnaWrapper::getTimeDomainSParameters()
+{
+
+}
+
+/**
+ * \brief getS11Data
+ *
+ * This function gets the S11 values*/
+ void pnaWrapper::getS11Data(std::vector<double> &inR, std::vector<double> &inI)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getS11Data. Attempting to get data from a connection that isn't open");
+    inR = S11R;
+    inI = S11I;
+}
+
+/**
+ * \brief getS12Data
+ *
+ * This function gets the S12 values*/
+void pnaWrapper::getS12Data(std::vector<double> &inR, std::vector<double> &inI)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getS12Data. Attempting to get data from a connection that isn't open");
+
+    inR = S12R;
+    inI = S12I;
+}
+
+/**
+ * \brief getS21Data
+ *
+ * This function gets the S21 values*/
+void pnaWrapper::getS21Data(std::vector<double> &inR, std::vector<double> &inI)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getS21Data. Attempting to get data from a connection that isn't open");
+
+    inR = S21R;
+    inI = S21I;
+}
+
+/**
+ * \brief getS22Data
+ *
+ * This function gets the S22 values*/
+void pnaWrapper::getS22Data(std::vector<double> &inR, std::vector<double> &inI)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getS22Data. Attempting to get data from a connection that isn't open");
+
+    inR = S22R;
+    inI = S22I;
+}
+
+/**
+ * \brief getFrequencyData
+ *
+ * This function gets the frequency values*/
+void pnaWrapper::getFrequencyData(std::vector<double> &inF)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getFrequencyData. Attempting to get data from a connection that isn't open");
+    inF = freqData;
+}
+
+/**
+ * \brief getTimeData
+ *
+ * This function gets the time values*/
+void pnaWrapper::getTimeData(std::vector<double> &inT)
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::getTimeData. Attempting to get data from a connection that isn't open");
+
+    inT = timeData;
 }

@@ -6,7 +6,7 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 #include "measurementSettings.h"
-#include "stepperMotorController.h"
+#include "stepperMotorWrapper.h"
 
 #include <map>
 #include <string>
@@ -26,7 +26,7 @@ using namespace rapidxml;
 class measurementController
 {
 public:
-    measurementController();
+    measurementController(bool mode);
     ~measurementController();
     bool measureData();
 
@@ -36,6 +36,7 @@ public:
 
 private:
     pnaWrapper *pna;
+    stepperMotorWrapper *sm;
     DataLoggerHDF5 dataLogger;
     bool testMode;
     bool initialized;

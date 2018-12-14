@@ -21,17 +21,15 @@ public:
     virtual void findConnections() = 0;
     virtual void disconnect() = 0;
     virtual void initialize(double fStart, double fStop, int NOP) = 0;
-    virtual void getTimeDomainSParameters(double* time,
-                                  double* S11,
-                                  double* S12,
-                                  double* S21,
-                                  double* S22) = 0;
-
-    virtual void getFrequencyDomainSParameters(double* freq,
-                                        double* S11,
-                                        double* S12,
-                                        double* S21,
-                                        double* S22) = 0;
+    virtual void getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
+    virtual void getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                    std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                    std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
+    virtual void getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
+                                          std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                          std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I) = 0;
     virtual void calibrate() = 0;
     virtual bool checkCalibration() = 0;
 

@@ -95,6 +95,10 @@ namespace testing
 
         int nPoints = pna->getNumberOfPoints();
         EXPECT_THAT(nPoints,Eq(NOP));
+
+        pna->getTimeDomainSParameters();
+        pna->getGatedFrequencyDomainSParameters();
+        pna->getUngatedFrequencyDomainSParameters();
     }
 
 }//end namespace testing

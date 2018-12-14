@@ -28,17 +28,15 @@ public:
     virtual void findConnections();
     virtual void disconnect();
     virtual void initialize(double fStart, double fStop, int NOP);
-    virtual void getTimeDomainSParameters(double* time,
-                                  double* S11,
-                                  double* S12,
-                                  double* S21,
-                                  double* S22);
-
-    virtual void getFrequencyDomainSParameters(double* freq,
-                                        double* S11,
-                                        double* S12,
-                                        double* S21,
-                                        double* S22);
+    virtual void getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
+    virtual void getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                    std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                    std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
+    virtual void getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
+                                          std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                          std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
     virtual void calibrate();
     virtual bool checkCalibration();
 
@@ -46,6 +44,9 @@ public:
 
 private:
     void getSParameters();
+    void unpackSParameters(std::vector<double> &xData, std::vector<double> &S11R, std::vector<double> &S11I,
+                           std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                           std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I);
     bool connected;
     bool calibrated;
     std::string calibrationFileName;

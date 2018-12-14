@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <QString>
 
 class stepperMotorControllerInterface
 {
@@ -14,6 +15,7 @@ public:
     virtual int getStepperMotorPosition() = 0;
 
     virtual std::string getAvailablePorts() = 0;
+    virtual QString getCurrentPortInfo() = 0;
     virtual bool getConnectionStatus() = 0;
     virtual int getConnectionErrors() = 0;
 };

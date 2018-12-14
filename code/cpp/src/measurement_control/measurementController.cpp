@@ -1,16 +1,17 @@
 #include "clnt_find_services.h"
 #include "measurementController.h"
 
-measurementController::measurementController()
+measurementController::measurementController(bool mode)
 {
     initialized = false;
 
     settingsFileName = "config.xml";
 
-    //temporary test mode - allows testing without hardware present
-    testMode = true;
+    testMode = mode;
 
+    //create the pna and sm objects
     pna = new pnaWrapper(testMode);
+    sm = new stepperMotorWrapper(testMode);
 
 }
 
@@ -69,16 +70,38 @@ measurementController::measurementController()
 
       std::string timeStampString = std::to_string(1970 + ltm->tm_year) + std::to_string(1+ltm->tm_mon) + std::to_string(ltm->tm_mday) + "_";
       timeStampString += std::to_string(1+ltm->tm_hour) + "_" + std::to_string(ltm->tm_min) + "_" + std::to_string(ltm->tm_sec);
-      Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString;
+      Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString + ".h5";
 
       fs.close();
+
+      dataLogger.CreateFile(Settings.outputFileName);
       return true;
  }
 
 measurementController::~measurementController()
 {
     delete pna;
+    delete sm;
 }
+
+void measurementController::measureTimeDomainSParameters()
+{
+    pna->getTimeDomainSParameters();
+
+    std::vector<double> timeData = pna->getTimeData();
+    std::vector<double>
+}
+
+void measurementController::measureUngatedFrequencyDomainSParameters()
+{
+
+}
+
+void measurementController::measureGatedFrequencyDomainSParameters()
+{
+
+}
+
 
  bool measurementController::measureData()
  {

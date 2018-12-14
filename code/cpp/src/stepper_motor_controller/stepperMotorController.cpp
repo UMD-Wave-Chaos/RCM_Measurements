@@ -4,12 +4,9 @@
 
 #include "stepperMotorController.h"
 
-stepperMotorController::stepperMotorController(int stepDistanceIn, int runSpeedIn, std::string portNum)
+stepperMotorController::stepperMotorController()
 {
-    stepDistance = stepDistanceIn;
-    runSpeed = runSpeedIn;
-    connectionStatus = false;
-    cError = connectToStepperMotor(portNum);
+
 }
 
 stepperMotorController::~stepperMotorController()
@@ -24,6 +21,13 @@ bool stepperMotorController::closeConnection()
 
     return true;
 }
+
+QString stepperMotorController::getCurrentPortInfo()
+{
+
+    return serial.portName();
+}
+
 
 std::string stepperMotorController::getAvailablePorts()
 {

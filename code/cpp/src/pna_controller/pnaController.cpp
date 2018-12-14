@@ -8,23 +8,35 @@
 
 #include <functional>
 
+/**
+ * \brief constructor
+ *
+ * This is the primary constructor for the full pna class*/
 pnaController::pnaController()
 {
    connected = false;
    calibrationFileName = "";
    calibrated = false;
 
-   bufferSize = 32001*5;
+   bufferSize = 32001*9;
 
    dataBuffer = new double[bufferSize];
 
 }
 
+/**
+ * \brief destructor
+ *
+ * This is the primary destructor for the full pna class*/
 pnaController::~pnaController()
 {
  delete dataBuffer;
 }
 
+/**
+ * \brief findConnections
+ *
+ * This function uses the vxi11 library to find instruments on the network*/
 void pnaController::findConnections()
 {
     enum clnt_stat clnt_stat;
@@ -53,11 +65,21 @@ void pnaController::findConnections()
 
 }
 
+/**
+ * \brief disconnect
+ *
+ * This function disconnects from an instrument*/
 void pnaController::disconnect()
 {
+    //TBD - handle closing the device
     connected = false;
 }
 
+/**
+ * \brief connectToInstrument
+ *
+ * This function connects to the pna
+ * @param tcpAddress the ipAddress to connect to*/
 void pnaController::connectToInstrument(std::string tcpAddress)
 {
      //establish the connection
@@ -80,10 +102,18 @@ void pnaController::connectToInstrument(std::string tcpAddress)
     checkCalibration();
 }
 
+
+/**
+ * \brief initialize
+ *
+ * This function initializes the configuration of the PNA
+ * @param fStart the start frequency of the sweep
+ * @param fStop the stop frequency of the sweep
+ * @param NOP the number of points to collect from the PNA*/
 void pnaController::initialize(double fStart, double fStop, int NOP)
 {
 
-    bufferSize = NOP*5;
+    bufferSize = NOP*9;
 
     delete dataBuffer;
     dataBuffer = new double[bufferSize];
@@ -160,43 +190,77 @@ if (connected == true)
     double *s3= new double[10];
     double *s4= new double[10];
 
-    getFrequencyDomainSParameters(f,s1,s2,s3,s4);
-
     checkCalibration();
-}
-else
-{
-
+    }
 }
 
-}
-
-
+/**
+ * \brief checkCalibration
+ *
+ * This function checks to see whether or not the pna has been calibrated */
 bool pnaController::checkCalibration()
 {
-    //check whether or not we've been calibrated
+    //TBD - query for the cal file
 
     return calibrated;
 }
 
-void pnaController::getTimeDomainSParameters(double* time,
-                                              double* S11,
-                                              double* S12,
-                                              double* S21,
-                                              double* S22)
+/**
+ * \brief getTimeDomainSParameters
+ *
+ * This function gets the S-parameters in the time domain*/
+void pnaController::getTimeDomainSParameters(std::vector<double> &time, std::vector<double> &S11R, std::vector<double> &S11I,
+                                             std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                             std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
 {
 
+    checkCalibration();
+
+/* Matlab implementation
+    %setup the PNA to take time domain measurements
+    fprintf(obj1, 'CALC:TRAN:TIME:STATE ON'); % turn time transform on
+    fprintf(obj1, 'CALC:FILT:TIME:STATE OFF'); % turn time gating on
+
+    %set the start and stop time for the gating
+    fprintf(obj1, ['CALC:TRAN:TIME:START ', num2str(start_time)]);
+    fprintf(obj1, ['CALC:TRAN:TIME:STOP ', num2str(stop_time)]);
+
+    %check to make sure the start time is within the valid range of the PNA,
+    %must be < (NOP-1)/delta Freq
+    tstart = query(obj1, 'CALC:TRAN:TIME:STAR?');
+
+    if (start_time < str2num(tstart))
+        wstring = sprintf ('Requested start time %f is less than min PNA start time %s, setting to min PNA start time',start_time, tstart);
+        warning(wstring);
+        fprintf(obj1, 'CALC:TRAN:TIME:START MIN');
+    end
+
+    %check to make sure the stop time is within the valid range of the PNA,
+    %must be > -(NOP-1)/delta Freq
+    tstop = query(obj1, 'CALC:TRAN:TIME:STOP?');
+
+    if (stop_time > str2num(tstop))
+        wstring = sprintf ('Requested stop time %f is greater than max PNA stop time %s, setting to max PNA stop time',stop_time, tstop);
+        warning(wstring);
+        fprintf(obj1, 'CALC:TRAN:TIME:STOP MAX');
+    end
+
+    %now get the S parameters
+    [t,SCt11,SCt12,SCt21,SCt22] = getSParameters(obj1,NOP);
+      */
 }
 
-void pnaController::getFrequencyDomainSParameters(double* freq,
-                                                   double* S11,
-                                                   double* S12,
-                                                   double* S21,
-                                                   double* S22)
+/**
+ * \brief getUngatedFrequencyDomainSParameters
+ *
+ * This function gets the ungated S-parameters in the frequency domain*/
+void pnaController::getUngatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                         std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                         std::vector<double> &S21I,std::vector<double> &S22R, std::vector<double> &S22I)
 {
+    checkCalibration();
 
     //setup the PNA to take an ungated (standard) frequency domain measurement
-
     std::string tBuff = "CALC:TRAN:TIME:STATE OFF";
     vxi11_send(&vxi_link, tBuff.c_str());
 
@@ -204,11 +268,52 @@ void pnaController::getFrequencyDomainSParameters(double* freq,
     vxi11_send(&vxi_link, tBuff.c_str());
 
     //now get the S parameters
-
     getSParameters();
+
+    //unpack
+    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+}
+
+/**
+ * \brief getGatedFrequencyDomainSParameters
+ *
+ * This function gets the gated S-parameters in the frequency domain*/
+void pnaController::getGatedFrequencyDomainSParameters(std::vector<double> &freq, std::vector<double> &S11R, std::vector<double> &S11I,
+                                                       std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                                       std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+{
+    checkCalibration();
+
+    //setup the PNA to take a gated frequency domain measurement
+    std::string tBuff = "CALC:TRAN:TIME:STATE OFF";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "CALC:FILT:TIME:STATE OFF";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    //now get the S parameters
+    getSParameters();
+
+    //unpack
+    unpackSParameters(freq, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I);
+}
+
+/**
+ * \brief unpackSParameters
+ *
+ * This function unpacks the S-parameters from the data buffer*/
+void pnaController::unpackSParameters(std::vector<double> &xData, std::vector<double> &S11R, std::vector<double> &S11I,
+                                      std::vector<double> &S12R, std::vector<double> &S12I, std::vector<double> &S21R,
+                                      std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I)
+{
 
 }
 
+
+/**
+ * \brief getSParameters
+ *
+ * This function retrives the values from the PNA*/
 void pnaController::getSParameters()
 {
 
@@ -224,9 +329,10 @@ void pnaController::getSParameters()
     tBuff = "CALC:DATA:SNP? 2";
     vxi11_send(&vxi_link, tBuff.c_str());
 
+    //TBD - handle receive
     vxi11_receive_data_block(&vxi_link,(char*)dataBuffer,bufferSize*4,20);
 
-    /*
+    /* Matlab implementation
     X = binblockread(obj1, 'float64'); %read the data from the PNA
     fprintf(obj1, '*WAI'); % wait until data tranfer is complete
 
@@ -239,16 +345,73 @@ void pnaController::getSParameters()
     S12R = X(5*NOP+1:5*NOP+(NOP));     S12I = X(6*NOP+1:6*NOP+(NOP));
     S22R = X(7*NOP+1:7*NOP+(NOP));     S22I = X(8*NOP+1:8*NOP+(NOP));
 
-    %convert to complex variables
-    S11 = S11R + 1i*S11I;
-    S12 = S21R + 1i*S21I;
-    S21 = S12R + 1i*S12I;
-    S22 = S22R + 1i*S22I;
     */
 
 }
 
+/**
+ * \brief calibrate
+ *
+ * This function calibrates the PNA*/
 void pnaController::calibrate()
 {
+    /*Matlab implementation
 
+ %update the timeout because the calibration takes awhile
+ timeout = get(obj1,'Timeout');
+ set(obj1,'Timeout',60);
+
+% Communicating with instrument object, obj1.
+fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
+fprintf(obj1, 'SENS1:AVER:COUN 5'); % set count to 5
+fprintf(obj1, 'SENS1:AVER ON'); % turn (keep) averaging on
+fprintf(obj1, 'SENS1:AVER:CLE');  % restart averaging
+fprintf(obj1, 'SENS:CORR:PREF:CSET:SAVE USER');
+%fprintf(obj1, 'SENS:CORR:Pref:cset:savu 1');
+fprintf(obj1, ['SENS:FREQ:START ', num2str(START)]); % set start frequency
+fprintf(obj1, ['SENS:FREQ:STOP ', num2str(STOP)]); % set stop frequency
+fprintf(obj1,'CALC:PAR:DEL:ALL');
+fprintf(obj1, 'calc:par:def "test", S11');
+fprintf(obj1, 'calc:par:sel "test"');
+fprintf(obj1, 'DISPlay:WINDow1:TRACe1:FEED "test"');
+fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
+if np == 1 % Check if the calibration is 1 or 2 ports and set up accordingly
+    fprintf(obj1, 'SENSe:CORRection:COLL:Meth REFL3');
+else
+    fprintf(obj1, 'SENSe:CORRection:COLL:Meth SPARSOLT');
+end
+fprintf(obj1, 'SENSe:CORRection:COLL:ACQ ECAL1'); % cal calibration data
+Done = query(obj1,'*OPC?');
+
+lstring = sprintf('Calibration Step Completed ...');
+ if (useGUI == true)
+     logMessage(handles.jEditbox,lstring);
+ else
+     disp(lstring)
+ end
+
+ %reset the timeout
+  set(obj1,'Timeout',timeout);
+
+G = query(obj1, ['SENS:CORR:CSET:CAT?']);
+GC = strread(G, '%s', length(find(G == ','))+1, 'delimiter', ',');
+N = query(obj1, ['SENS:CORR:CSET:CAT? NAME']);
+NC = strread(N, '%s', length(find(N == ','))+1, 'delimiter', ',');
+k = strfind(NC, NAME);
+for l = 1:length(find(N == ','))+1
+empt = isempty(cell2mat(k(l)));
+if ~empt
+    km = l;
+end
+end
+if exist('km','var')
+DELNAME = char(GC(km));
+fprintf(obj1, ['SENS:CORR:CSET:DEL "',DELNAME,'"']);
+end
+fprintf(obj1, ['SENS:CORR:CSET:NAME "',NAME,'"']);
+
+temp = strtrim(query(obj1,'SENSe:CORRection:CSET:DESC?'));
+calFileName = temp(2:end-1);
+     *
+     * */
 }

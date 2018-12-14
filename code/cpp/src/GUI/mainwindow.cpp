@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //limit the length of plots for speed
     maxPlotLength = 256;
     
-
+    mControl = new measurementController(true);
     initializeGUI();
 
     //initializeStepperMotorController();
@@ -101,10 +101,11 @@ void MainWindow::initializeStepperMotorController()
 
     //create the pnaController object
     if(testMode == true)
-        sObj = new stepperMotorControllerMock(stepDistance, runSpeed, Settings.COMport);
+        sObj = new stepperMotorControllerMock();
     else
-        sObj = new stepperMotorController(stepDistance, runSpeed, Settings.COMport);
+        sObj = new stepperMotorController();
 
+    sObj->connectToStepperMotor("COM5");
     logMessage(sObj->getAvailablePorts());
 
     std::string sString;
@@ -268,6 +269,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete sObj;
+    delete mControl;
 }
 
 void MainWindow::on_measureDataButton_clicked()
