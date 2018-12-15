@@ -114,7 +114,8 @@ measurementController::~measurementController()
  * This function opens connections to the PNA and stepper motor */
 void measurementController::establishConnections()
 {
-    pna->listClients();
+    std::string clientString = pna->findClients();
+    std::cout<<clientString << std::endl;
     pna->setPNAConfig(Settings.fStart, Settings.fStop, Settings.ipAddress, Settings.numberOfPoints);
 
     //compute the

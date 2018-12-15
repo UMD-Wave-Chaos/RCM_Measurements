@@ -23,7 +23,7 @@ public:
 
     bool openConnection();
     bool closeConnection();
-    bool listClients();
+    std::string findClients();
     void setPNAConfig(double fStart,double fStop, std::string tcpAddress,unsigned int NOP);
 
     std::string getIpAddress(){return ipAddress;}
@@ -60,6 +60,7 @@ private:
 
     std::string pnaDeviceString;
     std::vector<double> freqData, timeData, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I;
+
 };
 
 #endif //PNA_WRAPPER_H

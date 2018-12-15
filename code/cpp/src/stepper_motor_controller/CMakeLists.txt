@@ -5,6 +5,7 @@ set (stepperMotorControlLibrary_SRCS
      stepperMotorControllerMock.cpp
      stepperMotorControllerInterface.cpp
      stepperMotorWrapper.cpp
+     stepperMotorControllerBase.cpp
      )
 
 
@@ -14,6 +15,7 @@ set(stepperMotorControlLibrary_HDRS
     stepperMotorControllerInterface.h
     stepperMotorWrapper.h
     stepperMotorExceptions.h
+    stepperMotorControllerBase.h
 	)
 
 add_library(stepperMotorControlLibrary ${stepperMotorControlLibrary_HDRS} ${stepperMotorControlLibrary_SRCS})

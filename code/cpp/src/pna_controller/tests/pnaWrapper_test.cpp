@@ -44,7 +44,7 @@ namespace testing
       double gateStart, gateStop;
       double xformStart, xformStop;
       std::string ipAddress;
-      int NOP;
+      unsigned int NOP;
 
       void testSParameters()
       {
@@ -69,83 +69,80 @@ namespace testing
           EXPECT_THAT(S22I.size(),Eq(NOP));
       }
 
+      void runTestSequence ()
+      {
+          try
+          {
+              std::cout<<"Listing Clients ... " << std::endl;
+              std::cout<< pna->findClients();
+
+              std::cout<<"Setting Configuration ... " << std::endl;
+              pna->setPNAConfig(fStart, fStop, ipAddress, NOP);
+
+              if (pna->getConnected() == true)
+              {
+                  std::cout<<"Device Info: " << pna->getPNADeviceString();
+
+                  std::cout << "Getting Ungated Frequency Domain S-Parameters" << std::endl;
+                  pna->getUngatedFrequencyDomainSParameters();
+                  std::vector<double> testFreq;
+                  pna->getFrequencyData(testFreq);
+                  EXPECT_THAT(testFreq.size(),Eq(NOP));
+                  EXPECT_THAT(testFreq[0],Eq(fStart));
+                  EXPECT_THAT(testFreq[NOP-1],Eq(fStop));
+                  testSParameters();
+
+                  std::cout << "Getting Gated Frequency Domain S-Parameters" << std::endl;
+                  pna->getGatedFrequencyDomainSParameters(gateStart, gateStop);
+                  std::vector<double> testFreq1;
+                  pna->getFrequencyData(testFreq1);
+                  EXPECT_THAT(testFreq1.size(),Eq(NOP));
+                  EXPECT_THAT(testFreq1[0],Eq(fStart));
+                  EXPECT_THAT(testFreq1[NOP-1],Eq(fStop));
+                  testSParameters();
+
+                  std::cout << "Getting Time Domain S-Parameters";
+                  pna->getTimeDomainSParameters(xformStart, xformStop);
+                  std::vector<double> testTime;
+                  pna->getTimeData(testTime);
+                  EXPECT_THAT(testTime.size(),Eq(NOP));
+                  EXPECT_THAT(testTime[0],Eq(xformStart));
+                  EXPECT_THAT(testTime[NOP-1],Eq(xformStop));
+                  testSParameters();
+
+
+                  std::cout<<"Closing Connection ... " << std::endl;
+                  pna->closeConnection();
+                  EXPECT_THAT(pna->getConnected(), Eq(false));
+              }
+          }//try block
+          catch (pnaException& e)
+          {
+             std::cout<< e.what();
+          }
+
+      }
+
     };
 
     //creation, connection and disconnection test
-    TEST_F(pnaWrapper_Test,create_mock)
+    TEST_F(pnaWrapper_Test,test_mock)
     {
-        try
-        {
-           pna = new pnaWrapper(true);
-           EXPECT_THAT(pna->getTestMode(),Eq(TRUE));
-           EXPECT_THAT(pna->getConnected(), Eq(FALSE));
+        std::cout<<"Running Test Sequence with Mock PNA Object" << std::endl;
+        pna = new pnaWrapper(true);
+        EXPECT_THAT(pna->getTestMode(),Eq(TRUE));
 
-           pna->openConnection();
-           EXPECT_THAT(pna->getConnected(), Eq(TRUE));
-
-           pna->closeConnection();
-           EXPECT_THAT(pna->getConnected(), Eq(FALSE));
-
-           pna->openConnection();
-           EXPECT_THAT(pna->getConnected(), Eq(TRUE));
-
-           //throw an exception
-           pna->openConnection();
-        }
-
-        catch (pnaException& e)
-       {
-          std::cout<< e.what();
-       }
-
+        runTestSequence();
     }
 
     //create mock test
-    TEST_F(pnaWrapper_Test,ungated_full)
+    TEST_F(pnaWrapper_Test,test_full)
     {
+        std::cout<<"Running Test Sequence with Full PNA Object" << std::endl;
         pna = new pnaWrapper(false);
         EXPECT_THAT(pna->getTestMode(),Eq(FALSE));
 
-        std::cout<<"Listing Clients ... " << std::endl;
-        pna->listClients();
-
-        std::cout<<"Setting Configuration ... " << std::endl;
-        pna->setPNAConfig(fStart, fStop, ipAddress, NOP);
-
-        if (pna->getConnected() == true)
-        {
-            std::cout<<"Device Info: " << pna->getPNADeviceString();
-
-
-            pna->getUngatedFrequencyDomainSParameters();
-            std::vector<double> testFreq;
-            pna->getFrequencyData(testFreq);
-            EXPECT_THAT(testFreq.size(),Eq(NOP));
-            EXPECT_THAT(testFreq[0],Eq(fStart));
-            EXPECT_THAT(testFreq[32000],Eq(fStop));
-            testSParameters();
-
-            pna->getGatedFrequencyDomainSParameters(gateStart, gateStop);
-            std::vector<double> testFreq1;
-            pna->getFrequencyData(testFreq1);
-            EXPECT_THAT(testFreq1.size(),Eq(NOP));
-            EXPECT_THAT(testFreq1[0],Eq(fStart));
-            EXPECT_THAT(testFreq1[32000],Eq(fStop));
-            testSParameters();
-
-            pna->getTimeDomainSParameters(xformStart, xformStop);
-            std::vector<double> testTime;
-            pna->getTimeData(testTime);
-            EXPECT_THAT(testTime.size(),Eq(NOP));
-            EXPECT_THAT(testTime[0],Eq(xformStart));
-            EXPECT_THAT(testTime[32000],Eq(xformStop));
-            testSParameters();
-
-
-            std::cout<<"Closing Connection ... " << std::endl;
-            pna->closeConnection();
-            EXPECT_THAT(pna->getConnected(), Eq(true));
-        }
+        runTestSequence();
     }
 
 }//end namespace testing

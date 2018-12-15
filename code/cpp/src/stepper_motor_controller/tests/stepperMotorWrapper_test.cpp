@@ -36,72 +36,71 @@ namespace testing
       std::string comport;
 
 
+      void runTestSequence()
+      {
+          try
+          {
+             EXPECT_THAT(sm->getConnected(), Eq(false));
+
+             std::string pString = sm->listPorts();
+             std::cout<<pString << std::endl;
+
+             sm->setPortConfig(comport,256,1000);
+             if(sm->getConnected() == true)
+             {
+                 EXPECT_THAT(sm->getConnected(), Eq(true));
+
+                 std::string qs = sm->getPortName();
+                 std::cout<<"Current Port: " << qs;
+
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+
+                 sm->moveStepperMotor();
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+                 std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
+             }
+
+             else if (sm->getTestMode() == true)
+             {
+                 std::cout<<"Running true Serial Port commands without Stepper Motor present"
+             }
+
+             sm->closeConnection();
+             EXPECT_THAT(sm->getConnected(), Eq(false));
+          }
+
+          catch (stepperMotorException & e)
+         {
+            std::cout<< e.what();
+         }
+
+      }
+
     };
 
     //creation, connection and disconnection test
-    TEST_F(stepperMotorWrapper_Test,create_mock)
+    TEST_F(stepperMotorWrapper_Test,test_mock)
     {
-        try
-        {
-           sm = new stepperMotorWrapper(true);
-           EXPECT_THAT(sm->getTestMode(),Eq(true));
-           EXPECT_THAT(sm->getConnected(), Eq(false));
+        std::cout<<"Running Mock Test Sequence of Stepper Motor" << std::endl;
+        sm = new stepperMotorWrapper(true);
+        EXPECT_THAT(sm->getTestMode(),Eq(true));
 
-           sm->openConnection();
-           EXPECT_THAT(sm->getConnected(), Eq(true));
-
-           sm->closeConnection();
-           EXPECT_THAT(sm->getConnected(), Eq(false));
-
-           sm->openConnection();
-           EXPECT_THAT(sm->getConnected(), Eq(true));
-
-           sm->listPorts();
-           QString qs = sm->getPortName();
-           std::cout<<"Current Port: " << qs.toStdString();
-
-           //throw an exception
-           sm->openConnection();
-
-        }
-
-        catch (stepperMotorException & e)
-       {
-          std::cout<< e.what();
-       }
+        runTestSequence();
 
     }
 
     //create mock test
-    TEST_F(stepperMotorWrapper_Test,create_full)
+    TEST_F(stepperMotorWrapper_Test,test_full)
     {
-        try
-        {
 
+        std::cout<<"Running Mock Test Sequence of Stepper Motor" << std::endl;
         sm = new stepperMotorWrapper(false);
         EXPECT_THAT(sm->getTestMode(),Eq(false));
 
-        sm->listPorts();
-
-        sm->setPortConfig(comport,100,1000);
-        sm->openConnection();
-
-        QString qs = sm->getPortName();
-        std::cout<<"Current Port: " << qs.toStdString();
-
-        }
-        catch (stepperMotorException & e)
-        {
-          std::cout<< e.what();
-        }
-    }
-
-    //set and check the configuration
-    TEST_F(stepperMotorWrapper_Test,set_config)
-    {
-        sm = new stepperMotorWrapper(true);
-        //sm->setPortConfig();
-
+        runTestSequence();
     }
 
 }//end namespace testing

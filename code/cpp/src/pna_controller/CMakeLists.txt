@@ -5,6 +5,7 @@ set (pnaController_SRCS
      pnaControllerInterface.cpp
      pnaControllerMock.cpp
      pnaWrapper.cpp
+     pnaControllerBase.cpp
      )
 
 set(pnaController_HDRS
@@ -13,6 +14,7 @@ set(pnaController_HDRS
         pnaControllerInterface.h
         pnaExceptions.h
         pnaWrapper.h
+        pnaControllerBase.h
 	)
 
 add_library(pnaControllerLibrary ${pnaController_HDRS} ${pnaController_SRCS})

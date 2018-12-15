@@ -71,16 +71,7 @@ void pnaWrapper::setPNAConfig(double fStart,double fStop, std::string tcpAddress
  * This function initializes the array sizes*/
 void pnaWrapper::initializeSizes()
 {
-    freqData.reserve(numberOfPoints);
-    timeData.reserve(numberOfPoints);
-    S11R.reserve(numberOfPoints);
-    S11I.reserve(numberOfPoints);
-    S12R.reserve(numberOfPoints);
-    S12I.reserve(numberOfPoints);
-    S21R.reserve(numberOfPoints);
-    S21I.reserve(numberOfPoints);
-    S22R.reserve(numberOfPoints);
-    S22I.reserve(numberOfPoints);
+
 }
 
 /**
@@ -116,14 +107,12 @@ bool pnaWrapper::closeConnection()
 }
 
 /**
- * \brief listClients
+ * \brief findClients
  *
  * This function scans for connected clients and reports them*/
-bool pnaWrapper::listClients()
+std::string pnaWrapper::findClients()
 {
-    pnaObj->findConnections();
-
-    return true;
+    return pnaObj->findConnections();
 }
 
 /**

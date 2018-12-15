@@ -14,19 +14,7 @@
  * This is the primary constructor for the full pna class*/
 pnaController::pnaController()
 {
-   connected = false;
-   calibrationFileName = "";
-   calibrated = false;
 
-   numberOfPoints = 32001;
-   bufferSizeDoubles = numberOfPoints*9;
-   bufferSizeBytes = bufferSizeDoubles*8;
-
-   dataBuffer = new double[bufferSizeDoubles];
-
-   //set the timeout for measurements to 15 seconds and calibration to 60 seconds
-   measureDataTimeout = 15000;
-   calibrationTimeout = 60000;
 }
 
 /**
@@ -38,14 +26,13 @@ pnaController::~pnaController()
     if (connected == true)
         disconnect();
 
-    delete dataBuffer;
 }
 
 /**
  * \brief findConnections
  *
  * This function uses the vxi11 library to find instruments on the network*/
-void pnaController::findConnections()
+std::string pnaController::findConnections()
 {
     const size_t MAXSIZE = 100;
     char rcv[MAXSIZE];
@@ -58,19 +45,23 @@ void pnaController::findConnections()
 
     vxi11::AddrMap::const_iterator iter;
 
-    std::cout<<"Found " << clientMap.size() << " vxi11 devices:" << std::endl;
-    for (iter=clientMap.begin();iter!= clientMap.end();iter++) {
+    std::string outString = "Found " + std::to_string(clientMap.size()) + " vxi11 devices\n";
+
+    for (iter=clientMap.begin();iter!= clientMap.end();iter++)
+    {
         const vxi11::Ports& port = iter->second;
-        std::cout << " ID: " << iter->first << " : TCP " << port.tcp_port
-             << "; UDP " << port.udp_port << std::endl;
+        outString += "ID: " + iter->first + " : TCP " + std::to_string(port.tcp_port) + " ; UDP " + std::to_string(port.udp_port) + "\n";
         CLINK vxi_link;
         rcv[0] = '\0';
         if ( vxi11_open_device(iter->first.c_str(), &vxi_link) < 0 ) continue;
         int found = vxi11_send_and_receive(&vxi_link, "*IDN?", rcv, MAXSIZE, 10);
         if (found > 0) rcv[found] = '\0';
-        std::cout << "  Output: " << rcv << std::endl;
+        outString += " Output: ";
+        outString += rcv;
+        outString += "\n";
     }
 
+    return outString;
 }
 
 /**
@@ -213,7 +204,8 @@ bool pnaController::checkCalibration()
 
 /**
  * \brief getTimeDomainSParameters
- *
+ *@param start_time The start time to use for the transform
+ *@param stop_time The stop time to use for the transform
  * This function gets the S-parameters in the time domain*/
 void pnaController::getTimeDomainSParameters(double start_time, double stop_time)
 {
@@ -238,6 +230,8 @@ void pnaController::getTimeDomainSParameters(double start_time, double stop_time
 
     //unpack
     unpackSParameters();
+
+    mType = TIME_MEASUREMENT;
 }
 
 /**
@@ -260,11 +254,14 @@ void pnaController::getUngatedFrequencyDomainSParameters()
 
     //unpack
     unpackSParameters();
+
+    mType = FREQUENCY_MEASUREMENT;
 }
 
 /**
  * \brief getGatedFrequencyDomainSParameters
- *
+ **@param start_time The start time to use for gating
+ *@param stop_time The stop time to use for gating
  * This function gets the gated S-parameters in the frequency domain*/
 void pnaController::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
@@ -288,39 +285,9 @@ void pnaController::getGatedFrequencyDomainSParameters(double start_time, double
 
     //unpack
     unpackSParameters();
+
+    mType = FREQUENCY_MEASUREMENT;
 }
-
-/**
- * \brief unpackSParameters
- *
- * This function unpacks the S-parameters from the data buffer*/
-void pnaController::unpackSParameters()
-{
-    xVec.clear();
-    S11RVec.clear();
-    S11IVec.clear();
-    S12RVec.clear();
-    S12IVec.clear();
-    S21RVec.clear();
-    S21IVec.clear();
-    S22RVec.clear();
-    S22IVec.clear();
-
-    for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
-    {
-        xVec.push_back(dataBuffer[cnt]);
-        S11RVec.push_back(dataBuffer[cnt + numberOfPoints]);
-        S11IVec.push_back(dataBuffer[cnt + 2*numberOfPoints]);
-        S12RVec.push_back(dataBuffer[cnt + 3*numberOfPoints]);
-        S12IVec.push_back(dataBuffer[cnt + 4*numberOfPoints]);
-        S21RVec.push_back(dataBuffer[cnt + 5*numberOfPoints]);
-        S21IVec.push_back(dataBuffer[cnt + 6*numberOfPoints]);
-        S22RVec.push_back(dataBuffer[cnt + 7*numberOfPoints]);
-        S22IVec.push_back(dataBuffer[cnt + 8*numberOfPoints]);
-    }
-
-}
-
 
 /**
  * \brief getSParameters

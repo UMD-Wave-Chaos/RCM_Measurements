@@ -46,13 +46,10 @@ bool stepperMotorWrapper::openConnection()
 {
     if (connected == true)
         throw stepperMotorException("stepperMotorWrapper::openConnection(). Cannot open a connection, already connected");
-    else
-    {
-        sObj->connectToStepperMotor(comPort);
-    }
+
+    sObj->connectToStepperMotor(comPort);
 
     connected = sObj->getConnectionStatus();
-
     return connected;
 }
 
@@ -64,35 +61,72 @@ bool stepperMotorWrapper::closeConnection()
 {
     if (connected == false)
         throw stepperMotorException("stepperMotorWrapper::closeConnection(). Attempting to close a connection that is already closed");
-    else
-    {
-     sObj->closeConnection();
-    }
 
+    sObj->closeConnection();
     connected = sObj->getConnectionStatus();
     return connected;
+}
+
+/**
+ * \brief setPortConfig
+ *
+ * This function sets up the parameters for the stepper motor and opens the connection
+ * @param port the string containing the port to connect to
+ * @param numStepsIn the number of steps to move for each realization
+ * @param stepRunSpeed the run speed at which to execute each step */
+void stepperMotorWrapper::setPortConfig(std::string port, int numStepsIn, int runSpeedIn)
+{
+    if (connected == true)
+        closeConnection();
+
+    comPort = port;
+    numberOfSteps = numStepsIn;
+    stepRunSpeed = runSpeedIn;
+
+    openConnection();
 }
 
 /**
  * \brief getPortName
  *
  * This function closes the connection to the PNA*/
-QString stepperMotorWrapper::getPortName()
+std::string stepperMotorWrapper::getPortName()
 {
    if (connected == false)
        throw stepperMotorException("stepperMotorWrapper::getPortName(). Attempting to query a connection that is not open");
-   else
-     return sObj->getCurrentPortInfo();
+
+   return sObj->getCurrentPortInfo();
 }
 
 /**
  * \brief listPorts
  *
  * This function scans for available ports and reports them*/
-bool stepperMotorWrapper::listPorts()
+std::string stepperMotorWrapper::listPorts()
 {
-    std::string ports = sObj->getAvailablePorts();
-    std::cout<<ports << std::endl;
+    return sObj->getAvailablePorts();
+}
 
-    return true;
+/**
+ * \brief moveStepperMotor
+ *
+ * This function moves the stepper motor*/
+bool stepperMotorWrapper::moveStepperMotor()
+{
+    if (connected == false)
+        throw stepperMotorException("stepperMotorWrapper::moveStepperMotor(). Attempting to move a connection that is not open");
+
+   return  sObj->moveStepperMotor();
+}
+
+/**
+ * \brief getPosition
+ *
+ * This function gets the position of the stepper motor*/
+int stepperMotorWrapper::getPosition()
+{
+    if (connected == false)
+        throw stepperMotorException("stepperMotorWrapper::getPosition(). Attempting to query a connection that is not open");
+
+    return sObj->getStepperMotorPosition();
 }

@@ -1,12 +1,18 @@
+/**
+* @file stepperMotorController.h
+* @brief Header File for the stepperMotorController class
+* @details This class handles direct control of a stepper motor through a serial port
+* @author Ben Frazier
+* @date 12/13/2018*/
 #ifndef STEPPERMOTORCONTROLLER_H
 #define STEPPERMOTORCONTROLLER_H
 #include <QSerialPort>
 #include <QTextStream>
 #include <string>
 
-#include "stepperMotorControllerInterface.h"
+#include "stepperMotorControllerBase.h"
 
-class stepperMotorController: public stepperMotorControllerInterface
+class stepperMotorController: public stepperMotorControllerBase
 {
 	public:
         stepperMotorController();
@@ -16,18 +22,12 @@ class stepperMotorController: public stepperMotorControllerInterface
         virtual bool closeConnection();
         virtual bool moveStepperMotor();
         virtual int getStepperMotorPosition();
-        virtual QString getCurrentPortInfo();
-
+        virtual std::string getCurrentPortInfo();
         virtual std::string getAvailablePorts();
-        virtual bool getConnectionStatus(){return connectionStatus;}
-        virtual int getConnectionErrors(){return cError;}
+
 
      private:
         QSerialPort serial;
-        int stepDistance;
-        int runSpeed;
-        int cError;
-        bool connectionStatus;
 };
 
 #endif //STEPPERMOTORCONTROLLER_H

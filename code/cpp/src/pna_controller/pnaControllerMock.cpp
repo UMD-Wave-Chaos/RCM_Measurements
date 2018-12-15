@@ -8,62 +8,91 @@
 #include "pnaControllerMock.h"
 #include <random>
 
+/**
+ * \brief constructor
+ *
+ * primary constructor for the mock pna interface*/
 pnaControllerMock::pnaControllerMock()
 {
-    connected = false;
 
-    numberOfPoints = 32001;
-    bufferSizeDoubles = numberOfPoints*9;
-    bufferSizeBytes = bufferSizeDoubles*8;
-
-    dataBuffer = new double[bufferSizeDoubles];
-
-    calibrated = false;
+    std::cout<<"Calling Mock Constructor" << std::endl;
 }
 
+/**
+ * \brief destructor
+ *
+ * primary destructor for the pna mock interface*/
 pnaControllerMock::~pnaControllerMock()
 {
-    delete dataBuffer;
+
+    if (connected == true)
+        disconnect();
 }
 
-
-void pnaControllerMock::initialize(double fStart, double fStop, unsigned int NOP)
-{
-    numberOfPoints = NOP;
-    bufferSizeDoubles = numberOfPoints*9;
-    bufferSizeBytes = bufferSizeDoubles*8;
-
-    delete dataBuffer;
-    dataBuffer = new double[bufferSizeDoubles];
-}
-
+/**
+ * \brief getGatedFrequencyDomainSParameters
+ *
+ * This function gets a random set of S parameters
+ * @param start_time the start time to use for indexing
+ * @param stop_time the stop time to use for indexing*/
 void pnaControllerMock::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
     getSParameters();
     unpackSParameters();
+
+    mType = FREQUENCY_MEASUREMENT;
 }
 
+/**
+ * \brief getTimeDomainSParameters
+ *
+ * This function gets a random set of S parameters
+ * @param start_time the start time to use for indexing
+ * @param stop_time the stop time to use for indexing*/
 void pnaControllerMock::getTimeDomainSParameters(double start_time, double stop_time)
 {
+
+    double tIncrement = (stop_time - start_time)/static_cast<double>(numberOfPoints - 1);
     getSParameters();
+
+
+    for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
+    {
+        dataBuffer[cnt] = start_time + tIncrement*cnt;
+    }
     unpackSParameters();
+
+    mType = TIME_MEASUREMENT;
 }
 
+/**
+ * \brief getUngatedFrequencyDomainSParameters
+ *
+ * This function gets a random set of S parameters*/
 void pnaControllerMock::getUngatedFrequencyDomainSParameters()
 {
     getSParameters();
     unpackSParameters();
+
+    mType = FREQUENCY_MEASUREMENT;
 }
 
+/**
+ * \brief getSParameters
+ *
+ * This function gets a random set of S parameters*/
 void pnaControllerMock::getSParameters()
 {
 
     std::normal_distribution<double> normal;
     std::default_random_engine generator;
 
-    for (int cnt = 0; cnt < numberOfPoints; cnt++)
+    double fIncrement = (fStop - fStart)/static_cast<double>(numberOfPoints - 1);
+
+
+    for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
     {
-        dataBuffer[cnt] = static_cast<double>(cnt)/4.5e6;
+        dataBuffer[cnt] = fStart + fIncrement*cnt;
         dataBuffer[cnt + numberOfPoints] = normal(generator);
         dataBuffer[cnt + 2*numberOfPoints] = normal(generator);
         dataBuffer[cnt + 3*numberOfPoints] = normal(generator);
@@ -76,29 +105,22 @@ void pnaControllerMock::getSParameters()
 
 }
 
-void pnaControllerMock::unpackSParameters()
+/**
+ * \brief initialize
+ *
+ * This function initializes the configuration of the PNA
+ * @param fStart the start frequency of the sweep
+ * @param fStop the stop frequency of the sweep
+ * @param NOP the number of points to collect from the PNA*/
+void pnaControllerMock::initialize(double fStartIn, double fStopIn, unsigned int NOP)
 {
-    xVec.clear();
-    S11RVec.clear();
-    S11IVec.clear();
-    S12RVec.clear();
-    S12IVec.clear();
-    S21RVec.clear();
-    S21IVec.clear();
-    S22RVec.clear();
-    S22IVec.clear();
+    numberOfPoints = NOP;
+    bufferSizeDoubles = numberOfPoints*9;
+    bufferSizeBytes = bufferSizeDoubles*8;
 
-    //TBD - fix sizing
-    for (int cnt = 0; cnt < numberOfPoints; cnt++)
-    {
-        xVec.push_back(dataBuffer[cnt]);
-        S11RVec.push_back(dataBuffer[cnt + numberOfPoints]);
-        S11IVec.push_back(dataBuffer[cnt + 2*numberOfPoints]);
-        S12RVec.push_back(dataBuffer[cnt + 3*numberOfPoints]);
-        S12IVec.push_back(dataBuffer[cnt + 4*numberOfPoints]);
-        S21RVec.push_back(dataBuffer[cnt + 5*numberOfPoints]);
-        S21IVec.push_back(dataBuffer[cnt + 6*numberOfPoints]);
-        S22RVec.push_back(dataBuffer[cnt + 7*numberOfPoints]);
-        S22IVec.push_back(dataBuffer[cnt + 8*numberOfPoints]);
-    }
+    fStart = fStartIn;
+    fStop = fStopIn;
+    delete dataBuffer;
+    dataBuffer = new double[bufferSizeDoubles];
 }
+

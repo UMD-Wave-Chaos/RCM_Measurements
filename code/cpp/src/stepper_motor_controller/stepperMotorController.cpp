@@ -1,3 +1,10 @@
+/**
+* @file stepperMotorController.cpp
+* @brief Implementation of the stepperMotorController class
+* @details This class handles direct control of a stepper motor through a serial port
+* @author Ben Frazier
+* @date 12/13/2018*/
+
 #include "stepperMotorController.h"
 #include <QSerialPortInfo>
 #include <iostream>
@@ -6,12 +13,12 @@
 
 stepperMotorController::stepperMotorController()
 {
-
 }
 
 stepperMotorController::~stepperMotorController()
 {
-    closeConnection();
+    if (connected == true)
+     closeConnection();
 }
 
 bool stepperMotorController::closeConnection()
@@ -22,10 +29,10 @@ bool stepperMotorController::closeConnection()
     return true;
 }
 
-QString stepperMotorController::getCurrentPortInfo()
+std::string stepperMotorController::getCurrentPortInfo()
 {
 
-    return serial.portName();
+    return serial.portName().toStdString();
 }
 
 
@@ -36,7 +43,7 @@ std::string stepperMotorController::getAvailablePorts()
     std::string nString = "No";
 
     const auto serialPortInfos = QSerialPortInfo::availablePorts();
-    rString = "Total number of ports available: " + std::to_string(serialPortInfos.count()) + "<br>";
+    rString = "Total number of ports available: " + std::to_string(serialPortInfos.count()) + "\n";
 
     const QString blankString = "N/A";
     QString description;
@@ -61,7 +68,7 @@ std::string stepperMotorController::getAvailablePorts()
         rString += "Product Identifier: " + (serialPortInfo.hasProductIdentifier()
                                           ? QByteArray::number(serialPortInfo.productIdentifier(), 16).toStdString()
                                           : blankString.toStdString() ) + "     ";
-        rString += "Busy: " + (serialPortInfo.isBusy() ? yString: nString)+ "<br><br>";
+        rString += "Busy: " + (serialPortInfo.isBusy() ? yString: nString)+ "\n";
 
         counter++;
       }
@@ -82,11 +89,11 @@ int stepperMotorController::connectToStepperMotor(std::string portString)
 
     if (!serial.open(QIODevice::ReadWrite))
     {
-        connectionStatus = false;
+        connected = false;
     }
     else
     {
-        connectionStatus = true;
+        connected = true;
     }
 
     getStepperMotorPosition();

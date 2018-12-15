@@ -1,7 +1,7 @@
 /**
 * @file pnaControllerInterface.h
 * @brief Header File for the pnaControllerInterface class
-* @details This is the base class for the PNA controllers
+* @details This is the abstract interface class for the PNA controllers
 * @author Ben Frazier
 * @date 12/13/2018*/
 
@@ -11,6 +11,13 @@
 #include <vector>
 #include <iostream>
 
+enum MeasurementType
+{
+    NO_MEASUREMENT,
+    FREQUENCY_MEASUREMENT,
+    TIME_MEASUREMENT
+};
+
 class pnaControllerInterface
 {
 public:
@@ -18,7 +25,7 @@ public:
     virtual ~pnaControllerInterface() = 0;
     //measurement functions
     virtual std::string connectToInstrument(std::string tcpAddress) = 0;
-    virtual void findConnections() = 0;
+    virtual std::string findConnections() = 0;
     virtual void disconnect() = 0;
     virtual void initialize(double fStart, double fStop, unsigned int NOP) = 0;
     virtual void getUngatedFrequencyDomainSParameters() = 0;
@@ -37,6 +44,8 @@ public:
     virtual bool checkCalibration() = 0;
 
     virtual bool getConnectionStatus() = 0;
+
+    virtual MeasurementType getMeasurementType() = 0;
 };
 
 #endif // PNA_CONTROLLER_INTERFACE_H

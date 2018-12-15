@@ -24,23 +24,16 @@ public:
 
     bool openConnection();
     bool closeConnection();
-    bool listPorts();
+    std::string listPorts();
 
-    /**
-     * \brief setPortConfig
-     *
-     * This function sets up the parameters for the stepper motor and opens the connection
-     * @param port the string containing the port to connect to
-     * @param numStepsIn the number of steps to move for each realization
-     * @param stepRunSpeed the run speed at which to execute each step */
-    void setPortConfig(std::string port, int numStepsIn, int runSpeedIn){comPort = port; numberOfSteps = numStepsIn; stepRunSpeed = runSpeedIn;}
+    void setPortConfig(std::string port, int numStepsIn, int runSpeedIn);
 
     std::string getPort(){return comPort;}
     bool getConnected(){return connected;}
     bool getTestMode(){return testMode;}
     int getPosition();
     bool moveStepperMotor();
-    QString getPortName();
+    std::string getPortName();
 
 
 private:
