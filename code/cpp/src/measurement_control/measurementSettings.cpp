@@ -33,6 +33,7 @@ measurementSettings::measurementSettings()
     gateStartTime = 0.0;
     gateStopTime = 0.0;
     takeGatedMeasurement = false;
+    waitTime_ms = 0.0;
 }
 
 /**
@@ -58,6 +59,7 @@ std::ostream & operator << (std::ostream &out, const measurementSettings &ms)
     out << "  Direction : " << ms.direction << std::endl;
     out << "  Settling Time: " << ms.settlingTime << " seconds" << std::endl;
     out << "  Movement Time: " << ms.movementTime << " seconds" << std::endl;
+    out << "  Wait Time: " << ms.waitTime_ms << " milliseconds" << std::endl;
     out << "Experiment Settings: " << std::endl;
     out << "  Number of Realizations: " << ms.numberOfRealizations << std::endl;
     out << "  Cavity Volume: " << ms.cavityVolume << " cubic meters" << std::endl;

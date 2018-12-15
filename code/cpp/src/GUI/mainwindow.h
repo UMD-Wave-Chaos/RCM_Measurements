@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "measurementThread.h"
+
 #include <QMainWindow>
 #include <QLabel>
 #include <QtCharts/QChartGlobal>
@@ -14,6 +16,7 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
+Q_DECLARE_METATYPE(std::string);
 
 namespace Ui {
 class MainWindow;
@@ -70,17 +73,19 @@ private:
 
     uint maxPlotLength;
 
-    QThread measurementThread;
-
     measurementController *mControl;
 
     measurementSettings Settings;
 
     bool testMode;
 
+    measurementThread mThread;
+
 private slots:
     void updateStepperMotorStatus();
-    void takeNextMeasurement();
+    void updateSParameterPlots(double d );
+    void updateInfoString(const std::string infoString, const std::string severity);
+    void updateMeasurementStatusComplete();
 };
 
 #endif // MAINWINDOW_H

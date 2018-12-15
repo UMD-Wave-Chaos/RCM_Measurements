@@ -47,6 +47,17 @@ set(gca,'LineWidth',2);
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');
 
+powerRatio = abs(S_u.^2)./S_s2;
+figure
+plot(data.Freq/1e9,10*log10(powerRatio),'LineWidth',2);
+xlabel('Frequency (GHz)')
+ylabel('Power Ratio (dB)')
+grid on
+set(gca,'LineWidth',2);
+set(gca,'FontSize',12);
+set(gca,'FontWeight','bold');
+
+
 %get the time domain signals
 [St,t] = ifftS(S,data.Freq(end) - data.Freq(1));
 

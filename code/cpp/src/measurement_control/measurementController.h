@@ -50,6 +50,7 @@ public:
     int getStepperMotorPosition(){return sm->getPosition();};
 
     void moveStepperMotor();
+    void moveStepperMotorNoWait();
     bool getConnected(){return (pnaConnected && smConnected);}
     bool getTestMode(){return testMode;}
 

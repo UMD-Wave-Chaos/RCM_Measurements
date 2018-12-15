@@ -38,6 +38,7 @@ public:
     double gateStartTime;
     double gateStopTime;
     bool takeGatedMeasurement;
+    unsigned long waitTime_ms;
 
     friend std::ostream & operator << (std::ostream &out, const measurementSettings &ms);
 

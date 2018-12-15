@@ -96,7 +96,7 @@ bool measurementController::updateSettings(std::string filename)
 
     //compute the delay time
     delayTime_ms = static_cast<unsigned int>(Settings.movementTime*1000 + Settings.settlingTime*1000);
-
+    Settings.waitTime_ms = static_cast<unsigned long>(Settings.movementTime*1000 + Settings.settlingTime*1000);
 
     //experiment settings
     xml_node<> *experimentSettingsNode = configNode->first_node("Experiment_Settings");
@@ -163,6 +163,15 @@ void measurementController::moveStepperMotor()
 
    std::cout<<"Pausing for " << delayTime_ms/1000.0 << " seconds ... " << std::endl;
    std::this_thread::sleep_for(duration);
+}
+
+/**
+ * \brief moveStepperMotorNoWait
+ *
+ * This function moves the stepper motor but does not wait to return - useful for threading operations */
+void measurementController::moveStepperMotorNoWait()
+{
+   sm->moveStepperMotor();
 }
 
 /**

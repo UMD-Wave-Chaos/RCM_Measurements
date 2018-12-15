@@ -25,8 +25,27 @@ MainWindow::MainWindow(QWidget *parent) :
     mControl = new measurementController(testMode);
     initializeGUI();
 
+    connect(&mThread, SIGNAL(measuredSParametersAvailable(double)),
+                this, SLOT(updateSParameterPlots(double)));
+
+    qRegisterMetaType<std::string>();
+    connect(&mThread, SIGNAL(infoStringAvailable(std::string,std::string)),
+                this, SLOT(updateInfoString(std::string,std::string)));
+
+    connect(&mThread, SIGNAL(measurementComplete()),
+                this, SLOT(updateMeasurementStatusComplete()));
 }
 
+void MainWindow::updateMeasurementStatusComplete()
+{
+    updateGUIMode(IDLE);
+}
+
+
+void MainWindow::updateInfoString(const std::string infoString, const std::string severity)
+{
+    logMessage(infoString,severity);
+}
 
 void MainWindow::updateGUIMode(measurementModes mode)
 {
@@ -175,19 +194,7 @@ void MainWindow::on_measureDataButton_clicked()
 {
     logMessage("Measuring Data ...","info");
     updateGUIMode(MEASURING);
-
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
-    timer->start(1000);
-
-    //for (unsigned int cnt = 0; cnt < mControl->getNumberOfRealizations(); cnt++)
-  //  {
-        QTimer::singleShot(0, this, SLOT(takeNextMeasurement()));
-   // }
-
-    timer->stop();
-    updateGUIMode(IDLE);
-    logMessage("Done");
+    mThread.measure(mControl);
 }
 
 void MainWindow::updateStepperMotorStatus()
@@ -197,12 +204,6 @@ void MainWindow::updateStepperMotorStatus()
     updateLabel(ui->motorPositionLabel,QString::number(pos));
 }
 
-
-
-void MainWindow::takeNextMeasurement()
-{
-     mControl->captureNextRealization();
-}
 
 void MainWindow::on_editConfigButton_clicked()
 {
@@ -263,3 +264,8 @@ void MainWindow::on_reloadConfigButton_clicked()
      updateGUIMode(IDLE);
 
 }
+
+ void MainWindow::updateSParameterPlots(double d )
+ {
+
+ }

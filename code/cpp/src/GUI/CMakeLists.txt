@@ -1,8 +1,9 @@
 message(“Configuring GUI components”)
 
 set (RMGUILibrary_SRCS
-	mainwindow.cpp
 	logmessages.cpp
+        measurementThread.cpp
+        mainwindow.cpp
 	)
 
 set(RMGUILibrary_Resource
@@ -11,6 +12,7 @@ set(RMGUILibrary_Resource
    )
 
 set(RMGUILibrary_HDRS
+        measurementThread.h
 	mainwindow.h
 	)
 
