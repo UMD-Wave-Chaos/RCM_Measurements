@@ -51,7 +51,7 @@ namespace testing
                  EXPECT_THAT(sm->getConnected(), Eq(true));
 
                  std::string qs = sm->getPortName();
-                 std::cout<<"Current Port: " << qs;
+                 std::cout<<"Current Port: " << qs << std::endl;
 
                  std::cout<<"Motor Position: " << sm->getPosition() << std::endl;
 
@@ -65,7 +65,7 @@ namespace testing
 
              else if (sm->getTestMode() == true)
              {
-                 std::cout<<"Running true Serial Port commands without Stepper Motor present"
+                 std::cout<<"Running true Serial Port commands without Stepper Motor present" << std::endl;
              }
 
              sm->closeConnection();

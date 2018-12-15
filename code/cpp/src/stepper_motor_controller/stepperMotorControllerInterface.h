@@ -23,6 +23,8 @@ public:
     virtual std::string getCurrentPortInfo() = 0;
     virtual bool getConnectionStatus() = 0;
     virtual int getConnectionErrors() = 0;
+    virtual void setRunSpeed(int rs) = 0;
+    virtual void setStepDistance(int sd) = 0;
 
 };
 

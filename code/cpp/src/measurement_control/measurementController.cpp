@@ -6,7 +6,8 @@
 * @date 12/13/2018*/
 #include "clnt_find_services.h"
 #include "measurementController.h"
-
+#include <chrono>
+#include <thread>
 
 /**
  * \brief constructor
@@ -20,6 +21,14 @@ measurementController::measurementController(bool mode)
     settingsFileName = "config.xml";
 
     testMode = mode;
+    pnaConnected = false;
+    smConnected = false;
+
+    delayTime_ms = 0;
+
+    fileValid = false;
+    loggedFrequencyData = false;
+    loggedTimeData = false;
 
     //create the pna and sm objects
     pna = new pnaWrapper(testMode);
@@ -45,7 +54,7 @@ bool measurementController::updateSettings(std::string filename)
 
      //get the comments
      xml_node<> *commentsNode = configNode->first_node("Comments");
-     Settings.comments = commentsNode->value();
+     Settings.comments = reduce(commentsNode->value());
 
     //get the pna settings
     xml_node<> *pnaSettingsNode = configNode->first_node("PNA_Settings");
@@ -56,24 +65,31 @@ bool measurementController::updateSettings(std::string filename)
     xml_node<> *fStopNode = pnaSettingsNode->first_node("FrequencySweepStop");
     Settings.fStop = atof(fStopNode->value());
     xml_node<> *ipAddressNode = pnaSettingsNode->first_node("IP_Address");
-    Settings.ipAddress = ipAddressNode->value();
-
+    Settings.ipAddress = reduce(ipAddressNode->value());
 
    //stepper motor settings
     xml_node<> *stepperMotorSettingsNode = configNode->first_node("StepperMotor_Settings");
     xml_node<> *nStepsNode = stepperMotorSettingsNode->first_node("NStepsPerRevolution");
     Settings.numberOfStepsPerRevolution = atoi(nStepsNode->value());
     xml_node<> *comPortNode = stepperMotorSettingsNode->first_node("COMport");
-    Settings.COMport = comPortNode->value();
+    Settings.COMport = reduce(comPortNode->value());
+    xml_node<> *settlingTimeNode = stepperMotorSettingsNode->first_node("Settling_Time");
+    Settings.settlingTime = atof(settlingTimeNode->value());
+    xml_node<> *movementTimeNode = stepperMotorSettingsNode->first_node("Movement_Time");
+    Settings.movementTime = atof(movementTimeNode->value());
+
+    //compute the delay time
+    delayTime_ms = static_cast<unsigned int>(Settings.movementTime*1000 + Settings.settlingTime*1000);
+
 
     //experiment settings
     xml_node<> *experimentSettingsNode = configNode->first_node("Experiment_Settings");
     xml_node<> *nRealizationsNode = experimentSettingsNode->first_node("NumberOfRealizations");
-     Settings.numberOfRealizations = atoi(nRealizationsNode->value());
+    Settings.numberOfRealizations = atoi(nRealizationsNode->value());
     xml_node<> *cavVolumeNode = experimentSettingsNode->first_node("CavityVolume");
     Settings.cavityVolume = atof(cavVolumeNode->value());
     xml_node<> *fNamePrefixNode = experimentSettingsNode->first_node("FileNamePrefix");
-    Settings.outputFileNamePrefix = fNamePrefixNode->value();
+    Settings.outputFileNamePrefix = reduce(fNamePrefixNode->value());
     xml_node<> *timeDateStampNode = experimentSettingsNode->first_node("TimeDateStamp");
     int useTimeStamp = atoi(timeDateStampNode->value());
      if (useTimeStamp == 1)
@@ -82,18 +98,30 @@ bool measurementController::updateSettings(std::string filename)
          Settings.useDateStamp = false;
 
    //get the time stamp
-     time_t now = time(0);
+     time_t now;
+     time(&now);
      tm *ltm = localtime(&now);
 
+     char timeStampBuff[50];
 
-     std::string timeStampString = std::to_string(1970 + ltm->tm_year) + std::to_string(1+ltm->tm_mon) + std::to_string(ltm->tm_mday) + "_";
-     timeStampString += std::to_string(1+ltm->tm_hour) + "_" + std::to_string(ltm->tm_min) + "_" + std::to_string(ltm->tm_sec);
-     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString + ".h5";
+     std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%md_%I_%M_%S", ltm);
+
+     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
+
+     //For the test mode case, add a mock identifier
+     if (testMode == true)
+     {
+         Settings.outputFileName = "mock_" + Settings.outputFileName;
+         Settings.comments += " Mock Interfaces used, not real data";
+     }
 
      fs.close();
 
-     std::cout<<Settings.outputFileName<<std::endl;
-     dataLogger.CreateFile(Settings.outputFileName);
+     //set the valid HDF5 data flags to false
+     fileValid = false;
+     loggedFrequencyData = false;
+     loggedTimeData = false;
+
      return true;
 }
 
@@ -109,6 +137,27 @@ measurementController::~measurementController()
 }
 
 /**
+ * \brief moveStepperMotor
+ *
+ * This function moves the stepper motor and waits for the specified time */
+void measurementController::moveStepperMotor()
+{
+   sm->moveStepperMotor();
+   std::chrono::milliseconds duration(delayTime_ms);
+   std::this_thread::sleep_for(duration);
+}
+
+/**
+ * \brief logSettings
+ *
+ * This function logs the settings to the HDF5 file*/
+void measurementController::logSettings()
+{
+
+}
+
+
+/**
  * \brief establishConnections
  *
  * This function opens connections to the PNA and stepper motor */
@@ -118,14 +167,16 @@ void measurementController::establishConnections()
     std::cout<<clientString << std::endl;
     pna->setPNAConfig(Settings.fStart, Settings.fStop, Settings.ipAddress, Settings.numberOfPoints);
 
-    //compute the
+    pnaConnected = pna->getConnected();
 
-    int stepDistance = Settings.direction * Settings.numberOfStepsPerRevolution/Settings.numberOfRealizations;
+    //compute the step distance
+    int stepDistance = static_cast<int>(Settings.direction * static_cast<double>(Settings.numberOfStepsPerRevolution)/static_cast<double>(Settings.numberOfRealizations));
 
-    double runSpeed = stepDistance/10.0;
+    //compute the run speed
+    int runSpeed = static_cast<int>(static_cast<double>(stepDistance)/Settings.movementTime);
 
     sm->setPortConfig(Settings.COMport,stepDistance,runSpeed);
-    sm->openConnection();
+    smConnected = sm->getConnected();
 }
 
 /**
@@ -145,11 +196,25 @@ void measurementController::closeConnections()
  * This function commands the pna to take a time domain measurement and then logs the output to the specified HDF5 file */
 void measurementController::measureTimeDomainSParameters(double start_time, double stop_time)
 {
+    //check if the file is already opened, otherwise open it
+    if (fileValid == false)
+    {
+        //create the HDF5 file and log the Settings
+        dataLogger.CreateFile(Settings.outputFileName);
+        logSettings();
+        fileValid = true;
+    }
+
     pna->getTimeDomainSParameters(start_time, stop_time);
 
-    std::vector<double> timeData;
-    pna->getTimeData(timeData);
-    dataLogger.WriteData(timeData,"time");
+    //only log time for the first measurement
+    if (loggedTimeData == false)
+    {
+        std::vector<double> timeData;
+        pna->getTimeData(timeData);
+        dataLogger.WriteData(timeData,"time");
+        loggedTimeData = true;
+    }
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);
@@ -179,11 +244,26 @@ void measurementController::measureTimeDomainSParameters(double start_time, doub
 
 void measurementController::measureUngatedFrequencyDomainSParameters()
 {
+
+    //check if the file is already opened, otherwise open it
+    if (fileValid == false)
+    {
+        //create the HDF5 file and log the Settings
+        dataLogger.CreateFile(Settings.outputFileName);
+        logSettings();
+        fileValid = true;
+    }
+
     pna->getUngatedFrequencyDomainSParameters();
 
-    std::vector<double> freqData;
-    pna->getFrequencyData(freqData);
-    dataLogger.WriteData(freqData,"freq");
+    //only log frequency for the first measurement
+    if(loggedFrequencyData == false)
+    {
+        std::vector<double> freqData;
+        pna->getFrequencyData(freqData);
+        dataLogger.WriteData(freqData,"freq");
+        loggedFrequencyData = true;
+    }
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);
@@ -212,12 +292,26 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
  * This function commands the pna to take a gated frequency domain measurement and then logs the output to the specified HDF5 file */
 void measurementController::measureGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
+
+    //check if the file is already opened, otherwise open it
+    if (fileValid == false)
+    {
+        //create the HDF5 file and log the Settings
+        dataLogger.CreateFile(Settings.outputFileName);
+        logSettings();
+        fileValid = true;
+    }
+
     pna->getGatedFrequencyDomainSParameters(start_time, stop_time);
 
-    std::vector<double> freqData;
-    pna->getFrequencyData(freqData);
-    dataLogger.WriteData(freqData,"freq_gated");
-
+    //only log frequency for the first measurement
+    if(loggedFrequencyData == false)
+    {
+        std::vector<double> freqData;
+        pna->getFrequencyData(freqData);
+        dataLogger.WriteData(freqData,"freq");
+        loggedFrequencyData = true;
+    }
 
     std::vector<double> S11R, S11I;
     pna->getS11Data(S11R, S11I);

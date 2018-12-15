@@ -50,6 +50,12 @@ bool stepperMotorWrapper::openConnection()
     sObj->connectToStepperMotor(comPort);
 
     connected = sObj->getConnectionStatus();
+
+    if (connected)
+    {
+        sObj->setRunSpeed(stepRunSpeed);
+        sObj->setStepDistance(numberOfSteps);
+    }
     return connected;
 }
 

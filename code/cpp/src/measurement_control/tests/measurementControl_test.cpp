@@ -52,59 +52,53 @@ std::string GetCurrentWorkingDir( void ) {
       double gateStart, gateStop;
       double xformStart, xformStop;
 
+      void runTestSequence()
+      {
+          try
+          {
+              mc->updateSettings(settingsFileName);
+              mc->printSettings();
+              mc->establishConnections();
+              if(mc->getConnected() == true)
+              {
+                  mc->measureTimeDomainSParameters(xformStart,xformStop);
+                  mc->measureUngatedFrequencyDomainSParameters();
+                  mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
+                  mc->measureTimeDomainSParameters(xformStart,xformStop);
+                  mc->measureUngatedFrequencyDomainSParameters();
+                  mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
+              }
+          }
+          catch (pnaException& e)
+         {
+            std::cout<< e.what();
+         }
+
+         catch (stepperMotorException& e)
+          {
+              std::cout<< e.what();
+          }
+      }
+
     };
 
     //creation, connection and disconnection test
-    TEST_F(measurementController_Test,create_mock)
+    TEST_F(measurementController_Test,test_mock)
     {
-        try
-        {
-           mc = new measurementController(true);
+      std::cout<<"Running test suite with Mock object" << std::endl;
+      mc = new measurementController(true);
+      runTestSequence();
 
-
-           mc->updateSettings(settingsFileName);
-           mc->establishConnections();
-           mc->measureTimeDomainSParameters(xformStart,xformStop);
-
-        }
-
-        catch (pnaException& e)
-       {
-          std::cout<< e.what();
-       }
-
-       catch (stepperMotorException& e)
-        {
-            std::cout<< e.what();
-        }
     }
 
 
     //creation, connection and disconnection test
     TEST_F(measurementController_Test,measure_full)
     {
-        try
-        {
-           mc = new measurementController(false);
+        std::cout<<"Running test suite with True object" << std::endl;
+        mc = new measurementController(false);
+        runTestSequence();
 
-
-           mc->updateSettings(settingsFileName);
-           mc->establishConnections();
-           mc->measureTimeDomainSParameters(xformStart,xformStop);
-           mc->measureUngatedFrequencyDomainSParameters();
-           mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
-
-        }
-
-        catch (pnaException& e)
-       {
-          std::cout<< e.what();
-       }
-
-       catch (stepperMotorException& e)
-        {
-            std::cout<< e.what();
-        }
     }
 
 }//end namespace testing

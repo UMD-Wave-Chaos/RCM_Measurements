@@ -26,6 +26,8 @@ class stepperMotorControllerBase: public stepperMotorControllerInterface
 
         virtual bool getConnectionStatus(){return connected;}
         virtual int getConnectionErrors(){return cError;}
+        virtual void setRunSpeed(int rs){runSpeed = rs;}
+        virtual void setStepDistance(int sd){stepDistance = sd;}
 
      protected:
         int stepDistance;

@@ -84,6 +84,7 @@ include_directories(${SOURCE_DIRECTORY}/measurement_control)
 include_directories(${SOURCE_DIRECTORY}/data_logger)
 include_directories(${SOURCE_DIRECTORY}/stepper_motor_controller)
 include_directories(${SOURCE_DIRECTORY}/vxi11)
+include_directories(${SOURCE_DIRECTORY}/utilities)
 
 ##########################################################################################
 #add additional sub directories

@@ -34,6 +34,12 @@
             <NStepsPerRevolution> 12800 </NStepsPerRevolution>
             <!-- Direction is +1 for forward, -1 for backward -->
             <Direction> 1 </Direction>
+            <!-- Settling time in seconds after moving the stepper motor before taking a 
+            measurement-->
+            <Settling_Time>5 </Settling_Time>
+             <!-- Movement time in seconds to determine how far to move the stepper motor
+             for a new realization-->
+            <Movement_Time>10 </Movement_Time>
     </StepperMotor_Settings>
     
     <!-- ******************************************************************************   

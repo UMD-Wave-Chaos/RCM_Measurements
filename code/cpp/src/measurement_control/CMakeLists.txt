@@ -15,6 +15,7 @@ add_library(measurementControlLibrary ${measurementControlLibrary_HDRS} ${measur
 target_link_libraries(measurementControlLibrary ${GPERFTOOLS_LIBRARIES}
                                                  DataLogger
                                                  pnaControllerLibrary
-                                                 stepperMotorControlLibrary)
+                                                 stepperMotorControlLibrary
+                                                 utilityLibrary)
 
 add_subdirectory(tests)

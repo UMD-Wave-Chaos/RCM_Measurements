@@ -24,6 +24,8 @@
 
 #include "vxi11_user.h"
 
+#include "stringUtilities.h"
+
 #include <fstream>
 #include <ctime>
 
@@ -45,14 +47,28 @@ public:
     void establishConnections();
     void closeConnections();
 
+    void moveStepperMotor();
+    bool getConnected(){return (pnaConnected && smConnected);}
+    bool getTestMode(){return testMode;}
+
+    void logSettings();
+    void printSettings(){std::cout<<Settings;}
+
 private:
     pnaWrapper *pna;
     stepperMotorWrapper *sm;
     DataLoggerHDF5 dataLogger;
     bool testMode;
     bool initialized;
+    bool pnaConnected;
+    bool smConnected;
     measurementSettings Settings;
     std::string settingsFileName;
+    unsigned int delayTime_ms;
+
+    bool fileValid;
+    bool loggedFrequencyData;
+    bool loggedTimeData;
 
     void writeSParameters();
 };
