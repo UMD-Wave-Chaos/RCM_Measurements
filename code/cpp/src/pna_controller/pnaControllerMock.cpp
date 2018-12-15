@@ -15,7 +15,6 @@
 pnaControllerMock::pnaControllerMock()
 {
 
-    std::cout<<"Calling Mock Constructor" << std::endl;
 }
 
 /**

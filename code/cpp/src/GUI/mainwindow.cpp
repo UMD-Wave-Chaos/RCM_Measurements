@@ -4,6 +4,7 @@
 #include <QLineSeries>
 #include <QFileDialog>
 #include <math.h>
+#include <strstream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,120 +19,14 @@ MainWindow::MainWindow(QWidget *parent) :
     labelBusyString = "QLabel { background-color : yellow; color : black; }";
     //limit the length of plots for speed
     maxPlotLength = 256;
+
+    testMode = true;
     
-    mControl = new measurementController(true);
+    mControl = new measurementController(testMode);
     initializeGUI();
 
-    //initializeStepperMotorController();
 }
 
-bool MainWindow::updateSettings(std::string filename)
-{
-     std::fstream fs;
-     fs.open(filename,std::fstream::in);
-
-     rapidxml::file<> xmlFile(filename.c_str()); // Default template is char
-     rapidxml::xml_document<> doc;
-     doc.parse<0>(xmlFile.data());
-
-     xml_node<> *configNode = doc.first_node();
-
-     //get the comments
-     xml_node<> *commentsNode = configNode->first_node("Comments");
-     Settings.comments = commentsNode->value();
-
-    //get the pna settings
-    xml_node<> *pnaSettingsNode = configNode->first_node("PNA_Settings");
-    xml_node<> *nPointsNode = pnaSettingsNode->first_node("NumberOfPoints");
-    Settings.numberOfPoints = atoi(nPointsNode->value());
-    xml_node<> *fStartNode = pnaSettingsNode->first_node("FrequencySweepStart");
-    Settings.fStart = atof(fStartNode->value());
-    xml_node<> *fStopNode = pnaSettingsNode->first_node("FrequencySweepStop");
-    Settings.fStop = atof(fStopNode->value());
-
-   //stepper motor settings
-    xml_node<> *stepperMotorSettingsNode = configNode->first_node("StepperMotor_Settings");
-    xml_node<> *nStepsNode = stepperMotorSettingsNode->first_node("NStepsPerRevolution");
-    Settings.numberOfStepsPerRevolution = atoi(nStepsNode->value());
-    xml_node<> *comPortNode = stepperMotorSettingsNode->first_node("COMport");
-    Settings.COMport = comPortNode->value();
-
-    //experiment settings
-    xml_node<> *experimentSettingsNode = configNode->first_node("Experiment_Settings");
-    xml_node<> *nRealizationsNode = experimentSettingsNode->first_node("NumberOfRealizations");
-     Settings.numberOfRealizations = atoi(nRealizationsNode->value());
-    xml_node<> *cavVolumeNode = experimentSettingsNode->first_node("CavityVolume");
-    Settings.cavityVolume = atof(cavVolumeNode->value());
-    xml_node<> *fNamePrefixNode = experimentSettingsNode->first_node("FileNamePrefix");
-    Settings.outputFileNamePrefix = fNamePrefixNode->value();
-    xml_node<> *timeDateStampNode = experimentSettingsNode->first_node("TimeDateStamp");
-    int useTimeStamp = atoi(timeDateStampNode->value());
-     if (useTimeStamp == 1)
-         Settings.useDateStamp = true;
-     else
-         Settings.useDateStamp = false;
-
-   //get the time stamp
-     time_t now = time(0);
-     tm *ltm = localtime(&now);
-
-
-     std::string timeStampString = std::to_string(1970 + ltm->tm_year) + std::to_string(1+ltm->tm_mon) + std::to_string(ltm->tm_mday) + "_";
-     timeStampString += std::to_string(1+ltm->tm_hour) + "_" + std::to_string(ltm->tm_min) + "_" + std::to_string(ltm->tm_sec);
-     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampString;
-
-     fs.close();
-     return true;
-}
-
-void MainWindow::initializeStepperMotorController()
-{
-    if (sObj != nullptr)
-        delete sObj;
-
-    //compute the step distance and run speed
-    int stepDistance = Settings.direction*static_cast<double>(Settings.numberOfStepsPerRevolution)/static_cast<double>(Settings.numberOfRealizations);
-    int waitTime = 15;
-
-    int runSpeed = static_cast<int>(ceil(static_cast<double>(stepDistance)/static_cast<double>(10)));
-
-    //temporary test mode - allows testing without hardware present
-    testMode = true;
-
-
-    //create the pnaController object
-    if(testMode == true)
-        sObj = new stepperMotorControllerMock();
-    else
-        sObj = new stepperMotorController();
-
-    sObj->connectToStepperMotor("COM5");
-    logMessage(sObj->getAvailablePorts());
-
-    std::string sString;
-
-    if (!sObj->getConnectionStatus())
-    {
-      sString = "Not Connected, Error Code: " + std::to_string(sObj->getConnectionErrors());
-    }
-    else
-    {
-     sString = Settings.COMport;
-    }
-
-    updateLabel(ui->motorStatusLabel,sObj->getConnectionStatus(),QString::fromStdString(sString));
-    updateStepperMotorStatus();
-
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
-   // timer->start(100);
-}
-
-void MainWindow::updateStepperMotorStatus()
-{
-    int pos = sObj->getStepperMotorPosition();
-    updateLabel(ui->motorPositionLabel,QString::number(pos));
-}
 
 void MainWindow::updateGUIMode(measurementModes mode)
 {
@@ -143,15 +38,20 @@ void MainWindow::updateGUIMode(measurementModes mode)
          ui->systemStatusLabel->setText("IDLE");
         break;
     case MEASURING:
-         ui->statusBar->showMessage("Busy");
+         ui->statusBar->showMessage("Busy - Measuring");
          ui->systemStatusLabel->setStyleSheet(labelBusyString);
          ui->systemStatusLabel->setText("MEASURING");
         break;
     case CALIBRATING:
-         ui->statusBar->showMessage("Busy");
+         ui->statusBar->showMessage("Busy - Calibrating");
          ui->systemStatusLabel->setStyleSheet(labelBusyString);
          ui->systemStatusLabel->setText("CALIBRATING");
         break;
+    case INITIALIZING:
+        ui->statusBar->showMessage("Busy - Initializing");
+        ui->systemStatusLabel->setStyleSheet(labelBusyString);
+        ui->systemStatusLabel->setText("INITIALIZING");
+       break;
     };
 }
 
@@ -268,19 +168,40 @@ void MainWindow::initializeStatusLabels()
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete sObj;
     delete mControl;
 }
 
 void MainWindow::on_measureDataButton_clicked()
 {
     logMessage("Measuring Data ...","info");
+    updateGUIMode(MEASURING);
 
-    sObj->moveStepperMotor();
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
+    timer->start(1000);
 
-    //mControl.measureData();
+    //for (unsigned int cnt = 0; cnt < mControl->getNumberOfRealizations(); cnt++)
+  //  {
+        QTimer::singleShot(0, this, SLOT(takeNextMeasurement()));
+   // }
 
+    timer->stop();
+    updateGUIMode(IDLE);
     logMessage("Done");
+}
+
+void MainWindow::updateStepperMotorStatus()
+{
+    int pos = mControl->getStepperMotorPosition();
+    std::cout<<"pos: " << pos << std::endl;
+    updateLabel(ui->motorPositionLabel,QString::number(pos));
+}
+
+
+
+void MainWindow::takeNextMeasurement()
+{
+     mControl->captureNextRealization();
 }
 
 void MainWindow::on_editConfigButton_clicked()
@@ -302,22 +223,43 @@ void MainWindow::on_stopMeasurementButton_clicked()
      logMessage("Stopping Measurement ...","warning");
 
      logMessage("Done");
-
 }
 
 void MainWindow::on_reloadConfigButton_clicked()
 {
      logMessage("Reloading Configuration ...","info");
+      updateGUIMode(INITIALIZING);
 
      QString fileName = QFileDialog::getOpenFileName (this, tr("Open File"), QDir::currentPath(),
                                                       tr("Config File (*.xml)"), 0,
                                                       QFileDialog::DontUseNativeDialog);
 
+
+
+
      mControl->updateSettings(fileName.toStdString());
-     logSettings(mControl->getSettings());
-     //updateSettings(fileName.toStdString());
-   //  logSettings(Settings);
-     initializeStepperMotorController();
+     std::stringstream SettingsStream;
+     std::string SettingsString;
+     SettingsStream << mControl->getSettings();
+
+     logMessage("Settings:", "info");
+     while(!SettingsStream.eof())
+     {
+
+         std::getline(SettingsStream,SettingsString);
+         logMessage(SettingsString);
+     }
+
+     logMessage("Trying to Connect");
+     mControl->establishConnections();
+
+     updateLabel(ui->motorStatusLabel,mControl->getStepperMotorConnected(),QString::fromStdString(mControl->getStepperMotorInfoString()));
+     updateLabel(ui->pnaConnectionLabel,mControl->getPNAConnected(),QString::fromStdString(mControl->getPNAInfoString()));
+     updateLabel(ui->motorPositionLabel,QString::number(mControl->getStepperMotorPosition()));
+     updateLabel(ui->fileNameLabel,QString::fromStdString(mControl->getFileName()));
+
      logMessage("Done");
+
+     updateGUIMode(IDLE);
 
 }

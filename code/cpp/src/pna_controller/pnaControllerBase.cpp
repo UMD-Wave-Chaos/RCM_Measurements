@@ -29,8 +29,6 @@ pnaControllerBase::pnaControllerBase()
    calibrationTimeout = 60000;
 
    mType = NO_MEASUREMENT;
-
-       std::cout<<"Calling Base Constructor" << std::endl;
 }
 
 /**
@@ -40,7 +38,6 @@ pnaControllerBase::pnaControllerBase()
 pnaControllerBase::~pnaControllerBase()
 {
 
-    std::cout<<"Calling Base Destructor" << std::endl;
     delete dataBuffer;
 }
 

@@ -82,22 +82,78 @@ std::string GetCurrentWorkingDir( void ) {
 
     };
 
-    //creation, connection and disconnection test
-    TEST_F(measurementController_Test,test_mock)
+    //mock sequence
+    TEST_F(measurementController_Test,test_mock_sequence)
     {
       std::cout<<"Running test suite with Mock object" << std::endl;
       mc = new measurementController(true);
+      EXPECT_THAT(mc->getTestMode(),Eq(true));
       runTestSequence();
 
     }
 
 
-    //creation, connection and disconnection test
-    TEST_F(measurementController_Test,measure_full)
+    //full sequence
+    TEST_F(measurementController_Test,test_full_sequence)
     {
         std::cout<<"Running test suite with True object" << std::endl;
         mc = new measurementController(false);
+        EXPECT_THAT(mc->getTestMode(),Eq(false));
         runTestSequence();
+
+    }
+
+    //mock next realization
+    TEST_F(measurementController_Test,test_mock_next_realization)
+    {
+      std::cout<<"Running next realization test with Mock object" << std::endl;
+      try
+      {
+          mc = new measurementController(true);
+          EXPECT_THAT(mc->getTestMode(),Eq(true));
+          mc->updateSettings(settingsFileName);
+          mc->printSettings();
+          mc->establishConnections();
+          std::cout<<"Starting measurement" << std::endl;
+          mc->captureNextRealization();
+      }
+      catch (pnaException& e)
+     {
+        std::cout<< e.what();
+     }
+
+     catch (stepperMotorException& e)
+      {
+          std::cout<< e.what();
+      }
+
+    }
+
+
+    //full next realization
+    TEST_F(measurementController_Test,test_full_next_realization)
+    {
+        try
+        {
+            std::cout<<"Running next realization test with True object" << std::endl;
+            mc = new measurementController(false);
+            EXPECT_THAT(mc->getTestMode(),Eq(false));
+            mc->updateSettings(settingsFileName);
+            mc->printSettings();
+            mc->establishConnections();
+
+            std::cout<<"Starting measurement" << std::endl;
+            mc->captureNextRealization();
+        }
+        catch (pnaException& e)
+           {
+              std::cout<< e.what();
+           }
+
+        catch (stepperMotorException& e)
+            {
+                std::cout<< e.what();
+            }
 
     }
 

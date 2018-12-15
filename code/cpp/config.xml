@@ -17,6 +17,11 @@
         <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
         <FrequencySweepStop> 11E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
+        <TransformStartTime> -0.5e-6</TransformStartTime>
+        <TransformStopime> 5e-6</TransformStopTime>
+        <GatingStartTime> -10e-9</GatingStartTime>
+        <GatingStopime> 10e-9</GatingStopime>
+        <TakeGatedMeasurement> No </TakeGatedMeasurement>
     </PNA_Settings>
     
     <!-- ******************************************************************************

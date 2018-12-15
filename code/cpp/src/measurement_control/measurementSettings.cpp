@@ -28,6 +28,11 @@ measurementSettings::measurementSettings()
     ipAddress = "169.254.13.58";
     movementTime = 0.0;
     settlingTime = 0.0;
+    xformStartTime = 0.0;
+    xformStopTime = 0.0;
+    gateStartTime = 0.0;
+    gateStopTime = 0.0;
+    takeGatedMeasurement = false;
 }
 
 /**
@@ -42,6 +47,11 @@ std::ostream & operator << (std::ostream &out, const measurementSettings &ms)
     out << "  Number of Points: " << ms.numberOfPoints << std::endl;
     out << "  Frequency Sweep Start: " << ms.fStart/1e9 << " GHz" << std::endl;
     out << "  Frequency Sweep Stop : " << ms.fStop/1e9 << " GHz" << std::endl;
+    out << "  Time Domain Transform Start Time: " << ms.xformStartTime/1e-6 << " microseconds" << std::endl;
+    out << "  Time Domain Transform Stop Time: " << ms.xformStopTime/1e-6 << " microseconds" << std::endl;
+    out << "  Gating Start Time: " << ms.gateStartTime/1e-6 << " microseconds" << std::endl;
+    out << "  Gating Stop Time: " << ms.gateStopTime/1e-6 << " microseconds" << std::endl;
+    out << "  Take Gated Measurement: " << (ms.takeGatedMeasurement ? "Yes" : "No") << std::endl;
     out << "Stepper Motor Settings: " << std::endl;
     out << "  COM Port: " << ms.COMport << std::endl;
     out << "  Number of Steps Per Revolution: " << ms.numberOfStepsPerRevolution << std::endl;

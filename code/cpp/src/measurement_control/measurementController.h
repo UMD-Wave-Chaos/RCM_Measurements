@@ -47,12 +47,24 @@ public:
     void establishConnections();
     void closeConnections();
 
+    int getStepperMotorPosition(){return sm->getPosition();};
+
     void moveStepperMotor();
     bool getConnected(){return (pnaConnected && smConnected);}
     bool getTestMode(){return testMode;}
 
     void logSettings();
     void printSettings(){std::cout<<Settings;}
+
+    void captureNextRealization();
+
+    bool getStepperMotorConnected(){return smConnected;}
+    bool getPNAConnected(){return pnaConnected;}
+
+    std::string getStepperMotorInfoString(){return sm->getPortName();}
+    std::string getPNAInfoString(){return pna->getPNADeviceString();}
+    std::string getFileName(){return Settings.outputFileName;}
+    unsigned int getNumberOfRealizations(){return Settings.numberOfRealizations;}
 
 private:
     pnaWrapper *pna;

@@ -66,6 +66,22 @@ bool measurementController::updateSettings(std::string filename)
     Settings.fStop = atof(fStopNode->value());
     xml_node<> *ipAddressNode = pnaSettingsNode->first_node("IP_Address");
     Settings.ipAddress = reduce(ipAddressNode->value());
+    xml_node<> *xFormStartNode = pnaSettingsNode->first_node("TransformStartTime");
+    Settings.xformStartTime = atof(xFormStartNode->value());
+    xml_node<> *xFormStopNode = pnaSettingsNode->first_node("TransformStopime");
+    Settings.xformStopTime = atof(xFormStopNode->value());
+    xml_node<> *gatingStartNode = pnaSettingsNode->first_node("GatingStartTime");
+    Settings.gateStartTime = atof(gatingStartNode->value());
+    xml_node<> *gatingStopNode = pnaSettingsNode->first_node("GatingStopime");
+    Settings.gateStopTime = atof(gatingStopNode->value());
+    xml_node<> *takeGatedMeasurementNode = pnaSettingsNode->first_node("TakeGatedMeasurement");
+    std::string takeGatedMeasurement  = reduce(takeGatedMeasurementNode->value());
+
+    if (takeGatedMeasurement.compare("Yes") == 0)
+         Settings.takeGatedMeasurement = true;
+     else
+         Settings.takeGatedMeasurement = false;
+
 
    //stepper motor settings
     xml_node<> *stepperMotorSettingsNode = configNode->first_node("StepperMotor_Settings");
@@ -91,8 +107,8 @@ bool measurementController::updateSettings(std::string filename)
     xml_node<> *fNamePrefixNode = experimentSettingsNode->first_node("FileNamePrefix");
     Settings.outputFileNamePrefix = reduce(fNamePrefixNode->value());
     xml_node<> *timeDateStampNode = experimentSettingsNode->first_node("TimeDateStamp");
-    int useTimeStamp = atoi(timeDateStampNode->value());
-     if (useTimeStamp == 1)
+    std::string useTimeStamp = reduce(timeDateStampNode->value());
+     if (useTimeStamp.compare("Yes") == 0)
          Settings.useDateStamp = true;
      else
          Settings.useDateStamp = false;
@@ -104,7 +120,7 @@ bool measurementController::updateSettings(std::string filename)
 
      char timeStampBuff[50];
 
-     std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%md_%I_%M_%S", ltm);
+     std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%m%d_%I_%M_%S", ltm);
 
      Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
 
@@ -144,6 +160,8 @@ void measurementController::moveStepperMotor()
 {
    sm->moveStepperMotor();
    std::chrono::milliseconds duration(delayTime_ms);
+
+   std::cout<<"Pausing for " << delayTime_ms/1000.0 << " seconds ... " << std::endl;
    std::this_thread::sleep_for(duration);
 }
 
@@ -154,6 +172,7 @@ void measurementController::moveStepperMotor()
 void measurementController::logSettings()
 {
 
+    //TBD
 }
 
 
@@ -189,6 +208,24 @@ void measurementController::closeConnections()
     sm->closeConnection();
 }
 
+/**
+ * \brief captureNextRealization
+ *
+ * This function moves the stepper motor and captures the next realization*/
+void measurementController::captureNextRealization()
+{
+    //move the stepper motor
+    moveStepperMotor();
+
+    measureUngatedFrequencyDomainSParameters();
+    measureTimeDomainSParameters(Settings.xformStartTime,Settings.xformStopTime);
+
+    if (Settings.takeGatedMeasurement == true)
+    {
+        measureGatedFrequencyDomainSParameters(Settings.gateStartTime, Settings.gateStopTime);
+    }
+
+}
 
 /**
  * \brief measureTimeDomainSParameters
@@ -255,6 +292,9 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
     }
 
     pna->getUngatedFrequencyDomainSParameters();
+
+    int pos = sm->getPosition();
+    dataLogger.WriteData(pos,"sm_pos");
 
     //only log frequency for the first measurement
     if(loggedFrequencyData == false)

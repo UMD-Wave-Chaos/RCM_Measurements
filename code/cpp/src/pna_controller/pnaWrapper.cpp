@@ -121,6 +121,9 @@ std::string pnaWrapper::findClients()
  * This function gets the ungated S-parameters in the frequency domain*/
 void pnaWrapper::getUngatedFrequencyDomainSParameters()
 {
+    if (connected == false)
+        throw pnaException("pnaWrapper::getUngatedFrequencyDomainSParameters(). Attempting to query a measurement for a connection that is closed");
+
     pnaObj->getUngatedFrequencyDomainSParameters();
     pnaObj->getXDataVector(freqData);
     pnaObj->getS11RVector(S11R);
@@ -139,6 +142,10 @@ void pnaWrapper::getUngatedFrequencyDomainSParameters()
  * This function gets the gated S-parameters in the frequency domain*/
 void pnaWrapper::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
 {
+
+    if (connected == false)
+        throw pnaException("pnaWrapper::getGatedFrequencyDomainSParameters(). Attempting to query a measurement for a connection that is closed");
+
     pnaObj->getGatedFrequencyDomainSParameters(start_time,stop_time);
     pnaObj->getXDataVector(freqData);
     pnaObj->getS11RVector(S11R);
@@ -157,6 +164,9 @@ void pnaWrapper::getGatedFrequencyDomainSParameters(double start_time, double st
  * This function gets the S-parameters in the time domain*/
 void pnaWrapper::getTimeDomainSParameters(double start_time, double stop_time)
 {
+
+    if (connected == false)
+        throw pnaException("pnaWrapper::getTimeDomainSParameters(). Attempting to query a measurement for a connection that is closed");
 
     pnaObj->getTimeDomainSParameters(start_time, stop_time);
     pnaObj->getXDataVector(timeData);

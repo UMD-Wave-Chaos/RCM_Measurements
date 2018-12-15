@@ -33,6 +33,11 @@ public:
     std::string ipAddress;
     double movementTime;
     double settlingTime;
+    double xformStartTime;
+    double xformStopTime;
+    double gateStartTime;
+    double gateStopTime;
+    bool takeGatedMeasurement;
 
     friend std::ostream & operator << (std::ostream &out, const measurementSettings &ms);
 

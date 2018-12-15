@@ -11,7 +11,8 @@ enum measurementModes
 {
     IDLE,
     CALIBRATING,
-    MEASURING
+    MEASURING,
+    INITIALIZING
 
 };
 
