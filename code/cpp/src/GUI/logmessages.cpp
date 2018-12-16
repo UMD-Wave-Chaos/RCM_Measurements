@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <unistd.h>
+#include "stringUtilities.h"
 
 void MainWindow::logMessage(std::string text)
 {
@@ -11,6 +12,8 @@ void MainWindow::logMessage(std::string text)
 
 void MainWindow::logMessage(std::string text, std::string severity)
 {
+    //switch newline characters to HTML breaks
+    text = newlineToHTML(text);
 
     std::string colorString;
     std::string fontTypeString;

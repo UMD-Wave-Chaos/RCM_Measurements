@@ -43,6 +43,20 @@ std::string reduce(const std::string& str,
     return result;
 }
 
+std::string newlineToHTML(std::string str)
+{
+    std::string::size_type pos = 0;
+
+    while ( (pos = str.find("\n")) != std::string::npos)
+    {
+        str.erase(pos,1);
+        str.insert(pos,"<br>");
+    }
+
+   return str;
+}
+
+
 std::string to_string_with_precision(const double inputValue, const int n)
 {
     std::ostringstream out;
