@@ -74,6 +74,9 @@ public:
     std::string getCalibrationInfo();
     bool getCalibrated();
 
+    std::string getVXI11Clients(){return pna->findClients();}
+    std::string getSerialClients(){return sm->listPorts();}
+
 private:
 
     bool updateTimeStamp();

@@ -234,7 +234,6 @@ void measurementController::logSettings()
  * This function opens connections to the PNA and stepper motor */
 void measurementController::establishConnections()
 {
-    std::string clientString = pna->findClients();
     pna->setPNAConfig(Settings.fStart, Settings.fStop, Settings.ipAddress, Settings.numberOfPoints);
 
     pnaConnected = pna->getConnected();
@@ -343,9 +342,6 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
     }
 
     pna->getUngatedFrequencyDomainSParameters();
-
-    int pos = sm->getPosition();
-    dataLogger.WriteData(pos,"sm_pos");
 
     //only log frequency for the first measurement
     if(loggedFrequencyData == false)

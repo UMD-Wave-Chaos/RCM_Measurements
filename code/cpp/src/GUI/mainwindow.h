@@ -57,6 +57,8 @@ private:
     void updateGUIMode(measurementModes mode);
     bool updateSettings(std::string filename);
 
+    void listConnections();
+
     QString getConfigFileName();
 
     void initializeGUI();

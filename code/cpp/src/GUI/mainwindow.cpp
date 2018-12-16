@@ -56,6 +56,19 @@ MainWindow::MainWindow(QWidget *parent) :
     updateModeTimer = new QTimer(this);
     connect(updateModeTimer, SIGNAL(timeout()), this, SLOT(updateGUICurrentMode()));
     updateModeTimer->start(1000);
+
+    listConnections();
+}
+
+void MainWindow::listConnections()
+{
+    std::string pnaString = mControl->getVXI11Clients();
+    logMessage("Available VXI11 Clients:", "info");
+    logMessage(pnaString);
+
+    std::string serialString = mControl->getSerialClients();
+    logMessage("Available Serial Clients:", "info");
+    logMessage(serialString);
 }
 
 void MainWindow::updateCalFileName(bool status, std::string calName)

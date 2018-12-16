@@ -96,6 +96,7 @@ void measurementThread::run()
 
       emit infoStringAvailable(infoString,"default");
       //don't actually step the motor but request the main thread to do so
+      //this prevents problems in QT with accessing the socket from multiple threads
       emit readyToStepMotor();
 
       //Step 2 - Wait
@@ -132,8 +133,8 @@ void measurementThread::run()
       predictedTimeMin = predictedTime/60.0;
 
       infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
-                   " Completed. Elapsed time = " + std::to_string(elapsedTime) + "(" + std::to_string(elapsedTimeMin) +
-                   "), Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
+                   " Completed. Elapsed time = " + std::to_string(elapsedTime) + " s (" + std::to_string(elapsedTimeMin) +
+                   " min), Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
                    std::to_string(predictedTimeMin) + " min).";
 
       emit infoStringAvailable(infoString, "info");
