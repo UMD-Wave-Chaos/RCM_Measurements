@@ -79,6 +79,7 @@ public:
 
 private:
 
+    bool downsampleSParameters();
     bool updateTimeStamp();
 
     pnaWrapper *pna;
@@ -95,6 +96,8 @@ private:
     bool fileValid;
     bool loggedFrequencyData;
     bool loggedTimeData;
+
+    unsigned int maxPlotLength;
 
     void writeSParameters();
 };

@@ -8,6 +8,7 @@
 #define STRINGUTILITIES_H
 #include <iostream>
 #include <string>
+#include <sstream>
 
 std::string trim(const std::string& str,
                  const std::string& whitespace = " \t");
@@ -15,4 +16,6 @@ std::string trim(const std::string& str,
 std::string reduce(const std::string& str,
                    const std::string& fill = " ",
                    const std::string& whitespace = " \t");
+
+std::string to_string_with_precision(const double inputValue, const int n = 6);
 #endif //STRINGUTILITIES_H

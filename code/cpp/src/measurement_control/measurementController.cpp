@@ -30,10 +30,11 @@ measurementController::measurementController(bool mode)
     loggedFrequencyData = false;
     loggedTimeData = false;
 
+    maxPlotLength = 256;
+
     //create the pna and sm objects
     pna = new pnaWrapper(testMode);
     sm = new stepperMotorWrapper(testMode);
-
 }
 
 /**
@@ -59,6 +60,15 @@ std::string measurementController::getCalibrationInfo()
     {
         return "Not Calibrated";
     }
+}
+
+/**
+ * \brief downsampleSParameters
+ *
+ * This function downsamples the S parameters so they can be plotted quickly*/
+bool measurementController::downsampleSParameters()
+{
+
 }
 
 /**

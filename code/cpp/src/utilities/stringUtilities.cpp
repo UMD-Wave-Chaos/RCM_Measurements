@@ -42,3 +42,11 @@ std::string reduce(const std::string& str,
 
     return result;
 }
+
+std::string to_string_with_precision(const double inputValue, const int n)
+{
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << inputValue;
+    return out.str();
+}

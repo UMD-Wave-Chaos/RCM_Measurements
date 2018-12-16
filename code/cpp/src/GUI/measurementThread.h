@@ -11,6 +11,7 @@
 #include <QWaitCondition>
 #include <QSize>
 #include "measurementController.h"
+#include "stringUtilities.h"
 
 class measurementThread : public QThread
 {
@@ -30,6 +31,7 @@ signals:
     void measurementComplete();
     void calFileNameAvailable(bool status, std::string calName);
     void readyToStepMotor();
+    void outputFileNameAvailable(std::string fileName);
 
 protected:
     void run();

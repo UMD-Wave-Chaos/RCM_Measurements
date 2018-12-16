@@ -96,6 +96,7 @@ private slots:
     void updateMeasurementStatusComplete();
     void updateGUICurrentMode();
     void updateCalFileName(bool status, std::string calName);
+    void updateOutputFileName(std::string fileName);
     void stepMotor();
 };
 

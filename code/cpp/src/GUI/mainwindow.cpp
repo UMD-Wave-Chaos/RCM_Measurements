@@ -47,6 +47,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&mThread, SIGNAL(calFileNameAvailable(bool, std::string)),
                 this, SLOT(updateCalFileName(bool, std::string)));
 
+    //when a calibration file name is available, make sure to update
+    connect(&mThread, SIGNAL(outputFileNameAvailable(std::string)),
+                this, SLOT(updateOutputFileName(std::string)));
+
     //when ready to move the stepper motor do it
     //this prevents problems in QT when trying to access sockets across threads
     connect(&mThread, SIGNAL(readyToStepMotor()),
@@ -69,6 +73,11 @@ void MainWindow::listConnections()
     std::string serialString = mControl->getSerialClients();
     logMessage("Available Serial Clients:", "info");
     logMessage(serialString);
+}
+
+void MainWindow::updateOutputFileName(std::string fileName)
+{
+   ui->fileNameLabel->setText(QString::fromStdString((fileName)));
 }
 
 void MainWindow::updateCalFileName(bool status, std::string calName)

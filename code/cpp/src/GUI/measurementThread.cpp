@@ -80,6 +80,8 @@ void measurementThread::run()
   mutex.lock();
   measurementSettings Settings = mc->getSettings();
 
+  emit outputFileNameAvailable(Settings.outputFileName);
+
   infoString = "Starting Measurement " + std::to_string(1) + " of " + std::to_string(Settings.numberOfRealizations) + ".";
   emit infoStringAvailable(infoString,"info");
 
@@ -133,9 +135,10 @@ void measurementThread::run()
       predictedTimeMin = predictedTime/60.0;
 
       infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
-                   " Completed. Elapsed time = " + std::to_string(elapsedTime) + " s (" + std::to_string(elapsedTimeMin) +
-                   " min), Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
-                   std::to_string(predictedTimeMin) + " min).";
+                   " Completed. Elapsed time = " + to_string_with_precision(elapsedTime,2) + " s (" +
+                   to_string_with_precision(elapsedTimeMin,2) + " min), Predicted remaining time = " +
+                   to_string_with_precision(predictedTime,2) + " s (" +
+                   to_string_with_precision(predictedTimeMin,2) + " min).";
 
       emit infoStringAvailable(infoString, "info");
 
