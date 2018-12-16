@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     testMode = true;
     
+    mMode = IDLE;
+
     mControl = new measurementController(testMode);
     initializeGUI();
 
@@ -34,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(&mThread, SIGNAL(measurementComplete()),
                 this, SLOT(updateMeasurementStatusComplete()));
+
+    updateModeTimer = new QTimer(this);
+    connect(updateModeTimer, SIGNAL(timeout()), this, SLOT(updateGUICurrentMode()));
+    updateModeTimer->start(1000);
 }
 
 void MainWindow::updateMeasurementStatusComplete()
@@ -41,6 +47,11 @@ void MainWindow::updateMeasurementStatusComplete()
     updateGUIMode(IDLE);
 }
 
+
+void MainWindow::updateGUICurrentMode()
+{
+    updateGUIMode(mMode);
+}
 
 void MainWindow::updateInfoString(const std::string infoString, const std::string severity)
 {
@@ -188,12 +199,14 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete mControl;
+    delete updateModeTimer;
 }
 
 void MainWindow::on_measureDataButton_clicked()
 {
+    //TBD - update time stamp and let the HDF5 file be created here
     logMessage("Measuring Data ...","info");
-    updateGUIMode(MEASURING);
+    mMode = MEASURING;
     mThread.measure(mControl);
 }
 
@@ -215,13 +228,23 @@ void MainWindow::on_editConfigButton_clicked()
 void MainWindow::on_calibrateButton_clicked()
 {
      logMessage("Calibrating ...","info");
+     mMode = CALIBRATING;
 
      logMessage("Done");
+     mMode = IDLE;
 }
 
 void MainWindow::on_stopMeasurementButton_clicked()
 {
      logMessage("Stopping Measurement ...","warning");
+
+     mThread.quit();
+
+     //TBD - handle deleting any partially completed HDF5 files
+
+
+     mMode = IDLE;
+
 
      logMessage("Done");
 }
@@ -229,7 +252,7 @@ void MainWindow::on_stopMeasurementButton_clicked()
 void MainWindow::on_reloadConfigButton_clicked()
 {
      logMessage("Reloading Configuration ...","info");
-      updateGUIMode(INITIALIZING);
+     mMode = INITIALIZING;
 
      QString fileName = QFileDialog::getOpenFileName (this, tr("Open File"), QDir::currentPath(),
                                                       tr("Config File (*.xml)"), 0,
@@ -261,7 +284,7 @@ void MainWindow::on_reloadConfigButton_clicked()
 
      logMessage("Done");
 
-     updateGUIMode(IDLE);
+     mMode = IDLE;
 
 }
 

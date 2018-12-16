@@ -74,6 +74,7 @@ private:
     uint maxPlotLength;
 
     measurementController *mControl;
+    measurementModes mMode;
 
     measurementSettings Settings;
 
@@ -81,11 +82,14 @@ private:
 
     measurementThread mThread;
 
+    QTimer *updateModeTimer;
+
 private slots:
     void updateStepperMotorStatus();
     void updateSParameterPlots(double d );
     void updateInfoString(const std::string infoString, const std::string severity);
     void updateMeasurementStatusComplete();
+    void updateGUICurrentMode();
 };
 
 #endif // MAINWINDOW_H
