@@ -15,12 +15,12 @@
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
         <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
-        <FrequencySweepStop> 11E9 </FrequencySweepStop>
+        <FrequencySweepStop> 11.0E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
         <TransformStartTime> -0.5e-6</TransformStartTime>
         <TransformStopime> 5e-6</TransformStopTime>
         <GatingStartTime> -10e-9</GatingStartTime>
-        <GatingStopime> 10e-9</GatingStopime>
+        <GatingStopTime> 10e-9</GatingStopTime>
         <TakeGatedMeasurement> No </TakeGatedMeasurement>
     </PNA_Settings>
     
@@ -54,7 +54,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix>testCase</FileNamePrefix>
+        <FileNamePrefix>configA</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
