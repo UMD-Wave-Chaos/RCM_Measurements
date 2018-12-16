@@ -13,7 +13,7 @@
   DataLoggerHDF5::DataLoggerHDF5():
   initialized_(false)
   {
- 
+    attrDataSpace = DataSpace(H5S_SCALAR);
   }
   
     /**
@@ -35,3 +35,32 @@
      file_ = H5File( fileName, H5F_ACC_TRUNC );
 	 initialized_ = true;
 	}
+
+ /**
+* \brief WriteAttribute File
+* @param input The input string to use as an attribute
+* @param attrName The attribute name to use
+*/
+void DataLoggerHDF5::WriteAttribute(std::string input, std::string attrName)
+{
+/*
+    //need to create a new dataset with Unlimited size to allow extending
+    hsize_t      maxdims = H5S_UNLIMITED;
+    hsize_t msize = 1;
+    DataSpace mspace( 1, &msize, &maxdims);
+
+    DSetCreatPropList cparms;
+
+    cparms.setChunk( 1, &msize);
+
+    int fill_val = 0;
+    cparms.setFillValue( PredType::NATIVE_DOUBLE, &fill_val);
+
+    attrDataSet = file_.createDataSet( "Settings", PredType::NATIVE_DOUBLE, mspace,cparms);
+
+    StrType strtype = StrType(PredType::C_S1,H5T_VARIABLE);
+
+    Attribute att = attrDataSet.createAttribute(attrName,strtype,DataSpace(H5S_SCALAR));
+    att.write(strtype,"help");
+    */
+}

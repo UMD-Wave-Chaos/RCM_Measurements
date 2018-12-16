@@ -37,6 +37,12 @@ namespace testing
 
     };
     
+  //write attributes
+  TEST_F(DataLogger_Test, attributes)
+  {
+      dl->WriteAttribute("testString","testAttribute");
+  }
+
     //creation and initialization test
     TEST_F(DataLogger_Test,create_init)
     {

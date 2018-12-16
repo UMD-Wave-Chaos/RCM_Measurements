@@ -68,7 +68,7 @@ std::string measurementController::getCalibrationInfo()
  * This function downsamples the S parameters so they can be plotted quickly*/
 bool measurementController::downsampleSParameters()
 {
-
+    return true;
 }
 
 /**
@@ -234,7 +234,7 @@ void measurementController::moveStepperMotorNoWait()
 void measurementController::logSettings()
 {
 
-    //TBD
+    dataLogger.WriteAttribute(Settings.comments,"comments");
 }
 
 

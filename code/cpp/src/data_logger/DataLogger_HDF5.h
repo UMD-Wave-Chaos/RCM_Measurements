@@ -26,6 +26,9 @@ using namespace H5;
     //WriteData overloaded types
      virtual void WriteData(std::vector<double>data, std::string datasetName);
      virtual void WriteData(double data, std::string datasetName);
+
+    //Write Attribute overloaded types
+     virtual void WriteAttribute(std::string input, std::string attrName);
     
      virtual std::vector<double> ReadVector(std::string fileName, std::string datasetName);
      virtual std::vector<double> ReadVector(std::string datasetName);
@@ -49,7 +52,8 @@ using namespace H5;
     H5File file_;
     std::string fileName_;
     bool initialized_;
-
+    DataSet attrDataSet;
+    DataSpace attrDataSpace;
   };
 
 #endif
