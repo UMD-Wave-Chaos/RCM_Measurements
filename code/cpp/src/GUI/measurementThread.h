@@ -22,6 +22,8 @@ public:
 
     void measure(measurementController *mControl);
 
+    bool requestAbort;
+
 signals:
     void measuredSParametersAvailable(const double d );
     void infoStringAvailable(const std::string infoString, const std::string severity);

@@ -20,20 +20,26 @@ MainWindow::MainWindow(QWidget *parent) :
     //limit the length of plots for speed
     maxPlotLength = 256;
 
-    testMode = true;
+    testMode = false;
     
     mMode = IDLE;
 
     mControl = new measurementController(testMode);
     initializeGUI();
 
+    //connect the measurement threds emitted signals to the main GUI window slots
+
+    //when new measured S parameters are available, need to display them
     connect(&mThread, SIGNAL(measuredSParametersAvailable(double)),
                 this, SLOT(updateSParameterPlots(double)));
 
+    //when a new info string is available, need to show it - first have to register std::string
+    //with the queueing operation
     qRegisterMetaType<std::string>();
     connect(&mThread, SIGNAL(infoStringAvailable(std::string,std::string)),
                 this, SLOT(updateInfoString(std::string,std::string)));
 
+    //when the measurement is complete, make sure to update
     connect(&mThread, SIGNAL(measurementComplete()),
                 this, SLOT(updateMeasurementStatusComplete()));
 
@@ -44,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::updateMeasurementStatusComplete()
 {
-    updateGUIMode(IDLE);
+    mMode = IDLE;
 }
 
 
@@ -81,6 +87,11 @@ void MainWindow::updateGUIMode(measurementModes mode)
         ui->statusBar->showMessage("Busy - Initializing");
         ui->systemStatusLabel->setStyleSheet(labelBusyString);
         ui->systemStatusLabel->setText("INITIALIZING");
+        break;
+     case CONFIGURING:
+        ui->statusBar->showMessage("Busy - Configuring");
+        ui->systemStatusLabel->setStyleSheet(labelBusyString);
+        ui->systemStatusLabel->setText("CONFIGURATION UPDATE");
        break;
     };
 }
@@ -204,7 +215,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_measureDataButton_clicked()
 {
-    //TBD - update time stamp and let the HDF5 file be created here
     logMessage("Measuring Data ...","info");
     mMode = MEASURING;
     mThread.measure(mControl);
@@ -220,7 +230,22 @@ void MainWindow::updateStepperMotorStatus()
 
 void MainWindow::on_editConfigButton_clicked()
 {
-    logMessage("Editing Configuration, Make sure to reload ...","warning");
+    logMessage("Editing Configuration","warning");
+    mMode = CONFIGURING;
+
+    QString fileName = getConfigFileName();
+
+    std::cout<<"File Name: " << fileName.toStdString() << std::endl;
+
+    QFile configFile(fileName);
+
+    if (!configFile.open(QIODevice::ReadWrite))
+        return;
+
+    QTextEdit *cEdit = new QTextEdit;
+
+    cEdit->setText(configFile.readAll());
+    cEdit->show();
 
     logMessage("Done");
 }
@@ -236,30 +261,32 @@ void MainWindow::on_calibrateButton_clicked()
 
 void MainWindow::on_stopMeasurementButton_clicked()
 {
-     logMessage("Stopping Measurement ...","warning");
+     logMessage("Stopping Measurement, waiting for thread to shutdown ...","warning");
 
-     mThread.quit();
+     mThread.requestAbort = true;
 
      //TBD - handle deleting any partially completed HDF5 files
-
-
-     mMode = IDLE;
 
 
      logMessage("Done");
 }
 
+QString MainWindow::getConfigFileName()
+{
+    QString fileName = QFileDialog::getOpenFileName (this, tr("Open File"), QDir::currentPath(),
+                                                     tr("Config File (*.xml)"), 0,
+                                                     QFileDialog::DontUseNativeDialog);
+
+    return fileName;
+}
+
+
 void MainWindow::on_reloadConfigButton_clicked()
 {
      logMessage("Reloading Configuration ...","info");
-     mMode = INITIALIZING;
+     mMode = CONFIGURING;
 
-     QString fileName = QFileDialog::getOpenFileName (this, tr("Open File"), QDir::currentPath(),
-                                                      tr("Config File (*.xml)"), 0,
-                                                      QFileDialog::DontUseNativeDialog);
-
-
-
+     QString fileName = getConfigFileName();
 
      mControl->updateSettings(fileName.toStdString());
      std::stringstream SettingsStream;

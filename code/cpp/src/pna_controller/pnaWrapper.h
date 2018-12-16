@@ -30,7 +30,7 @@ public:
     void getFrequencyRange(double &fStart, double &fStop){fStart = frequencyRange[0]; fStop = frequencyRange[1];}
     bool getConnected(){return connected;}
     bool getTestMode(){return testMode;}
-    int getNumberOfPoints(){return numberOfPoints;}
+    unsigned int getNumberOfPoints(){return numberOfPoints;}
 
     void getUngatedFrequencyDomainSParameters();
     void getGatedFrequencyDomainSParameters(double start_time, double stop_time);

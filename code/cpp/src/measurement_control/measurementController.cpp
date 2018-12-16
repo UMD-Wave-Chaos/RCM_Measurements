@@ -72,7 +72,7 @@ bool measurementController::updateSettings(std::string filename)
     Settings.xformStopTime = atof(xFormStopNode->value());
     xml_node<> *gatingStartNode = pnaSettingsNode->first_node("GatingStartTime");
     Settings.gateStartTime = atof(gatingStartNode->value());
-    xml_node<> *gatingStopNode = pnaSettingsNode->first_node("GatingStopime");
+    xml_node<> *gatingStopNode = pnaSettingsNode->first_node("GatingStopTime");
     Settings.gateStopTime = atof(gatingStopNode->value());
     xml_node<> *takeGatedMeasurementNode = pnaSettingsNode->first_node("TakeGatedMeasurement");
     std::string takeGatedMeasurement  = reduce(takeGatedMeasurementNode->value());
@@ -113,23 +113,7 @@ bool measurementController::updateSettings(std::string filename)
      else
          Settings.useDateStamp = false;
 
-   //get the time stamp
-     time_t now;
-     time(&now);
-     tm *ltm = localtime(&now);
-
-     char timeStampBuff[50];
-
-     std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%m%d_%I_%M_%S", ltm);
-
-     Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
-
-     //For the test mode case, add a mock identifier
-     if (testMode == true)
-     {
-         Settings.outputFileName = "mock_" + Settings.outputFileName;
-         Settings.comments += " Mock Interfaces used, not real data";
-     }
+    updateTimeStamp();
 
      fs.close();
 
@@ -141,11 +125,45 @@ bool measurementController::updateSettings(std::string filename)
      return true;
 }
 
+bool measurementController::updateTimeStamp()
+{
+    //get the time stamp
+      time_t now;
+      time(&now);
+      tm *ltm = localtime(&now);
+
+      char timeStampBuff[50];
+
+      std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%m%d_%I_%M_%S", ltm);
+
+      Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
+
+      //For the test mode case, add a mock identifier
+      if (testMode == true)
+      {
+          Settings.outputFileName = "mock_" + Settings.outputFileName;
+          Settings.comments += " Mock Interfaces used, not real data";
+      }
+      return true;
+}
+
+/**
+ * \brief prepareLogging
+ *
+ * This function updates the time stamp and opens the HDF5 file*/
+bool measurementController::prepareLogging()
+{
+
+    updateTimeStamp();
+    fileValid = false;
+
+    return true;
+}
+
  /**
   * \brief destructor
   *
   * Primary destructor for the measurement controller class*/
-
 measurementController::~measurementController()
 {
     delete pna;
@@ -192,7 +210,6 @@ void measurementController::logSettings()
 void measurementController::establishConnections()
 {
     std::string clientString = pna->findClients();
-    std::cout<<clientString << std::endl;
     pna->setPNAConfig(Settings.fStart, Settings.fStop, Settings.ipAddress, Settings.numberOfPoints);
 
     pnaConnected = pna->getConnected();

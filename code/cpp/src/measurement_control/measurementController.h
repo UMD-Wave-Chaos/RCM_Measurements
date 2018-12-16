@@ -67,7 +67,15 @@ public:
     std::string getFileName(){return Settings.outputFileName;}
     unsigned int getNumberOfRealizations(){return Settings.numberOfRealizations;}
 
+    int getStepDistance(){return sm->getStepDistance();}
+    int getRunSpeed(){return sm->getRunSpeed();}
+
+    bool prepareLogging();
+
 private:
+
+    bool updateTimeStamp();
+
     pnaWrapper *pna;
     stepperMotorWrapper *sm;
     DataLoggerHDF5 dataLogger;

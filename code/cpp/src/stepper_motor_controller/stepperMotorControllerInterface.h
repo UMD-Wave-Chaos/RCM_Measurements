@@ -26,6 +26,9 @@ public:
     virtual void setRunSpeed(int rs) = 0;
     virtual void setStepDistance(int sd) = 0;
 
+    virtual int getStepDistance() = 0;
+    virtual int getRunSpeed() = 0;
+
 };
 
 #endif // STEPPER_MOTOR_CONTROLLER_INTERFACE_H

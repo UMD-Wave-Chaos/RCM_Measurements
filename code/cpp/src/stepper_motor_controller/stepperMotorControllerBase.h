@@ -29,6 +29,9 @@ class stepperMotorControllerBase: public stepperMotorControllerInterface
         virtual void setRunSpeed(int rs){runSpeed = rs;}
         virtual void setStepDistance(int sd){stepDistance = sd;}
 
+        virtual int getStepDistance(){return stepDistance;}
+        virtual int getRunSpeed(){return runSpeed;}
+
      protected:
         int stepDistance;
         int runSpeed;

@@ -34,7 +34,8 @@ public:
     int getPosition();
     bool moveStepperMotor();
     std::string getPortName();
-
+    int getRunSpeed(){return sObj->getRunSpeed();}
+    int getStepDistance(){return sObj->getStepDistance();}
 
 private:
     stepperMotorControllerInterface* sObj;

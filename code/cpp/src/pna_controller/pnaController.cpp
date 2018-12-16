@@ -58,7 +58,6 @@ std::string pnaController::findConnections()
         if (found > 0) rcv[found] = '\0';
         outString += " Output: ";
         outString += rcv;
-        outString += "\n";
     }
 
     return outString;
@@ -93,6 +92,13 @@ std::string pnaController::connectToInstrument(std::string tcpAddress)
         //get the device info string
         vxi11_send_and_receive(&vxi_link, "*IDN?", rcvBuffer, 100, 10);
         deviceString = rcvBuffer;
+
+        //remove the newline character at the end of the device string
+        if (!deviceString.empty() && deviceString[deviceString.length()-1] == '\n')
+        {
+            deviceString.erase(deviceString.length() - 1);
+        }
+
 
         //check whether or not we've been calibrated
         checkCalibration();

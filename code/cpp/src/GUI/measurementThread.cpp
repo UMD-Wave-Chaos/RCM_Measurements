@@ -17,6 +17,7 @@ measurementThread::measurementThread(QObject *parent )
     restart = false;
     abort = false;
 
+    requestAbort = false;
     initialized = false;
 
 }
@@ -66,37 +67,84 @@ void measurementThread::measure(measurementController *mControl)
 */
 void measurementThread::run()
 {
+
+  //TBD - check the calibration
+
+  mc->prepareLogging();
+
   std::string infoString;
   mutex.lock();
   measurementSettings Settings = mc->getSettings();
 
- //for loop here
-  infoString = "Moving Stepper Motor";
-  emit infoStringAvailable(infoString, " default");
-  mc->moveStepperMotorNoWait();
+  infoString = "Starting Measurement " + std::to_string(1) + " of " + std::to_string(Settings.numberOfRealizations) + ".";
+  emit infoStringAvailable(infoString,"info");
 
+  time_t beginTime, endTime;
+  double averageTime, predictedTime, predictedTimeMin;
 
-  infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms";
-  emit infoStringAvailable(infoString, " default");
-  mutex.unlock();
-  msleep(Settings.waitTime_ms);
-
-  mutex.lock();
-  infoString = "Measuring Ungated Frequency Domain";
-  emit infoStringAvailable(infoString, " default");
-  mc->measureUngatedFrequencyDomainSParameters();
-  infoString = "Measuring Time Domain";
-  emit infoStringAvailable(infoString, " default");
-  mc->measureTimeDomainSParameters(Settings.xformStartTime,Settings.xformStopTime);
-  if (Settings.takeGatedMeasurement == true)
+  time(&beginTime);
+  for (unsigned int cnt = 0; cnt < Settings.numberOfRealizations; cnt ++)
   {
-      infoString = "Measuring Gated Frequency Domain";
+      //Step 1 - Move the stepper motor
+      infoString = "Moving mode stirrer for position " + std::to_string(cnt + 1) +
+                    ". Moving " + std::to_string(mc->getStepDistance()) +
+                    " steps at " + std::to_string(mc->getRunSpeed() )+ " steps per second.";
+
+      emit infoStringAvailable(infoString,"default");
+      mc->moveStepperMotorNoWait();
+
+
+      //Step 2 - Wait
+      infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
+      emit infoStringAvailable(infoString, "default");
+      mutex.unlock();
+      msleep(Settings.waitTime_ms);
+
+      //Step 3 - Take the Ungated Frequency Measurement
+      mutex.lock();
+      infoString = "Measuring Ungated Frequency Domain";
       emit infoStringAvailable(infoString, " default");
-    mc->measureGatedFrequencyDomainSParameters(Settings.gateStartTime, Settings.gateStopTime);
+      mc->measureUngatedFrequencyDomainSParameters();
+
+      //Step 4 - Take the Time Domain Measurement
+      infoString = "Measuring Time Domain";
+      emit infoStringAvailable(infoString, " default");
+      mc->measureTimeDomainSParameters(Settings.xformStartTime,Settings.xformStopTime);
+
+      //Step 5 - Take the Gated Frequency Domain Measurement (if requested)
+      if (Settings.takeGatedMeasurement == true)
+      {
+          infoString = "Measuring Gated Frequency Domain";
+          emit infoStringAvailable(infoString, "default");
+          mc->measureGatedFrequencyDomainSParameters(Settings.gateStartTime, Settings.gateStopTime);
+      }
+
+      time(&endTime);
+
+      averageTime = difftime(beginTime,endTime)/static_cast<double>(cnt + 1);
+      predictedTime = averageTime * static_cast<double>(Settings.numberOfRealizations - cnt + 1);
+      predictedTimeMin = predictedTime/60.0;
+
+      infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
+                   " Completed, Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
+                   std::to_string(predictedTimeMin) + " min).";
+
+      emit infoStringAvailable(infoString, "info");
+
+      //Check the user requested abort
+     if (requestAbort == true)
+         break;
   }
 
-  //End for loop
-  infoString = "Measurements Finished";
+  //Announce that the measurements are finished (either aborted or naturally finished)
+  if (requestAbort == true)
+  {
+      infoString = "Measurement Aborted.";
+  }
+  else
+  {
+      infoString = "Measurements Finished.";
+  }
   emit infoStringAvailable(infoString, " default");
   emit measurementComplete();
 
