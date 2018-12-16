@@ -88,6 +88,11 @@ void MainWindow::updateCalFileName(bool status, std::string calName)
 void MainWindow::updateMeasurementStatusComplete()
 {
     mMode = IDLE;
+    if (smTimer != nullptr)
+    {
+        smTimer->stop();
+        delete smTimer;
+    }
 }
 
 void MainWindow::stepMotor()
@@ -273,7 +278,7 @@ void MainWindow::on_measureDataButton_clicked()
      }
      smTimer = new QTimer(this);
      connect(smTimer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
-     smTimer->start(500);
+     smTimer->start(250);
 }
 
 void MainWindow::updateStepperMotorStatus()
