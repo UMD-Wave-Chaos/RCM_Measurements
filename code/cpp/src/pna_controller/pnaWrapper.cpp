@@ -116,6 +116,31 @@ std::string pnaWrapper::findClients()
 }
 
 /**
+ * \brief checkCalibration
+ *
+ * This function checks the calibration status of the PNA*/
+bool pnaWrapper::checkCalibration()
+{
+    if (connected == false)
+         throw pnaException("pnaWrapper::checkCalibration(). Attempting to query a connection that is closed");
+
+    return pnaObj->checkCalibration();
+}
+
+/**
+ * \brief getCalibrationFile
+ *
+ * This function checks the calibration status of the PNA and returns the calibration file name*/
+std::string pnaWrapper::getCalibrationFile()
+{
+    if (connected == false)
+         throw pnaException("pnaWrapper::getCalibrationFile(). Attempting to query a connection that is closed");
+
+    return pnaObj->getCalibrationFileName();
+}
+
+
+/**
  * \brief getUngatedFrequencyDomainSParameters
  *
  * This function gets the ungated S-parameters in the frequency domain*/

@@ -42,6 +42,7 @@ public:
     virtual void getS22IVector(std::vector<double> & SI) = 0;
     virtual void calibrate() = 0;
     virtual bool checkCalibration() = 0;
+    virtual std::string getCalibrationFileName() = 0;
 
     virtual bool getConnectionStatus() = 0;
 

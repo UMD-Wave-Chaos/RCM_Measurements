@@ -85,6 +85,7 @@ private:
     measurementThread mThread;
 
     QTimer *updateModeTimer;
+    QTimer *smTimer;
 
 private slots:
     void updateStepperMotorStatus();
@@ -92,6 +93,8 @@ private slots:
     void updateInfoString(const std::string infoString, const std::string severity);
     void updateMeasurementStatusComplete();
     void updateGUICurrentMode();
+    void updateCalFileName(bool status, std::string calName);
+    void stepMotor();
 };
 
 #endif // MAINWINDOW_H

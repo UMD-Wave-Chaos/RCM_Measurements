@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1362</width>
-    <height>899</height>
+    <height>869</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>490</y>
+      <y>450</y>
       <width>1341</width>
       <height>141</height>
      </rect>
@@ -313,9 +313,9 @@
    <widget class="QTextBrowser" name="logMessageWindow">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>640</y>
-      <width>1351</width>
+      <x>10</x>
+      <y>600</y>
+      <width>1341</width>
       <height>191</height>
      </rect>
     </property>

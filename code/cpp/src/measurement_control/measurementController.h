@@ -47,7 +47,7 @@ public:
     void establishConnections();
     void closeConnections();
 
-    int getStepperMotorPosition(){return sm->getPosition();};
+    int getStepperMotorPosition(){return sm->getPosition();}
 
     void moveStepperMotor();
     void moveStepperMotorNoWait();
@@ -71,6 +71,8 @@ public:
     int getRunSpeed(){return sm->getRunSpeed();}
 
     bool prepareLogging();
+    std::string getCalibrationInfo();
+    bool getCalibrated();
 
 private:
 

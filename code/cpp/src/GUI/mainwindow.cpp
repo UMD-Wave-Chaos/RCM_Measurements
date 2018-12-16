@@ -43,9 +43,24 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&mThread, SIGNAL(measurementComplete()),
                 this, SLOT(updateMeasurementStatusComplete()));
 
+    //when a calibration file name is available, make sure to update
+    connect(&mThread, SIGNAL(calFileNameAvailable(bool, std::string)),
+                this, SLOT(updateCalFileName(bool, std::string)));
+
+    //when ready to move the stepper motor do it
+    //this prevents problems in QT when trying to access sockets across threads
+    connect(&mThread, SIGNAL(readyToStepMotor()),
+                this, SLOT(stepMotor()));
+
+    //setup the timer to show updates for mode changes
     updateModeTimer = new QTimer(this);
     connect(updateModeTimer, SIGNAL(timeout()), this, SLOT(updateGUICurrentMode()));
     updateModeTimer->start(1000);
+}
+
+void MainWindow::updateCalFileName(bool status, std::string calName)
+{
+    updateLabel(ui->calibrationStatusLabel,status,QString::fromStdString(calName));
 }
 
 void MainWindow::updateMeasurementStatusComplete()
@@ -53,6 +68,10 @@ void MainWindow::updateMeasurementStatusComplete()
     mMode = IDLE;
 }
 
+void MainWindow::stepMotor()
+{
+    mControl->moveStepperMotorNoWait();
+}
 
 void MainWindow::updateGUICurrentMode()
 {
@@ -211,6 +230,12 @@ MainWindow::~MainWindow()
     delete ui;
     delete mControl;
     delete updateModeTimer;
+
+    if (smTimer != nullptr)
+    {
+        smTimer->stop();
+        delete smTimer;
+    }
 }
 
 void MainWindow::on_measureDataButton_clicked()
@@ -218,19 +243,27 @@ void MainWindow::on_measureDataButton_clicked()
     logMessage("Measuring Data ...","info");
     mMode = MEASURING;
     mThread.measure(mControl);
+
+    if (smTimer != nullptr)
+     {
+       smTimer->stop();
+       delete smTimer;
+     }
+     smTimer = new QTimer(this);
+     connect(smTimer, SIGNAL(timeout()), this, SLOT(updateStepperMotorStatus()));
+     smTimer->start(500);
 }
 
 void MainWindow::updateStepperMotorStatus()
 {
     int pos = mControl->getStepperMotorPosition();
-    std::cout<<"pos: " << pos << std::endl;
     updateLabel(ui->motorPositionLabel,QString::number(pos));
 }
 
 
 void MainWindow::on_editConfigButton_clicked()
 {
-    logMessage("Editing Configuration","warning");
+    logMessage("Editing Configuration - need to Load to take effect","warning");
     mMode = CONFIGURING;
 
     QString fileName = getConfigFileName();
@@ -287,6 +320,13 @@ void MainWindow::on_reloadConfigButton_clicked()
      mMode = CONFIGURING;
 
      QString fileName = getConfigFileName();
+
+     if (!QFile::exists(fileName))
+     {
+         mMode = IDLE;
+         logMessage("No configuration file selected","warning");
+         return;
+     }
 
      mControl->updateSettings(fileName.toStdString());
      std::stringstream SettingsStream;

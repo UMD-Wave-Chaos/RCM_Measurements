@@ -45,6 +45,7 @@ public:
     virtual void getS22RVector(std::vector<double> & SR){ SR = S22RVec;}
     virtual void getS22IVector(std::vector<double> & SI){ SI = S22RVec;}
     virtual MeasurementType getMeasurementType(){return mType;}
+    virtual std::string getCalibrationFileName(){return calibrationFileName;}
 
 protected:
     virtual void getSParameters() = 0;

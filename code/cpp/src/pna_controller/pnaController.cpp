@@ -99,9 +99,6 @@ std::string pnaController::connectToInstrument(std::string tcpAddress)
             deviceString.erase(deviceString.length() - 1);
         }
 
-
-        //check whether or not we've been calibrated
-        checkCalibration();
     }
     else
     {
@@ -203,8 +200,24 @@ if (connected == true)
  * This function checks to see whether or not the pna has been calibrated */
 bool pnaController::checkCalibration()
 {
-    //TBD - query for the cal file
+    char rcvBuffer[50];
+    vxi11_send_and_receive(&vxi_link,"SENSe:CORRection:CSET:DESC?",rcvBuffer,50,1000);
+    calibrationFileName = rcvBuffer;
 
+    //remove the newline character at the end of the calibration file name string
+    if (!calibrationFileName.empty() && calibrationFileName[calibrationFileName.length()-1] == '\n')
+    {
+        calibrationFileName.erase(calibrationFileName.length() - 1);
+    }
+
+    if (calibrationFileName.empty())
+    {
+        calibrated = false;
+    }
+    else
+    {
+        calibrated = true;
+    }
     return calibrated;
 }
 

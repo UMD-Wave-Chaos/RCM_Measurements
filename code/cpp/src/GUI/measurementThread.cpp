@@ -68,7 +68,11 @@ void measurementThread::measure(measurementController *mControl)
 void measurementThread::run()
 {
 
-  //TBD - check the calibration
+  bool calibrated = mc->getCalibrated();
+  std::string cname = mc->getCalibrationInfo();
+  emit calFileNameAvailable(calibrated,mc->getCalibrationInfo());
+
+  //TBD - throw error if not calibrated
 
   mc->prepareLogging();
 
@@ -80,7 +84,7 @@ void measurementThread::run()
   emit infoStringAvailable(infoString,"info");
 
   time_t beginTime, endTime;
-  double averageTime, predictedTime, predictedTimeMin;
+  double averageTime, predictedTime, predictedTimeMin, elapsedTime, elapsedTimeMin;
 
   time(&beginTime);
   for (unsigned int cnt = 0; cnt < Settings.numberOfRealizations; cnt ++)
@@ -91,8 +95,8 @@ void measurementThread::run()
                     " steps at " + std::to_string(mc->getRunSpeed() )+ " steps per second.";
 
       emit infoStringAvailable(infoString,"default");
-      mc->moveStepperMotorNoWait();
-
+      //don't actually step the motor but request the main thread to do so
+      emit readyToStepMotor();
 
       //Step 2 - Wait
       infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
@@ -121,12 +125,15 @@ void measurementThread::run()
 
       time(&endTime);
 
-      averageTime = difftime(beginTime,endTime)/static_cast<double>(cnt + 1);
-      predictedTime = averageTime * static_cast<double>(Settings.numberOfRealizations - cnt + 1);
+      elapsedTime = difftime(endTime,beginTime);
+      elapsedTimeMin = elapsedTime/60.0;
+      averageTime = difftime(endTime,beginTime)/static_cast<double>(cnt + 1);
+      predictedTime = averageTime * static_cast<double>(Settings.numberOfRealizations - (cnt + 1));
       predictedTimeMin = predictedTime/60.0;
 
       infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
-                   " Completed, Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
+                   " Completed. Elapsed time = " + std::to_string(elapsedTime) + "(" + std::to_string(elapsedTimeMin) +
+                   "), Predicted remaining time = " + std::to_string(predictedTime) + " s (" +
                    std::to_string(predictedTimeMin) + " min).";
 
       emit infoStringAvailable(infoString, "info");

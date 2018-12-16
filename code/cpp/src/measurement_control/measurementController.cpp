@@ -37,6 +37,31 @@ measurementController::measurementController(bool mode)
 }
 
 /**
+ * \brief getCalibrated
+ *
+ * This function tests the current calibration*/
+bool measurementController::getCalibrated()
+{
+    return pna->checkCalibration();
+}
+
+/**
+ * \brief getCalibrationInfo
+ *
+ * This function tests the current calibration and returns the fileName*/
+std::string measurementController::getCalibrationInfo()
+{
+    if (pna->checkCalibration() == true)
+    {
+        return pna->getCalibrationFile();
+    }
+    else
+    {
+        return "Not Calibrated";
+    }
+}
+
+/**
  * \brief updateSettings
  *
  * This function loads the settings from an input configuration file
@@ -134,7 +159,7 @@ bool measurementController::updateTimeStamp()
 
       char timeStampBuff[50];
 
-      std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%m%d_%I_%M_%S", ltm);
+      std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%d_%I_%M_%S", ltm);
 
       Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
 

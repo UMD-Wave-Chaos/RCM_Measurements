@@ -28,6 +28,8 @@ signals:
     void measuredSParametersAvailable(const double d );
     void infoStringAvailable(const std::string infoString, const std::string severity);
     void measurementComplete();
+    void calFileNameAvailable(bool status, std::string calName);
+    void readyToStepMotor();
 
 protected:
     void run();

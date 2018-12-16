@@ -43,6 +43,8 @@ public:
     void getFrequencyData(std::vector<double> &inF);
     void getTimeData(std::vector<double> &inT);
 
+    bool checkCalibration();
+    std::string getCalibrationFile();
     std::string getPNADeviceString(){return pnaDeviceString;}
 private:
     void setFrequencyRange(double fStart,double fStop){frequencyRange[0] = fStart; frequencyRange[1] = fStop;}
