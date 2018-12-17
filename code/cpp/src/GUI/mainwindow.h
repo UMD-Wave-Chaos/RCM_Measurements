@@ -8,6 +8,8 @@
 #include <QtCharts/QChartGlobal>
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
+#include <QtCharts/QValueAxis>
+#include <QtCharts/QAbstractAxis>
 #include <QTimer>
 #include <QThread>
 
@@ -62,6 +64,7 @@ private:
     QString getConfigFileName();
 
     void initializeGUI();
+    void clearPlots();
 
     //member variables
     QString labelErrorString;
@@ -89,15 +92,17 @@ private:
     QTimer *updateModeTimer;
     QTimer *smTimer;
 
+    QtCharts::QValueAxis *m_axis;
+
 private slots:
     void updateStepperMotorStatus();
-    void updateSParameterPlots(double d );
     void updateInfoString(const std::string infoString, const std::string severity);
     void updateMeasurementStatusComplete();
     void updateGUICurrentMode();
     void updateCalFileName(bool status, std::string calName);
     void updateOutputFileName(std::string fileName);
     void stepMotor();
+    void plotFreqData();
 };
 
 #endif // MAINWINDOW_H

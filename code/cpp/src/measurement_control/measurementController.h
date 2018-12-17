@@ -25,6 +25,7 @@
 #include "vxi11_user.h"
 
 #include "stringUtilities.h"
+#include "vectorSignalUtilities.h"
 
 #include <fstream>
 #include <ctime>
@@ -77,6 +78,12 @@ public:
     std::string getVXI11Clients(){return pna->findClients();}
     std::string getSerialClients(){return sm->listPorts();}
 
+    void getS11Decimated (std::vector<double> &SR, std::vector<double> &SI){SR = S11R_decimated; SI = S11I_decimated;}
+    void getS12Decimated (std::vector<double> &SR, std::vector<double> &SI){SR = S12R_decimated; SI = S12I_decimated;}
+    void getS21Decimated (std::vector<double> &SR, std::vector<double> &SI){SR = S21R_decimated; SI = S21I_decimated;}
+    void getS22Decimated (std::vector<double> &SR, std::vector<double> &SI){SR = S22R_decimated; SI = S22I_decimated;}
+    void getFreqDecimated(std::vector<double> &f){f = freq_decimated;}
+
 private:
 
     bool downsampleSParameters();
@@ -97,9 +104,16 @@ private:
     bool loggedFrequencyData;
     bool loggedTimeData;
 
+    std::vector<double> S11R_decimated, S11I_decimated, S12R_decimated, S12I_decimated;
+    std::vector<double> S21R_decimated, S21I_decimated, S22R_decimated, S22I_decimated;
+    std::vector<double> freq_decimated;
+
     unsigned int maxPlotLength;
 
     void writeSParameters();
+    void decimateSParameters(std::vector<double> &S11R, std::vector<double> &S11I, std::vector<double> &S12R, std::vector<double> &S12I,
+                             std::vector<double> &S21R, std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I,
+                             std::vector<double> &freq);
 };
 
 #endif // MEASUREMENTCONTROLLER_H

@@ -3,5 +3,6 @@
         <file>icons/greenarrowicon.gif</file>
         <file>icons/warning.gif</file>
         <file>icons/umdlogo.gif</file>
+        <file>icons/umdlogo.icns</file>
     </qresource>
 </RCC>

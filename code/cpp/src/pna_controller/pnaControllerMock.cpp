@@ -83,9 +83,6 @@ void pnaControllerMock::getUngatedFrequencyDomainSParameters()
 void pnaControllerMock::getSParameters()
 {
 
-    std::normal_distribution<double> normal;
-    std::default_random_engine generator;
-
     double fIncrement = (fStop - fStart)/static_cast<double>(numberOfPoints - 1);
 
 

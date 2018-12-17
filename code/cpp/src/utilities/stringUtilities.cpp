@@ -6,6 +6,7 @@
 * @date 12/13/2018*/
 
 #include "stringUtilities.h"
+#include <algorithm>
 
 std::string trim(const std::string& str,
                  const std::string& whitespace)
@@ -57,6 +58,19 @@ std::string newlineToHTML(std::string str)
 }
 
 
+std::string removeLineBreaks(std::string str)
+{
+    std::string::size_type pos = 0;
+
+    while ( (pos = str.find("\n")) != std::string::npos)
+    {
+        str.erase(pos,1);
+    }
+
+   return str;
+}
+
+
 std::string to_string_with_precision(const double inputValue, const int n)
 {
     std::ostringstream out;
@@ -64,3 +78,4 @@ std::string to_string_with_precision(const double inputValue, const int n)
     out << std::fixed << inputValue;
     return out.str();
 }
+

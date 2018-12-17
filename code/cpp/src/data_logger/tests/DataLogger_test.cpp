@@ -37,12 +37,6 @@ namespace testing
 
     };
     
-  //write attributes
-  TEST_F(DataLogger_Test, attributes)
-  {
-      dl->WriteAttribute("testString","testAttribute");
-  }
-
     //creation and initialization test
     TEST_F(DataLogger_Test,create_init)
     {
@@ -54,6 +48,30 @@ namespace testing
     	EXPECT_THAT(dl2.getInitialized(),Eq(true));
     	
     }
+
+    //write Settings
+    TEST_F(DataLogger_Test, Settings)
+    {
+        double testInputDouble = 15.74;
+        double testOutputDouble = 0;
+
+        dl->WriteSettings(testInputDouble, "doubleValue");
+     //   dl->ReadSettings(testOutputDouble, "doubleValue");
+        //EXPECT_THAT(testInputDouble, Eq(testOutputDouble));
+
+
+        std::string testInputString = "test input string";
+        std::string testOutputString = "";
+        dl->WriteSettings(testInputString, "stringValue");
+       // dl->ReadSettings(testOutputString,"stringValue");
+
+        std::string longString = "This is a long test comment that is not intended to convey any useful information otherwise. Now there are just random words being written. ";
+        longString += "The intent is to exceed the typical value that a user may input as a comment to bound a maximum value for writing Settings variables as attributes. ";
+        longString += "The underlying implementation of the WriteSettings function for strings uses the length of the string to set the datastorage type.";
+
+        dl->WriteSettings(longString, "commentValue");
+    }
+
     
     //test the write and read for std::vectors using a single operation
     TEST_F(DataLogger_Test,write_read_vector)
@@ -69,6 +87,7 @@ namespace testing
     	EXPECT_THAT(wVector.size(), Eq(rVector.size()));
     	for(int i = 0; i < size; i++)
     		EXPECT_THAT(wVector[i], Eq(rVector[i]));
+
     }
     
    //test the write and read for std::vectors using two operations

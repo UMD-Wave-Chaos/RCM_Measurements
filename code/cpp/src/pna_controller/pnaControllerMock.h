@@ -13,6 +13,7 @@
   using ::testing::Eq;
 #include <gtest/gtest.h>
   using ::testing::Test;
+#include <random>
 
 class pnaControllerMock : public pnaControllerBase
   {
@@ -33,5 +34,7 @@ class pnaControllerMock : public pnaControllerBase
 private:
    void getSParameters();
 
+   std::normal_distribution<double> normal;
+   std::default_random_engine generator;
 };
 #endif // PNA_CONTROLLER_MOCK_H

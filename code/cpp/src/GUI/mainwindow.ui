@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>RCM Measurement GUI</string>
   </property>
+  <property name="iconSize">
+   <size>
+    <width>64</width>
+    <height>64</height>
+   </size>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">

@@ -12,26 +12,28 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    Q_INIT_RESOURCE(icons);
+
+    setWindowIcon(QIcon(":/icons/umdlogo.icns"));
+
+    m_axis = new QtCharts::QValueAxis();
+
     //setup color palettes for good/bad/don't care status
     labelErrorString = "QLabel { background-color : red; color : white; }";
     labelGoodString = "QLabel { background-color : green; color : white; }";
     labelDefaultString = "QLabel { background-color : white; color : black; }";
     labelBusyString = "QLabel { background-color : yellow; color : black; }";
     //limit the length of plots for speed
-    maxPlotLength = 256;
+    maxPlotLength = 257;
 
-    testMode = false;
+    testMode = true;
     
     mMode = IDLE;
 
     mControl = new measurementController(testMode);
     initializeGUI();
 
-    //connect the measurement threds emitted signals to the main GUI window slots
-
-    //when new measured S parameters are available, need to display them
-    connect(&mThread, SIGNAL(measuredSParametersAvailable(double)),
-                this, SLOT(updateSParameterPlots(double)));
+    //connect the measurement threads emitted signals to the main GUI window slots
 
     //when a new info string is available, need to show it - first have to register std::string
     //with the queueing operation
@@ -42,6 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //when the measurement is complete, make sure to update
     connect(&mThread, SIGNAL(measurementComplete()),
                 this, SLOT(updateMeasurementStatusComplete()));
+
+    //when the frequency data is available to plot, do so
+    connect(&mThread, SIGNAL(freqDataAvailable()),
+                this, SLOT(plotFreqData()));
 
     //when a calibration file name is available, make sure to update
     connect(&mThread, SIGNAL(calFileNameAvailable(bool, std::string)),
@@ -62,6 +68,17 @@ MainWindow::MainWindow(QWidget *parent) :
     updateModeTimer->start(1000);
 
     listConnections();
+}
+
+void MainWindow::plotFreqData()
+{
+    std::vector<double> f,S11R, S11I,  S12R, S12I, S22R, S22I;
+    mControl->getS11Decimated(S11R,S11I);
+    mControl->getS12Decimated(S12R,S12I);
+    mControl->getS22Decimated(S22R,S22I);
+    mControl->getFreqDecimated(f);
+    clearPlots();
+    updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
 }
 
 void MainWindow::listConnections()
@@ -171,25 +188,6 @@ void MainWindow::updateLabel(QLabel *label, QString labelText)
  label->setText(labelText);
 }
 
-
-void MainWindow::updatePlot( QtCharts::QChart *plot,  QtCharts::QLineSeries *series, std::vector<double> xData, std::vector<double> yData)
-{
-    if (xData.size() != yData.size() )
-    {
-        logMessage("Data Sizes are Not Equal","error");
-    }
-
-    series->clear();
-
-    for (size_t i = 0; i < xData.size(); i++)
-    {
-     series->append(xData[i],yData[i]);
-    }
-
-  plot->addSeries(series);
-}
-
-
 void MainWindow::initializePlots()
 {
  std::vector<double> xData(maxPlotLength);
@@ -215,13 +213,23 @@ void MainWindow::initializePlots()
     realPlot.setTitle("Real Part of S-Parameters");
     imagPlot.setTitle("Imaginary Part of S-Parameters");
 
- updatePlots(xData,yData,yData1,yData2,yData,yData1,yData2);
+     updatePlots(xData,yData,yData1,yData2,yData,yData1,yData2);
 
+}
+
+void MainWindow::clearPlots()
+{
+    realPlot.removeSeries(&realS11);
+    realPlot.removeSeries(&realS12);
+    realPlot.removeSeries(&realS22);
+    imagPlot.removeSeries(&imagS11);
+    imagPlot.removeSeries(&imagS12);
+    imagPlot.removeSeries(&imagS22);
 }
 
 void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, std::vector<double> S11I, std::vector<double> S12R, std::vector<double> S12I, std::vector<double> S22R,  std::vector<double> S22I  )
 {
-    realPlot.removeAllSeries();
+
     updatePlot(&realPlot,&realS11,f,S11R);
     updatePlot(&realPlot,&realS12,f,S12R);
     updatePlot(&realPlot,&realS22,f,S22R);
@@ -230,7 +238,6 @@ void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, st
     realPlot.axisX()->setTitleText("Frequency (GHz)");
     realPlot.axisY()->setTitleText("Real Part (V/V)");
 
-    imagPlot.removeAllSeries();
     updatePlot(&imagPlot,&imagS11,f,S11I);
     updatePlot(&imagPlot,&imagS12,f,S12I);
     updatePlot(&imagPlot,&imagS22,f,S22I);
@@ -240,6 +247,22 @@ void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, st
     imagPlot.axisY()->setTitleText("Imaginary Part (V/V)");
 }
 
+void MainWindow::updatePlot( QtCharts::QChart *plot,  QtCharts::QLineSeries *series, std::vector<double> xData, std::vector<double> yData)
+{
+    if (xData.size() != yData.size() )
+    {
+        logMessage("Data Sizes are Not Equal","error");
+    }
+
+    series->clear();
+
+    for (size_t i = 0; i < xData.size(); i++)
+    {
+     series->append(xData[i],yData[i]);
+    }
+
+  plot->addSeries(series);
+}
 
 void MainWindow::initializeStatusLabels()
 {
@@ -257,6 +280,7 @@ MainWindow::~MainWindow()
     delete ui;
     delete mControl;
     delete updateModeTimer;
+    delete m_axis;
 
     if (smTimer != nullptr)
     {
@@ -381,8 +405,3 @@ void MainWindow::on_reloadConfigButton_clicked()
      mMode = IDLE;
 
 }
-
- void MainWindow::updateSParameterPlots(double d )
- {
-
- }

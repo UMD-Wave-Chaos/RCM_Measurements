@@ -41,10 +41,10 @@
             <Direction> 1 </Direction>
             <!-- Settling time in seconds after moving the stepper motor before taking a 
             measurement-->
-            <Settling_Time>5 </Settling_Time>
+            <Settling_Time>1 </Settling_Time>
              <!-- Movement time in seconds to determine how far to move the stepper motor
              for a new realization-->
-            <Movement_Time>10 </Movement_Time>
+            <Movement_Time>1 </Movement_Time>
     </StepperMotor_Settings>
     
     <!-- ******************************************************************************   

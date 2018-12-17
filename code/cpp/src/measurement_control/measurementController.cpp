@@ -8,6 +8,7 @@
 #include "measurementController.h"
 #include <chrono>
 #include <thread>
+#include <cmath>
 
 /**
  * \brief constructor
@@ -233,8 +234,26 @@ void measurementController::moveStepperMotorNoWait()
  * This function logs the settings to the HDF5 file*/
 void measurementController::logSettings()
 {
-
-    dataLogger.WriteAttribute(Settings.comments,"comments");
+    dataLogger.WriteSettings(removeLineBreaks(Settings.comments),"comments");
+    dataLogger.WriteSettings(Settings.numberOfRealizations,"numberOfRealizations");
+    dataLogger.WriteSettings(Settings.numberOfPoints,"numberOfPoints");
+    dataLogger.WriteSettings(Settings.fStart,"fStart");
+    dataLogger.WriteSettings(Settings.fStop,"fStop");
+    dataLogger.WriteSettings(Settings.COMport,"COMPort");
+    dataLogger.WriteSettings(Settings.numberOfStepsPerRevolution,"numberOfStepsPerRevolution");
+    dataLogger.WriteSettings(Settings.cavityVolume,"cavityVolume");
+    dataLogger.WriteSettings(Settings.ipAddress,"ipAddress");
+    dataLogger.WriteSettings(Settings.movementTime,"movementTime");
+    dataLogger.WriteSettings(Settings.settlingTime,"settlingTime");
+    dataLogger.WriteSettings(Settings.xformStartTime,"xformStartTime");
+    dataLogger.WriteSettings(Settings.xformStopTime,"xformStopTime");
+    dataLogger.WriteSettings(Settings.gateStartTime,"gateStartTime");
+    dataLogger.WriteSettings(Settings.gateStopTime,"gateStopTime");
+    if(Settings.takeGatedMeasurement == true)
+        dataLogger.WriteSettings("Yes","takeGatedMeasurement");
+    else
+        dataLogger.WriteSettings("Yes","takeGatedMeasurement");
+    dataLogger.WriteSettings(Settings.waitTime_ms,"waitTime_ms");
 }
 
 
@@ -338,7 +357,6 @@ void measurementController::measureTimeDomainSParameters(double start_time, doub
  * \brief measureUngatedFrequencyDomainSParameters
  *
  * This function commands the pna to take an ungated frequency domain measurement and then logs the output to the specified HDF5 file */
-
 void measurementController::measureUngatedFrequencyDomainSParameters()
 {
 
@@ -353,11 +371,12 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
 
     pna->getUngatedFrequencyDomainSParameters();
 
+    std::vector<double> freqData;
+    pna->getFrequencyData(freqData);
+
     //only log frequency for the first measurement
     if(loggedFrequencyData == false)
     {
-        std::vector<double> freqData;
-        pna->getFrequencyData(freqData);
         dataLogger.WriteData(freqData,"freq");
         loggedFrequencyData = true;
     }
@@ -381,6 +400,32 @@ void measurementController::measureUngatedFrequencyDomainSParameters()
     pna->getS22Data(S22R, S22I);
     dataLogger.WriteData(S22R,"S22f_real");
     dataLogger.WriteData(S22I,"S22f_imag");
+
+    decimateSParameters(S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I, freqData);
+}
+
+/**
+ * \brief decimateSignals
+ *
+ * This function decimates the S parameters */
+void measurementController::decimateSParameters(std::vector<double> &S11R, std::vector<double> &S11I, std::vector<double> &S12R, std::vector<double> &S12I,
+                                                std::vector<double> &S21R, std::vector<double> &S21I, std::vector<double> &S22R, std::vector<double> &S22I,
+                                                std::vector<double> &freq)
+{
+    int M = floor(S11R.size()/256.0);
+    freq_decimated = decimate(M,freq);
+
+    std::transform(freq_decimated.begin(), freq_decimated.end(), freq_decimated.begin(),
+                   std::bind1st(std::multiplies<double>(), 1e-9));
+
+    S11R_decimated = decimate(M,S11R);
+    S11I_decimated = decimate(M,S11I);
+    S12R_decimated = decimate(M,S12R);
+    S12I_decimated = decimate(M,S12I);
+    S21R_decimated = decimate(M,S21R);
+    S21I_decimated = decimate(M,S21I);
+    S22R_decimated = decimate(M,S22R);
+    S22I_decimated = decimate(M,S22I);
 }
 
 /**

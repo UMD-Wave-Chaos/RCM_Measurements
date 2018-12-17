@@ -113,6 +113,8 @@ void measurementThread::run()
       emit infoStringAvailable(infoString, " default");
       mc->measureUngatedFrequencyDomainSParameters();
 
+      emit freqDataAvailable();
+
       //Step 4 - Take the Time Domain Measurement
       infoString = "Measuring Time Domain";
       emit infoStringAvailable(infoString, " default");

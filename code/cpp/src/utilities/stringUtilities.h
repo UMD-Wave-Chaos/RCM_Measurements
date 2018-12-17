@@ -19,5 +19,7 @@ std::string reduce(const std::string& str,
 
 std::string newlineToHTML(std::string str);
 
+std::string removeLineBreaks(std::string str);
+
 std::string to_string_with_precision(const double inputValue, const int n = 6);
 #endif //STRINGUTILITIES_H

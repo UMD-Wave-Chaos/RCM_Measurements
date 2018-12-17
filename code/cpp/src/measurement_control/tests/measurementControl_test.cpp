@@ -61,9 +61,15 @@ std::string GetCurrentWorkingDir( void ) {
               mc->establishConnections();
               if(mc->getConnected() == true)
               {
+                  //grab 3 sets of measurements
                   mc->measureTimeDomainSParameters(xformStart,xformStop);
                   mc->measureUngatedFrequencyDomainSParameters();
                   mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
+
+                  mc->measureTimeDomainSParameters(xformStart,xformStop);
+                  mc->measureUngatedFrequencyDomainSParameters();
+                  mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
+
                   mc->measureTimeDomainSParameters(xformStart,xformStop);
                   mc->measureUngatedFrequencyDomainSParameters();
                   mc->measureGatedFrequencyDomainSParameters(gateStart,gateStop);
@@ -100,60 +106,6 @@ std::string GetCurrentWorkingDir( void ) {
         mc = new measurementController(false);
         EXPECT_THAT(mc->getTestMode(),Eq(false));
         runTestSequence();
-
-    }
-
-    //mock next realization
-    TEST_F(measurementController_Test,test_mock_next_realization)
-    {
-      std::cout<<"Running next realization test with Mock object" << std::endl;
-      try
-      {
-          mc = new measurementController(true);
-          EXPECT_THAT(mc->getTestMode(),Eq(true));
-          mc->updateSettings(settingsFileName);
-          mc->printSettings();
-          mc->establishConnections();
-          std::cout<<"Starting measurement" << std::endl;
-          mc->captureNextRealization();
-      }
-      catch (pnaException& e)
-     {
-        std::cout<< e.what();
-     }
-
-     catch (stepperMotorException& e)
-      {
-          std::cout<< e.what();
-      }
-
-    }
-
-
-    //full next realization
-    TEST_F(measurementController_Test,test_full_next_realization)
-    {
-        try
-        {
-            std::cout<<"Running next realization test with True object" << std::endl;
-            mc = new measurementController(false);
-            EXPECT_THAT(mc->getTestMode(),Eq(false));
-            mc->updateSettings(settingsFileName);
-            mc->printSettings();
-            mc->establishConnections();
-
-            std::cout<<"Starting measurement" << std::endl;
-            mc->captureNextRealization();
-        }
-        catch (pnaException& e)
-           {
-              std::cout<< e.what();
-           }
-
-        catch (stepperMotorException& e)
-            {
-                std::cout<< e.what();
-            }
 
     }
 
