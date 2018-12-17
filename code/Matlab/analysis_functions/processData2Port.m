@@ -1,4 +1,5 @@
-%
+function processData1Port(data,V)
+
 f1 = mean(data.Freq);
 f2 = data.Freq;
 lambda = 3e8./f1;
