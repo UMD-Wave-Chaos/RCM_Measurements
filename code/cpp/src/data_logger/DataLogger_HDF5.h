@@ -22,6 +22,7 @@ using namespace H5;
     DataLoggerHDF5(std::string fileName);
     
     virtual void CreateFile(std::string fileName);
+    virtual void CloseFile();
 
     //WriteData overloaded types
      virtual void WriteData(std::vector<double>data, std::string datasetName);

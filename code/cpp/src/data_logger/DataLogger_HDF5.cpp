@@ -37,6 +37,15 @@
 	}
 
  /**
+* \brief Close File
+*/
+void DataLoggerHDF5::CloseFile()
+{
+    file_.close();
+}
+
+
+ /**
 * \brief WriteSettings
 * @param input The input numeric value to use
 * @param attrName The attribute name to use

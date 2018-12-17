@@ -344,7 +344,9 @@ void MainWindow::initializeStatusLabels()
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    CloseDownThreads();
+
+    //TBD - need to wait for the thread to stop
     delete mControl;
     delete updateModeTimer;
     delete m_axis;
@@ -354,6 +356,8 @@ MainWindow::~MainWindow()
         smTimer->stop();
         delete smTimer;
     }
+
+     delete ui;
 }
 
 void MainWindow::on_measureDataButton_clicked()
@@ -406,20 +410,27 @@ void MainWindow::on_calibrateButton_clicked()
      logMessage("Calibrating ...","info");
      mMode = CALIBRATING;
 
+     mControl->calibratePNA();
+
      logMessage("Done");
      mMode = IDLE;
 }
 
+void MainWindow::CloseDownThreads()
+{
+
+    logMessage("Stopping Measurement, waiting for thread to shutdown ...","warning");
+
+    mThread.requestAbort = true;
+
+    //TBD - handle deleting any partially completed HDF5 files
+
+    logMessage("Done");
+}
+
 void MainWindow::on_stopMeasurementButton_clicked()
 {
-     logMessage("Stopping Measurement, waiting for thread to shutdown ...","warning");
-
-     mThread.requestAbort = true;
-
-     //TBD - handle deleting any partially completed HDF5 files
-
-
-     logMessage("Done");
+   CloseDownThreads();
 }
 
 QString MainWindow::getConfigFileName()

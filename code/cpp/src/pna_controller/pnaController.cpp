@@ -117,9 +117,11 @@ std::string pnaController::connectToInstrument(std::string tcpAddress)
  * @param fStart the start frequency of the sweep
  * @param fStop the stop frequency of the sweep
  * @param NOP the number of points to collect from the PNA*/
-void pnaController::initialize(double fStart, double fStop, unsigned int NOP)
+void pnaController::initialize(double fStartIn, double fStopIn, unsigned int NOP)
 {
     numberOfPoints = NOP;
+    fStart = fStartIn;
+    fStop = fStopIn;
     bufferSizeDoubles = numberOfPoints*9;
     bufferSizeBytes = bufferSizeDoubles*8;
 
@@ -204,13 +206,15 @@ bool pnaController::checkCalibration()
     vxi11_send_and_receive(&vxi_link,"SENSe:CORRection:CSET:DESC?",rcvBuffer,50,1000);
     calibrationFileName = rcvBuffer;
 
-    //remove the newline character at the end of the calibration file name string
-    if (!calibrationFileName.empty() && calibrationFileName[calibrationFileName.length()-1] == '\n')
+    std::string::size_type pos = 0;
+
+    //keep only the string until the newline - remove the starting and ending quotation marks
+    if ( (pos = calibrationFileName.find("\n")) != std::string::npos)
     {
-        calibrationFileName.erase(calibrationFileName.length() - 1);
+        calibrationFileName = calibrationFileName.substr(1,pos-2);
     }
 
-    if (calibrationFileName.empty())
+    if (calibrationFileName.compare("No Cal Set selected") == 0)
     {
         calibrated = false;
     }
@@ -338,63 +342,55 @@ void pnaController::getSParameters()
  * This function calibrates the PNA*/
 void pnaController::calibrate()
 {
-    /*Matlab implementation
+    std::string tBuff = "SENS:SWE:POINTS " + std::to_string(numberOfPoints);
+    vxi11_send(&vxi_link, tBuff.c_str());
 
- %update the timeout because the calibration takes awhile
- timeout = get(obj1,'Timeout');
- set(obj1,'Timeout',60);
+    tBuff = "SENS1:AVER:COUN 5";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-% Communicating with instrument object, obj1.
-fprintf(obj1, ['SENS:SWE:POINTS ', num2str(NOP)]); % set number of points
-fprintf(obj1, 'SENS1:AVER:COUN 5'); % set count to 5
-fprintf(obj1, 'SENS1:AVER ON'); % turn (keep) averaging on
-fprintf(obj1, 'SENS1:AVER:CLE');  % restart averaging
-fprintf(obj1, 'SENS:CORR:PREF:CSET:SAVE USER');
-%fprintf(obj1, 'SENS:CORR:Pref:cset:savu 1');
-fprintf(obj1, ['SENS:FREQ:START ', num2str(START)]); % set start frequency
-fprintf(obj1, ['SENS:FREQ:STOP ', num2str(STOP)]); % set stop frequency
-fprintf(obj1,'CALC:PAR:DEL:ALL');
-fprintf(obj1, 'calc:par:def "test", S11');
-fprintf(obj1, 'calc:par:sel "test"');
-fprintf(obj1, 'DISPlay:WINDow1:TRACe1:FEED "test"');
-fprintf(obj1, 'DISP:WIND:Y:AUTO'); % Autoscale
-if np == 1 % Check if the calibration is 1 or 2 ports and set up accordingly
-    fprintf(obj1, 'SENSe:CORRection:COLL:Meth REFL3');
-else
-    fprintf(obj1, 'SENSe:CORRection:COLL:Meth SPARSOLT');
-end
-fprintf(obj1, 'SENSe:CORRection:COLL:ACQ ECAL1'); % cal calibration data
-Done = query(obj1,'*OPC?');
+    tBuff = "SENS1:AVER ON";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-lstring = sprintf('Calibration Step Completed ...');
- if (useGUI == true)
-     logMessage(handles.jEditbox,lstring);
- else
-     disp(lstring)
- end
+    tBuff = "SENS1:AVER:CLE";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
- %reset the timeout
-  set(obj1,'Timeout',timeout);
+    tBuff = "SENS:CORR:PREF:CSET:SAVE USER";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-G = query(obj1, ['SENS:CORR:CSET:CAT?']);
-GC = strread(G, '%s', length(find(G == ','))+1, 'delimiter', ',');
-N = query(obj1, ['SENS:CORR:CSET:CAT? NAME']);
-NC = strread(N, '%s', length(find(N == ','))+1, 'delimiter', ',');
-k = strfind(NC, NAME);
-for l = 1:length(find(N == ','))+1
-empt = isempty(cell2mat(k(l)));
-if ~empt
-    km = l;
-end
-end
-if exist('km','var')
-DELNAME = char(GC(km));
-fprintf(obj1, ['SENS:CORR:CSET:DEL "',DELNAME,'"']);
-end
-fprintf(obj1, ['SENS:CORR:CSET:NAME "',NAME,'"']);
+    tBuff = "SENS:CORR:Pref:cset:savu 1";
+    vxi11_send(&vxi_link, tBuff.c_str());
 
-temp = strtrim(query(obj1,'SENSe:CORRection:CSET:DESC?'));
-calFileName = temp(2:end-1);
-     *
-     * */
+    tBuff = "SENS:FREQ:STAR " + std::to_string(fStart);
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "SENS:FREQ:STOP " + std::to_string(fStop);
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "CALC:PAR:DEL:ALL";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "calc:par:def ""test"", S11";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "calc:par:sel ""test""";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "DISPlay:WINDow1:TRACe1:FEED ""test""";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "DISP:WIND:Y:AUTO";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "SENSe:CORRection:COLL:Meth SPARSOLT";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+    tBuff = "SENSe:CORRection:COLL:ACQ ECAL1";
+    vxi11_send(&vxi_link, tBuff.c_str());
+
+     vxi11_send_and_receive(&vxi_link, "*OPC?", rcvBuffer, 100, 60000);
+
+     std::cout<<"rcvBuffer: " << rcvBuffer << std::endl;
+
+     checkCalibration();
+
 }

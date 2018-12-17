@@ -10,6 +10,7 @@ stepperMotorControllerBase::stepperMotorControllerBase()
     connected = false;
     runSpeed = 0;
     stepDistance = 0;
+    deviceString = "Not Connected";
 }
 
 stepperMotorControllerBase::~stepperMotorControllerBase()

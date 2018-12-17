@@ -1,4 +1,5 @@
 set(Data_Logger_SRCS         DataLogger_HDF5.h
+                             DataLoggerExceptions.h
                              DataLoggerInterface.h
                              DataLogger_HDF5.cpp
                              DataLogger_HDF5_Vector.cpp

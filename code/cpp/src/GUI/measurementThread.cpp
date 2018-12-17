@@ -68,86 +68,99 @@ void measurementThread::measure(measurementController *mControl)
 void measurementThread::run()
 {
 
-  bool calibrated = mc->getCalibrated();
-  std::string cname = mc->getCalibrationInfo();
-  emit calFileNameAvailable(calibrated,mc->getCalibrationInfo());
+ std::string infoString;
 
-  //TBD - throw error if not calibrated
+  try
+    {
+      bool calibrated = mc->getCalibrated();
+      std::string cname = removeLineBreaks(mc->getCalibrationInfo());
+      emit calFileNameAvailable(calibrated,mc->getCalibrationInfo());
 
-  mc->prepareLogging();
+      //TBD - throw error if not calibrated
 
-  std::string infoString;
-  mutex.lock();
-  measurementSettings Settings = mc->getSettings();
+      mc->prepareLogging();
 
-  emit outputFileNameAvailable(Settings.outputFileName);
-
-  infoString = "Starting Measurement " + std::to_string(1) + " of " + std::to_string(Settings.numberOfRealizations) + ".";
-  emit infoStringAvailable(infoString,"info");
-
-  time_t beginTime, endTime;
-  double averageTime, predictedTime, predictedTimeMin, elapsedTime, elapsedTimeMin;
-
-  time(&beginTime);
-  for (unsigned int cnt = 0; cnt < Settings.numberOfRealizations; cnt ++)
-  {
-      //Step 1 - Move the stepper motor
-      infoString = "Moving mode stirrer for position " + std::to_string(cnt + 1) +
-                    ". Moving " + std::to_string(mc->getStepDistance()) +
-                    " steps at " + std::to_string(mc->getRunSpeed() )+ " steps per second.";
-
-      emit infoStringAvailable(infoString,"default");
-      //don't actually step the motor but request the main thread to do so
-      //this prevents problems in QT with accessing the socket from multiple threads
-      emit readyToStepMotor();
-
-      //Step 2 - Wait
-      infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
-      emit infoStringAvailable(infoString, "default");
-      mutex.unlock();
-      msleep(Settings.waitTime_ms);
-
-      //Step 3 - Take the Ungated Frequency Measurement
       mutex.lock();
-      infoString = "Measuring Ungated Frequency Domain";
-      emit infoStringAvailable(infoString, " default");
-      mc->measureUngatedFrequencyDomainSParameters();
+      measurementSettings Settings = mc->getSettings();
 
-      emit freqDataAvailable();
+      emit outputFileNameAvailable(Settings.outputFileName);
 
-      //Step 4 - Take the Time Domain Measurement
-      infoString = "Measuring Time Domain";
-      emit infoStringAvailable(infoString, " default");
-      mc->measureTimeDomainSParameters(Settings.xformStartTime,Settings.xformStopTime);
+      infoString = "Starting Measurement " + std::to_string(1) + " of " + std::to_string(Settings.numberOfRealizations) + ".";
+      emit infoStringAvailable(infoString,"info");
 
-      //Step 5 - Take the Gated Frequency Domain Measurement (if requested)
-      if (Settings.takeGatedMeasurement == true)
+      time_t beginTime, endTime;
+      double averageTime, predictedTime, predictedTimeMin, elapsedTime, elapsedTimeMin;
+
+      time(&beginTime);
+      for (unsigned int cnt = 0; cnt < Settings.numberOfRealizations; cnt ++)
       {
-          infoString = "Measuring Gated Frequency Domain";
+          //Step 1 - Move the stepper motor
+          infoString = "Moving mode stirrer for position " + std::to_string(cnt + 1) +
+                        ". Moving " + std::to_string(mc->getStepDistance()) +
+                        " steps at " + std::to_string(mc->getRunSpeed() )+ " steps per second.";
+
+          emit infoStringAvailable(infoString,"default");
+          //don't actually step the motor but request the main thread to do so
+          //this prevents problems in QT with accessing the socket from multiple threads
+          emit readyToStepMotor();
+
+          //Step 2 - Wait
+          infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
           emit infoStringAvailable(infoString, "default");
-          mc->measureGatedFrequencyDomainSParameters(Settings.gateStartTime, Settings.gateStopTime);
-      }
+          mutex.unlock();
+          msleep(Settings.waitTime_ms);
 
-      time(&endTime);
+          //Step 3 - Take the Ungated Frequency Measurement
+          mutex.lock();
+          infoString = "Measuring Ungated Frequency Domain";
+          emit infoStringAvailable(infoString, " default");
+          mc->measureUngatedFrequencyDomainSParameters();
 
-      elapsedTime = difftime(endTime,beginTime);
-      elapsedTimeMin = elapsedTime/60.0;
-      averageTime = difftime(endTime,beginTime)/static_cast<double>(cnt + 1);
-      predictedTime = averageTime * static_cast<double>(Settings.numberOfRealizations - (cnt + 1));
-      predictedTimeMin = predictedTime/60.0;
+          emit freqDataAvailable();
 
-      infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
-                   " Completed. Elapsed time = " + to_string_with_precision(elapsedTime,2) + " s (" +
-                   to_string_with_precision(elapsedTimeMin,2) + " min), Predicted remaining time = " +
-                   to_string_with_precision(predictedTime,2) + " s (" +
-                   to_string_with_precision(predictedTimeMin,2) + " min).";
+          //Step 4 - Take the Time Domain Measurement
+          infoString = "Measuring Time Domain";
+          emit infoStringAvailable(infoString, " default");
+          mc->measureTimeDomainSParameters(Settings.xformStartTime,Settings.xformStopTime);
 
-      emit infoStringAvailable(infoString, "info");
+          //Step 5 - Take the Gated Frequency Domain Measurement (if requested)
+          if (Settings.takeGatedMeasurement == true)
+          {
+              infoString = "Measuring Gated Frequency Domain";
+              emit infoStringAvailable(infoString, "default");
+              mc->measureGatedFrequencyDomainSParameters(Settings.gateStartTime, Settings.gateStopTime);
+          }
 
-      //Check the user requested abort
-     if (requestAbort == true)
-         break;
-  }
+          time(&endTime);
+
+          elapsedTime = difftime(endTime,beginTime);
+          elapsedTimeMin = elapsedTime/60.0;
+          averageTime = difftime(endTime,beginTime)/static_cast<double>(cnt + 1);
+          predictedTime = averageTime * static_cast<double>(Settings.numberOfRealizations - (cnt + 1));
+          predictedTimeMin = predictedTime/60.0;
+
+          infoString = "Measurement Step " + std::to_string(cnt + 1) + " of " + std::to_string(Settings.numberOfRealizations) +
+                       " Completed. Elapsed time = " + to_string_with_precision(elapsedTime,2) + " s (" +
+                       to_string_with_precision(elapsedTimeMin,2) + " min), Predicted remaining time = " +
+                       to_string_with_precision(predictedTime,2) + " s (" +
+                       to_string_with_precision(predictedTimeMin,2) + " min).";
+
+          emit infoStringAvailable(infoString, "info");
+
+          //Check the user requested abort
+         if (requestAbort == true)
+             break;
+      } //end the for loop
+
+      mc->closeLogFile();
+    }//end the try statement
+
+    catch (measurementException me)
+    {
+        emit infoStringAvailable(me.what(), "error");
+    }
+
+
 
   //Announce that the measurements are finished (either aborted or naturally finished)
   if (requestAbort == true)

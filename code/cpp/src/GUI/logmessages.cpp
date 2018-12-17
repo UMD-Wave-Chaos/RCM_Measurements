@@ -28,7 +28,7 @@ void MainWindow::logMessage(std::string text, std::string severity)
    else if (severity.compare("warning") == 0)
    {
        colorString = "orange";
-       iconString = "";
+       iconString = "<img src=:/icons/icons/warning.gif height=16 width=16>";
    }
    else if (severity.compare("info") == 0)
    {

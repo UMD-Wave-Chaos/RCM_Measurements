@@ -13,6 +13,9 @@
 #include "rapidxml_utils.hpp"
 #include "measurementSettings.h"
 #include "stepperMotorWrapper.h"
+#include "pnaExceptions.h"
+#include "stepperMotorExceptions.h"
+#include "measurementExceptions.h"
 
 #include <map>
 #include <string>
@@ -58,8 +61,6 @@ public:
     void logSettings();
     void printSettings(){std::cout<<Settings;}
 
-    void captureNextRealization();
-
     bool getStepperMotorConnected(){return smConnected;}
     bool getPNAConnected(){return pnaConnected;}
 
@@ -72,9 +73,11 @@ public:
     int getRunSpeed(){return sm->getRunSpeed();}
 
     bool prepareLogging();
+    bool closeLogFile();
     std::string getCalibrationInfo();
     bool getCalibrated();
 
+    void calibratePNA() {pna->calibrate();}
     std::string getVXI11Clients(){return pna->findClients();}
     std::string getSerialClients(){return sm->listPorts();}
 

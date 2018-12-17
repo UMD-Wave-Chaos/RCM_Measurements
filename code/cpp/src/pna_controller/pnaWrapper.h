@@ -43,6 +43,8 @@ public:
     void getFrequencyData(std::vector<double> &inF);
     void getTimeData(std::vector<double> &inT);
 
+    void calibrate();
+
     bool checkCalibration();
     std::string getCalibrationFile();
     std::string getPNADeviceString(){return pnaDeviceString;}

@@ -16,6 +16,9 @@ class DataLoggerInterface
   
   	//CreateFile
     virtual void CreateFile(std::string fileName) = 0;
+
+    //CloseFile
+    virtual void CloseFile()=0;
     
     //WriteData overloaded types
      virtual void WriteData(std::vector<double>data, std::string datasetName) = 0;

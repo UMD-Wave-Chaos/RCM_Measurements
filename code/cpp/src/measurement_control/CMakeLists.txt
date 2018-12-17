@@ -9,7 +9,8 @@ set (measurementControlLibrary_SRCS
 set(measurementControlLibrary_HDRS
         measurementController.h
         measurementModes.h
-        measurementSettings.h)
+        measurementSettings.h
+        measurementExceptions.h)
 
 add_library(measurementControlLibrary ${measurementControlLibrary_HDRS} ${measurementControlLibrary_SRCS})
 target_link_libraries(measurementControlLibrary ${GPERFTOOLS_LIBRARIES}

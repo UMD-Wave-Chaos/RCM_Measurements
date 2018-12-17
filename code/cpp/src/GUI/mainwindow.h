@@ -56,6 +56,8 @@ private:
     void logMessage(std::string text);
     void logSettings(measurementSettings settings);
 
+    void CloseDownThreads();
+
     void updateGUIMode(measurementModes mode);
     bool updateSettings(std::string filename);
 

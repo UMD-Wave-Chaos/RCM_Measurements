@@ -128,6 +128,18 @@ bool pnaWrapper::checkCalibration()
 }
 
 /**
+ * \brief calibrate
+ *
+ * This function runs the eCal unit on the PNA ot calibrated*/
+void pnaWrapper::calibrate()
+{
+    if (connected == false)
+        throw pnaException("pnaWrapper::calibrate(). Attempting to access a connection that is closed");
+
+    pnaObj->calibrate();
+}
+
+/**
  * \brief getCalibrationFile
  *
  * This function checks the calibration status of the PNA and returns the calibration file name*/
