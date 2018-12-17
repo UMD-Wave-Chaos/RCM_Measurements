@@ -69,6 +69,8 @@ namespace testing
         longString += "The intent is to exceed the typical value that a user may input as a comment to bound a maximum value for writing Settings variables as attributes. ";
         longString += "The underlying implementation of the WriteSettings function for strings uses the length of the string to set the datastorage type.";
 
+        longString = " "" " + longString + " "" ";
+        std::cout<<"longString: "<<longString << std::endl;
         dl->WriteSettings(longString, "commentValue");
     }
 

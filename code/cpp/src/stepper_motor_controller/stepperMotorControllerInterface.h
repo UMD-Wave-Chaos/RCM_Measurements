@@ -25,7 +25,6 @@ public:
     virtual int getConnectionErrors() = 0;
     virtual void setRunSpeed(int rs) = 0;
     virtual void setStepDistance(int sd) = 0;
-    virtual std::string getDeviceString() = 0;
 
     virtual int getStepDistance() = 0;
     virtual int getRunSpeed() = 0;

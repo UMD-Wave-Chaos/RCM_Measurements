@@ -351,11 +351,6 @@ MainWindow::~MainWindow()
     delete updateModeTimer;
     delete m_axis;
 
-    if (smTimer != nullptr)
-    {
-        smTimer->stop();
-        delete smTimer;
-    }
 
      delete ui;
 }

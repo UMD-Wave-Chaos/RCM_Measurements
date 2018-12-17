@@ -27,7 +27,7 @@ class stepperMotorControllerMock : public stepperMotorControllerBase
 
     virtual bool getConnectionStatus(){return connected;}
     virtual bool closeConnection(){connected = false; return connected;}
-    virtual int connectToStepperMotor(std::string){connected = true; deviceString = "Mock Connection"; return 1;}
+    virtual int connectToStepperMotor(std::string){connected = true; return 1;}
     virtual std::string getAvailablePorts() {return "Mock Interface for Testing, no Connections";}
 
     virtual std::string getCurrentPortInfo(){return "Mock Interface for Testing, no Connections";}

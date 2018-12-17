@@ -50,7 +50,7 @@
     	 ******************************************************************************           
     -->
     <Experiment_Settings>
-        <NumberOfRealizations> 50 </NumberOfRealizations>
+        <NumberOfRealizations> 2 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <FileNamePrefix>Config_A_XBand_8to12GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>

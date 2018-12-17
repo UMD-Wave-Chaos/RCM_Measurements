@@ -32,14 +32,11 @@ class stepperMotorControllerBase: public stepperMotorControllerInterface
         virtual int getStepDistance(){return stepDistance;}
         virtual int getRunSpeed(){return runSpeed;}
 
-        virtual std::string getDeviceString(){return deviceString;}
-
      protected:
         int stepDistance;
         int runSpeed;
         int cError;
         bool connected;
-        std::string deviceString;
 };
 
 #endif //STEPPERMOTORCONTROLLER_BASE_H

@@ -90,19 +90,10 @@ int stepperMotorController::connectToStepperMotor(std::string portString)
     if (!serial.open(QIODevice::ReadWrite))
     {
         connected = false;
-        deviceString = "Not Connected";
     }
     else
     {
         connected = true;
-
-        serial.write("*IDN?");
-        serial.flush();
-        serial.waitForBytesWritten(10);
-        serial.waitForReadyRead(10);
-        QByteArray requestData = serial.readAll();
-        deviceString = requestData.toStdString();
-
     }
 
     getStepperMotorPosition();
