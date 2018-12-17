@@ -59,6 +59,8 @@ private:
     void updateGUIMode(measurementModes mode);
     bool updateSettings(std::string filename);
 
+    std::vector<double> getMagnitude(std::vector<double> &SR,std::vector<double> &SI);
+    std::vector<double> getPhase(std::vector<double> &SR,std::vector<double> &SI);
     void listConnections();
 
     QString getConfigFileName();
@@ -86,6 +88,8 @@ private:
     measurementSettings Settings;
 
     bool testMode;
+
+    bool plotReIm;
 
     measurementThread mThread;
 

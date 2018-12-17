@@ -5,12 +5,15 @@
 #include <QFileDialog>
 #include <math.h>
 #include <strstream>
+#include <complex>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    plotReIm = true; //show real/imaginary or magnitude/phase
 
     Q_INIT_RESOURCE(icons);
 
@@ -26,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //limit the length of plots for speed
     maxPlotLength = 257;
 
-    testMode = true;
+    testMode = false;
     
     mMode = IDLE;
 
@@ -227,24 +230,88 @@ void MainWindow::clearPlots()
     imagPlot.removeSeries(&imagS22);
 }
 
+std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<double> &SI)
+{
+    std::vector<double> output;
+    std::complex<double> Sc;
+    double tempValue;
+    for (unsigned int cnt = 0; cnt < SR.size(); cnt++)
+    {
+        Sc = std::complex<double>(SI[cnt],SR[cnt]);
+
+        tempValue = std::arg(Sc);
+        output.push_back(tempValue);
+    }
+
+    return output;
+}
+
+std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector<double> &SI)
+{
+    std::vector<double> output;
+    std::complex<double> Sc;
+    double tempValue;
+    for (unsigned int cnt = 0; cnt < SR.size(); cnt++)
+    {
+        Sc = std::complex<double>(SI[cnt],SR[cnt]);
+
+        tempValue = 20*log10(std::abs(Sc));
+        output.push_back(tempValue);
+    }
+
+    return output;
+}
+
 void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, std::vector<double> S11I, std::vector<double> S12R, std::vector<double> S12I, std::vector<double> S22R,  std::vector<double> S22I  )
 {
 
-    updatePlot(&realPlot,&realS11,f,S11R);
-    updatePlot(&realPlot,&realS12,f,S12R);
-    updatePlot(&realPlot,&realS22,f,S22R);
+    if (plotReIm == true) //plot real/imaginary
+    {
+        updatePlot(&realPlot,&realS11,f,S11R);
+        updatePlot(&realPlot,&realS12,f,S12R);
+        updatePlot(&realPlot,&realS22,f,S22R);
 
-    realPlot.createDefaultAxes();
-    realPlot.axisX()->setTitleText("Frequency (GHz)");
-    realPlot.axisY()->setTitleText("Real Part (V/V)");
+        realPlot.createDefaultAxes();
+        realPlot.axisX()->setTitleText("Frequency (GHz)");
+        realPlot.axisY()->setTitleText("Real Part (V/V)");
+        realPlot.setTitle("Real Part of S-Parameters");
 
-    updatePlot(&imagPlot,&imagS11,f,S11I);
-    updatePlot(&imagPlot,&imagS12,f,S12I);
-    updatePlot(&imagPlot,&imagS22,f,S22I);
+        updatePlot(&imagPlot,&imagS11,f,S11I);
+        updatePlot(&imagPlot,&imagS12,f,S12I);
+        updatePlot(&imagPlot,&imagS22,f,S22I);
 
-    imagPlot.createDefaultAxes();
-    imagPlot.axisX()->setTitleText("Frequency (GHz)");
-    imagPlot.axisY()->setTitleText("Imaginary Part (V/V)");
+        imagPlot.createDefaultAxes();
+        imagPlot.axisX()->setTitleText("Frequency (GHz)");
+        imagPlot.axisY()->setTitleText("Imaginary Part (V/V)");
+        imagPlot.setTitle("Imaginary Part of S-Parameters");
+    }
+    else //plot magnitude/phase
+    {
+
+        std::vector<double> magS11 = getMagnitude(S11R,S11I);
+        std::vector<double> magS12 = getMagnitude(S12R,S12I);
+        std::vector<double> magS22 = getMagnitude(S22R,S22I);
+        updatePlot(&realPlot,&realS11,f,magS11);
+        updatePlot(&realPlot,&realS12,f,magS12);
+        updatePlot(&realPlot,&realS22,f,magS22);
+
+        realPlot.createDefaultAxes();
+        realPlot.axisX()->setTitleText("Frequency (GHz)");
+        realPlot.axisY()->setTitleText("Magnitude (dB)");
+        realPlot.setTitle("Magnitude of S-Parameters");
+
+        std::vector<double> angS11 = getPhase(S11R,S11I);
+        std::vector<double> angS12 = getPhase(S12R,S12I);
+        std::vector<double> angS22 = getPhase(S22R,S22I);
+        updatePlot(&imagPlot,&imagS11,f,angS11);
+        updatePlot(&imagPlot,&imagS12,f,angS12);
+        updatePlot(&imagPlot,&imagS22,f,angS22);
+
+        imagPlot.createDefaultAxes();
+        imagPlot.axisX()->setTitleText("Frequency (GHz)");
+        imagPlot.axisY()->setTitleText("Phase (rad)");
+        imagPlot.setTitle("Phase of S-Parameters");
+    }
 }
 
 void MainWindow::updatePlot( QtCharts::QChart *plot,  QtCharts::QLineSeries *series, std::vector<double> xData, std::vector<double> yData)
