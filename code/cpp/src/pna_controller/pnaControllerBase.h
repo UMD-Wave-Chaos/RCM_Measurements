@@ -37,13 +37,13 @@ public:
     virtual bool getConnectionStatus() {return connected;}
     virtual void getXDataVector(std::vector<double> & xData) {xData = xVec; }
     virtual void getS11RVector(std::vector<double> & SR){ SR = S11RVec;}
-    virtual void getS11IVector(std::vector<double> & SI){ SI = S11RVec;}
+    virtual void getS11IVector(std::vector<double> & SI){ SI = S11IVec;}
     virtual void getS12RVector(std::vector<double> & SR){ SR = S12RVec;}
-    virtual void getS12IVector(std::vector<double> & SI){ SI = S12RVec;}
+    virtual void getS12IVector(std::vector<double> & SI){ SI = S12IVec;}
     virtual void getS21RVector(std::vector<double> & SR){ SR = S21RVec;}
-    virtual void getS21IVector(std::vector<double> & SI){ SI = S21RVec;}
+    virtual void getS21IVector(std::vector<double> & SI){ SI = S21IVec;}
     virtual void getS22RVector(std::vector<double> & SR){ SR = S22RVec;}
-    virtual void getS22IVector(std::vector<double> & SI){ SI = S22RVec;}
+    virtual void getS22IVector(std::vector<double> & SI){ SI = S22IVec;}
     virtual MeasurementType getMeasurementType(){return mType;}
     virtual std::string getCalibrationFileName(){return calibrationFileName;}
 
