@@ -17,9 +17,9 @@
         <IP_Address>169.254.13.58</IP_Address>
         <TransformStartTime> -1.0e-6</TransformStartTime>
         <TransformStopime> 5e-6</TransformStopTime>
-        <GatingStartTime> -10e-9</GatingStartTime>
-        <GatingStopTime> 10e-9</GatingStopTime>
-        <TakeGatedMeasurement> No </TakeGatedMeasurement>
+        <GatingStartTime> -5e-9</GatingStartTime>
+        <GatingStopTime> 5e-9</GatingStopTime>
+        <TakeGatedMeasurement> Yes </TakeGatedMeasurement>
     </PNA_Settings>
     
     <!-- ******************************************************************************
@@ -50,7 +50,7 @@
     	 ******************************************************************************           
     -->
     <Experiment_Settings>
-        <NumberOfRealizations> 2 </NumberOfRealizations>
+        <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
         <FileNamePrefix>Config_A_XBand_8to12GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
