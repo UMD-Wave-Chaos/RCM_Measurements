@@ -4,9 +4,7 @@
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
     -->
-    <Comments> 
-    	Configuration A, Port 2 moved up away from the well and slightly away from the cavity wall.
-    </Comments>
+    <Comments>Dual Port Config A, 8 to 12 GHz </Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
@@ -14,10 +12,10 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
-        <FrequencySweepStop> 11.0E9 </FrequencySweepStop>
+        <FrequencySweepStart> 8E9 </FrequencySweepStart>
+        <FrequencySweepStop> 12E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
-        <TransformStartTime> -0.5e-6</TransformStartTime>
+        <TransformStartTime> -1.0e-6</TransformStartTime>
         <TransformStopime> 5e-6</TransformStopTime>
         <GatingStartTime> -10e-9</GatingStartTime>
         <GatingStopTime> 10e-9</GatingStopTime>
@@ -41,10 +39,10 @@
             <Direction> 1 </Direction>
             <!-- Settling time in seconds after moving the stepper motor before taking a 
             measurement-->
-            <Settling_Time>1 </Settling_Time>
+            <Settling_Time>5 </Settling_Time>
              <!-- Movement time in seconds to determine how far to move the stepper motor
              for a new realization-->
-            <Movement_Time>1 </Movement_Time>
+            <Movement_Time>10 </Movement_Time>
     </StepperMotor_Settings>
     
     <!-- ******************************************************************************   
@@ -54,7 +52,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix>configA</FileNamePrefix>
+        <FileNamePrefix>Config_A_XBand_8to12GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
