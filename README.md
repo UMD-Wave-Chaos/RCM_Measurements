@@ -1,4 +1,4 @@
-![Experimental Wave Chaotic Cavity Setup](./images/IREAP_Logo_2013-450-150-2.png "IREAP")  
+![](./images/IREAP_Logo_2013-450-150-2.png "IREAP")  
 Summary
 ==========================================================================================
 Random Coupling Model (RCM) Measurement and Analysis for Wave Chaotic Cavities. 
