@@ -4,18 +4,7 @@
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
     -->
-    <Comments> 
-    	Configuration A.
-    </Comments>
-    
-    <!-- ******************************************************************************  
-    	 Analysis Settings          
-	     ****************************************************************************** 
-	-->
-    <Analysis_Settings>
-        <NumberOfRCMRealizations> 100000 </NumberOfRCMRealizations>
-        <NumberOfBinsForHistograms> 1000 </NumberOfBinsForHistograms>
-    </Analysis_Settings>
+    <Comments>Dual Port Config A, 8 to 12 GHz </Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
@@ -23,8 +12,14 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 9.5E9 </FrequencySweepStart>
-        <FrequencySweepStop> 11E9 </FrequencySweepStop>
+        <FrequencySweepStart> 8E9 </FrequencySweepStart>
+        <FrequencySweepStop> 12E9 </FrequencySweepStop>
+        <IP_Address>169.254.13.58</IP_Address>
+        <TransformStartTime> -1.0e-6</TransformStartTime>
+        <TransformStopTime> 5e-6</TransformStopTime>
+        <GatingStartTime> -5e-9</GatingStartTime>
+        <GatingStopTime> 5e-9</GatingStopTime>
+        <TakeGatedMeasurement> Yes </TakeGatedMeasurement>
     </PNA_Settings>
     
     <!-- ******************************************************************************
@@ -32,7 +27,7 @@
          ******************************************************************************       
     -->
     <StepperMotor_Settings>
-            <COMport> COM5 </COMport>
+            <COMport>/dev/tty.usbserial-A600eOXn</COMport>
             <!-- 
                  aerotech SM50 motor with Haydon PCM 4826 drive
                  200 full steps at 1.8 degrees per step
@@ -42,6 +37,12 @@
             <NStepsPerRevolution> 12800 </NStepsPerRevolution>
             <!-- Direction is +1 for forward, -1 for backward -->
             <Direction> 1 </Direction>
+            <!-- Settling time in seconds after moving the stepper motor before taking a 
+            measurement-->
+            <Settling_Time>5 </Settling_Time>
+             <!-- Movement time in seconds to determine how far to move the stepper motor
+             for a new realization-->
+            <Movement_Time>10 </Movement_Time>
     </StepperMotor_Settings>
     
     <!-- ******************************************************************************   
@@ -51,8 +52,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <AntennaElectrialLength> 0.5 </AntennaElectrialLength>
-        <FileNamePrefix> Config_A </FileNamePrefix>
+        <FileNamePrefix>Config_A_XBand_8to12GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
