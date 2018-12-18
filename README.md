@@ -17,7 +17,8 @@ Acknowledgements
 Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
 
 
-Version Description ==========================================================================================
+Version Description
+==========================================================================================
 The code in this repository includes 2 versions: Matlab and C++, with more detailed descriptions in the following sections. The Matlab version has been tested under Windows XP and the C++ version has been tested under Mac OS Sierra (10.12.6). 
 
 
@@ -81,10 +82,10 @@ The C++ version has only been tested on MacOS and uses the VXI11 protocol to com
 
 ## Required Software
 The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)
-GRPC: https://grpc.io
-HDF5: https://www.hdfgroup.org
-QT5: https://www.qt.io
-CMake: https://cmake.org
+GRPC: https://grpc.io  
+HDF5: https://www.hdfgroup.org  
+QT5: https://www.qt.io  
+CMake: https://cmake.org  
 
 ## Getting Started
 Follow the steps below to get started
