@@ -1,4 +1,5 @@
-![](./images/IREAP_Logo_2013-450-150-2.png "IREAP")  
+![](./images/IREAP_Logo_2013-450-150-2.png "IREAP") 
+ 
 Summary
 ==========================================================================================
 Random Coupling Model (RCM) Measurement and Analysis for Wave Chaotic Cavities. 
@@ -83,21 +84,23 @@ The C++ version has only been tested on MacOS and uses the VXI11 protocol to com
 
 ## Required Software
 The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)  
-GRPC: https://grpc.io  
-HDF5: https://www.hdfgroup.org  
-QT5: https://www.qt.io  
-CMake: https://cmake.org  
+GRPC: https://grpc.io  - implements the remote procedure call framework the VXI11 library relies on
+HDF5: https://www.hdfgroup.org  - binary data logging
+QT5: https://www.qt.io  - cross platform GUI, threading, serial port control, etc.
+CMake: https://cmake.org  - cross platform build configuration
 
 ## Getting Started
 Follow the steps below to get started
 1. Clone the repository 
-2. Open QT Creator and load the CMakeLists.txt file in the cpp folder (/code/cpp/CMakeLists.txt)
-3. Build and run the GUI
+2. Launch QT Creator and open the CMakeLists.txt file in the cpp folder (/code/cpp/CMakeLists.txt). This will configure the build setup
+3. Build and run the RMGUI application
 
 Note: The available connections through both TCP-IP and serial ports are displayed in the status window when starting up so the address of the PNA and stepper motor can be updated if these are different from the default.
 
 References
 ==========================================================================================
+This is only a short select list, a detailed list containing all UMD RCM and Wave Chaos related publications is available at Professor Anlage's web page (http://anlage.umd.edu/RCM/)  
+
 ## Determination of Srad Through Time Gating
 1. Addissie et al, “Extraction of the coupling impedance in overmoded cavities”, Wave Motion (2018), https://doi.org/10.1016/j.wavemoti.2018.09.011
 
