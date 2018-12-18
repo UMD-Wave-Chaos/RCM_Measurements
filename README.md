@@ -1,6 +1,6 @@
-Description
+Summary
 ==========================================================================================
-Random Coupling Model (RCM) Measurement and Analysis for Wave Chaos
+Random Coupling Model (RCM) Measurement and Analysis for Wave Chaotic Cavities. 
 
 Author: Ben Frazier 
 
@@ -16,6 +16,11 @@ Acknowledgements
 ==========================================================================================
 Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
 
+
+Version Description ==========================================================================================
+The code in this repository includes 2 versions: Matlab and C++, with more detailed descriptions in the following sections. The Matlab version has been tested under Windows XP and the C++ version has been tested under Mac OS Sierra (10.12.6). 
+
+
 Experimental Setup
 ==========================================================================================
 The wave chaotic cavity used for the experiment is a vacuum chamber that has been repurposed into a reverberation chamber to act as an electromagnetic cavity with a volume of 1.92 cubic meters. A mode stirrer is used to generate different realizations and collect statistics.
@@ -28,8 +33,16 @@ Both the PNA and stepper motor are controlled through a Windows PC using the Mat
 
 ![Experimental Wave Chaotic Cavity Setup](./images/cavity.png "Experimental Wave Chaotic Cavity Setup")
 
-Getting Started
+Matlab Version
 ==========================================================================================
+The Matlab has only been tested on Windows due to driver availability. The nominal setup uses a TCP-IP/VISA connection, but it can be modified to use a GPIB connection if needed. 
+
+## Required Software
+Matlab version > 2015 with Instrument Toolbox
+Agilent IO Libraries
+
+
+## Getting Started
 Follow the steps below to get started
 1. Clone the repository 
 2. Open Matlab and cd to the directory containing the repository 
@@ -40,9 +53,10 @@ Follow the steps below to get started
 7. Select *Measure Data* once all Connections are made to take a data set and analyze 
 8. Select *Analyze Data* to analyze an existing data set 
 
-Potential Connectivity Issues
-==========================================================================================
-## 1. Instrument Toolbox Connections Remain Open
+Note: The Agilent IO Library Suite provides tools to query the PNA and determine the address to use if this is different from the default setting.
+
+## Potential Connectivity Issues
+### 1. Instrument Toolbox Connections Remain Open
 Occasionally, the Matlab code will crash with a bug and will not gracefully disconnect from the instrument toolbox connections. When this
 happens, the code will throw an error that the instrument is not available and refuse to reconnect. The fix is to either restart Matlab or
 force the instrumentation toolbox to close the open devices. You can find the devices through the "instrfind" command:
@@ -57,34 +71,28 @@ through the fclose command:
 ```
 fclose(out(index));
 ```
-## 2. Serial Port Not Opening
+### 2. Serial Port Not Opening
 Occasionally, the COM port will remain open after the GUI closes and Matlab will not be able to open it or make a connection. This is a Windows problem that typically occurs when the computer has been powered on for a long time and requires rebooting the machine to fix.
 
 
-Measurement Process
+C++ Version
 ==========================================================================================
-## Step 1: Calibrate the PNA 
-This step either uses the electronic calibration module or a manual calibration step. The HP calibration kit consisting of short, open, and broadband impedance connections is available for manual calibration. After starting up the GUI or reloading a configuration file, the existing calibration file will be unselected from the PNA and will need to be reselected if a previous calibration file is to be used. The calibration file can be loaded through the PNA menu by selecting Response --> Cal --> Manage Cals --> Cal Set.
+The C++ version has only been tested on MacOS and uses the VXI11 protocol to communicate with the PNA over a TCP-IP connection. The GPIB connection is not possible with this version.
 
-## Step 2: Collect measured S parameters 
-The mode stirrer is positioned a specified number of times to create mulitple realizations of the cavity - the mode stirrer is driven by a stepper motor typically connected serially
-through COM5. There are a specified number of points collected in time and frequency from the PNA (given as NOP). This step captures frequency domain measurements of the S parameters at each mode stirrer position.
+## Required Software
+The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)
+GRPC: https://grpc.io
+HDF5: https://www.hdfgroup.org
+QT5: https://www.qt.io
+CMake: https://cmake.org
 
-## Step 3: Save Data to HDF5 File
-The frequency and  S parameters are saved to an HDF5 file with the settings from the
-configuration file saved as attributes. 
+## Getting Started
+Follow the steps below to get started
+1. Clone the repository 
+2. Open QT Creator and load the CMakeLists.txt file in the cpp folder (/code/cpp/CMakeLists.txt)
+3. Build and run the GUI
 
-Analysis Process
-==========================================================================================
-1. Compute Srad (the free space radiation S parameters) through time gating.
-2. Compute time domain S Parameters through an inverse Fourier transform.
-3. Compute power decay profile and estimate Tau (the 1/e fold energy decay time).
-4. Compute Alpha and Q from Tau.
-5. Transform measured S parameters to impedance (Z) through bilinear equations.
-6. Normalize impedance matrix for comparison with the RCM
-7. Generate measured distributions and histograms.
-8. Generate RCM Distributions and histograms.
-9. Save intermediate analytical values to an HDF5 and save all plots as .png files.
+Note: The available connections through both TCP-IP and serial ports are displayed in the status window when starting up so the address of the PNA and stepper motor can be updated if these are different from the default.
 
 References
 ==========================================================================================
