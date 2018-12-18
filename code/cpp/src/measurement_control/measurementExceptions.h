@@ -15,7 +15,7 @@ class measurementException : public std::exception
 public:
     measurementException(const std::string& msg) : m_msg(msg)
     {
-        std::cout << "Measurement Control Library Exception - Error Message: " << m_msg << std::endl;
+
     }
 
    ~measurementException()

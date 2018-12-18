@@ -1,3 +1,4 @@
+![Experimental Wave Chaotic Cavity Setup](./images/IREAP Logo 2013-450-150-2.png "IREAP")  
 Summary
 ==========================================================================================
 Random Coupling Model (RCM) Measurement and Analysis for Wave Chaotic Cavities. 
@@ -14,7 +15,7 @@ Haydon Kerk PCM 4826 Online Programming Manual: https://www.haydonkerkpittman.co
 
 Acknowledgements
 ==========================================================================================
-Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue.
+Many thanks to Bisrat Addissie, who started this project for his PhD work and provided the baseline code that allowed me to continue. Additional thanks to Professors Antonsen, Anlage, Ott, and the UMD Wave Chaos group for support and allowing this work to continue.
 
 
 Version Description

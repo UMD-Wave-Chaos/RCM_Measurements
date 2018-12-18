@@ -153,6 +153,12 @@ void measurementThread::run()
       } //end the for loop
 
       mc->closeLogFile();
+
+      if (!restart)
+          condition.wait(&mutex);
+      restart = false;
+      mutex.unlock();
+
     }//end the try statement
 
     catch (measurementException me)
@@ -173,10 +179,5 @@ void measurementThread::run()
   }
   emit infoStringAvailable(infoString, " default");
   emit measurementComplete();
-
-  if (!restart)
-      condition.wait(&mutex);
-  restart = false;
-  mutex.unlock();
 
 }

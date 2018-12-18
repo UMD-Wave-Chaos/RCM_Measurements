@@ -15,7 +15,7 @@ class DataLoggerException : public std::exception
 public:
     DataLoggerException(const std::string& msg) : m_msg(msg)
     {
-        std::cout << "Data Logger Library Exception - Error Message: " << m_msg << std::endl;
+
     }
 
    ~DataLoggerException()

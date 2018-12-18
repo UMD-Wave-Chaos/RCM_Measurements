@@ -15,7 +15,7 @@ class stepperMotorException : public std::exception
 public:
     stepperMotorException(const std::string& msg) : m_msg(msg)
     {
-        std::cout << "Stepper Motor Control Library Exception - Error Message: " << m_msg << std::endl;
+
     }
 
    ~stepperMotorException()

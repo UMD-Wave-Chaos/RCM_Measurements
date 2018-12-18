@@ -4,5 +4,6 @@
         <file>icons/warning.gif</file>
         <file>icons/umdlogo.gif</file>
         <file>icons/umdlogo.icns</file>
+        <file>icons/error.png</file>
     </qresource>
 </RCC>

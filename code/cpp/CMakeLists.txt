@@ -122,7 +122,7 @@ target_compile_definitions(${EXE_NAME} PRIVATE "-D_USE_MATH_DEFINES")
 ###########################################################################################
 # add a target to generate API documentation with Doxygen
 if(DOXYGEN_FOUND)
-  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../../Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
   add_custom_target(doc
                     ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
                     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
@@ -138,6 +138,8 @@ if(DOXYGEN_FOUND)
    set(DOCS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../docs)
    add_custom_target(build-time-make-docs-directory ALL
     		   COMMAND ${CMAKE_COMMAND} -E make_directory ${DOCS_DIRECTORY})
+   add_custom_target(build-time-make-docs-images-directory ALL
+                      COMMAND ${CMAKE_COMMAND} -E make_directory ${DOCS_DIRECTORY}/images)
 
   #copy docs to docs directory
   add_custom_command(
@@ -146,9 +148,16 @@ if(DOXYGEN_FOUND)
                 ${CMAKE_CURRENT_BINARY_DIR}/latex/refman.pdf
                 ${DOCS_DIRECTORY})
 
+ add_custom_command(TARGET doc POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory
+                    ${CMAKE_CURRENT_SOURCE_DIR}../../images
+                    ${CMAKE_CURRENT_BINARY_DIR}/html/images)
+
   add_custom_command(TARGET doc POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy_directory
                    ${CMAKE_CURRENT_BINARY_DIR}/html
 		   ${DOCS_DIRECTORY}/html)
+
+
 		    
 endif(DOXYGEN_FOUND)

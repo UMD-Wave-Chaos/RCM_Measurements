@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //test mode - set to "true" to run with mock interfaces, set to "false" to run with real hardware
+    testMode = true;
+
     ui->setupUi(this);
 
     plotReIm = true; //show real/imaginary or magnitude/phase
@@ -26,10 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     labelGoodString = "QLabel { background-color : green; color : white; }";
     labelDefaultString = "QLabel { background-color : white; color : black; }";
     labelBusyString = "QLabel { background-color : yellow; color : black; }";
+
     //limit the length of plots for speed
     maxPlotLength = 257;
-
-    testMode = false;
     
     mMode = IDLE;
 
