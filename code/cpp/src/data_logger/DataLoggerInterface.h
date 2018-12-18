@@ -9,6 +9,7 @@
 #include <iostream>
 #include <vector>
 
+#define HDF5_STRING_SIZE 1024
   
 class DataLoggerInterface
   {

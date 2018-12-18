@@ -91,45 +91,9 @@ void DataLoggerHDF5::WriteSettings(std::string input, std::string attrName)
         groupPlatform = file_.openGroup("/Settings");
     }
 
-    StrType strdatatype(PredType::C_S1, 500);
+    StrType strdatatype(PredType::C_S1, HDF5_STRING_SIZE);
     Attribute att = groupPlatform.createAttribute(attrName,strdatatype,dspace);
-    att.write(strdatatype,&inputH5String);
-
-/*
-     DataSet dataset = file_.openDataSet( datasetName);
-    // Create new dataspace for attribute
-    DataSpace attr_dataspace = DataSpace(H5S_SCALAR);
-
-    // Create new string datatype for attribute
-    StrType strdatatype(PredType::C_S1, H5T_VARIABLE); // of length 256 characters
-
-    // Set up write buffer for attribute
-    const H5std_string strwritebuf ("This attribute is of type StrType");
-
-    Attribute myatt_in = dataset.createAttribute(attrName, strdatatype, attr_dataspace);
-    myatt_in.write(strdatatype, input);
-
-*/
-/*
-    //need to create a new dataset with Unlimited size to allow extending
-    hsize_t      maxdims = H5S_UNLIMITED;
-    hsize_t msize = 1;
-    DataSpace mspace( 1, &msize, &maxdims);
-
-    DSetCreatPropList cparms;
-
-    cparms.setChunk( 1, &msize);
-
-    int fill_val = 0;
-    cparms.setFillValue( PredType::NATIVE_DOUBLE, &fill_val);
-
-    attrDataSet = file_.createDataSet( "Settings", PredType::NATIVE_DOUBLE, mspace,cparms);
-
-    StrType strtype = StrType(PredType::C_S1,H5T_VARIABLE);
-
-    Attribute att = attrDataSet.createAttribute(attrName,strtype,DataSpace(H5S_SCALAR));
-    att.write(strtype,"help");
-    */
+    att.write(strdatatype,(input.c_str()));
 }
 
 /**
@@ -141,7 +105,7 @@ void DataLoggerHDF5::ReadSettings(std::string &output, std::string attrName)
 {
     Group groupPlatform = file_.openGroup("/Settings");
     Attribute att = groupPlatform.openAttribute(attrName);
-     att.read(StrType(PredType::C_S1, 500), output);
+     att.read(StrType(PredType::C_S1, HDF5_STRING_SIZE), output);
 
 }
 

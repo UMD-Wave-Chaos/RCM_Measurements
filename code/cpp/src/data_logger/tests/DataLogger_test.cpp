@@ -56,22 +56,25 @@ namespace testing
         double testOutputDouble = 0;
 
         dl->WriteSettings(testInputDouble, "doubleValue");
-     //   dl->ReadSettings(testOutputDouble, "doubleValue");
+        //dl->ReadSettings(testOutputDouble, "doubleValue");
         //EXPECT_THAT(testInputDouble, Eq(testOutputDouble));
 
 
         std::string testInputString = "test input string";
         std::string testOutputString = "";
         dl->WriteSettings(testInputString, "stringValue");
-       // dl->ReadSettings(testOutputString,"stringValue");
+        //dl->ReadSettings(testOutputString,"stringValue");
+        //EXPECT_THAT(testOutputString,Eq(testInputString));
 
         std::string longString = "This is a long test comment that is not intended to convey any useful information otherwise. Now there are just random words being written. ";
         longString += "The intent is to exceed the typical value that a user may input as a comment to bound a maximum value for writing Settings variables as attributes. ";
         longString += "The underlying implementation of the WriteSettings function for strings uses the length of the string to set the datastorage type.";
 
-        longString = " "" " + longString + " "" ";
         std::cout<<"longString: "<<longString << std::endl;
+        std::cout<<"longString size: " << longString.size() << std::endl;
         dl->WriteSettings(longString, "commentValue");
+        //dl->ReadSettings(testOutputString,"stringValue");
+        //EXPECT_THAT(testOutputString,Eq(testInputString));
     }
 
     
