@@ -39,7 +39,7 @@ Matlab Version
 The Matlab has only been tested on Windows due to driver availability. The nominal setup uses a TCP-IP/VISA connection, but it can be modified to use a GPIB connection if needed. 
 
 ## Required Software
-Matlab version > 2015 with Instrument Toolbox
+Matlab version > 2015 with Instrument Toolbox  
 Agilent IO Libraries
 
 
@@ -81,7 +81,7 @@ C++ Version
 The C++ version has only been tested on MacOS and uses the VXI11 protocol to communicate with the PNA over a TCP-IP connection. The GPIB connection is not possible with this version.
 
 ## Required Software
-The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)
+The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)  
 GRPC: https://grpc.io  
 HDF5: https://www.hdfgroup.org  
 QT5: https://www.qt.io  
