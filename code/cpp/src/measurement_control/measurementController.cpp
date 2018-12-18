@@ -120,7 +120,7 @@ bool measurementController::updateSettings(std::string filename)
         Settings.ipAddress = reduce(ipAddressNode->value());
         xml_node<> *xFormStartNode = pnaSettingsNode->first_node("TransformStartTime");
         Settings.xformStartTime = atof(xFormStartNode->value());
-        xml_node<> *xFormStopNode = pnaSettingsNode->first_node("TransformStopime");
+        xml_node<> *xFormStopNode = pnaSettingsNode->first_node("TransformStopTime");
         Settings.xformStopTime = atof(xFormStopNode->value());
         xml_node<> *gatingStartNode = pnaSettingsNode->first_node("GatingStartTime");
         Settings.gateStartTime = atof(gatingStartNode->value());
@@ -306,10 +306,13 @@ void measurementController::logSettings()
     dataLogger.WriteSettings(Settings.settlingTime,"settlingTime");
     dataLogger.WriteSettings(Settings.xformStartTime,"xformStartTime");
     dataLogger.WriteSettings(Settings.xformStopTime,"xformStopTime");
-    dataLogger.WriteSettings(Settings.gateStartTime,"gateStartTime");
-    dataLogger.WriteSettings(Settings.gateStopTime,"gateStopTime");
+
     if(Settings.takeGatedMeasurement == true)
+    {
         dataLogger.WriteSettings("Yes","takeGatedMeasurement");
+        dataLogger.WriteSettings(Settings.gateStartTime,"gateStartTime");
+        dataLogger.WriteSettings(Settings.gateStopTime,"gateStopTime");
+    }
     else
         dataLogger.WriteSettings("Yes","takeGatedMeasurement");
     dataLogger.WriteSettings(Settings.waitTime_ms,"waitTime_ms");
@@ -536,23 +539,23 @@ void measurementController::measureGatedFrequencyDomainSParameters(double start_
 
         std::vector<double> S11R, S11I;
         pna->getS11Data(S11R, S11I);
-        dataLogger.WriteData(S11R,"S11f_real_gated");
-        dataLogger.WriteData(S11I,"S11f_imag_gated");
+        dataLogger.WriteData(S11R,"S11f_gated_real");
+        dataLogger.WriteData(S11I,"S11f_gated_imag");
 
         std::vector<double> S12R, S12I;
         pna->getS12Data(S12R, S12I);
-        dataLogger.WriteData(S12R,"S12f_real_gated");
-        dataLogger.WriteData(S12I,"S12f_imag_gated");
+        dataLogger.WriteData(S12R,"S12f_gated_real");
+        dataLogger.WriteData(S12I,"S12f_gated_imag");
 
         std::vector<double> S21R, S21I;
         pna->getS21Data(S21R, S21I);
-        dataLogger.WriteData(S21R,"S21f_real_gated");
-        dataLogger.WriteData(S21I,"S21f_imag_gated");
+        dataLogger.WriteData(S21R,"S21f_gated_real");
+        dataLogger.WriteData(S21I,"S21f_gated_imag");
 
         std::vector<double> S22R, S22I;
         pna->getS22Data(S22R, S22I);
-        dataLogger.WriteData(S22R,"S22f_real_gated");
-        dataLogger.WriteData(S22I,"S22f_imag_gated");
+        dataLogger.WriteData(S22R,"S22f_gated_real");
+        dataLogger.WriteData(S22I,"S22f_gated_imag");
     }
     catch (pnaException pe)
     {

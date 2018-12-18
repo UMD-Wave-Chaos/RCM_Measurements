@@ -1,16 +1,38 @@
 function saveSettings(Settings)
 
-h5writeatt(Settings.fileName,'/','Npoints',Settings.NOP);
-h5writeatt(Settings.fileName,'/','Nrealizations',Settings.N);
-h5writeatt(Settings.fileName,'/','ComPort',Settings.comPort);
+%check to see if the file exists, if not create it
+if ~exist(Settings.fileName,'file')
+    H5F.create(Settings.fileName);
+end
 
-h5writeatt(Settings.fileName,'/','Comments',Settings.Comments);
-h5writeatt(Settings.fileName,'/','V',Settings.V);
-h5writeatt(Settings.fileName,'/','l',Settings.l);
-h5writeatt(Settings.fileName,'/','nRCM',Settings.nRCM);
-h5writeatt(Settings.fileName,'/','nBins',Settings.nBins);
+%create the Settings group
+H5G.create(Settings.fileName,'Settings',8)
 
-h5writeatt(Settings.fileName,'/','fStart',Settings.fStart);
-h5writeatt(Settings.fileName,'/','fStop',Settings.fStop);
-h5writeatt(Settings.fileName,'/','nStepsPerRevolution',Settings.nStepsPerRevolution);
-h5writeatt(Settings.fileName,'/','direction',Settings.direction);
+%now write the Settings
+h5writeatt(Settings.fileName,'/Settings','numberOfPoints',Settings.NOP);
+h5writeatt(Settings.fileName,'/Settings','numberOfRealizations',Settings.N);
+h5writeatt(Settings.fileName,'/Settings','COMPort',Settings.comPort);
+
+h5writeatt(Settings.fileName,'/Settings','comments',Settings.Comments);
+h5writeatt(Settings.fileName,'/Settings','cavityVolume',Settings.cavityVolume);
+
+h5writeatt(Settings.fileName,'/Settings','fStart',Settings.fStart);
+h5writeatt(Settings.fileName,'/Settings','fStop',Settings.fStop);
+h5writeatt(Settings.fileName,'/Settings','numberOfStepsPerRevolution',Settings.nStepsPerRevolution);
+
+h5writeatt(Settings.fileName,'/Settings','ipAddress',Settings.ipAddress);
+h5writeatt(Settings.fileName,'/Settings','movementTime',Settings.movementTime);
+h5writeatt(Settings.fileName,'/Settings','settlingTime',Settings.settlingTime);
+
+h5writeatt(Settings.fileName,'/Settings','xformStartTime',Settings.xformStartTime);
+h5writeatt(Settings.fileName,'/Settings','xformStopTime',Settings.xformStopTime);
+
+if Settings.takeGatedMeasurement == true
+    h5writeatt(Settings.fileName,'/Settings','gateStartTime',Settings.gateStartTime);
+    h5writeatt(Settings.fileName,'/Settings','gateStopTime',Settings.gateStopTime);
+    h5writeatt(Settings.fileName,'/Settings','takeGatedMeasurement','Yes');
+else
+    h5writeatt(Settings.fileName,'/Settings','takeGatedMeasurement','No');
+end
+
+h5writeatt(Settings.fileName,'/Settings','waitTime_ms',Settings.waitTime_ms);
