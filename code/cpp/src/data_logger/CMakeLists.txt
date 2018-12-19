@@ -3,7 +3,8 @@ set(Data_Logger_SRCS         DataLogger_HDF5.h
                              DataLoggerInterface.h
                              DataLogger_HDF5.cpp
                              DataLogger_HDF5_Vector.cpp
-                             DataLogger_HDF5_Double.cpp)
+                             DataLogger_HDF5_Double.cpp
+                             DataLogger_HDF5_Settings.cpp)
 
 add_library(DataLogger ${Data_Logger_SRCS})
 source_group("HDF5"            FILES ${Data_Logger_SRCS})
