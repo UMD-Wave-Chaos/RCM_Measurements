@@ -40,7 +40,14 @@ add_custom_target(build-time-make-bin-test-directory ALL
       cmake_policy(SET CMP0003 NEW)
     endif(COMMAND cmake_policy)
 
-  
+
+#########################################################################################
+#determine build platform
+if (APPLE)
+    message("Building on Mac OS ...")
+
+endif()
+
 ##########################################################################################
 #find the additional libraries needed
 #HDF5 - used for data logging
@@ -112,7 +119,18 @@ set(main_SRCS
 )
 
 # add the primary executable
-add_executable(${EXE_NAME} ${main_SRCS})
+if(APPLE)
+    #tell CMake where to find and install the file itself
+    set(myApp_ICON ${CMAKE_CURRENT_SOURCE_DIR}/src/GUI/icons/umdlogo.icns)
+    set_source_files_properties(${myApp_ICON} PROPERTIES
+               MACOSX_PACKAGE_LOCATION "Resources")
+
+    add_executable(${EXE_NAME} MACOSX_BUNDLE ${myApp_ICON} ${main_SRCS})
+    set_target_properties(${EXE_NAME} PROPERTIES MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/MacOsBundle.plist.in)
+else()
+    add_executable(${EXE_NAME} ${main_SRCS})
+endif()
+
 # Use the Widgets module from Qt 5
 target_link_libraries(${EXE_NAME} RMGUILibrary)
 
