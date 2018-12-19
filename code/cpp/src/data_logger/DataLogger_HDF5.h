@@ -20,6 +20,7 @@ using namespace H5;
   public:
     DataLoggerHDF5();
     DataLoggerHDF5(std::string fileName);
+    ~DataLoggerHDF5();
     
     virtual void CreateFile(std::string fileName);
     virtual void CloseFile();

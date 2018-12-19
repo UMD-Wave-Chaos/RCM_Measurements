@@ -27,7 +27,7 @@ class DataLoggerInterface
 
     //Write Settings overloaded types
     virtual void WriteSettings(std::string input, std::string attrName)=0;
-    virtual void WriteSettings(double input, std::string attrName)=0;
+    virtual void WriteSettings(double input, std::string attrName) = 0;
 
     //ReadData overloaded types
     virtual std::vector<double> ReadVector(std::string fileName, std::string datasetName)=0;

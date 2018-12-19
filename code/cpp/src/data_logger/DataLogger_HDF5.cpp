@@ -25,6 +25,17 @@
  	CreateFile(fileName);
   }
   
+
+
+  /**
+ * \brief destructor
+ *
+ */
+DataLoggerHDF5::~DataLoggerHDF5()
+{
+
+}
+
   
       /**
    * \brief Create File
