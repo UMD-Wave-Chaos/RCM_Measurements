@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //test mode - set to "true" to run with mock interfaces, set to "false" to run with real hardware
-    testMode = true;
+    testMode = false;
 
     setupMenu();
 
@@ -467,8 +467,14 @@ void MainWindow::on_calibrateButton_clicked()
      logMessage("Calibrating ...","info");
      mMode = CALIBRATING;
 
-     mControl->calibratePNA();
-
+     try
+     {
+         mControl->calibratePNA();
+    }
+     catch(pnaException pe)
+     {
+         logMessage(pe.what(),"error");
+     }
      logMessage("Done");
      mMode = IDLE;
 }

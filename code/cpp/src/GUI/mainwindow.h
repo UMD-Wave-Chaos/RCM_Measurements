@@ -15,6 +15,8 @@
 #include <QMenu>
 
 #include "measurementController.h"
+#include "pnaExceptions.h"
+#include "stepperMotorExceptions.h"
 
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"

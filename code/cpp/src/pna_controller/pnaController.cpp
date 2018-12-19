@@ -387,10 +387,10 @@ void pnaController::calibrate()
     tBuff = "SENSe:CORRection:COLL:ACQ ECAL1";
     vxi11_send(&vxi_link, tBuff.c_str());
 
-     vxi11_send_and_receive(&vxi_link, "*OPC?", rcvBuffer, 100, 60000);
+    vxi11_send_and_receive(&vxi_link, "*OPC?", rcvBuffer, 100, 60000);
 
-     std::cout<<"rcvBuffer: " << rcvBuffer << std::endl;
+    checkCalibration();
 
-     checkCalibration();
+    initialize(fStart, fStop, numberOfPoints);
 
 }

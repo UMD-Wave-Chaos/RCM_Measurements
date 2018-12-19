@@ -191,7 +191,7 @@ bool measurementController::updateTimeStamp()
 
       char timeStampBuff[50];
 
-      std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%d_%I_%M_%S", ltm);
+      std::strftime(timeStampBuff, sizeof(timeStampBuff), "%Y%m%d_%I%M%S", ltm);
 
       Settings.outputFileName = Settings.outputFileNamePrefix + "_" + timeStampBuff + ".h5";
 

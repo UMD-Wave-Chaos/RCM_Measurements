@@ -33,6 +33,18 @@ else
     data.SCf(:,3,:) = S21;
     data.SCf(:,4,:) = S22;
     
+    %get the time gated data
+    S11 = getComplexFromHDF5(filename,'/S11f_gated');
+    S12 = getComplexFromHDF5(filename,'/S12f_gated');
+    S21 = getComplexFromHDF5(filename,'/S21f_gated');
+    S22 = getComplexFromHDF5(filename,'/S22f_gated');
+    
+    data.SCfg(:,1,:) = S11;
+    data.SCfg(:,2,:) = S12;
+    data.SCfg(:,3,:) = S21;
+    data.SCfg(:,4,:) = S22;
+    
+    
     %load the time data
     data.time = h5read(filename,'/time');
 

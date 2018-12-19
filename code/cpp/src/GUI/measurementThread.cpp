@@ -154,19 +154,16 @@ void measurementThread::run()
 
       mc->closeLogFile();
 
-      if (!restart)
-          condition.wait(&mutex);
+     if (!restart)
+        condition.wait(&mutex);
       restart = false;
       mutex.unlock();
-
     }//end the try statement
 
     catch (measurementException me)
     {
         emit infoStringAvailable(me.what(), "error");
     }
-
-
 
   //Announce that the measurements are finished (either aborted or naturally finished)
   if (requestAbort == true)

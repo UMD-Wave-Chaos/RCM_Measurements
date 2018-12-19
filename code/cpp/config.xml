@@ -4,7 +4,8 @@
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
     -->
-    <Comments>Dual Port Config A, 8 to 12 GHz </Comments>
+    <Comments>Dual Port Config A, 8 to 12 GHz with the port 2 antenna located at the near 
+    edge of the well a few inches above </Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
