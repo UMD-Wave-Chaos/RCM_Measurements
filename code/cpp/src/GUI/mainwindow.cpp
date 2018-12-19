@@ -14,9 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //test mode - set to "true" to run with mock interfaces, set to "false" to run with real hardware
     testMode = true;
 
+    setupMenu();
+
     ui->setupUi(this);
 
-    plotReIm = true; //show real/imaginary or magnitude/phase
+    measurementValid = false;
 
     Q_INIT_RESOURCE(icons);
 
@@ -75,15 +77,69 @@ MainWindow::MainWindow(QWidget *parent) :
     listConnections();
 }
 
+void MainWindow::setupMenu()
+{
+    plotReIm = true; //show real/imaginary or magnitude/phase
+
+    // setup the menu
+    m_menuBar = new QMenuBar(this);
+
+    menuBar()->setNativeMenuBar(false);
+
+    displayMenu = new QMenu("Display");
+
+    //create the actions for real/imag and mag/phase
+    displayRealImag =  new QAction(tr("Real/Imag"), this);
+    displayRealImag->setStatusTip(tr("Display Real and Imaginary Components"));
+    displayRealImag->setCheckable(true);
+    connect(displayRealImag, &QAction::triggered, this, &MainWindow::setDisplayTypeRealImag);
+
+    displayLogMagPhase =  new QAction(tr("Log Mag/Phase"), this);
+    displayLogMagPhase->setStatusTip(tr("Display Log Magnitude and Phase Components"));
+    displayLogMagPhase->setCheckable(true);
+    connect(displayLogMagPhase, &QAction::triggered, this, &MainWindow::setDisplayTypeLogMagPhase);
+
+    //create the action group
+    displayGroup = new QActionGroup(this);
+    displayGroup->addAction(displayRealImag);
+    displayGroup->addAction(displayLogMagPhase);
+    displayRealImag->setChecked(true);
+
+    displayMenu->addAction(displayRealImag);
+    displayMenu->addAction(displayLogMagPhase);
+    m_menuBar->addAction(displayMenu->menuAction());
+}
+
 void MainWindow::plotFreqData()
 {
-    std::vector<double> f,S11R, S11I,  S12R, S12I, S22R, S22I;
+    measurementValid = true;
     mControl->getS11Decimated(S11R,S11I);
     mControl->getS12Decimated(S12R,S12I);
     mControl->getS22Decimated(S22R,S22I);
     mControl->getFreqDecimated(f);
     clearPlots();
     updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
+}
+
+void MainWindow::setDisplayTypeLogMagPhase()
+{
+
+if (plotReIm == true)
+    {
+        plotReIm = false;
+        clearPlots();
+        updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
+    }
+}
+
+void MainWindow::setDisplayTypeRealImag()
+{
+    if (plotReIm == false)
+        {
+            plotReIm = true;
+            clearPlots();
+            updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
+        }
 }
 
 void MainWindow::listConnections()
@@ -203,10 +259,13 @@ void MainWindow::initializePlots()
  double increment = (11e9 - 9.5e9)/static_cast<double>(maxPlotLength);
  for (size_t i = 0; i < maxPlotLength; i++)
  {
-     xData[i] = (9.5e9 + increment*i)/1e9;
-     yData[i] = static_cast<double>(i);
-     yData1[i] = 2.0*static_cast<double>(i);
-     yData2[i] = 5.0*static_cast<double>(i);
+     f.push_back((9.5e9 + increment*i)/1e9);
+     S11R.push_back(static_cast<double>(i+1));
+     S12R.push_back(2.0*static_cast<double>(i+1));
+     S22R.push_back(5.0*static_cast<double>(i+1));
+     S11I.push_back(static_cast<double>(i+1));
+     S12I.push_back(2.0*static_cast<double>(i+1));
+     S22I.push_back(5.0*static_cast<double>(i+1));
  }
 
     realS11.setName("S11");
@@ -218,7 +277,7 @@ void MainWindow::initializePlots()
     realPlot.setTitle("Real Part of S-Parameters");
     imagPlot.setTitle("Imaginary Part of S-Parameters");
 
-     updatePlots(xData,yData,yData1,yData2,yData,yData1,yData2);
+     updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
 
 }
 
@@ -360,6 +419,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_measureDataButton_clicked()
 {
     logMessage("Measuring Data ...","info");
+    measurementValid = false;
     mMode = MEASURING;
     mThread.measure(mControl);
 

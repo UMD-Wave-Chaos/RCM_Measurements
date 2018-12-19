@@ -12,6 +12,7 @@
 #include <QtCharts/QAbstractAxis>
 #include <QTimer>
 #include <QThread>
+#include <QMenu>
 
 #include "measurementController.h"
 
@@ -67,6 +68,8 @@ private:
 
     QString getConfigFileName();
 
+    void setupMenu();
+
     void initializeGUI();
     void clearPlots();
 
@@ -93,12 +96,22 @@ private:
 
     bool plotReIm;
 
+    bool measurementValid;
+
     measurementThread mThread;
 
     QTimer *updateModeTimer;
     QTimer *smTimer;
 
     QtCharts::QValueAxis *m_axis;
+
+    QMenuBar *m_menuBar;
+
+    QMenu *displayMenu;
+    QAction *displayRealImag, *displayLogMagPhase;
+    QActionGroup *displayGroup;
+
+    std::vector<double> f,S11R, S11I,  S12R, S12I, S22R, S22I;
 
 private slots:
     void updateStepperMotorStatus();
@@ -109,6 +122,8 @@ private slots:
     void updateOutputFileName(std::string fileName);
     void stepMotor();
     void plotFreqData();
+    void setDisplayTypeLogMagPhase();
+    void setDisplayTypeRealImag();
 };
 
 #endif // MAINWINDOW_H
