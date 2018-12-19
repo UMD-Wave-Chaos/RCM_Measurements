@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1362</width>
-    <height>869</height>
+    <height>840</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>450</y>
+      <y>440</y>
       <width>1341</width>
       <height>141</height>
      </rect>
@@ -300,7 +300,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>0</y>
       <width>661</width>
       <height>441</height>
      </rect>
@@ -309,8 +309,8 @@
    <widget class="QtCharts::QChartView" name="imagChartView">
     <property name="geometry">
      <rect>
-      <x>710</x>
-      <y>10</y>
+      <x>700</x>
+      <y>0</y>
       <width>641</width>
       <height>441</height>
      </rect>
@@ -320,7 +320,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>600</y>
+      <y>580</y>
       <width>1341</width>
       <height>191</height>
      </rect>
