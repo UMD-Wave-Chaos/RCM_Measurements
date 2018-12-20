@@ -300,7 +300,7 @@ void pnaController::getGatedFrequencyDomainSParameters(double start_time, double
     tBuff = "CALC:FILT:TIME:START " + std::to_string(start_time);
     vxi11_send(&vxi_link, tBuff.c_str());
 
-    tBuff = "CALC:FILT:TIME:STOP" + std::to_string(stop_time);
+    tBuff = "CALC:FILT:TIME:STOP " + std::to_string(stop_time);
     vxi11_send(&vxi_link, tBuff.c_str());
 
     //now get the S parameters
