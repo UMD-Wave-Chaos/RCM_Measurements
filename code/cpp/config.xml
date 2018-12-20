@@ -4,8 +4,7 @@
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
     -->
-    <Comments>Dual Port Config A, 8 to 12 GHz with the port 2 antenna located at the near 
-    edge of the well a few inches above </Comments>
+    <Comments>Dual Port Config A, 11 to 13 GHz with the port 2 antenna located at the near edge of the well a few inches above and  conducting objects hung from mode stirrer to try and disrupt the 110 MHz oscillations</Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
@@ -13,8 +12,8 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 8E9 </FrequencySweepStart>
-        <FrequencySweepStop> 12E9 </FrequencySweepStop>
+        <FrequencySweepStart> 11E9 </FrequencySweepStart>
+        <FrequencySweepStop> 13E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
         <TransformStartTime> -1.0e-6</TransformStartTime>
         <TransformStopTime> 5e-6</TransformStopTime>
@@ -53,7 +52,7 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix>Config_A_XBand_8to12GHz</FileNamePrefix>
+        <FileNamePrefix>Config_A_XBand_11to13GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
     </Experiment_Settings>
     
