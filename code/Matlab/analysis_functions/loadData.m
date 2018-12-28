@@ -58,5 +58,5 @@ else
     data.SCt(:,3,:) = S21;
     data.SCt(:,4,:) = S22;
 
-    %data.Settings = loadSettingsFromHDF5File(filename);
+    data.Settings = loadSettingsFromHDF5File(filename);
 end

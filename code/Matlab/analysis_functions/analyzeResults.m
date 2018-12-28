@@ -156,8 +156,6 @@ else
     disp(lstring)
 end
 
-alpha = 24;
-
 h5create(analysisFile,'/Analysis/alpha',size(alpha));
 h5write(analysisFile,'/Analysis/alpha',alpha);
 h5create(analysisFile,'/Analysis/Q',size(Qcomp));
@@ -186,7 +184,12 @@ h5create(analysisFile,'/Analysis/Zcf_imag',size(Zcf));
 h5write(analysisFile,'/Analysis/Zcf_imag',imag(Zcf));
 
 %% Step 6: Normalize the frequency domain measurements using the computed Z parameters in Step 5
-Znormf = normalizeImpedance(Zcf,Zradf, Freq, handles);
+if (useGUI == true)
+    Znormf = normalizeImpedance(Zcf,Zradf, Freq, handles);
+else
+    Znormf = normalizeImpedance(Zcf,Zradf, Freq);
+end
+
 
 h5create(analysisFile,'/Analysis/Znormf_real',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_real',real(Znormf));
@@ -194,7 +197,11 @@ h5create(analysisFile,'/Analysis/Znormf_imag',size(Znormf));
 h5write(analysisFile,'/Analysis/Znormf_imag',imag(Znormf));
 
 %% Step 7: compute the distributions
-Zrcm = computeDistributions(Znormf,alpha, 1000, 100000, foldername, handles); 
+if (useGUI == true)
+    Zrcm = computeDistributions(Znormf,alpha, 1000, 100000, foldername, handles); 
+else
+    Zrcm = computeDistributions(Znormf,alpha, 1000, 100000, foldername); 
+end
 
 h5create(analysisFile,'/Analysis/Zrcm_real',size(Zrcm));
 h5write(analysisFile,'/Analysis/Zrcm_real',real(Zrcm));
