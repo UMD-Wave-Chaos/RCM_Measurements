@@ -1,11 +1,15 @@
 Lb = 2.5;
 Lp = 0;
-c = 3e8;
+c = 2.99792458e8;
 Q =3.2302e+04;
 port = 1;
 
 
-Lb = [2.48 2.99 3.49];
+%Lb = [2.48 2.99 3.49];
+%Lb = [2.6606 3.2228 2.3788];
+% Lb = [0.3747 5.6121 6.6704 5.0215 6.0708 6.3706 1.1242 7.5698];
+Lb = [c/128e6 c/.9e6];
+% sf = [1 0.1414 0.2186 0.3432 0.1753 0.1456 0.258 0.1218];
 nBounce = [1 2 3];
 
 omega = 2*pi*data.Freq;
@@ -36,15 +40,16 @@ for count = 1:length(Lb)
     phase = Beta*(Lp + Lb(count)) - pi/4 + nBounce(count)*pi;
     
     %TBD - need to compute the orbit stability coefficient
-    Db = 1/(50*length(Lb));
+    Db = 1/(Lb(count));
     
-    rho_contribution = sqrt(Db)*cos(phase);
-    chi_contribution = sqrt(Db)*sin(phase);
+    rho_contribution = sqrt(Db/50)*cos(phase);
+    chi_contribution = sqrt(Db/50)*sin(phase);
     
     %sum up the contributions
     rho = rho + rho_contribution;
     chi = chi + chi_contribution;
 end
+disp(count)
 
 Zso_p_re = real(Zrad).^(1/2).*rho.*real(Zrad).^(1/2);
 Zso_p_im = real(Zrad).^(1/2).*chi.*real(Zrad).^(1/2);
