@@ -1,4 +1,4 @@
-% function [rho,dF] = computeSpectralCorrelationFunction(data,port)
+function [rho,dF] = computeSpectralCorrelationFunction(data,port)
 %[rho,dF] = computeSpectralCorrelationFunction(data,port)
 %
 %This function computes and plots the spectral correlation function of the
@@ -19,10 +19,9 @@
 %of light (c). Also limit the number of points to be evaluated
 V = 1.92;
 c = 2.99792458e8;
-stopdF = 500;
 stopInd = 300;
 
-startIndex = floor(mean(1:length(data.Freq)));
+startIndex = 1;%floor(mean(1:length(data.Freq)));
 
 meanF = mean(data.Freq);
 
@@ -32,8 +31,6 @@ f0 = data.Freq(startIndex);
 %get the S parameter we are interested in
 Sp = squeeze(data.SCf(:,port,:));
 
-
-
 %compute the normalized frequency 
 %delta_F is just the spacing between samples in frequency
 deltaF = data.Freq(2) - data.Freq(1);
@@ -42,10 +39,10 @@ deltaFWeyl = c^3/(4*f0^2*V);
 %the ratio becomes a scale factor
 sf = deltaF/deltaFWeyl;
 %create a running index and scale to get the normalized frequency vector
-dF = sf*(1:length(data.Freq));
+dF = sf*(1:stopInd);
 
 %create the empty vector for the spectral correlation function
-rho = zeros(1,length(data.Freq));
+rho = zeros(1,stopInd);
 
 %set the reference S parameter to the specified starting frequency
 S0 = abs(Sp(startIndex,:));
@@ -79,18 +76,22 @@ end
 figure
 plot(dF,rho,'LineWidth',2)
 xlim([0 dF(stopInd)]);
-xlabel('\delta_f/\Delta_{f Weyl}')
+xlabel('\delta_f/\Deltaf_{Weyl}')
 ylabel('\rho')
 grid on
 hold on
 plot(dF,zeros(size(dF)),'--k','LineWidth',2)
 
-sstring2 = sprintf('\\Delta_{f Weyl} = %0.2f kHz',deltaFWeyl/1e3);
-sstring3 = sprintf('\\delta_f = %0.2f kHz',deltaF/1e3);
 sstring1 = sprintf('f_0 = %0.2f GHz',f0/1e9);
-text(dF(floor(stopInd/2)),0.75,sstring1,'FontSize',12,'FontWeight','bold');
-text(dF(floor(stopInd/2)),0.65,sstring2,'FontSize',12,'FontWeight','bold');
-text(dF(floor(stopInd/2)),0.55,sstring3,'FontSize',12,'FontWeight','bold');
+sstring2 = sprintf('<f> = %0.2f GHz',meanF/1e9);
+sstring3 = sprintf('\\Deltaf_{Weyl} = %0.2f kHz',deltaFWeyl/1e3);
+%sstring4 = sprintf('\\delta_f = %0.2f kHz',deltaF/1e3);
+
+yTextTop = 0.8;
+text(dF(floor(stopInd/2)),yTextTop,sstring1,'FontSize',12,'FontWeight','bold');
+%text(dF(floor(stopInd/2)),yTextTop - 0.1,sstring2,'FontSize',12,'FontWeight','bold');
+text(dF(floor(stopInd/2)),yTextTop - 0.1,sstring3,'FontSize',12,'FontWeight','bold');
+%text(dF(floor(stopInd/2)),yTextTop - 0.2,sstring4,'FontSize',12,'FontWeight','bold');
 set(gca,'FontWeight','bold');
 set(gca,'FontSize',12)
 set(gca,'LineWidth',2)

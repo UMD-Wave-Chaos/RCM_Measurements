@@ -4,16 +4,38 @@ c = 2.99792458e8;
 Q =3.2302e+04;
 port = 1;
 
+% Lb = [c/128e6 c/.9e6];
 
-%Lb = [2.48 2.99 3.49];
-%Lb = [2.6606 3.2228 2.3788];
-% Lb = [0.3747 5.6121 6.6704 5.0215 6.0708 6.3706 1.1242 7.5698];
-Lb = [c/128e6 c/.9e6];
-% sf = [1 0.1414 0.2186 0.3432 0.1753 0.1456 0.258 0.1218];
-nBounce = [1 2 3];
 
+if port == 1
+    portString = 11;
+elseif port == 2
+    portString = 12;
+elseif port == 3
+    portString = 21;
+elseif port == 4
+    portString = 22;
+end
+
+t0Ind = find( abs(data.time) == min(abs(data.time)));
+St = squeeze(data.SCt(:,port,:));
+St0 = max(mean(abs(St(data.time >= 0,:)),2));
+%St0 = 1;
+Zt = transformToZSinglePort(St);
+
+Lb = [5.321 6.446 4.759 5.827 2.342 2.679];
+
+nBounce = [1 1 1 1 1 1];
+
+%get the scale factors
+sf = zeros(size(Lb));
+for count = 1:length(Lb)
+    ind = find(abs(c*data.time - Lb(count)) == min(abs(c*data.time - Lb(count))));
+    sf(count) = mean(abs(St(ind,:)),2)/St0;
+end
 omega = 2*pi*data.Freq;
 k = omega/c;
+
 
 %get the single port measured data
 %Sf is the raw scattering measurements
@@ -21,9 +43,12 @@ Sf = squeeze(data.SCf(:,port,:));
 %Zavg is the average raw impedance measurements
 Zavg = mean(transformToZSinglePort(Sf),2);
 
+Zf = transformToZSinglePort(Sf);
+Zf = mean(abs(Zf),2);
+
 %get the gated results for the radiation scattering coefficient and
 %impedance 
-Srad = applyTimeGating(Sf,data.Freq,7e-9);
+Srad = applyTimeGating(Sf,data.Freq,9e-9);
 Zrad = mean(transformToZSinglePort(Srad),2); 
 
 %the idea is that Zavg = Zrad + Zso - need to investigate Zso
@@ -37,13 +62,13 @@ chi = zeros(size(k));
 
 for count = 1:length(Lb)
     %compute the phase and the contributions
-    phase = Beta*(Lp + Lb(count)) - pi/4 + nBounce(count)*pi;
+    phase = Beta*(Lp + Lb(count)) + nBounce(count)*pi;
     
     %TBD - need to compute the orbit stability coefficient
-    Db = 1/(Lb(count));
+    Db = 1;%/(Lb(count));
     
-    rho_contribution = sqrt(Db/50)*cos(phase);
-    chi_contribution = sqrt(Db/50)*sin(phase);
+    rho_contribution = sf(count)*Db*cos(phase);
+    chi_contribution = sf(count)*Db*sin(phase);
     
     %sum up the contributions
     rho = rho + rho_contribution;
@@ -63,6 +88,56 @@ Ravg_p = real(Zrad) + real(Zrad).^(1/2).*rho.*real(Zrad).^(1/2);
 Xavg_p = imag(Zrad) + real(Zrad).^(1/2).*chi.*real(Zrad).^(1/2);
 Zavg_p = Ravg_p + 1j*Xavg_p;
 
+figure
+plot(c*data.time,abs(St)/St0);
+hold on
+plot(c*data.time,mean(abs(St),2)/St0,'k','LineWidth',2);
+grid on
+xlabel('Length (m)')
+ylabel('|IFT\{S\}|')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+xlim([0 15])
+tstring = sprintf('S_{%d}',portString);
+title(tstring);
+
+figure
+plot(data.Freq/1e9,Zf,'LineWidth',2);
+grid on
+xlabel('Frequency (GHz)')
+ylabel('|Z| (\Omega)')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+tstring = sprintf('<|Z_{%d}|>',portString);
+title(tstring);
+
+figure
+plot(data.Freq/1e9,20*log10(mean(abs(Sf),2)),'LineWidth',2);
+grid on
+xlabel('Frequency (GHz)')
+ylabel('|S| (dB)')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+tstring = sprintf('<|S_{%d}|>',portString);
+title(tstring);
+
+
+figure
+plot(c*data.time,abs(Zt));
+hold on
+plot(c*data.time,mean(abs(Zt),2),'k','LineWidth',2);
+grid on
+xlabel('Length (m)')
+ylabel('|IFT\{Z\}|')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+xlim([0 15])
+tstring = sprintf('Z_{%d}',portString);
+title(tstring);
 
 figure
 subplot(2,1,1)
