@@ -1,13 +1,13 @@
-function testRCMNormalizationGating(data, port,alpha,gateTime,maskType,wVal)
+function singlePortRCMComparison(data, port,alpha,gateTime,maskType,wVal)
 
 SCf = data.SCf;
-[Z1,Z2] = compareGatingPosition(data,port,gateTime,maskType,wVal,0);
+[Z1,~] = compareGatingPosition(data,port,gateTime,maskType,wVal,0);
  
  Sf = squeeze(SCf(:,port,:));
  Zf = transformToZSinglePort(Sf);
  Zavg = mean(Zf,2);
  
- Z1norm = normalizeSinglePortImpedance(Zf,Z1);
+ Z1norm = normalizeSinglePortImpedance(Zf,Zavg);
 
  
  nRCM = 100000;

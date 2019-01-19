@@ -1,11 +1,11 @@
-function minZNormalization(port, alpha,data)
+function beta = minZNormalization(port, alpha,data,gateTime)
 % minZNormalization(port, alpha,data)
 
 beta0 = 1.2;
 
 Zf = transformToZ2Port(data.SCf);
 
-[Sf,~] = applyTimeGating(data.SCf(:,port,:),data.Freq,8e-9,0,0.5);
+[Sf,~] = applyTimeGating(data.SCf(:,port,:),data.Freq,gateTime,0,0.5);
 %transform to Z
 Zfg = transformToZSinglePort(Sf);
 %take the mean value - Z1 is the output signal that was gated in the S
@@ -14,7 +14,7 @@ Z1 = mean(Zfg,2);
  
 period = .110; %in GHz
 nPointsPerGHz = length(Zf)/(data.Freq(end) - data.Freq(1))*1e9;
-m = nPointsPerGHz * period*10;
+m = nPointsPerGHz * period*2;
 Zavg = squeeze(mean(Zf(:,port,:),3));
 Zavg_bar = movmean(Zavg,m);
 
@@ -34,12 +34,13 @@ zeta = zeros(length(Zf),50);
 for cnt = 1:50
 Zc = squeeze(Zf(:,port,cnt));
 
-
 %f = @(beta)ZNormMinimizationFunction(beta, Zc, Zavg_bar, Zavg);
 f = @(beta)ZNormMinimizationFunction(beta, Zc, Z1, Zavg);
 
 options = optimoptions('fminunc','Algorithm','quasi-newton','Display','off');
 [beta(cnt), fval(cnt)] = fminunc(f,beta0,options);
+
+
 
 %normalize the impedance
 zeta(:,cnt) = real(Zavg).^(-0.5) .* (Zc -1j*(beta(cnt)*imag(Z1) + (1-beta(cnt)) * imag(Zavg))).* real(Zavg).^(-0.5);
@@ -48,8 +49,8 @@ end
 
 figure
 plot(1:50,beta,'LineWidth',2);
-xlabel('Count')
-ylabel('Beta (unitless)')
+xlabel('Realization')
+ylabel('\beta (unitless)')
 grid on
 set(gca,'FontSize',12);
 set(gca,'FontWeight','bold');

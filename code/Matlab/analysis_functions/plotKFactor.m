@@ -1,4 +1,4 @@
-function K = plotKFactor(SCf,Freq,index,varargin)
+function [K,Su,Ss] = plotKFactor(SCf,Freq,index,varargin)
 
 %% check inputs
 if nargin == 4
@@ -22,7 +22,7 @@ switch index
         indString = 'NA';
 end
 
-K = getKFactor(SCf,index);
+[K,Su,Ss] = getKFactor(SCf,index);
 h1 = figure;
 plot(Freq/1e9,K,'LineWidth',2);
 grid on
