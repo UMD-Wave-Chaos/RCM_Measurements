@@ -1,3 +1,4 @@
+function shortOrbitTesting(data)
 Lb = 2.5;
 Lp = 0;
 c = 2.99792458e8;
