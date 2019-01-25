@@ -6,6 +6,9 @@
 * @date 12/13/2018*/
 #include "measurementThread.h"
 
+//need to make the mutex and wait condition global so they can be accessed by
+//both the measurement thread and the main window
+//the single declaration is here, the "extern" declaration is in the .h file
 QMutex globalMutex;
 QWaitCondition globalWaitCondition;
 

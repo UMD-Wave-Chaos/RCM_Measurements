@@ -71,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(&mThread, SIGNAL(readyToStepMotor()),
                 this, SLOT(stepMotor()));
 
+    //when a measurement is taken and we need to wait for user input, do so
     connect(&mThread, SIGNAL(readyForUserInput()),
                 this, SLOT(getUserInput()));
 
@@ -178,16 +179,35 @@ void MainWindow::updateMeasurementStatusComplete()
     }
 }
 
+/**
+ * \brief getUserInput
+ *
+ * Slot for the main window to get user input. This function will put up a message box
+ * that allows the user to close when the cavity is ready for the next measurement. The
+ * global mutex will be locked while the message box is up so the measurement thread
+ * will be paused
+*/
 void MainWindow::getUserInput()
 {
+    //first need to lock the mutex
     globalMutex.lock();
+    //now create and show the message box
     QMessageBox msgBox;
     msgBox.setText("Press OK when cavity is ready for measurement");
     msgBox.exec();
+    //once the "OK" button has been pressed, need to unlock the mutex
     globalMutex.unlock();
+    //make sure to signal that the wait condition is ready
     globalWaitCondition.wakeAll();
 }
 
+/**
+ * \brief stepMotor
+ *
+ * Slot for the main window to step the motor. The communication is over
+ * a serial port, which is not allowed by QT to be cross threaded, so we
+ * need to handle this in the main window thread.
+*/
 void MainWindow::stepMotor()
 {
     mControl->moveStepperMotorNoWait();
@@ -235,6 +255,11 @@ void MainWindow::updateGUIMode(measurementModes mode)
     };
 }
 
+/**
+ * \brief initializeGUI
+ *
+ * This function handles initialization and creation of all GUI components.
+*/
 void MainWindow::initializeGUI()
 {
     logMessage("Initializing ...");
@@ -247,6 +272,14 @@ void MainWindow::initializeGUI()
     logMessage("Done");
 }
 
+/**
+ * \brief updateLabel
+ *
+ * This function handles updating labels on the GUI with a status for color
+ * @param label, the label handel to update
+ * @param status, the boolean status to use for coloring (true = Good/Green, false = Error/Red)
+ * @param labelText, the text to update the label with
+*/
 void MainWindow::updateLabel(QLabel *label, bool status, QString labelText)
 {
  if (status == true)
@@ -258,12 +291,24 @@ void MainWindow::updateLabel(QLabel *label, bool status, QString labelText)
 
 }
 
+/**
+ * \brief updateLabel
+ *
+ * This function handles updating labels on the GUI without a status for color
+ * @param label, the label handel to update
+ * @param labelText, the text to update the label with
+*/
 void MainWindow::updateLabel(QLabel *label, QString labelText)
 {
  label->setStyleSheet(labelDefaultString);
  label->setText(labelText);
 }
 
+/**
+ * \brief initializePlots
+ *
+ * This function handles initalization of the plot windows.
+*/
 void MainWindow::initializePlots()
 {
  std::vector<double> xData(maxPlotLength);
@@ -296,6 +341,12 @@ void MainWindow::initializePlots()
 
 }
 
+
+/**
+ * \brief clearPlots
+ *
+ * This function removes all data currently plotted on the plot windows.
+*/
 void MainWindow::clearPlots()
 {
     realPlot.removeSeries(&realS11);
@@ -306,6 +357,13 @@ void MainWindow::clearPlots()
     imagPlot.removeSeries(&imagS22);
 }
 
+/**
+ * \brief getPhase
+ *
+ * This function gets the phase of a sequence of complex numbers.
+ * @param SR, vector of real components
+ * @param SI, vector of imaginary components
+*/
 std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<double> &SI)
 {
     std::vector<double> output;
@@ -322,6 +380,13 @@ std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<dou
     return output;
 }
 
+/**
+ * \brief getMagnitude
+ *
+ * This function gets the magnitude of a sequence of complex numbers.
+ * @param SR, vector of real components
+ * @param SI, vector of imaginary components
+*/
 std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector<double> &SI)
 {
     std::vector<double> output;
@@ -338,6 +403,18 @@ std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector
     return output;
 }
 
+/**
+ * \brief updatePlots
+ *
+ * This function updates the plots in the main GUI window
+ * @param f, vector of frequency points
+ * @param S11R, vector of real components for S11
+ * @param S11I, vector of imaginary components for S11
+ * @param S12R, vector of real components for S12
+ * @param S12I, vector of imaginary components for S12
+ * @param S22R, vector of real components for S22
+ * @param S22I, vector of imaginary components for S22
+*/
 void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, std::vector<double> S11I, std::vector<double> S12R, std::vector<double> S12I, std::vector<double> S22R,  std::vector<double> S22I  )
 {
 
@@ -407,6 +484,11 @@ void MainWindow::updatePlot( QtCharts::QChart *plot,  QtCharts::QLineSeries *ser
   plot->addSeries(series);
 }
 
+/**
+ * \brief initializeStatusLabels
+ *
+ * This function handles initalization of the status lables.
+*/
 void MainWindow::initializeStatusLabels()
 {
     //initialize the text and coloring of the status labels
