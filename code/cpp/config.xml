@@ -54,6 +54,7 @@
         <CavityVolume> 1.92 </CavityVolume>
         <FileNamePrefix>Config_A_XBand_11to13GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
+        <WaitForUserInput> Yes </WaitForUserInput>
     </Experiment_Settings>
     
 </configuration> 
