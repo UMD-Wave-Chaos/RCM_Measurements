@@ -432,7 +432,7 @@ void MainWindow::clearPlots()
  * This function gets the phase of a sequence of complex numbers.
  * @param[in] SR vector of real components
  * @param[in] SI vector of imaginary components
- * @param[out] Vector of phase
+ * \returns Vector of phase
 */
 std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<double> &SI)
 {
@@ -456,7 +456,7 @@ std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<dou
  * This function gets the magnitude of a sequence of complex numbers.
  * @param[in] SR vector of real components
  * @param[in] SI vector of imaginary components
- * @param[out] Vector of log magnitude
+ * \returns Vector of log magnitude
 */
 std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector<double> &SI)
 {
