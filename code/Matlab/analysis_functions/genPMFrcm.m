@@ -21,7 +21,8 @@ LossP=alpha;
 % Here input the smoothness threshold:
 sthre=10/(LossP^2); % A smaller threshold makes the generated proballity distribution more smooth and finer
 
-tic;
+startTime = tic;
+runTime = 0;
 % Compute the joint PDF of T1 and T2
 r=4*pi*LossP;  % r is the "gamma" parameter in Brouwer and Beenakker's paper
 % Sameer and Henry have proved gamma = 4*pi*alpha
@@ -39,20 +40,26 @@ while(count<=dataN)
     
     totalrun=totalrun+1;
     % randomly pick a point and then compute P(T1,T2) --------------
+    %These are the port absorptions
     T1=rand(1);
     T2=rand(1);
     
+    %implement equation 17a from Brouwer/Beenakker or Eq 7 from Sameer
     A=(1/8)*(T1^(-4))*(T2^(-4))*abs(T1-T2);
     B=exp((-1/2)*r*(1/T1 + 1/T2))*[2*(r^2)+(r^3)-6*(T1+T2)*r-4*(T1+T2)*(r^2)-(T1+T2)*(r^3)+24*T1*T2+18*T1*T2*r+6*T1*T2*(r^2)+T1*T2*(r^3)];
     C=exp(r*(1-(1/T1 + 1/T2)/2))*[-2*(r^2)+(r^3)+6*r*(T1+T2)-2*(r^2)*(T1+T2)-24*T1*T2+6*T1*T2*r];
     PTT=A*(B+C);
     
     % from the value of P(T1,T2), determine how many data to generate -----
+    %Take random draws of the impedance at each point, with the number of
+    %draws proportional to the probability at that point
     num=floor(PTT*sthre);
     if(mod(PTT*sthre,1)>=rand(1))
         num=num+1;
     end
     % start to generate ------
+    %this loop makes sure we only draw a number of impedances proportional
+    %to the probability at the specified point
     for n=1:num
         % generate the random unitary matrix -----
         theta = asin(sqrt(rand(1)));
@@ -80,10 +87,25 @@ while(count<=dataN)
         z22(count)=squeeze(Z(2,2));
         
         count=count+1;
-       
-    if( mod(double(count), 100) == 0) 
-    time=toc; 
-    end         
+
+        deltaTime = toc(startTime);
+        
+        if (deltaTime > 10)
+            runTime = runTime + deltaTime;
+            averagetime = runTime/(count - 1);
+            predictedTime = averagetime*(dataN - (count-1));
+            dispstring1 = sprintf('Populating Element %d of %d',count,dataN);
+            dispstring2 = sprintf('Elapsed Time: %0.3f s, Predicted Remaining Time: %0.3f s',runTime,predictedTime);
+            startTime = tic;
+            
+            if (useGUI == true)
+                logMessage(handles.jEditbox,dispstring1);
+                logMessage(handles.jEditbox,dispstring2);
+            else
+                disp(dispstring1)
+                disp(dispstring2)
+            end
+        end
     end
 end
 

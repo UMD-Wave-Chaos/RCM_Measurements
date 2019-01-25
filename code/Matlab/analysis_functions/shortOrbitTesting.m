@@ -1,9 +1,8 @@
-function shortOrbitTesting(data)
+function shortOrbitTesting(data,port)
 Lb = 2.5;
 Lp = 0;
 c = 2.99792458e8;
 Q =3.2302e+04;
-port = 1;
 
 % Lb = [c/128e6 c/.9e6];
 
@@ -54,7 +53,7 @@ Zrad = mean(transformToZSinglePort(Srad),2);
 
 %the idea is that Zavg = Zrad + Zso - need to investigate Zso
 Zso = Zavg - Zrad;
-
+data2 = loadData('Config_A_XBand_11to13GHz_20181219_094830.h5')
 %get the propagation coefficient
 Beta = k*(1 + 1j/(2*Q));
 
