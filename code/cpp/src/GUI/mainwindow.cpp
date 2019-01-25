@@ -9,6 +9,11 @@
 #include <strstream>
 #include <complex>
 
+/**
+ * \brief constructor
+ *
+ * Constructor for the main window application
+*/
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -83,6 +88,11 @@ MainWindow::MainWindow(QWidget *parent) :
     listConnections();
 }
 
+/**
+ * \brief setupMenu
+ *
+ * This function handles setting up the menu bar for the application
+*/
 void MainWindow::setupMenu()
 {
     plotReIm = true; //show real/imaginary or magnitude/phase
@@ -116,17 +126,31 @@ void MainWindow::setupMenu()
     m_menuBar->addAction(displayMenu->menuAction());
 }
 
+/**
+ * \brief plotFreqData
+ *
+ * Slot for the main window to plot the frequency data received from the meausrement thread
+*/
 void MainWindow::plotFreqData()
 {
+    //set the flag for having valid measurements (this should always be true after the first time)
     measurementValid = true;
+    //get the decimated measurement vectors (can't plot the full sequence due to time/memory constraints)
     mControl->getS11Decimated(S11R,S11I);
     mControl->getS12Decimated(S12R,S12I);
     mControl->getS22Decimated(S22R,S22I);
     mControl->getFreqDecimated(f);
+    //clear the plots before updating
     clearPlots();
+    //update the plots with the current measurements
     updatePlots(f,S11R, S11I,  S12R, S12I, S22R, S22I  );
 }
 
+/**
+ * \brief setDisplayTypeLogMagPhase
+ *
+ * Slot for the main window to switch to plotting Log Magnitude and Phase
+*/
 void MainWindow::setDisplayTypeLogMagPhase()
 {
 
@@ -138,6 +162,11 @@ if (plotReIm == true)
     }
 }
 
+/**
+ * \brief setDisplayTypeRealImag
+ *
+ * Slot for the main window to switch to plotting Real and Imaginary components
+*/
 void MainWindow::setDisplayTypeRealImag()
 {
     if (plotReIm == false)
@@ -148,6 +177,11 @@ void MainWindow::setDisplayTypeRealImag()
         }
 }
 
+/**
+ * \brief listConnections
+ *
+ * This function queries the VXI11 and Serial clients avaialble and lists them to the output log window
+*/
 void MainWindow::listConnections()
 {
     std::string pnaString = mControl->getVXI11Clients();
@@ -159,16 +193,33 @@ void MainWindow::listConnections()
     logMessage(serialString);
 }
 
+/**
+ * \brief updateOutputFileName
+ *
+ * This function updates the output file name that is displayed in the output file label
+ * @param[in] fileName string that contains the output file name
+*/
 void MainWindow::updateOutputFileName(std::string fileName)
 {
    ui->fileNameLabel->setText(QString::fromStdString((fileName)));
 }
 
+/**
+ * \brief updateCalFileName
+ *
+ * This function updates the calibration file name that is displayed in the calibration file label
+ * @param[in] fileName string that contains the calibration file name
+*/
 void MainWindow::updateCalFileName(bool status, std::string calName)
 {
     updateLabel(ui->calibrationStatusLabel,status,QString::fromStdString(calName));
 }
 
+/**
+ * \brief updateMeasurementStatusComplete
+ *
+ * Slot that signifies the measurement sequence is done and the timer for the stepper motor can be stopped.
+*/
 void MainWindow::updateMeasurementStatusComplete()
 {
     mMode = IDLE;
@@ -213,16 +264,34 @@ void MainWindow::stepMotor()
     mControl->moveStepperMotorNoWait();
 }
 
+/**
+ * \brief updateGUICurrentMode
+ *
+ * Slot for the main window to signify the measurement mode
+*/
 void MainWindow::updateGUICurrentMode()
 {
     updateGUIMode(mMode);
 }
 
+/**
+ * \brief updateInfoString
+ *
+ * Slot for the main window to update the info string that is output to the log message window
+ * @param[in] infoString string to be displayed
+ * @param[in] severity string that contains the severity (error, warning, info, default)
+*/
 void MainWindow::updateInfoString(const std::string infoString, const std::string severity)
 {
     logMessage(infoString,severity);
 }
 
+/**
+ * \brief updateGUIMode
+ *
+ * This function updates the GUI to the current mode and sets all the labels and status
+ * @param[in] mode The measurement mode to update the GUI to
+*/
 void MainWindow::updateGUIMode(measurementModes mode)
 {
     switch(mode)
@@ -276,9 +345,9 @@ void MainWindow::initializeGUI()
  * \brief updateLabel
  *
  * This function handles updating labels on the GUI with a status for color
- * @param label, the label handel to update
- * @param status, the boolean status to use for coloring (true = Good/Green, false = Error/Red)
- * @param labelText, the text to update the label with
+ * @param[in] label the label handel to update
+ * @param[in] status the boolean status to use for coloring (true = Good/Green, false = Error/Red)
+ * @param[in] labelText the text to update the label with
 */
 void MainWindow::updateLabel(QLabel *label, bool status, QString labelText)
 {
@@ -295,8 +364,8 @@ void MainWindow::updateLabel(QLabel *label, bool status, QString labelText)
  * \brief updateLabel
  *
  * This function handles updating labels on the GUI without a status for color
- * @param label, the label handel to update
- * @param labelText, the text to update the label with
+ * @param[in] label the label handel to update
+ * @param[in] labelText the text to update the label with
 */
 void MainWindow::updateLabel(QLabel *label, QString labelText)
 {
@@ -361,8 +430,9 @@ void MainWindow::clearPlots()
  * \brief getPhase
  *
  * This function gets the phase of a sequence of complex numbers.
- * @param SR, vector of real components
- * @param SI, vector of imaginary components
+ * @param[in] SR vector of real components
+ * @param[in] SI vector of imaginary components
+ * @param[out] Vector of phase
 */
 std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<double> &SI)
 {
@@ -384,8 +454,9 @@ std::vector<double> MainWindow::getPhase(std::vector<double> &SR,std::vector<dou
  * \brief getMagnitude
  *
  * This function gets the magnitude of a sequence of complex numbers.
- * @param SR, vector of real components
- * @param SI, vector of imaginary components
+ * @param[in] SR vector of real components
+ * @param[in] SI vector of imaginary components
+ * @param[out] Vector of log magnitude
 */
 std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector<double> &SI)
 {
@@ -407,13 +478,13 @@ std::vector<double> MainWindow::getMagnitude(std::vector<double> &SR,std::vector
  * \brief updatePlots
  *
  * This function updates the plots in the main GUI window
- * @param f, vector of frequency points
- * @param S11R, vector of real components for S11
- * @param S11I, vector of imaginary components for S11
- * @param S12R, vector of real components for S12
- * @param S12I, vector of imaginary components for S12
- * @param S22R, vector of real components for S22
- * @param S22I, vector of imaginary components for S22
+ * @param[in] f vector of frequency points
+ * @param[in] S11R vector of real components for S11
+ * @param[in] S11I vector of imaginary components for S11
+ * @param[in] S12R vector of real components for S12
+ * @param[in] S12I vector of imaginary components for S12
+ * @param[in] S22R vector of real components for S22
+ * @param[in] S22I vector of imaginary components for S22
 */
 void MainWindow::updatePlots(std::vector<double> f, std::vector<double> S11R, std::vector<double> S11I, std::vector<double> S12R, std::vector<double> S12I, std::vector<double> S22R,  std::vector<double> S22I  )
 {
