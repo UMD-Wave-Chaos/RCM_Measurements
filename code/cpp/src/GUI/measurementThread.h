@@ -13,6 +13,9 @@
 #include "measurementController.h"
 #include "stringUtilities.h"
 
+extern QMutex globalMutex;
+extern QWaitCondition globalWaitCondition;
+
 class measurementThread : public QThread
 {
     Q_OBJECT
@@ -32,14 +35,12 @@ signals:
     void readyToStepMotor();
     void outputFileNameAvailable(std::string fileName);
     void freqDataAvailable();
+    void readyForUserInput();
 
 protected:
     void run();
 
 private:
-
-    QMutex mutex;
-    QWaitCondition condition;
     bool restart;
     bool abort;
     bool initialized;

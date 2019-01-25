@@ -4,8 +4,11 @@
 * @details This class handles the threading to separate measurement functionality
 * @author Ben Frazier
 * @date 12/13/2018*/
-
 #include "measurementThread.h"
+
+QMutex globalMutex;
+QWaitCondition globalWaitCondition;
+
 /**
  * \brief constructor
  *
@@ -29,10 +32,10 @@ measurementThread::measurementThread(QObject *parent )
 */
 measurementThread::~measurementThread()
 {
-    mutex.lock();
+    globalMutex.lock();
     abort = true;
-    condition.wakeOne();
-    mutex.unlock();
+    globalWaitCondition.wakeOne();
+    globalMutex.unlock();
 
     wait();
 }
@@ -44,7 +47,7 @@ measurementThread::~measurementThread()
 */
 void measurementThread::measure(measurementController *mControl)
 {
-    QMutexLocker locker(&mutex);
+    QMutexLocker locker(&globalMutex);
 
     this->mc = mControl;
 
@@ -55,7 +58,7 @@ void measurementThread::measure(measurementController *mControl)
     else
     {
         restart = true;
-        condition.wakeOne();
+        globalWaitCondition.wakeOne();
     }
 }
 
@@ -80,7 +83,7 @@ void measurementThread::run()
 
       mc->prepareLogging();
 
-      mutex.lock();
+      globalMutex.lock();
       measurementSettings Settings = mc->getSettings();
 
       emit outputFileNameAvailable(Settings.outputFileName);
@@ -105,13 +108,24 @@ void measurementThread::run()
           emit readyToStepMotor();
 
           //Step 2 - Wait
-          infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
-          emit infoStringAvailable(infoString, "default");
-          mutex.unlock();
-          msleep(Settings.waitTime_ms);
+          if (Settings.waitForUserInput == false)
+          {
+              infoString = "Waiting " + std::to_string(Settings.waitTime_ms) + " ms to Settle.";
+              emit infoStringAvailable(infoString, "default");
+              globalMutex.unlock();
+              msleep(Settings.waitTime_ms);
+          }
+          else
+          {
+            infoString = "Waiting For User Response.";
+            emit infoStringAvailable(infoString, "default");
+            emit readyForUserInput();
+            globalWaitCondition.wait(&globalMutex);
+            globalMutex.unlock();
+          }
 
           //Step 3 - Take the Ungated Frequency Measurement
-          mutex.lock();
+          globalMutex.lock();
           infoString = "Measuring Ungated Frequency Domain";
           emit infoStringAvailable(infoString, " default");
           mc->measureUngatedFrequencyDomainSParameters();
@@ -155,9 +169,9 @@ void measurementThread::run()
       mc->closeLogFile();
 
      if (!restart)
-        condition.wait(&mutex);
+        globalWaitCondition.wait(&globalMutex);
       restart = false;
-      mutex.unlock();
+      globalMutex.unlock();
     }//end the try statement
 
     catch (measurementException me)

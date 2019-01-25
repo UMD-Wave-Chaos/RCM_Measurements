@@ -158,6 +158,14 @@ bool measurementController::updateSettings(std::string filename)
         Settings.cavityVolume = atof(cavVolumeNode->value());
         xml_node<> *fNamePrefixNode = experimentSettingsNode->first_node("FileNamePrefix");
         Settings.outputFileNamePrefix = reduce(fNamePrefixNode->value());
+
+        xml_node<> *waitForUserInputNode = experimentSettingsNode->first_node("WaitForUserInput");
+        std::string waitForInput = reduce(waitForUserInputNode->value());
+         if (waitForInput.compare("Yes") == 0)
+             Settings.waitForUserInput = true;
+         else
+             Settings.waitForUserInput = false;
+
         xml_node<> *timeDateStampNode = experimentSettingsNode->first_node("TimeDateStamp");
         std::string useTimeStamp = reduce(timeDateStampNode->value());
          if (useTimeStamp.compare("Yes") == 0)

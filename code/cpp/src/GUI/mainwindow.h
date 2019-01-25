@@ -21,6 +21,8 @@
 #include "rapidxml.hpp"
 #include "rapidxml_utils.hpp"
 
+
+
 Q_DECLARE_METATYPE(std::string);
 
 namespace Ui {
@@ -126,6 +128,7 @@ private slots:
     void plotFreqData();
     void setDisplayTypeLogMagPhase();
     void setDisplayTypeRealImag();
+    void getUserInput();
 };
 
 #endif // MAINWINDOW_H

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QMessageBox>
+
 #include <QLineSeries>
 #include <QFileDialog>
 #include <math.h>
@@ -12,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //test mode - set to "true" to run with mock interfaces, set to "false" to run with real hardware
-    testMode = false;
+    testMode = true;
 
     setupMenu();
 
@@ -68,6 +70,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //this prevents problems in QT when trying to access sockets across threads
     connect(&mThread, SIGNAL(readyToStepMotor()),
                 this, SLOT(stepMotor()));
+
+    connect(&mThread, SIGNAL(readyForUserInput()),
+                this, SLOT(getUserInput()));
 
     //setup the timer to show updates for mode changes
     updateModeTimer = new QTimer(this);
@@ -171,6 +176,16 @@ void MainWindow::updateMeasurementStatusComplete()
         smTimer->stop();
         delete smTimer;
     }
+}
+
+void MainWindow::getUserInput()
+{
+    globalMutex.lock();
+    QMessageBox msgBox;
+    msgBox.setText("Press OK when cavity is ready for measurement");
+    msgBox.exec();
+    globalMutex.unlock();
+    globalWaitCondition.wakeAll();
 }
 
 void MainWindow::stepMotor()

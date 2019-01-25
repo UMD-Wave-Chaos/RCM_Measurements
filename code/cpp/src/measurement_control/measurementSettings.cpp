@@ -34,6 +34,7 @@ measurementSettings::measurementSettings()
     gateStopTime = 0.0;
     takeGatedMeasurement = false;
     waitTime_ms = 0.0;
+    waitForUserInput = false;
 }
 
 /**
@@ -63,6 +64,7 @@ std::ostream & operator << (std::ostream &out, const measurementSettings &ms)
     out << "Experiment Settings: " << std::endl;
     out << "  Number of Realizations: " << ms.numberOfRealizations << std::endl;
     out << "  Cavity Volume: " << ms.cavityVolume << " cubic meters" << std::endl;
+    out << "  Wait for User Input: " << (ms.waitForUserInput ? "Yes" : "No") << std::endl;
 
     return out;
 }
