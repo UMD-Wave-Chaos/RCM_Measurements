@@ -4,7 +4,7 @@
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
     -->
-    <Comments>Dual Port Config A, 11 to 13 GHz with the port 2 antenna located at the near edge of the well a few inches above and  conducting objects hung from mode stirrer to try and disrupt the 110 MHz oscillations</Comments>
+    <Comments>Dual Port Config A, 9 to 11 GHz and moving reflective objects around in the cavity to destroy short orbits</Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
@@ -12,13 +12,13 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart> 11E9 </FrequencySweepStart>
-        <FrequencySweepStop> 13E9 </FrequencySweepStop>
+        <FrequencySweepStart> 9E9 </FrequencySweepStart>
+        <FrequencySweepStop> 11E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
         <TransformStartTime> -1.0e-6</TransformStartTime>
         <TransformStopTime> 5e-6</TransformStopTime>
-        <GatingStartTime> -5e-9</GatingStartTime>
-        <GatingStopTime> 5e-9</GatingStopTime>
+        <GatingStartTime> -8e-9</GatingStartTime>
+        <GatingStopTime> 8e-9</GatingStopTime>
         <TakeGatedMeasurement> Yes </TakeGatedMeasurement>
     </PNA_Settings>
     
@@ -52,8 +52,9 @@
     <Experiment_Settings>
         <NumberOfRealizations> 50 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix>Config_A_XBand_11to13GHz</FileNamePrefix>
+        <FileNamePrefix>Config_A_XBand_9to11GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
+        <!-- Flag to signal whether or not to wait for user input, allows the user to move 	   things around in the cavity between measurements -->
         <WaitForUserInput> Yes </WaitForUserInput>
     </Experiment_Settings>
     
