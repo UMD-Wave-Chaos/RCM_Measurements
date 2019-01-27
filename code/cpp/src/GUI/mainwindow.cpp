@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     //test mode - set to "true" to run with mock interfaces, set to "false" to run with real hardware
-    testMode = true;
+    testMode = false;
 
     setupMenu();
 
