@@ -1,11 +1,23 @@
 function shortOrbitTesting(data,port)
-Lb = 2.5;
-Lp = 0;
+
+% for the single port case, set the port phase to 0
+Lp = 0; 
+%need to include speed of light
 c = 2.99792458e8;
-Q =3.2302e+04;
 
-% Lb = [c/128e6 c/.9e6];
+%% Offline inputs
+%*************************************************************************
+%**************************************************************************
+indices = {[1:5],[6:10],[11:15]};
 
+%need the Q factor that was determined offline
+Q = 29547.648;% 32301.699;
+%Lb and the bounce phases were determined offline
+Lb = [4.759 5.321 5.827 6.446 7.345 8.919 9.312 10.1 10.61 10.89 11.84 12.01 12.35 12.97 13.13 15.95 16.28 16.96 17.63 18.19 18.59 19.49 21.4];
+nBounce = [0 0 0 0 1 1 0 0 1 0 0 0 1 1 1 1 0 0 0 0 0 0 0 0];
+%**************************************************************************
+%**************************************************************************
+%%
 
 if port == 1
     portString = 11;
@@ -20,12 +32,7 @@ end
 t0Ind = find( abs(data.time) == min(abs(data.time)));
 St = squeeze(data.SCt(:,port,:));
 St0 = max(mean(abs(St(data.time >= 0,:)),2));
-%St0 = 1;
 Zt = transformToZSinglePort(St);
-
-Lb = [5.321 6.446 4.759 5.827 2.342 2.679];
-
-nBounce = [1 1 1 1 1 1];
 
 %get the scale factors
 sf = zeros(size(Lb));
@@ -33,9 +40,12 @@ for count = 1:length(Lb)
     ind = find(abs(c*data.time - Lb(count)) == min(abs(c*data.time - Lb(count))));
     sf(count) = mean(abs(St(ind,:)),2)/St0;
 end
+
+%scale factor in S domain is in voltage, we will need to apply the scale
+%factor in the Z domain and need to convert to power by squaring it
+sf = sf.^2;
 omega = 2*pi*data.Freq;
 k = omega/c;
-
 
 %get the single port measured data
 %Sf is the raw scattering measurements
@@ -53,7 +63,6 @@ Zrad = mean(transformToZSinglePort(Srad),2);
 
 %the idea is that Zavg = Zrad + Zso - need to investigate Zso
 Zso = Zavg - Zrad;
-data2 = loadData('Config_A_XBand_11to13GHz_20181219_094830.h5')
 %get the propagation coefficient
 Beta = k*(1 + 1j/(2*Q));
 
@@ -64,8 +73,11 @@ for count = 1:length(Lb)
     %compute the phase and the contributions
     phase = Beta*(Lp + Lb(count)) + nBounce(count)*pi;
     
-    %TBD - need to compute the orbit stability coefficient
-    Db = 1;%/(Lb(count));
+    %compute the orbit stability coefficient
+    %using the scale factor from the IFT includes the Db term as well as
+    %the antenna gain as a function of angle and the probability of path
+    %existance over the ensemble
+    Db = 1;%/sqrt(Lb(count));
     
     rho_contribution = sf(count)*Db*cos(phase);
     chi_contribution = sf(count)*Db*sin(phase);
@@ -101,6 +113,37 @@ set(gca,'LineWidth',2)
 xlim([0 15])
 tstring = sprintf('S_{%d}',portString);
 title(tstring);
+
+figure
+subplot(2,1,1)
+plot(c*data.time,abs(St)/St0);
+hold on
+plot(c*data.time,mean(abs(St),2)/St0,'k','LineWidth',2);
+grid on
+xlabel('Length (m)')
+ylabel('|IFT\{S\}|')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+xlim([0 15])
+tstring = sprintf('S_{%d}',portString);
+title(tstring);
+
+subplot(2,1,2)
+plot(c*data.time,angle(St));
+hold on
+plot(c*data.time,mean(angle(St),2),'k','LineWidth',2);
+grid on
+xlabel('Length (m)')
+ylabel('Phase(IFT\{S\}) (rad)')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+xlim([0 15])
+tstring = sprintf('S_{%d}',portString);
+title(tstring);
+
+
 
 figure
 plot(data.Freq/1e9,Zf,'LineWidth',2);
