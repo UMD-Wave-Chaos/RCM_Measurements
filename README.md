@@ -82,6 +82,8 @@ C++ Version
 ==========================================================================================
 The C++ version has only been tested on MacOS and uses the VXI11 protocol to communicate with the PNA over a TCP-IP connection. The GPIB connection is not possible with this version.
 
+![](./images/gui_screen_shot.png "C++ GUI") 
+
 ## Required Software
 The C++ version leverages several open source software packages. On a MacOS, these can all be installed with homebrew (https://brew.sh)    
 GRPC: https://grpc.io  - implements the remote procedure call framework the VXI11 library relies on  
