@@ -52,6 +52,14 @@ h5write(analysisFile,'/Analysis/SCf_imag',imag(SCf));
 h5create(analysisFile,'/Analysis/f',size(Freq));
 h5write(analysisFile,'/Analysis/f',Freq);
 
+
+%% check the correlation coefficient
+disp('Computing Correlation Coefficients')
+coef1 = correlateRealizations(mData,1,foldername);
+coef2 = correlateRealizations(mData,2,foldername);
+coef3 = correlateRealizations(mData,3,foldername);
+coef4 = correlateRealizations(mData,4,foldername);
+
 %% Determine Srad from the time gated measurements
 Srad = computeSrad(SCf,Freq);
 
@@ -61,7 +69,15 @@ h5create(analysisFile,'/Analysis/Srad_imag',size(Srad));
 h5write(analysisFile,'/Analysis/Srad_imag',imag(Srad));
 
 %% Get the time domain signals
-[SCt,t] = getTimeDomainSParameters(SCf,Freq);
+% 
+if isfield(mData,'SCt')
+    disp('Using Time Domain Measurements')
+    SCt = mData.SCt;
+    t = mData.time;
+else
+    disp('Computing Time Domain Measurements')
+    [SCt,t] = getTimeDomainSParameters(SCf,Freq);
+end
 
 h5create(analysisFile,'/Analysis/SCt_real',size(SCt));
 h5write(analysisFile,'/Analysis/SCt_real',real(SCt));

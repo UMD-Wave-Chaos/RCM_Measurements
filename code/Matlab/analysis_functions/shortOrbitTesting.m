@@ -8,13 +8,11 @@ c = 2.99792458e8;
 %% Offline inputs
 %*************************************************************************
 %**************************************************************************
-indices = {[1:5],[6:10],[11:15]};
-
 %need the Q factor that was determined offline
 Q = 29547.648;% 32301.699;
 %Lb and the bounce phases were determined offline
-Lb = [4.759 5.321 5.827 6.446 7.345 8.919 9.312 10.1 10.61 10.89 11.84 12.01 12.35 12.97 13.13 15.95 16.28 16.96 17.63 18.19 18.59 19.49 21.4];
-nBounce = [0 0 0 0 1 1 0 0 1 0 0 0 1 1 1 1 0 0 0 0 0 0 0 0];
+Lb = [4.759 5.321 5.827 6.446];% 7.345 8.919 9.312 10.1 10.61 10.89 11.84 12.01 12.35 12.97 13.13 15.95 16.28 16.96 17.63 18.19 18.59 19.49 21.4]% 867.7/2 911.1/2 929.9/2 983.8/2];
+nBounce = [0 0 0 0 1 1 0 0 1 0 0 0 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0];
 %**************************************************************************
 %**************************************************************************
 %%
@@ -29,7 +27,6 @@ elseif port == 4
     portString = 22;
 end
 
-t0Ind = find( abs(data.time) == min(abs(data.time)));
 St = squeeze(data.SCt(:,port,:));
 St0 = max(mean(abs(St(data.time >= 0,:)),2));
 Zt = transformToZSinglePort(St);
@@ -37,13 +34,19 @@ Zt = transformToZSinglePort(St);
 %get the scale factors
 sf = zeros(size(Lb));
 for count = 1:length(Lb)
-    ind = find(abs(c*data.time - Lb(count)) == min(abs(c*data.time - Lb(count))));
-    sf(count) = mean(abs(St(ind,:)),2)/St0;
+    ind = abs(c*data.time - Lb(count)) == min(abs(c*data.time - Lb(count)));
+    sf(count) = mean(abs(St(ind,:)),2)/St0;% (1/(Lb(count)))^(1/4);
 end
+
+
+% for cnt = length(Lb) - 3:length(Lb)
+% sf(cnt) = 1/Lb(cnt)^(1/4);
+% end
 
 %scale factor in S domain is in voltage, we will need to apply the scale
 %factor in the Z domain and need to convert to power by squaring it
 sf = sf.^2;
+
 omega = 2*pi*data.Freq;
 k = omega/c;
 
@@ -58,8 +61,10 @@ Zf = mean(abs(Zf),2);
 
 %get the gated results for the radiation scattering coefficient and
 %impedance 
-Srad = applyTimeGating(Sf,data.Freq,9e-9);
+Srad = applyTimeGating(Sf,data.Freq,10e-9);
 Zrad = mean(transformToZSinglePort(Srad),2); 
+
+% Zrad = mean(transformToZSinglePort(squeeze(data.SCfg(:,port,:))),2);
 
 %the idea is that Zavg = Zrad + Zso - need to investigate Zso
 Zso = Zavg - Zrad;
@@ -96,9 +101,11 @@ Zsi_p = Zso_p_re + 1j*Zso_p_im;
 Rso = real(Zsi_p);
 Xso = imag(Zsi_p);
 
-Ravg_p = real(Zrad) + real(Zrad).^(1/2).*rho.*real(Zrad).^(1/2);
-Xavg_p = imag(Zrad) + real(Zrad).^(1/2).*chi.*real(Zrad).^(1/2);
+Ravg_p = real(Zrad) + Zso_p_re;
+Xavg_p = imag(Zrad) + Zso_p_im;
 Zavg_p = Ravg_p + 1j*Xavg_p;
+
+[Zsot,t] = ifftS(Zso,data.Freq(end) - data.Freq(1));
 
 figure
 plot(c*data.time,abs(St)/St0);
@@ -183,6 +190,16 @@ tstring = sprintf('Z_{%d}',portString);
 title(tstring);
 
 figure
+plot(data.Freq/1e9,abs(Zso),'LineWidth',2);
+hold on
+plot(data.Freq/1e9,abs(Rso + 1j*Xso)+2,'LineWidth',2);
+grid on
+xlabel('Frequency (GHz)')
+ylabel('Real Part (ohms)')
+legend('Measured','Calculated')
+title('Magnitude of Short Orbit Contribution')
+
+figure
 subplot(2,1,1)
 plot(data.Freq/1e9,real(Zso),'LineWidth',2);
 hold on
@@ -204,6 +221,16 @@ legend('Measured','Calculated')
 title('Imaginary Part of Short Orbit Contribution')
 
 figure
+plot(data.Freq/1e9,abs(Zavg),'LineWidth',2);
+hold on
+plot(data.Freq/1e9,abs(Zavg_p),'LineWidth',2);
+grid on
+xlabel('Frequency (GHz)')
+ylabel('Real Part (ohms)')
+legend('Measured','Calculated')
+title('Magnitude of Z Average')
+
+figure
 subplot(2,1,1)
 plot(data.Freq/1e9,real(Zavg),'LineWidth',2);
 hold on
@@ -223,3 +250,14 @@ xlabel('Frequency (GHz)')
 ylabel('Imaginary Part (ohms)')
 legend('Measured','Calculated')
 title('Imaginary Part of Z Average')
+
+figure
+plot(c*t,abs(Zsot),'LineWidth',2);
+grid on
+xlabel('Length (m)')
+ylabel('|IFT\{Z_{so}\}|')
+set(gca,'FontSize',12)
+set(gca,'FontWeight','bold')
+set(gca,'LineWidth',2)
+xlim([0 25])
+

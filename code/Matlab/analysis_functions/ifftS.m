@@ -8,8 +8,19 @@ N = length(Sf);
 df = fSpan/(N-1);
 dt = 1/(N*df);
 
-%compute the time steps and generate a time vector
-t = (-(N/2-1):N/2)*dt;
+padLength = 1000;
 
+[m,n] = size(Sf);
+paddedSf = zeros(m + padLength,n);
+paddedSf(1:m,:) = Sf;
+
+
+%compute the time steps and generate a time vector
+% t = (-(N/2-1):N/2)*dt;
+t = ((-(N/2):N/2-1)-0.5)*dt;
 %compute the inverse Fourier transform
 St = ifftshift(ifft(ifftshift(Sf)));
+
+paddedSt = ifftshift(ifft(ifftshift(paddedSf)));
+
+plot(mean(abs(paddedSt),2))
