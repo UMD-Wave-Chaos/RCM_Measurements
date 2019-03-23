@@ -99,6 +99,16 @@ Follow the steps below to get started
 
 Note: The available connections through both TCP-IP and serial ports are displayed in the status window when starting up so the address of the PNA and stepper motor can be updated if these are different from the default.
 
+## Potential Issues
+There is an Excel spreadsheet in the repository that contains the list of bugs identified so far (under code/RCMGUI_Issues.xlsx). The primary issues currently known deal with calibrating the PNA through the GUI and attempting to reload a configuration file. The calibration routine has not been completely worked out through the C++ gui, so it is recommended to calibrate the PNA manually (through the E-Cal kit) and save the calibration file on the PNA. After loading the configuration file, make sure to manually select the saved calibration file on the PNA. The GUI crashes when reloading a configuration file, so it is recommended to close the GUI after completing a measurement and then reopen a new instance of the GUI prior to selecting a new configuration file to load.
+
+## Configuration File Description
+The configuration file uses XML to set specific configurations for the GUI. Most of these tags are self explanatory, but there are 2 that may not be intuitively clear. 
+1. WaitForUserInput - this tag, under Experiment_Settings indicates whether or not the GUI should immediately start the measurement for the next realization (No) or throw up a message box to wait for the user to click (Yes). This option allows the user to manually change the cavity configuration between realizations.
+2. TakeGatedMeasurement - this tag, under PNA_Settings indicates whether or not to take time gated measurements in the frequency domain using the tags GatingStartTime and GatingStopTime. Time domain measurements and ungated frequency domain measurements are recorded by default.
+
+
+
 References
 ==========================================================================================
 This is only a short select list, a detailed list containing all UMD RCM and Wave Chaos related publications is available at Professor Anlage's web page (http://anlage.umd.edu/RCM/)  
