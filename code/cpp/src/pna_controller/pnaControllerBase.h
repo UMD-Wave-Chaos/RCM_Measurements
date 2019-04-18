@@ -44,7 +44,6 @@ public:
     virtual void getS21IVector(std::vector<double> & SI){ SI = S21IVec;}
     virtual void getS22RVector(std::vector<double> & SR){ SR = S22RVec;}
     virtual void getS22IVector(std::vector<double> & SI){ SI = S22IVec;}
-    virtual MeasurementType getMeasurementType(){return mType;}
     virtual std::string getCalibrationFileName(){return calibrationFileName;}
 
 protected:
@@ -64,7 +63,6 @@ protected:
     unsigned int calibrationTimeout;
     std::string ipAddress;
     double fStart, fStop;
-    MeasurementType mType;
 
     std::vector<double> xVec, S11RVec, S11IVec, S12RVec, S12IVec, S21RVec, S21IVec, S22RVec, S22IVec;
 };

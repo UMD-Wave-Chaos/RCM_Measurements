@@ -60,7 +60,7 @@ void instrumentWrapper::setInstrumentConfiguration(double fStart,double fStop, s
     setFrequencyRange(fStart,fStop);
     setIpAddress(tcpAddress);
     setNumberOfPoints(NOP);
-    openConnection();
+    openConnection(tcpAddress);
 
    initializeSizes();
 }
@@ -77,24 +77,27 @@ void instrumentWrapper::initializeSizes()
 /**
  * \brief openConnection
  *
- * This function opens the connection to the instrument and initializes it*/
-bool instrumentWrapper::openConnection()
+ * This function opens the connection to the instrument and initializes it
+  @param ipAddress The ip address of the instrument to open*/
+std::string instrumentWrapper::openConnection(std::string ipAddress)
 {
+    std::string errString = "instrumentWrapper::openConnection. Cannot open a connection, already connected";
     if (connected == true)
-        throw instrumentException("instrumentWrapper::openConnection. Cannot open a connection, already connected");
+        throw instrumentException(errString);
 
     instDeviceString = instObj->connectToInstrument(ipAddress);
 
     connected = instObj->getConnectionStatus();
 
     instObj->initialize(frequencyRange[0], frequencyRange[1],numberOfPoints);
-    return connected;
+    return instDeviceString;
 }
 
 /**
  * \brief sendCommand
  *
- * This function sends a command string to the instrument*/
+ * This function sends a command string to the instrument
+ * @param inputString The input command to send to the instrument*/
  void instrumentWrapper::sendCommand(std::string inputString)
  {
      if (connected == false)
@@ -102,6 +105,29 @@ bool instrumentWrapper::openConnection()
 
      instObj->sendCommand(inputString);
  }
+
+ /**
+  * \brief sendQuery
+  *
+  * This function sends a query string to the instrument
+  * @param inputString The input query to send to the instrument*/
+ std::string instrumentWrapper::sendQuery(std::string inputString)
+ {
+     if (connected == false)
+         throw instrumentException("instrumentWrapper::sendQuery(). Attempting to send a query to a connection that is closed");
+
+     std::string outString = instObj->sendQuery(inputString);
+     return outString;
+ }
+
+ /**
+  * \brief getData
+  *
+  * This function gets measurement data from the instrument*/
+void instrumentWrapper::getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout)
+{
+
+}
 
 /**
  * \brief closeConnection

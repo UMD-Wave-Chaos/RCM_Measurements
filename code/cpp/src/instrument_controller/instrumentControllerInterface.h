@@ -22,7 +22,8 @@ public:
     virtual std::string getConnectionIpAddress(int count)=0;
     virtual void disconnect() = 0;
     virtual void sendCommand(std::string inputString) = 0;
-
+    virtual std::string sendQuery(std::string inputString) = 0;
+    virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout) = 0;
 
     virtual void initialize(double fStart, double fStop, unsigned int NOP) = 0;
     virtual void getUngatedFrequencyDomainSParameters() = 0;

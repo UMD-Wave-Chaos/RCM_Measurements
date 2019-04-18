@@ -39,7 +39,7 @@ void pnaControllerMock::getGatedFrequencyDomainSParameters(double start_time, do
     getSParameters();
     unpackSParameters();
 
-    mType = FREQUENCY_MEASUREMENT;
+   // mType = FREQUENCY_MEASUREMENT;
 }
 
 /**
@@ -61,7 +61,7 @@ void pnaControllerMock::getTimeDomainSParameters(double start_time, double stop_
     }
     unpackSParameters();
 
-    mType = TIME_MEASUREMENT;
+    //mType = TIME_MEASUREMENT;
 }
 
 /**
@@ -73,7 +73,7 @@ void pnaControllerMock::getUngatedFrequencyDomainSParameters()
     getSParameters();
     unpackSParameters();
 
-    mType = FREQUENCY_MEASUREMENT;
+    //mType = FREQUENCY_MEASUREMENT;
 }
 
 /**

@@ -18,6 +18,6 @@ set(pnaController_HDRS
 	)
 
 add_library(pnaControllerLibrary ${pnaController_HDRS} ${pnaController_SRCS})
-target_link_libraries(pnaControllerLibrary vxi11Wrapper ${GPERFTOOLS_LIBRARIES} gmock_main )
+target_link_libraries(pnaControllerLibrary vxi11Wrapper instrumentInterfaceLibrary ${GPERFTOOLS_LIBRARIES} gmock_main )
 
 add_subdirectory(tests)

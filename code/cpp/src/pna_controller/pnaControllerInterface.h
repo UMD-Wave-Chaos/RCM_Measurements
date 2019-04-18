@@ -11,13 +11,6 @@
 #include <vector>
 #include <iostream>
 
-enum MeasurementType
-{
-    NO_MEASUREMENT,
-    FREQUENCY_MEASUREMENT,
-    TIME_MEASUREMENT
-};
-
 class pnaControllerInterface
 {
 public:
@@ -46,7 +39,6 @@ public:
 
     virtual bool getConnectionStatus() = 0;
 
-    virtual MeasurementType getMeasurementType() = 0;
 };
 
 #endif // PNA_CONTROLLER_INTERFACE_H

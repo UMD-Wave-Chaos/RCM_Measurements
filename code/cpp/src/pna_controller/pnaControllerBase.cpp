@@ -28,7 +28,7 @@ pnaControllerBase::pnaControllerBase()
    measureDataTimeout = 15000;
    calibrationTimeout = 60000;
 
-   mType = NO_MEASUREMENT;
+   //mType = NO_MEASUREMENT;
 }
 
 /**

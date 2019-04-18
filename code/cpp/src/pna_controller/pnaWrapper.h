@@ -11,9 +11,17 @@
 #include "pnaControllerMock.h"
 #include "pnaController.h"
 #include "pnaExceptions.h"
+#include "instrumentWrapper.h"
 
 #include <vector>
 #include <string>
+
+enum MeasurementType
+{
+    NO_MEASUREMENT,
+    FREQUENCY_MEASUREMENT,
+    TIME_MEASUREMENT
+};
 
 class pnaWrapper
 {
@@ -52,18 +60,29 @@ private:
     void setFrequencyRange(double fStart,double fStop){frequencyRange[0] = fStart; frequencyRange[1] = fStop;}
     void setIpAddress(std::string address){ipAddress = address;}
     void setNumberOfPoints(unsigned int NOP) {numberOfPoints = NOP;}
-    void initializeSizes();
+
+    void getSParameters();
+    void unpackSParameters();
 
     pnaControllerInterface* pnaObj;
+    instrumentWrapper* instObj;
     double frequencyRange[2];
     std::string ipAddress;
+
+    std::string calibrationFileName;
 
     bool connected;
     bool testMode;
     unsigned int numberOfPoints;
+    unsigned int bufferSizeDoubles;
+    unsigned int bufferSizeBytes;
+    unsigned int measureDataTimeout;
+    unsigned int calibrationTimeout;
+    double *dataBuffer;
 
+    MeasurementType mType;
     std::string pnaDeviceString;
-    std::vector<double> freqData, timeData, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I;
+    std::vector<double> xVec, freqData, timeData, S11R, S11I, S12R, S12I, S21R, S21I, S22R, S22I;
 
 };
 

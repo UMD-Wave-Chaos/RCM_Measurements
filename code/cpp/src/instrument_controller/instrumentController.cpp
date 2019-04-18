@@ -126,7 +126,27 @@ void instrumentController::sendCommand(std::string inputString)
        vxi11_send(&vxi_link, inputString.c_str());
 }
 
+/**
+ * \brief sendQuery
+ *
+ * This function sends a query string to an instrument*/
+std::string instrumentController::sendQuery(std::string inputString)
+{
+    char rcvBuffer[50];
+    vxi11_send_and_receive(&vxi_link,inputString.c_str(),rcvBuffer,50,1000);
+    std::string outString = rcvBuffer;
+    return outString;
+}
 
+/**
+ * \brief getData
+ *
+ * This function gets measurement data from an instrument*/
+void instrumentController::getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout)
+{
+    //receive the data block
+    vxi11_receive_data_block(&vxi_link,(char*)buffer,bufferSizeBytes,measureDataTimeout);
+}
 
 /**
  * \brief connectToInstrument

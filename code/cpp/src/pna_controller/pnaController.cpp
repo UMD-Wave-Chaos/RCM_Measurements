@@ -254,7 +254,7 @@ void pnaController::getTimeDomainSParameters(double start_time, double stop_time
     //unpack
     unpackSParameters();
 
-    mType = TIME_MEASUREMENT;
+   // mType = TIME_MEASUREMENT;
 }
 
 /**
@@ -278,7 +278,7 @@ void pnaController::getUngatedFrequencyDomainSParameters()
     //unpack
     unpackSParameters();
 
-    mType = FREQUENCY_MEASUREMENT;
+    //mType = FREQUENCY_MEASUREMENT;
 }
 
 /**
@@ -309,7 +309,7 @@ void pnaController::getGatedFrequencyDomainSParameters(double start_time, double
     //unpack
     unpackSParameters();
 
-    mType = FREQUENCY_MEASUREMENT;
+    //mType = FREQUENCY_MEASUREMENT;
 }
 
 /**
