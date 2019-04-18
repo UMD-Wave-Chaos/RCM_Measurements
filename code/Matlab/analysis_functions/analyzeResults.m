@@ -60,6 +60,14 @@ coef2 = correlateRealizations(mData,2,foldername);
 coef3 = correlateRealizations(mData,3,foldername);
 coef4 = correlateRealizations(mData,4,foldername);
 
+
+%% plot the length domain results
+disp('Plotting Length Domain Results ...');
+plotLengthDomainSParameters(mData,1,foldername);
+plotLengthDomainSParameters(mData,2,foldername);
+plotLengthDomainSParameters(mData,3,foldername);
+plotLengthDomainSParameters(mData,4,foldername);
+
 %% Determine Srad from the time gated measurements
 Srad = computeSrad(SCf,Freq);
 

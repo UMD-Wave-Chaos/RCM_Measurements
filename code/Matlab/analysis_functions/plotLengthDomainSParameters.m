@@ -1,5 +1,15 @@
-function plotLengthDomainSParameters(data,port)
+function plotLengthDomainSParameters(data,port,varargin)
 c = 2.99792458e8;
+
+
+% check inputs
+if nargin == 3
+    foldername = varargin{1};
+    savePlots = 1;
+else
+    savePlots = 0;
+end
+
 
 
 if port == 1
@@ -18,7 +28,7 @@ St0 = max(mean(abs(St(data.time >= 0,:)),2));
 Zt = transformToZSinglePort(St);
 
 
-figure
+hh1 = figure;
 plot(c*data.time,abs(St)/St0);
 hold on
 plot(c*data.time,mean(abs(St),2)/St0,'k','LineWidth',2);
@@ -32,7 +42,7 @@ xlim([0 15])
 tstring = sprintf('S_{%d}',portString);
 title(tstring);
 
-figure
+hh2 = figure;
 plot(c*data.time,abs(Zt));
 hold on
 plot(c*data.time,mean(abs(Zt),2),'k','LineWidth',2);
@@ -45,3 +55,14 @@ set(gca,'LineWidth',2)
 xlim([0 15])
 tstring = sprintf('Z_{%d}',portString);
 title(tstring);
+
+if savePlots
+    
+    fString1 = sprintf('S_length_%d',portString);
+    fString2 = sprintf('Z_length_%d',portString);
+    saveas(hh1,fullfile(foldername,fString1),'png');
+    saveas(hh2,fullfile(foldername,fString2),'png');
+
+    close(hh1)
+    close(hh2)
+end
