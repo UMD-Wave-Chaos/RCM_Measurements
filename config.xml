@@ -3,8 +3,9 @@
     <!-- ******************************************************************************
     	 Comments to be captured in the output log file that describe the test case
     	 ******************************************************************************
+    	 powered circuit external
     -->
-    <Comments>Dual Port config A, 9 to 11 GHz. Extended mode stirrer with foil and hanging port 2 in center of cavity vertically</Comments>
+    <Comments>Shorted circuit board external to the cavity</Comments>
     
     <!-- ******************************************************************************  
     	 PNA Settings      
@@ -12,8 +13,8 @@
     -->
     <PNA_Settings>
         <NumberOfPoints> 32001 </NumberOfPoints>
-        <FrequencySweepStart>9E9 </FrequencySweepStart>
-        <FrequencySweepStop> 11E9 </FrequencySweepStop>
+        <FrequencySweepStart>10E6 </FrequencySweepStart>
+        <FrequencySweepStop> 12E9 </FrequencySweepStop>
         <IP_Address>169.254.13.58</IP_Address>
         <TransformStartTime> -1.0e-6</TransformStartTime>
         <TransformStopTime> 5e-6</TransformStopTime>
@@ -39,10 +40,10 @@
             <Direction> 1 </Direction>
             <!-- Settling time in seconds after moving the stepper motor before taking a 
             measurement-->
-            <Settling_Time>5 </Settling_Time>
+            <Settling_Time>1 </Settling_Time>
              <!-- Movement time in seconds to determine how far to move the stepper motor
              for a new realization-->
-            <Movement_Time>10 </Movement_Time>
+            <Movement_Time>3</Movement_Time>
     </StepperMotor_Settings>
     
     <!-- ******************************************************************************   
@@ -50,9 +51,9 @@
     	 ******************************************************************************           
     -->
     <Experiment_Settings>
-        <NumberOfRealizations> 50 </NumberOfRealizations>
+        <NumberOfRealizations> 5 </NumberOfRealizations>
         <CavityVolume> 1.92 </CavityVolume>
-        <FileNamePrefix>Config_A_9to11GHz</FileNamePrefix>
+        <FileNamePrefix>board_shorteded_circuit_10MHz_to_12_GHz</FileNamePrefix>
         <TimeDateStamp> Yes </TimeDateStamp>
         <!-- Flag to signal whether or not to wait for user input, allows the user to move 	   things around in the cavity between measurements -->
         <WaitForUserInput> No </WaitForUserInput>

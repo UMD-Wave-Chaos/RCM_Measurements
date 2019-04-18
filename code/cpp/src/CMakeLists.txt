@@ -5,4 +5,5 @@ add_subdirectory(measurement_control)
 add_subdirectory(data_logger)
 add_subdirectory(stepper_motor_controller)
 add_subdirectory(utilities)
+add_subdirectory(instrument_controller)
 
