@@ -765,7 +765,7 @@ INPUT =     README.md \
             code/cpp/src/pna_controller \
             code/cpp/src/instrument_controller \
             code/cpp/src/stepper_motor_controller \
-            code/cpp/src/vxi11 \
+            code/cpp/src/instrument_controller/vxi11 \
             code/cpp/src/utilities
 
 # This tag can be used to specify the character encoding of the source files
