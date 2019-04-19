@@ -763,6 +763,7 @@ INPUT =     README.md \
             code/cpp/src/GUI \
             code/cpp/src/measurement_control \
             code/cpp/src/pna_controller \
+            code/cpp/src/instrument_controller \
             code/cpp/src/stepper_motor_controller \
             code/cpp/src/vxi11 \
             code/cpp/src/utilities
