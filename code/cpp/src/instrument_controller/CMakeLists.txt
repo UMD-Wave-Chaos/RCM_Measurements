@@ -1,5 +1,7 @@
 message(“Configuring instrument controller components”)
 
+add_subdirectory(vxi11)
+
 set (instInterfaces_SRCS
      instrumentControllerInterface.cpp
      instrumentControllerMock.cpp

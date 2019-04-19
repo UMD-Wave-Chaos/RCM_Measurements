@@ -26,10 +26,8 @@ class instrumentControllerMock : public instrumentControllerBase
     virtual void sendCommand(std::string inputString){;}
     virtual std::string sendQuery(std::string inputString){return "Not Connected, Running in Test Mode";}
     virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout);
-
     virtual std::string connectToInstrument(std::string tcpAddress){connected = true; return "TestMode";}
     virtual std::string findConnections(){return "Not Connected, Running in Test Mode";}
-
 
 private:
 

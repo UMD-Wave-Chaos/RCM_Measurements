@@ -54,7 +54,7 @@ std::string instrumentController::findConnections()
         CLINK vxi_link;
         rcv[0] = '\0';
         if ( vxi11_open_device(iter->first.c_str(), &vxi_link) < 0 ) continue;
-        int found = vxi11_send_and_receive(&vxi_link, "*IDN?", rcv, MAXSIZE, 10);
+        int found = static_cast<int>(vxi11_send_and_receive(&vxi_link, "*IDN?", rcv, MAXSIZE, 10));
         if (found > 0) rcv[found] = '\0';
         outString += " Output: ";
         outString += rcv;
@@ -69,8 +69,6 @@ std::string instrumentController::findConnections()
  * This function uses the vxi11 library to find an ip address for a specified instrument on the network*/
 std::string instrumentController::getConnectionIpAddress(int count)
 {
-    const size_t MAXSIZE = 100;
-    char rcv[MAXSIZE];
     timeval t;
     t.tv_sec = 1;
     t.tv_usec = 0;

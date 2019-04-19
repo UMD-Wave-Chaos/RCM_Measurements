@@ -33,8 +33,6 @@ public:
     virtual std::string sendQuery(std::string inputString);
     virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout);
 
-private:
-    void getSParameters();
 };
 
 #endif // INSTRUMENT_CONTROLLER_H
