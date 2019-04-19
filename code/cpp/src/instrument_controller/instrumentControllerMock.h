@@ -22,22 +22,16 @@ class instrumentControllerMock : public instrumentControllerBase
     instrumentControllerMock();
 
     virtual std::string getConnectionIpAddress(int count){return "Not Connected, Running in Test Mode";}
-    virtual void getUngatedFrequencyDomainSParameters();
-    virtual void getGatedFrequencyDomainSParameters(double start_time, double stop_time);
-    virtual void getTimeDomainSParameters(double start_time, double stop_time);
-    virtual void calibrate(){calibrated = true;}
-    virtual bool checkCalibration(){return calibrated;}
     virtual void disconnect(){connected = false;}
     virtual void sendCommand(std::string inputString){;}
     virtual std::string sendQuery(std::string inputString){return "Not Connected, Running in Test Mode";}
-    virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout){;};
+    virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout);
 
     virtual std::string connectToInstrument(std::string tcpAddress){connected = true; return "TestMode";}
     virtual std::string findConnections(){return "Not Connected, Running in Test Mode";}
-    virtual void initialize(double fStart, double fStop, unsigned int NOP);
+
 
 private:
-   void getSParameters();
 
    std::normal_distribution<double> normal;
    std::default_random_engine generator;

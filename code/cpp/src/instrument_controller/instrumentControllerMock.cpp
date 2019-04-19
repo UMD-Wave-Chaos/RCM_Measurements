@@ -29,88 +29,29 @@ instrumentControllerMock::~instrumentControllerMock()
 }
 
 /**
- * \brief getGatedFrequencyDomainSParameters
+ * \brief getData
  *
- * This function gets a random set of S parameters
- * @param start_time the start time to use for indexing
- * @param stop_time the stop time to use for indexing*/
-void instrumentControllerMock::getGatedFrequencyDomainSParameters(double start_time, double stop_time)
-{
-    getSParameters();
-    unpackSParameters();
-}
-
-/**
- * \brief getTimeDomainSParameters
- *
- * This function gets a random set of S parameters
- * @param start_time the start time to use for indexing
- * @param stop_time the stop time to use for indexing*/
-void instrumentControllerMock::getTimeDomainSParameters(double start_time, double stop_time)
+ * This function gets a random set of data in a buffer
+ * @param buffer the buffer to fill
+ * @param bufferSizeBytes the size of the buffer in bytes
+ * @param measureDataTimeout the timeout to use in the non-mocked call */
+void instrumentControllerMock::getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout)
 {
 
-    double tIncrement = (stop_time - start_time)/static_cast<double>(numberOfPoints - 1);
-    getSParameters();
-
+    //assume we have data in the buffer as xData real1 imag1 ... real4 imag4
+    int numberOfPoints = static_cast<int>(static_cast<double>(bufferSizeBytes)/(8.0*9.0));
 
     for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
     {
-        dataBuffer[cnt] = start_time + tIncrement*cnt;
-    }
-    unpackSParameters();
-}
-
-/**
- * \brief getUngatedFrequencyDomainSParameters
- *
- * This function gets a random set of S parameters*/
-void instrumentControllerMock::getUngatedFrequencyDomainSParameters()
-{
-    getSParameters();
-    unpackSParameters();
-}
-
-/**
- * \brief getSParameters
- *
- * This function gets a random set of S parameters*/
-void instrumentControllerMock::getSParameters()
-{
-
-    double fIncrement = (fStop - fStart)/static_cast<double>(numberOfPoints - 1);
-
-
-    for (unsigned int cnt = 0; cnt < numberOfPoints; cnt++)
-    {
-        dataBuffer[cnt] = fStart + fIncrement*cnt;
-        dataBuffer[cnt + numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 2*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 3*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 4*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 5*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 6*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 7*numberOfPoints] = normal(generator);
-        dataBuffer[cnt + 8*numberOfPoints] = normal(generator);
+        buffer[cnt] = cnt;
+        buffer[cnt + numberOfPoints] = normal(generator);
+        buffer[cnt + 2*numberOfPoints] = normal(generator);
+        buffer[cnt + 3*numberOfPoints] = normal(generator);
+        buffer[cnt + 4*numberOfPoints] = normal(generator);
+        buffer[cnt + 5*numberOfPoints] = normal(generator);
+        buffer[cnt + 6*numberOfPoints] = normal(generator);
+        buffer[cnt + 7*numberOfPoints] = normal(generator);
+        buffer[cnt + 8*numberOfPoints] = normal(generator);
     }
 
 }
-
-/**
- * \brief initialize
- *
- * This function initializes the configuration of the PNA
- * @param fStart the start frequency of the sweep
- * @param fStop the stop frequency of the sweep
- * @param NOP the number of points to collect from the PNA*/
-void instrumentControllerMock::initialize(double fStartIn, double fStopIn, unsigned int NOP)
-{
-    numberOfPoints = NOP;
-    bufferSizeDoubles = numberOfPoints*9;
-    bufferSizeBytes = bufferSizeDoubles*8;
-
-    fStart = fStartIn;
-    fStop = fStopIn;
-    delete dataBuffer;
-    dataBuffer = new double[bufferSizeDoubles];
-}
-

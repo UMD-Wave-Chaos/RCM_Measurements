@@ -7,9 +7,9 @@
 
 #ifndef PNA_WRAPPER_H
 #define PNA_WRAPPER_H
-#include "pnaControllerInterface.h"
-#include "pnaControllerMock.h"
-#include "pnaController.h"
+//#include "pnaControllerInterface.h"
+//#include "pnaControllerMock.h"
+//#include "pnaController.h"
 #include "pnaExceptions.h"
 #include "instrumentWrapper.h"
 
@@ -52,8 +52,8 @@ public:
     void getTimeData(std::vector<double> &inT);
 
     void calibrate();
-
     bool checkCalibration();
+
     std::string getCalibrationFile();
     std::string getPNADeviceString(){return pnaDeviceString;}
 private:
@@ -61,10 +61,11 @@ private:
     void setIpAddress(std::string address){ipAddress = address;}
     void setNumberOfPoints(unsigned int NOP) {numberOfPoints = NOP;}
 
+    void initializePNA();
+
     void getSParameters();
     void unpackSParameters();
 
-    pnaControllerInterface* pnaObj;
     instrumentWrapper* instObj;
     double frequencyRange[2];
     std::string ipAddress;

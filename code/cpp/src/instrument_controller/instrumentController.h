@@ -33,13 +33,6 @@ public:
     virtual std::string sendQuery(std::string inputString);
     virtual void getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout);
 
-    virtual void getUngatedFrequencyDomainSParameters();//TBD - move to pna controller
-    virtual void getGatedFrequencyDomainSParameters(double start_time, double stop_time);//TBD - move to pna controller
-    virtual void getTimeDomainSParameters(double start_time, double stop_time);//TBD - move to pna controller
-    virtual void calibrate();
-    virtual bool checkCalibration();
-    virtual void initialize(double fStart, double fStop, unsigned int NOP); //TBD - move to pna controller
-
 private:
     void getSParameters();
 };

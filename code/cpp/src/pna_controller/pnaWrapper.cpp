@@ -21,12 +21,6 @@ pnaWrapper::pnaWrapper(bool mode)
 
     instObj = new instrumentWrapper(mode);
 
-    //create the pnaController object
-    //if(testMode == true)
-     //   pnaObj = new pnaControllerMock();
-  //  else
-     //   pnaObj = new pnaController();
-
     if (instObj == nullptr)
         throw pnaException("Unable to create instance of pnaController");
 
@@ -48,9 +42,6 @@ pnaWrapper::pnaWrapper(bool mode)
  * This destructor handles clean up*/
 pnaWrapper::~pnaWrapper()
 {
-    //remove the pna object
-    if (pnaObj != nullptr)
-        delete pnaObj;
 
     if (instObj != nullptr)
         delete instObj;
@@ -77,6 +68,55 @@ void pnaWrapper::setPNAConfig(double fStart,double fStop, std::string tcpAddress
 }
 
 /**
+ * \brief initializePNA
+ *
+ * This function initializes the configuration of the PNA*/
+void pnaWrapper::initializePNA()
+{
+
+    bufferSizeDoubles = numberOfPoints*9;
+    bufferSizeBytes = bufferSizeDoubles*8;
+
+    delete dataBuffer;
+    dataBuffer = new double[bufferSizeDoubles];
+
+   if (connected != true)
+        throw pnaException("pnaWrapper::initializePNA. Cannot initialize the PNA since the connection is not open");
+
+
+   instObj->sendCommand("SYSTem:PRESet");
+   instObj->sendQuery("*OPC?");
+   instObj->sendCommand("OUTP ON");
+
+   std::string tBuff = "SENS:FREQ:STAR " + std::to_string(frequencyRange[0]);
+   instObj->sendCommand(tBuff);
+
+   tBuff = "SENS:FREQ:STOP " + std::to_string(frequencyRange[1]);
+   instObj->sendCommand(tBuff);
+
+   tBuff = "SENS:SWE:POINTS " + std::to_string(numberOfPoints);
+   instObj->sendCommand(tBuff);
+
+   instObj->sendCommand("DISP:WIND:Y:AUTO");
+   instObj->sendCommand("SENS1:AVER OFF");
+   instObj->sendCommand("SENS:SWE:MODE HOLD");
+   instObj->sendCommand("TRIG:SOUR MAN");
+   instObj->sendCommand("CALC:PAR:DEF CH1_S11,S11");
+   instObj->sendCommand("CALC:PAR:DEF CH1_S12,S12");
+   instObj->sendCommand("CALC:PAR:DEF CH1_S21,S21");
+   instObj->sendCommand("CALC:PAR:DEF CH1_S22,S22");
+   instObj->sendCommand("CALC:PAR:SEL CH1_S11");
+   instObj->sendCommand("CALC:TRAN:TIME:STATE OFF");
+   instObj->sendCommand("CALC:FILT:TIME:STATE OFF");
+   instObj->sendCommand("FORM:BORD SWAP");
+   instObj->sendCommand("FORM REAL,64");
+   instObj->sendCommand("MMEM:STOR:TRAC:FORM:SNP RI");
+   instObj->sendCommand("INIT:IMM");
+   instObj->sendCommand("*WAI");
+}
+
+
+/**
  * \brief openConnection
  *
  * This function opens the connection to the PNA and initializes the instrument*/
@@ -88,10 +128,9 @@ bool pnaWrapper::openConnection()
 
     pnaDeviceString = instObj->openConnection(ipAddress);
     connected = instObj->getConnected();
+    initializePNA();
 
-    //pnaDeviceString = pnaObj->connectToInstrument(ipAddress);
-   //connected = pnaObj->getConnectionStatus();
-   // pnaObj->initialize(frequencyRange[0], frequencyRange[1],numberOfPoints);
+
 
     return connected;
 }
@@ -108,9 +147,6 @@ bool pnaWrapper::closeConnection()
     instObj->closeConnection();
     connected = instObj->getConnected();
 
-   // pnaObj->disconnect();
-    //connected = pnaObj->getConnectionStatus();
-
     return connected;
 }
 
@@ -121,7 +157,6 @@ bool pnaWrapper::closeConnection()
 std::string pnaWrapper::findClients()
 {
     return instObj->findClients();
-    //return pnaObj->findConnections();
 }
 
 /**
@@ -153,8 +188,6 @@ bool pnaWrapper::checkCalibration()
         calibrated = true;
     }
     return calibrated;
-
-    //return pnaObj->checkCalibration();
 }
 
 /**
@@ -165,8 +198,6 @@ void pnaWrapper::calibrate()
 {
     if (connected == false)
         throw pnaException("pnaWrapper::calibrate(). Attempting to access a connection that is closed");
-
-    //pnaObj->calibrate();
 }
 
 /**
@@ -249,7 +280,7 @@ void pnaWrapper::getUngatedFrequencyDomainSParameters()
         throw pnaException("pnaWrapper::getUngatedFrequencyDomainSParameters(). Attempting to query a measurement for a connection that is closed");
 
     mType = FREQUENCY_MEASUREMENT;
-    instObj->checkCalibration();
+    checkCalibration();
 
     //setup the PNA to take an ungated (standard) frequency domain measurement
     instObj->sendCommand("CALC:TRAN:TIME:STATE OFF");
@@ -257,18 +288,6 @@ void pnaWrapper::getUngatedFrequencyDomainSParameters()
 
     getSParameters();
     unpackSParameters();
-
-
-   /* pnaObj->getUngatedFrequencyDomainSParameters();
-    pnaObj->getXDataVector(freqData);
-    pnaObj->getS11RVector(S11R);
-    pnaObj->getS11IVector(S11I);
-    pnaObj->getS12RVector(S12R);
-    pnaObj->getS12IVector(S12I);
-    pnaObj->getS21RVector(S21R);
-    pnaObj->getS21IVector(S21I);
-    pnaObj->getS22RVector(S22R);
-    pnaObj->getS22IVector(S22I);*/
 }
 
 /**
@@ -282,7 +301,7 @@ void pnaWrapper::getGatedFrequencyDomainSParameters(double start_time, double st
         throw pnaException("pnaWrapper::getGatedFrequencyDomainSParameters(). Attempting to query a measurement for a connection that is closed");
 
     mType = FREQUENCY_MEASUREMENT;
-    instObj->checkCalibration();
+    checkCalibration();
 
     //setup the PNA to take a gated frequency domain measurement
     instObj->sendCommand("CALC:TRAN:TIME:STATE OFF");
@@ -294,18 +313,6 @@ void pnaWrapper::getGatedFrequencyDomainSParameters(double start_time, double st
 
     getSParameters();
     unpackSParameters();
-
-    /*
-    pnaObj->getGatedFrequencyDomainSParameters(start_time,stop_time);
-    pnaObj->getXDataVector(freqData);
-    pnaObj->getS11RVector(S11R);
-    pnaObj->getS11IVector(S11I);
-    pnaObj->getS12RVector(S12R);
-    pnaObj->getS12IVector(S12I);
-    pnaObj->getS21RVector(S21R);
-    pnaObj->getS21IVector(S21I);
-    pnaObj->getS22RVector(S22R);
-    pnaObj->getS22IVector(S22I);*/
 }
 
 /**
@@ -319,7 +326,7 @@ void pnaWrapper::getTimeDomainSParameters(double start_time, double stop_time)
         throw pnaException("pnaWrapper::getTimeDomainSParameters(). Attempting to query a measurement for a connection that is closed");
 
     mType = TIME_MEASUREMENT;
-    instObj->checkCalibration();
+    checkCalibration();
 
     //setup the PNA to take a gated time domain measurement
     instObj->sendCommand("CALC:TRAN:TIME:STATE ON");
@@ -332,18 +339,6 @@ void pnaWrapper::getTimeDomainSParameters(double start_time, double stop_time)
 
     getSParameters();
     unpackSParameters();
-
-    /*
-    pnaObj->getTimeDomainSParameters(start_time, stop_time);
-    pnaObj->getXDataVector(timeData);
-    pnaObj->getS11RVector(S11R);
-    pnaObj->getS11IVector(S11I);
-    pnaObj->getS12RVector(S12R);
-    pnaObj->getS12IVector(S12I);
-    pnaObj->getS21RVector(S21R);
-    pnaObj->getS21IVector(S21I);
-    pnaObj->getS22RVector(S22R);
-    pnaObj->getS22IVector(S22I);*/
 
 }
 
