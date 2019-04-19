@@ -143,7 +143,8 @@ std::string instrumentController::sendQuery(std::string inputString)
 void instrumentController::getData(double *buffer, unsigned int bufferSizeBytes, unsigned int measureDataTimeout)
 {
     //receive the data block
-    vxi11_receive_data_block(&vxi_link,(char*)buffer,bufferSizeBytes,measureDataTimeout);
+    //vxi11_receive_data_block(&vxi_link,(char*)buffer,bufferSizeBytes,measureDataTimeout);
+    vxi11_receive_data_block(&vxi_link,reinterpret_cast<char *>(buffer),bufferSizeBytes,measureDataTimeout);
 }
 
 /**

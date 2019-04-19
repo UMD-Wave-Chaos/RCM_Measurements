@@ -3,8 +3,8 @@
  * It was generated using rpcgen.
  */
 
-#ifndef _VXI11_H_RPCGEN
-#define _VXI11_H_RPCGEN
+#ifndef VXI11_H_RPCGEN
+#define VXI11_H_RPCGEN
 
 #define RPCGEN_VERSION	199506
 
@@ -23,7 +23,7 @@ bool_t xdr_Device_Link();
 
 enum Device_AddrFamily {
 	DEVICE_TCP = 0,
-	DEVICE_UDP = 1,
+    DEVICE_UDP = 1
 };
 typedef enum Device_AddrFamily Device_AddrFamily;
 #ifdef __cplusplus

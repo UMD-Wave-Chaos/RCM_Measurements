@@ -64,8 +64,8 @@
  */
 
 
-#ifndef _RPC_CLNT_FIND_SERVICES_H
-#define _RPC_CLNT_FIND_SERVICES_H
+#ifndef RPC_CLNT_FIND_SERVICES_H
+#define RPC_CLNT_FIND_SERVICES_H
 #include <rpc/rpc.h>
 
 #ifdef __cplusplus

@@ -31,11 +31,9 @@ public:
 
 protected:
     bool connected;
-    bool_t who_responded(struct sockaddr_in *addr);
     CLINK vxi_link;
     char rcvBuffer[100];
     std::string ipAddress;
-
 
 };
 
